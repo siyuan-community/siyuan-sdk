@@ -1,0 +1,55 @@
+{
+    // Place your siyuan-sdk 工作区 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    // REF https://code.visualstudio.com/docs/editor/userdefinedsnippets
+    // REF https://json-schema.org/learn/getting-started-step-by-step.html
+    // REF https://www.learnjsonschema.com/2020-12/
+    "JSON Schema request response (json5)": {
+        "scope": "json5",
+        "prefix": "json-schema-response",
+        "body": [
+            "/**",
+            " * ${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}",
+            " * $1",
+            " */",
+            "{",
+            "\t\\$schema: \"https: //json-schema.org/draft/2020-12/schema\",",
+            "\t\\$id: \"https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}\",",
+            "\ttitle: \"I ${TM_DIRECTORY/^.*(?:[\\/\\\\])([^\\/\\\\]+)$/$1/} ${TM_FILENAME_BASE/\\..*$//}\",",
+            "\tdescription: \"$2\",",
+            "\ttype: \"object\",",
+            "\tproperties: {",
+            "\t\tcode: {",
+            "\t\t\ttype: \"integer\",",
+            "\t\t\tdescription: \"status code\",",
+            "\t\t},",
+            "\t\tmsg: {",
+            "\t\t\ttype: \"string\",",
+            "\t\t\tdescription: \"status message\",",
+            "\t\t},",
+            "\t\tdata: $3,",
+            "\t},",
+            "\trequired: [",
+            "\t\t\"code\",",
+            "\t\t\"msg\",",
+            "\t\t\"data\",",
+            "\t],",
+            "}",
+        ],
+        "description": "JSON Schema Template with json5"
+    }
+}

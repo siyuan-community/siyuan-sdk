@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "zixuanchen.vitest-explorer",
+        "dbaeumer.vscode-eslint",
+        "ymotongpoo.licenser",
+        "mrmlnc.vscode-json5"
+    ]
+}

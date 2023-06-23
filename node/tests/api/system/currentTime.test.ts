@@ -23,10 +23,10 @@ import {
 } from "vitest";
 
 import client from "~/tests/misc/client";
-import version from "@/types/kernel/api/system/version";
+import currentTime from "@/types/kernel/api/system/currentTime";
 import { SchemaJSON5 } from "~/tests/misc/schema";
 
-const pathname = client.Client.api.system.version.pathname;
+const pathname = client.Client.api.system.currentTime.pathname;
 
 describe.concurrent(pathname, async () => {
     const schema_response = new SchemaJSON5(SchemaJSON5.resolveResponseSchemaPath(pathname));
@@ -34,9 +34,9 @@ describe.concurrent(pathname, async () => {
     const validate_response = schema_response.constructValidateFuction();
 
     test("response", async () => {
-        const response = await client.client.version();
+        const response = await client.client.currentTime();
 
-        assertType<version.IResponse>(response); // 校验类型
+        assertType<currentTime.IResponse>(response); // 校验类型
         expect(response?.code).toEqual(0); // 校验状态
         expect(validate_response(response)).toBeTruthy(); // 校验数据
     });

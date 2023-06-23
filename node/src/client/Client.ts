@@ -13,6 +13,7 @@ import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
 import version from "@/types/kernel/api/system/version";
+import currentTime from "@/types/kernel/api/system/currentTime";
 
 export class Client {
     public static readonly api = {
@@ -43,8 +44,10 @@ export class Client {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
         system: {
-            getConf: { pathname: "/api/system/getConf", method: "POST" },
+            currentTime: { pathname: "/api/system/currentTime", method: "POST" },
             version: { pathname: "/api/system/version", method: "POST" },
+
+            getConf: { pathname: "/api/system/getConf", method: "POST" },
         },
     } as const;
 
@@ -195,6 +198,15 @@ export class Client {
             Client.api.system.getConf.pathname,
             Client.api.system.getConf.method,
         ) as getConf.IResponse;
+        return response;
+    }
+
+    /* 获得内核 Unix 时间戳 (单位: ms) */
+    public async currentTime(): Promise<currentTime.IResponse> {
+        const response = await this._request(
+            Client.api.system.currentTime.pathname,
+            Client.api.system.currentTime.method,
+        ) as currentTime.IResponse;
         return response;
     }
 

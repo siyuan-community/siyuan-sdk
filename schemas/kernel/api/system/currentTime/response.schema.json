@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/currentTime/response.schema.json5",
+    "$comment": "v2.9.2",
+    "type": "object",
+    "title": "I currentTime response",
+    "description": "Gets the timestamp of the current time of the system on which the kernel resides",
+    "additionalProperties": false,
+    "properties": {
+        "code": {
+            "type": "integer",
+            "description": "status code"
+        },
+        "msg": {
+            "type": "string",
+            "description": "status message"
+        },
+        "data": {
+            "type": "integer",
+            "description": "Unix timestamp (millisecond, ms)",
+            "minimum": 1600000000000
+        }
+    },
+    "required": [
+        "code",
+        "msg",
+        "data"
+    ]
+}

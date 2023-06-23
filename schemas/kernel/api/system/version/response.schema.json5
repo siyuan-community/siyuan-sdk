@@ -1,7 +1,9 @@
 /**
  * schemas/siyuan/api/system/version/response.schema.json5
  * 获取思源内核版本号
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Get-system-version
  * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/system.go#L286-L291
+ * @pathname: /api/system/version
  * @version: 2.9.2
  */
 {

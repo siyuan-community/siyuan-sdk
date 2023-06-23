@@ -9,7 +9,7 @@
         "siyuan-note",
         "siyuan-community"
     ],
-    "homepage": "https://github.com/siyuan-community/siyuan-sdk",
+    "homepage": "https://github.com/siyuan-community/siyuan-sdk/node",
     "bugs": {
         "url": "https://github.com/siyuan-community/siyuan-sdk/issues"
     },

@@ -13,6 +13,7 @@ module.exports = {
         "enxa",
         "fcontent",
         "filetree",
+        "iife",
         "katex",
         "nodelib",
         "pandoc",

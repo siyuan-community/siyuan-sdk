@@ -1,33 +1,5 @@
-/* 叶子块 */
-export enum Leaf {
-    /* 可搜索时过滤 */
-    h, // 标题块
-    p, // 段落块
-    m, // 公式块
-    t, // 表格块
-    c, // 代码块
-    html, // HTML 块
-    query_embed, // 嵌入块
-
-    /* 不可搜索时过滤 */
-    tb, // 分隔线
-    audio, // 音频块
-    video, // 视频块
-    iframe, // iframe
-    widget, // 挂件块
-}
-
-/* 容器块 */
-export enum Container {
-    d, // 文档块
-    s, // 超级块
-    b, // 引述块
-    l, // 列表块
-    i, // 列表项
-}
-
 /* 块级节点类型 */
-export enum BlockType {
+export enum NodeType {
     NodeNotebook = "NodeNotebook",
     NodeFolder = "NodeFolder",
 
@@ -39,7 +11,7 @@ export enum BlockType {
 
     NodeHeading = "NodeHeading",
     NodeParagraph = "NodeParagraph",
-    NodeMathBlock = "NodeMathBlock", 
+    NodeMathBlock = "NodeMathBlock",
     NodeTable = "NodeTable",
     NodeCodeBlock = "NodeCodeBlock",
     NodeHTMLBlock = "NodeHTMLBlock",
@@ -52,7 +24,61 @@ export enum BlockType {
     NodeBlockQueryEmbed = "NodeBlockQueryEmbed",
 }
 
-/* 块级节点子类型 */
+/* 块类型 */
+export enum BlockType {
+    /* 容器块 */
+    d = "d", // 文档块
+    s = "s", // 超级块
+    b = "b", // 引述块
+    l = "l", // 列表块
+    i = "i", // 列表项
+
+    /* 叶子块 */
+    h = "h", // 标题块
+    p = "p", // 段落块
+    m = "m", // 公式块
+    t = "t", // 表格块
+    c = "c", // 代码块
+    html = "html", // HTML 块
+    query_embed = "query_embed", // 嵌入块
+
+    tb = "tb", // 分隔线
+    audio = "audio", // 音频块
+    video = "video", // 视频块
+    iframe = "iframe", // iframe
+    widget = "widget", // 挂件块
+}
+
+/* 容器块 */
+export enum Container {
+    d = BlockType.d, // 文档块
+    s = BlockType.s, // 超级块
+    b = BlockType.b, // 引述块
+    l = BlockType.l, // 列表块
+    i = BlockType.i, // 列表项
+}
+
+/* 叶子块 */
+export enum Leaf {
+    /* 可搜索时过滤 */
+    h = BlockType.h, // 标题块
+    p = BlockType.p, // 段落块
+    m = BlockType.m, // 公式块
+    t = BlockType.t, // 表格块
+    c = BlockType.c, // 代码块
+    html = BlockType.html, // HTML 块
+    query_embed = BlockType.query_embed, // 嵌入块
+
+    /* 不可搜索时过滤 */
+    tb = BlockType.tb, // 分隔线
+    audio = BlockType.audio, // 音频块
+    video = BlockType.video, // 视频块
+    iframe = BlockType.iframe, // iframe
+    widget = BlockType.widget, // 挂件块
+}
+
+
+/* 块子类型 */
 export enum BlockSubType {
     h1 = "h1", // <icon-h1 />
     h2 = "h2", // <icon-h2 />
@@ -116,13 +142,6 @@ export enum OrderBy {
     sortByContent, // 按原文内容顺序（仅限按文档分组）
     sortByRankAsc, // 按相关度升序
     sortByRankDesc, // 按相关度降序
-}
-
-export enum MODE {
-    app = "app",
-    desktop = "desktop",
-    export = "export",
-    mobile = "mobile",
 }
 
 /**

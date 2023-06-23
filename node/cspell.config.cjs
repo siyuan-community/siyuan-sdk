@@ -1,6 +1,7 @@
 // cSpell Settings
 // REF https://cspell.org/configuration/
 module.exports = {
+    $schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
     // Version of the setting file.
     version: "0.0.2",
     // language - current active spelling language

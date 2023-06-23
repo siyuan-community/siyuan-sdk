@@ -13,6 +13,7 @@ export default [
         ],
     },
     {
+        $schema: "https://json.schemastore.org/eslintrc.json",
         files: [
             "**/*.js",
             "**/*.ts",

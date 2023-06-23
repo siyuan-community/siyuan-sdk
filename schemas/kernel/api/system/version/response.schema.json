@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/siyuan/api/system/version/response.schema.json5",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/version/response.schema.json",
     "$comment": "v2.9.2",
     "type": "object",
     "title": "I version response",

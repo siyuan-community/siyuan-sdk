@@ -68,6 +68,7 @@ fsWalk.walk(
                 const schema = JSON5.parse(json5);
 
                 /* 生成 *.schema.json 文件并写入原位置 */
+                schema.$id = schema.$id.replace(/\.json5$/i, ".json"); // 替换 $id 扩展名
                 fs.writeFileSync(entry.path.replace(/\.schema\.json5$/i, ".schema.json"), JSON.stringify(schema, undefined, 4));
 
                 // REF https://www.npmjs.com/package/json-schema-to-typescript

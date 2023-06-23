@@ -5,3 +5,4 @@
 - 调整构建配置项 | Adjust build configuration items
 - 调整文件目录结构 | Adjust file directory structure
 - 配置构建选项 | Configure build options
+- 配置 npm 发布选项 | Configure npm release options

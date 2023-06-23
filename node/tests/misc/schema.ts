@@ -27,7 +27,7 @@ export class SchemaJSON5 {
         return resolve(
             process.cwd(),
             constants.SCHEMA_DIR_RELATIVE_PATH,
-            `./siyuan${pathname}`,
+            `./kernel${pathname}`,
             `./${filename}`,
         );
     }

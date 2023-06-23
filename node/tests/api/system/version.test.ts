@@ -23,7 +23,7 @@ import {
 } from "vitest";
 
 import client from "~/tests/misc/client";
-import version from "@/types/siyuan/api/system/version";
+import version from "@/types/kernel/api/system/version";
 import { SchemaJSON5 } from "~/tests/misc/schema";
 
 const pathname = client.Client.api.system.version.pathname;

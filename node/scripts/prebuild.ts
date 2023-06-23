@@ -16,7 +16,7 @@
  */
 
 import fs from "fs";
-import { readFile } from "fs/promises";
+import asyncFs from "fs/promises";
 import path from "path";
 
 import TOML from "@ltd/j-toml";
@@ -26,8 +26,8 @@ import fsWalk from "@nodelib/fs.walk";
 import { compile } from "json-schema-to-typescript";
 
 const prettierrc_path = "./.prettierrc.toml";
-const schemas_path = "./../schemas/siyuan/";
-const types_path = "./src/types/siyuan/";
+const schemas_path = "./../schemas/kernel/";
+const types_path = "./src/types/kernel/";
 
 const prettierrc = fs.readFileSync(prettierrc_path, "utf-8");
 const prettier = TOML.parse(prettierrc, { bigint: false });
@@ -64,8 +64,11 @@ fsWalk.walk(
                 const file = path.parse(entry.path);
                 const dirs = path.parse(path.relative(schemas_path, entry.path)).dir.split(path.sep);
 
-                const json5 = await readFile(entry.path, "utf-8");
+                const json5 = await asyncFs.readFile(entry.path, "utf-8");
                 const schema = JSON5.parse(json5);
+
+                /* 生成 *.schema.json 文件并写入原位置 */
+                fs.writeFileSync(entry.path.replace(/\.schema\.json5$/i, ".schema.json"), JSON.stringify(schema, undefined, 4));
 
                 // REF https://www.npmjs.com/package/json-schema-to-typescript
                 const ts = await compile(

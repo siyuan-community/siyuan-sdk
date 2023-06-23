@@ -1,18 +1,18 @@
-import fullTextSearchBlock from "@/types/siyuan/api/search/fullTextSearchBlock";
-import getBlockAttrs from "@/types/siyuan/api/attr/getBlockAttrs";
-import getBlockBreadcrumb from "@/types/siyuan/api/block/getBlockBreadcrumb";
-import getBookmarkLabels from "@/types/siyuan/api/attr/getBookmarkLabels";
-import getConf from "@/types/siyuan/api/system/getConf";
-import getDocInfo from "@/types/siyuan/api/block/getDocInfo";
-import getRecentDocs from "@/types/siyuan/api/storage/getRecentDocs";
-import listDocsByPath from "@/types/siyuan/api/filetree/listDocsByPath";
-import lsNotebooks from "@/types/siyuan/api/notebook/lsNotebooks";
-import renameDoc from "@/types/siyuan/api/filetree/renameDoc";
-import searchDocs from "@/types/siyuan/api/filetree/searchDocs";
-import setBlockAttrs from "@/types/siyuan/api/attr/setBlockAttrs";
-import siyuan from "@/types/siyuan";
-import sql from "@/types/siyuan/api/query/sql";
-import version from "@/types/siyuan/api/system/version";
+import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
+import getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
+import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
+import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
+import getConf from "@/types/kernel/api/system/getConf";
+import getDocInfo from "@/types/kernel/api/block/getDocInfo";
+import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
+import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
+import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
+import renameDoc from "@/types/kernel/api/filetree/renameDoc";
+import searchDocs from "@/types/kernel/api/filetree/searchDocs";
+import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
+import kernel from "@/types/kernel";
+import sql from "@/types/kernel/api/query/sql";
+import version from "@/types/kernel/api/system/version";
 
 export class Client {
     public static readonly api = {
@@ -211,7 +211,7 @@ export class Client {
         pathname: string,
         method: string,
         payload: object = {},
-    ): Promise<siyuan.IResponse> {
+    ): Promise<kernel.IResponse> {
         try {
             this.url.pathname = pathname;
 
@@ -225,7 +225,7 @@ export class Client {
             );
 
             if (response.ok) {
-                const body: siyuan.IResponse = await response.json();
+                const body: kernel.IResponse = await response.json();
 
                 if (body.code === 0) {
                     return body;

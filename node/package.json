@@ -1,6 +1,6 @@
 {
     "name": "@siyuan-community/siyuan-sdk",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "A simple and easy to use SDK for SiYuan.",
     "keywords": [
         "api",
@@ -47,7 +47,8 @@
     "type": "module",
     "private": false,
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
     },
     "files": [
         "dist",

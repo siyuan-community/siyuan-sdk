@@ -1,13 +1,17 @@
-/*
+/**
  * schemas/siyuan/api/system/version/response.schema.json5
  * 获取思源内核版本号
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/system.go#L286-L291
+ * @version: 2.9.2
  */
 {
-    $schema: "https: //json-schema.org/draft/2020-12/schema",
+    $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/siyuan/api/system/version/response.schema.json5",
+    $comment: "v2.9.2",
+    type: "object",
     title: "I version response",
     description: "Get the version of siyuan kernel",
-    type: "object",
+    additionalProperties: false,
     properties: {
         code: {
             type: "integer",
@@ -20,6 +24,8 @@
         data: {
             type: "string",
             description: "semantic version number of siyuan kernel",
+            // REF https://semver.org/
+            pattern: "^(\\d+)\\.(\\d+)\\.(\\d+)$",
         },
     },
     required: [

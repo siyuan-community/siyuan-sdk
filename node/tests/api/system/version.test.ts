@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "dotenv/config";
 import {
     describe,
     test,
@@ -23,18 +22,21 @@ import {
     assertType,
 } from "vitest";
 
-import { Client } from "@/client/Client";
+import client from "~/tests/misc/client";
 import version from "@/types/siyuan/api/system/version";
+import { SchemaJSON5 } from "~/tests/misc/schema";
 
-describe(Client.api.system.version.pathname, async () => {
-    const client = new Client(
-        new URL(process.env.VITE_SIYUAN_SERVE!),
-        process.env.VITE_SIYUAN_TOKEN,
-    );
+const pathname = client.Client.api.system.version.pathname;
+describe.concurrent(pathname, async () => {
+    const schema_response = new SchemaJSON5(SchemaJSON5.resolveResponseSchemaPath(pathname));
+    await schema_response.loadSchemaFile();
+    const validate_response = schema_response.constructValidateFuction();
 
-    test("main", async () => {
-        const response = await client.version();
-        expect(response?.code).toEqual(0);
-        assertType<version.IResponse>(response);
+    test("response", async () => {
+        const response = await client.client.version();
+
+        assertType<version.IResponse>(response); // 校验类型
+        expect(response?.code).toEqual(0); // 校验状态
+        expect(validate_response(response)).toBeTruthy(); // 校验数据
     });
 });

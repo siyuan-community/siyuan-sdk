@@ -16,6 +16,7 @@
  */
 
 import fs from "fs";
+import { readFile } from "fs/promises";
 import path from "path";
 
 import TOML from "@ltd/j-toml";
@@ -50,22 +51,6 @@ const bannerComment = `/**
  */
 `;
 
-async function readFile(path: string, encoding: BufferEncoding = "utf-8"): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(
-            path,
-            encoding,
-            (err, data) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(data);
-                }
-            },
-        );
-    });
-}
-
 // REF https://www.npmjs.com/package/@nodelib/fs.walk
 fsWalk.walk(
     schemas_path,
@@ -79,7 +64,7 @@ fsWalk.walk(
                 const file = path.parse(entry.path);
                 const dirs = path.parse(path.relative(schemas_path, entry.path)).dir.split(path.sep);
 
-                const json5 = await readFile(entry.path);
+                const json5 = await readFile(entry.path, "utf-8");
                 const schema = JSON5.parse(json5);
 
                 // REF https://www.npmjs.com/package/json-schema-to-typescript

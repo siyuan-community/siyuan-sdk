@@ -1,12 +1,21 @@
 // cSpell Settings
 // REF https://cspell.org/configuration/
 module.exports = {
-    // Version of the setting file.  Always 0.1
-    version: "0.1",
+    // Version of the setting file.
+    version: "0.0.2",
     // language - current active spelling language
     language: "en",
     // words - list of words to be always considered correct
     words: [
+        "Alphanum",
+        "Fuction",
+        "backlink",
+        "enxa",
+        "fcontent",
+        "filetree",
+        "katex",
+        "nodelib",
+        "pandoc",
         "siyuan",
     ],
     // flagWords - list of words to be always considered incorrect
@@ -18,8 +27,10 @@ module.exports = {
         "./package.json",
         "./pnpm-lock.yaml",
 
-        "./node_modules/**",
         "./build/**",
+        "./coverage/**",
         "./dist/**",
+        "./node_modules/**",
+        "./temp/**",
     ],
 };

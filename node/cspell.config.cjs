@@ -11,6 +11,7 @@ module.exports = {
         "Alphanum",
         "Fuction",
         "backlink",
+        "dotfiles",
         "enxa",
         "fcontent",
         "filetree",
@@ -18,6 +19,7 @@ module.exports = {
         "katex",
         "nodelib",
         "pandoc",
+        "quicktype",
         "siyuan",
     ],
     // flagWords - list of words to be always considered incorrect
@@ -29,7 +31,6 @@ module.exports = {
         "./package.json",
         "./pnpm-lock.yaml",
 
-        "./build/**",
         "./coverage/**",
         "./dist/**",
         "./node_modules/**",

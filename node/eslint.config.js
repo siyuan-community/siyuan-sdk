@@ -7,14 +7,13 @@ import ts_parser from "@typescript-eslint/parser";
 export default [
     {
         ignores: [
-            "./build/**",
+            "./coverage/**",
             "./dist/**",
             "./node_modules/**",
             "./temp/**",
         ],
     },
     {
-        $schema: "https://json.schemastore.org/eslintrc.json",
         files: [
             "**/*.js",
             "**/*.ts",

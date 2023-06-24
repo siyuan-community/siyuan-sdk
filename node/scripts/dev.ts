@@ -39,41 +39,45 @@ async function handler(
     _stats?: fs.Stats,
 ) {
     console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`);
-    switch (true) {
-        case path.endsWith(".schema.json5"): {
-            switch (eventName) {
-                case "add": // 添加 *.schema.json5 文件
-                case "change": { // 修改 *.schema.json5 文件
-                    const json_path = await json52json(path); // 更新对应的 *.schema.json 文件
-                    logger.change(json_path);
-                    break;
+    try {
+        switch (true) {
+            case path.endsWith(".schema.json5"): {
+                switch (eventName) {
+                    case "add": // 添加 *.schema.json5 文件
+                    case "change": { // 修改 *.schema.json5 文件
+                        const json_path = await json52json(path); // 更新对应的 *.schema.json 文件
+                        logger.change(json_path);
+                        break;
+                    }
+                    case "unlink": { // 删除 *.schema.json5 文件
+                        const json_path = json5Path2jsonPath(path);
+                        await asyncFs.rm(json_path); // 删除对应的 *.schema.json 文件
+                        logger.remove(json_path);
+                        break;
+                    }
                 }
-                case "unlink": { // 删除 *.schema.json5 文件
-                    const json_path = json5Path2jsonPath(path);
-                    await asyncFs.rm(json_path); // 删除对应的 *.schema.json 文件
-                    logger.remove(json_path);
-                    break;
-                }
+                break;
             }
-            break;
-        }
-        case path.endsWith(".schema.json"): {
-            switch (eventName) {
-                case "add": // 添加 *.schema.json 文件
-                case "change": { // 修改 *.schema.json 文件
-                    const types_path = await json2types(path); // 更新对应的 *.schema.json 文件
-                    logger.change(types_path);
-                    break;
+            case path.endsWith(".schema.json"): {
+                switch (eventName) {
+                    case "add": // 添加 *.schema.json 文件
+                    case "change": { // 修改 *.schema.json 文件
+                        const types_path = await json2types(path); // 更新对应的 *.schema.json 文件
+                        logger.change(types_path);
+                        break;
+                    }
+                    case "unlink": { // 删除 *.schema.json 文件
+                        const types_path = jsonPath2typesPath(path);
+                        await asyncFs.rm(types_path); // 删除对应的 *.d.ts 文件
+                        logger.remove(types_path);
+                        break;
+                    }
                 }
-                case "unlink": { // 删除 *.schema.json 文件
-                    const types_path = jsonPath2typesPath(path);
-                    await asyncFs.rm(types_path); // 删除对应的 *.d.ts 文件
-                    logger.remove(types_path);
-                    break;
-                }
+                break;
             }
-            break;
         }
+    } catch (error) {
+        logger.error(path, error);
     }
 }
 

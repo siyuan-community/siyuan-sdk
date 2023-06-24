@@ -18,9 +18,9 @@
     // REF https://code.visualstudio.com/docs/editor/userdefinedsnippets
     // REF https://json-schema.org/learn/getting-started-step-by-step.html
     // REF https://www.learnjsonschema.com/2020-12/
-    "JSON Schema request response (json5)": {
+    "JSON Schema response body (json5)": {
         "scope": "json5",
-        "prefix": "json-schema-response",
+        "prefix": "response-json-schema",
         "body": [
             "/**",
             " * ${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}",
@@ -60,6 +60,36 @@
             "\t},",
             "}",
         ],
-        "description": "JSON Schema Template with json5"
+        "description": "response.schema.json5"
+    },
+    "JSON Schema payload body (json5)": {
+        "scope": "json5",
+        "prefix": "payload-json-schema",
+        "body": [
+            "/**",
+            " * ${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}",
+            " * $1",
+            " * REF: ",
+            " * @pathname: $2",
+            " * @version: $3",
+            " */",
+            "{",
+            "\t\\$schema: 'https://json-schema.org/draft/2020-12/schema',",
+            "\t\\$id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}',",
+            "\t\\$comment: 'v$3',",
+            "\t\\$ref: '#/definitions/root',",
+            "\tdefinitions: {",
+            "\t\troot: {",
+            "\t\t\ttitle: '${TM_FILENAME_BASE/\\..*$//} body',",
+            "\t\t\tdescription: '$4',",
+            "\t\t\ttype: 'object',",
+            "\t\t\tadditionalProperties: false,",
+            "\t\t\trequired: [$5],",
+            "\t\t\tproperties: {$6},",
+            "\t\t},",
+            "\t},",
+            "}",
+        ],
+        "description": "payload.schema.json5"
     }
 }

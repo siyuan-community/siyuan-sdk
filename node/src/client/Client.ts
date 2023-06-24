@@ -13,6 +13,8 @@ import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
 
+import pushMsg from "@/types/kernel/api/notification/pushMsg";
+
 import bootProgress from "@/types/kernel/api/system/bootProgress";
 import currentTime from "@/types/kernel/api/system/currentTime";
 import version from "@/types/kernel/api/system/version";
@@ -55,6 +57,9 @@ export class Client {
         },
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
+        },
+        notification: {
+            pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -200,6 +205,16 @@ export class Client {
             Client.api.storage.getRecentDocs.pathname,
             Client.api.storage.getRecentDocs.method,
         ) as getRecentDocs.IResponse;
+        return response;
+    }
+
+    /* 全局搜索 */
+    public async pushMsg(payload: pushMsg.IPayload): Promise<pushMsg.IResponse> {
+        const response = await this._request(
+            Client.api.notification.pushMsg.pathname,
+            Client.api.notification.pushMsg.method,
+            payload,
+        ) as pushMsg.IResponse;
         return response;
     }
 

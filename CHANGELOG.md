@@ -11,3 +11,4 @@
 - 优化 API 测试 | Optimize API test
 - 添加 API `/api/system/bootProgress` | Add API `/api/system/bootProgress`
 - 添加开发模式 | Add development mode
+- 添加 API `/api/notification/pushMsg` | Add API `/api/notification/pushMsg`

@@ -15,19 +15,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import path from "path";
-
-export function change(filePath: string) {
-    const file = path.parse(filePath);
-    console.debug(`\t\x1b[32m+ [${file.base}] \x1b[1m${filePath}\x1b[0m`);
-}
-
-export function remove(filePath: string) {
-    const file = path.parse(filePath);
-    console.debug(`\t\x1b[33m- [${file.base}] \x1b[1m${filePath}\x1b[0m`);
-}
-
-export function error(filePath: string, error: unknown) {
-    console.error(`\t\x1b[31m! [${String(error)}] \x1b[1m${filePath}\x1b\x1b[0m`);
-    console.error(error);
-}
+export { IPayload } from "./payload";
+export { IResponse } from "./response";

@@ -29,6 +29,9 @@ devDependencies:
   ajv-formats:
     specifier: ^2.1.1
     version: 2.1.1(ajv@8.12.0)
+  chokidar:
+    specifier: ^3.5.3
+    version: 3.5.3
   cspell:
     specifier: ^6.31.1
     version: 6.31.1

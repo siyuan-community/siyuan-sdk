@@ -1,3 +1,4 @@
+temp/*
 .vscode/*
 !.vscode/extensions.json
 !.vscode/*.code-snippets

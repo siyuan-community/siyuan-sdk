@@ -58,6 +58,7 @@
         "LICENSE"
     ],
     "scripts": {
+        "dev": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/dev.ts",
         "prebuild": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/prebuild.ts",
         "build": "vite build",
         "format": "eslint --fix .",
@@ -74,6 +75,7 @@
         "@vitest/coverage-v8": "^0.32.2",
         "ajv": "^8.12.0",
         "ajv-formats": "^2.1.1",
+        "chokidar": "^3.5.3",
         "cspell": "^6.31.1",
         "dotenv": "^16.3.1",
         "eslint": "^8.43.0",

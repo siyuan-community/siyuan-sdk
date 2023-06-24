@@ -16,9 +16,9 @@
  */
 
 /**
- * Gets the timestamp of the current time of the system on which the kernel resides
+ * get the timestamp of the current time of the system on which the kernel resides
  */
-export interface ICurrentTimeResponse {
+export interface IResponse {
     /**
      * status code
      */

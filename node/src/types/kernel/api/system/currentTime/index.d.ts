@@ -15,8 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ICurrentTimeResponse } from "./response";
-
-export {
-    ICurrentTimeResponse as IResponse,
-}
+export { IResponse } from "./response";

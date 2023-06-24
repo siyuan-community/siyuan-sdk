@@ -18,10 +18,10 @@
 import "dotenv/config";
 import { Client } from "@/client/Client";
 
-const client = new Client(
-    new URL(process.env.VITE_SIYUAN_SERVE!),
-    process.env.VITE_SIYUAN_TOKEN,
-);
+const client = new Client({
+    url: new URL(process.env.VITE_SIYUAN_SERVE!),
+    token: process.env.VITE_SIYUAN_TOKEN,
+});
 
 export default {
     Client,

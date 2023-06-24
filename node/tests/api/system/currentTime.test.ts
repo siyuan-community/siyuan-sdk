@@ -19,25 +19,40 @@ import {
     describe,
     test,
     expect,
-    assertType,
 } from "vitest";
 
-import client from "~/tests/misc/client";
+import client from "~/tests/utils/client";
+import { SchemaJSON } from "~/tests/utils/schema";
+import { testKernelAPI } from "~/tests/utils/test";
+
 import currentTime from "@/types/kernel/api/system/currentTime";
-import { SchemaJSON5 } from "~/tests/misc/schema";
 
 const pathname = client.Client.api.system.currentTime.pathname;
 
 describe.concurrent(pathname, async () => {
-    const schema_response = new SchemaJSON5(SchemaJSON5.resolveResponseSchemaPath(pathname));
+    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
     await schema_response.loadSchemaFile();
     const validate_response = schema_response.constructValidateFuction();
 
-    test("response", async () => {
-        const response = await client.client.currentTime();
-
-        assertType<currentTime.IResponse>(response); // 校验类型
-        expect(response?.code).toEqual(0); // 校验状态
-        expect(validate_response(response)).toBeTruthy(); // 校验数据
+    testKernelAPI<never, currentTime.IResponse>({
+        name: "main",
+        request: () => client.client.currentTime(),
+        response: {
+            validate: validate_response,
+            test: response => {
+                /* 测试系统时钟误差 */
+                test(`system time error test`, async () => {
+                    const threshold = 10_000; // 时钟误差阈值 (单位: ms)
+                    expect(
+                        response.data - Date.now(),
+                        `time error in threshold (${threshold} ms)`,
+                    ).within(
+                        -threshold,
+                        threshold,
+                        `threshold: ± ${threshold} ms`
+                    );
+                });
+            },
+        },
     });
 });

@@ -15,10 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { readFile } from 'fs/promises'
-import JSON5 from 'json5'
+export default {
+    SCHEMA_DIR_RELATIVE_PATH: "./../schemas/", // JSON Schema 相对于 node 的目录的路径
+    SCHEMA_FILENAME_PAYLOAD: "payload.schema.json", // JSON Schema 的 payload 文件名
+    SCHEMA_FILENAME_RESPONSE: "response.schema.json", // JSON Schema 的 response 文件名
 
-export async function loadJSON5<T>(filepath: string): Promise<T> {
-    const json5 = await readFile(filepath, 'utf-8');
-    return JSON5.parse<T>(json5);
+    SIYUAN_DEFAULT_SERVER: "http://localhost:6806", // 默认的思源内核服务地址
+    SIYUAN_DEFAULT_TOKEN: "", // 默认的思源内核服务 token
+
+    REQUEST_TIMEOUT: 60_000, // 请求超时时间 (单位: ms)
 }

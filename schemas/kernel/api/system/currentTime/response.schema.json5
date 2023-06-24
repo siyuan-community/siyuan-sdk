@@ -11,8 +11,8 @@
     $id: "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/currentTime/response.schema.json5",
     $comment: "v2.9.2",
     type: "object",
-    title: "I currentTime response",
-    description: "Gets the timestamp of the current time of the system on which the kernel resides",
+    title: "I response",
+    description: "get the timestamp of the current time of the system on which the kernel resides",
     additionalProperties: false,
     properties: {
         code: {

@@ -15,6 +15,17 @@ import sql from "@/types/kernel/api/query/sql";
 import version from "@/types/kernel/api/system/version";
 import currentTime from "@/types/kernel/api/system/currentTime";
 
+import constants from "@/constants";
+import { HTTPError } from "@/errors/http";
+import { KernelError } from "../errors/kernel";
+
+
+export interface IOptions {
+    url?: URL,
+    token?: string,
+    timeout?: number,
+}
+
 export class Client {
     public static readonly api = {
         attr: {
@@ -51,27 +62,24 @@ export class Client {
         },
     } as const;
 
-    public readonly headers: {
+    public url: URL = new URL(globalThis.location?.origin ?? constants.SIYUAN_DEFAULT_SERVER); // 请求 URL
+    public token: string = constants.SIYUAN_DEFAULT_TOKEN; // 请求 token
+    public timeout: number = constants.REQUEST_TIMEOUT; // 请求超时时间
+    public headers: {
         Authorization: string;
         [propName: string]: string;
-    }; // 请求头
+    } = { Authorization: `Token ${constants.SIYUAN_DEFAULT_TOKEN}` }; // 请求头
 
-    constructor(
-        public url: URL = new URL(globalThis.location.origin),
-        public token: string = "",
-    ) {
-        this.headers = {
-            Authorization: `Token ${this.token}`,
-        };
+    constructor(options: IOptions) {
+        this.updateOptions(options);
     }
 
     /* 更新配置 */
-    public update(
-        url: URL,
-        token: string,
-    ) {
-        this.url = url;
-        this.token = token;
+    public updateOptions(options: IOptions) {
+        this.url = options.url ?? this.url;
+        this.token = options.token ?? this.token;
+        this.timeout = options.timeout ?? this.timeout;
+
         this.headers.Authorization = `Token ${this.token}`;
     }
 
@@ -219,7 +227,7 @@ export class Client {
         return response;
     }
 
-    protected async _request(
+    public async _request(
         pathname: string,
         method: string,
         payload: object = {},
@@ -239,16 +247,17 @@ export class Client {
             if (response.ok) {
                 const body: kernel.IResponse = await response.json();
 
-                if (body.code === 0) {
+                if (body.code === 0) { // 内核正常响应
                     return body;
                 }
-                else {
-                    const error = new Error(body.msg);
+                else { // 内核异常响应
+                    const error = new KernelError(body, response);
                     throw error;
                 }
             }
-            else {
-                const error = new Error(response.statusText);
+
+            else { // HTTP 请求异常
+                const error = new HTTPError(response);
                 throw error;
             }
         } catch (error) {

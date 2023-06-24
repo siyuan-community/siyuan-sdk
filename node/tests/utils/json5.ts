@@ -15,6 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from "./client/Client";
-export * as siyuan from "./utils/siyuan";
-export { default as CONSTANTS } from "./constants";
+import { readFile } from 'fs/promises'
+import { readFileSync } from 'fs'
+import JSON5 from 'json5'
+
+export async function loadJSON5<T>(filepath: string): Promise<T> {
+    const json5 = await readFile(filepath, 'utf-8');
+    return JSON5.parse<T>(json5);
+}
+
+export async function loadJSON5Sync<T>(filepath: string): Promise<T> {
+    const json5 = readFileSync(filepath, 'utf-8');
+    return JSON5.parse<T>(json5);
+}

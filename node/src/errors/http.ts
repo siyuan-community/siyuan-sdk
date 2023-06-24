@@ -15,6 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from "./client/Client";
-export * as siyuan from "./utils/siyuan";
-export { default as CONSTANTS } from "./constants";
+export class HTTPError extends Error {
+    public readonly status: number;
+    constructor(
+        public readonly response: Response,
+    ) {
+        super(response.statusText);
+        this.status = response.status;
+    }
+}

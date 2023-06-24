@@ -19,10 +19,10 @@ import { resolve } from "path";
 
 import Ajv2020, { Schema, ValidateFunction } from "ajv/dist/2020";
 
-import constants from "./constants";
+import constants from "@/constants";
 import { loadJSON5 } from "./json5";
 
-export class SchemaJSON5 {
+export class SchemaJSON {
     public static resolveSchemaPath(pathname: string, filename: string): string {
         return resolve(
             process.cwd(),
@@ -33,11 +33,11 @@ export class SchemaJSON5 {
     }
 
     public static resolvePayloadSchemaPath(pathname: string, filename: string = constants.SCHEMA_FILENAME_PAYLOAD): string {
-        return SchemaJSON5.resolveSchemaPath(pathname, filename);
+        return SchemaJSON.resolveSchemaPath(pathname, filename);
     }
 
     public static resolveResponseSchemaPath(pathname: string, filename: string = constants.SCHEMA_FILENAME_RESPONSE): string {
-        return SchemaJSON5.resolveSchemaPath(pathname, filename);;
+        return SchemaJSON.resolveSchemaPath(pathname, filename);;
     }
 
     protected readonly _ajv: Ajv2020;
@@ -57,15 +57,29 @@ export class SchemaJSON5 {
         this._schema = schema;
     }
 
+    /**
+     * 加载 JSON Schema 文件
+     * 支持 *.schema.json 与 *.schema.json5
+     */
     public async loadSchemaFile(filepath: string = this.filepath): Promise<Schema> {
-        const schema = await loadJSON5<Schema>(filepath);
+        let schema: Schema;
+        switch (true) {
+            case filepath.endsWith(".json5"):
+                schema = await loadJSON5<Schema>(filepath);
+                break;
+
+            case filepath.endsWith(".json"):
+            default:
+                schema = await import(filepath);
+                break;
+        }
         this.updateSchema(schema);
         return this.schema;
     }
 
     public constructValidateFuction(): ValidateFunction {
         // REF https://ajv.js.org/guide/getting-started.html#basic-data-validation
-        const validate = this._ajv.compile(this.schema)
+        const validate = this._ajv.compile(this.schema);
         return validate;
     }
 }

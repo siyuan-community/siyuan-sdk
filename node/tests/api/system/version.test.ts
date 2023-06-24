@@ -17,27 +17,26 @@
 
 import {
     describe,
-    test,
-    expect,
-    assertType,
 } from "vitest";
 
-import client from "~/tests/misc/client";
+import client from "~/tests/utils/client";
+import { testKernelAPI } from "~/tests/utils/test";
+import { SchemaJSON } from "~/tests/utils/schema";
+
 import version from "@/types/kernel/api/system/version";
-import { SchemaJSON5 } from "~/tests/misc/schema";
 
 const pathname = client.Client.api.system.version.pathname;
 
-describe.concurrent(pathname, async () => {
-    const schema_response = new SchemaJSON5(SchemaJSON5.resolveResponseSchemaPath(pathname));
+describe(pathname, async () => {
+    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
     await schema_response.loadSchemaFile();
     const validate_response = schema_response.constructValidateFuction();
 
-    test("response", async () => {
-        const response = await client.client.version();
-
-        assertType<version.IResponse>(response); // 校验类型
-        expect(response?.code).toEqual(0); // 校验状态
-        expect(validate_response(response)).toBeTruthy(); // 校验数据
+    testKernelAPI<never, version.IResponse>({
+        name: "main",
+        request: () => client.client.version(),
+        response: {
+            validate: validate_response,
+        },
     });
 });

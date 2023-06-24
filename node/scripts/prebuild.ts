@@ -51,48 +51,81 @@ const bannerComment = `/**
  */
 `;
 
-// REF https://www.npmjs.com/package/@nodelib/fs.walk
+/**
+ * 将 *.schema.json5 转换为 *.schema.json
+ * 再将 *.schema.json 转换为 *.d.ts
+ * REF https://www.npmjs.com/package/@nodelib/fs.walk
+ */
 fsWalk.walk(
     schemas_path,
     {
-        entryFilter: (entry) => entry.name.endsWith(".schema.json5"),
+        entryFilter: (entry) => entry.name.endsWith(".schema.json5"), // 仅处理 *.schema.json5 文件
     },
     (_error, entries) => {
         const promise_pool: Promise<string>[] = [];
         entries.forEach(entry => {
             promise_pool.push((async () => {
-                const file = path.parse(entry.path);
-                const dirs = path.parse(path.relative(schemas_path, entry.path)).dir.split(path.sep);
-
-                const json5 = await asyncFs.readFile(entry.path, "utf-8");
-                const schema = JSON5.parse(json5);
+                const json5 = await asyncFs.readFile(entry.path, "utf-8"); // 读取 *.schema.json5 文件
+                const schema = JSON5.parse(json5); // 解析 *.schema.json5
 
                 /* 生成 *.schema.json 文件并写入原位置 */
                 schema.$id = schema.$id.replace(/\.json5$/i, ".json"); // 替换 $id 扩展名
-                fs.writeFileSync(entry.path.replace(/\.schema\.json5$/i, ".schema.json"), JSON.stringify(schema, undefined, 4));
-
-                // REF https://www.npmjs.com/package/json-schema-to-typescript
-                const ts = await compile(
-                    schema,
-                    entry.name,
-                    {
-                        additionalProperties: false, // 是否添加额外属性
-                        bannerComment, // 文件首注释
-                        cwd: file.dir, // 引用时的相对路径
-                        style: prettier, // 格式化配置
-                    }
-                );
-
-                const file_name = file.name.split(".").shift()!;
-                const ts_path = path.join(types_path, ...dirs, `${file_name}.d.ts`);
-                fs.mkdirSync(path.parse(ts_path).dir, { recursive: true });
-                fs.writeFileSync(ts_path, ts);
-                return ts_path;
+                const json_path = entry.path.replace(/\.schema\.json5$/i, ".schema.json"); // 生成文件路径
+                fs.writeFileSync(json_path, JSON.stringify(schema, undefined, 4)); // 写入文件
+                return json_path;
             })());
         })
         Promise.all(promise_pool)
             .then(paths => {
                 console.log(paths);
+
+                /**
+                 * 将 *.schema.json 转换为 *.d.ts
+                 */
+                fsWalk.walk(
+                    schemas_path,
+                    {
+                        entryFilter: (entry) => entry.name.endsWith(".schema.json"), // 仅处理 *.schema.json 文件
+                    },
+                    (_error, entries) => {
+                        const promise_pool: Promise<string>[] = [];
+                        entries.forEach(entry => {
+                            promise_pool.push((async () => {
+                                const file = path.parse(entry.path); // 文件目录信息
+                                const dirs = path.parse(path.relative(schemas_path, entry.path)).dir.split(path.sep); // 分割后的目录相对路径
+
+                                const json = await asyncFs.readFile(entry.path, "utf-8"); // 读取 *.schema.json 文件
+                                const schema = JSON.parse(json); // 解析 *.schema.json
+
+                                // REF https://www.npmjs.com/package/json-schema-to-typescript
+                                const ts = await compile(
+                                    schema, // JSON Schema
+                                    entry.name, // 名称
+                                    {
+                                        additionalProperties: false, // 是否添加额外属性
+                                        bannerComment, // 文件首注释
+                                        cwd: file.dir, // 引用时的相对路径
+                                        style: prettier, // 格式化配置
+                                    }
+                                );
+
+                                const file_name = file.name.split(".").shift()!; // 主文件名
+                                const ts_path = path.join(types_path, ...dirs, `${file_name}.d.ts`); // *.d.ts 文件路径
+                                if (!fs.existsSync(ts_path)) {
+                                    fs.mkdirSync(path.parse(ts_path).dir, { recursive: true }); // 目录不存在则创建目录
+                                }
+                                fs.writeFileSync(ts_path, ts);
+                                return ts_path;
+                            })());
+                        })
+                        Promise.all(promise_pool)
+                            .then(paths => {
+                                console.log(paths);
+                            })
+                            .finally(() => {
+                            });
+                    },
+                );
             })
             .finally(() => {
             });

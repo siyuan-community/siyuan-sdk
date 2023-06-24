@@ -10,6 +10,7 @@ export default [
             "./build/**",
             "./dist/**",
             "./node_modules/**",
+            "./temp/**",
         ],
     },
     {

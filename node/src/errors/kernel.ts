@@ -15,8 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default {
-    SCHEMA_DIR_RELATIVE_PATH: "./../schemas/", // JSON Schema 相对于 node 的目录的路径
-    SCHEMA_FILENAME_PAYLOAD: "payload.schema.json5", // JSON Schema 的 payload 文件名
-    SCHEMA_FILENAME_RESPONSE: "response.schema.json5", // JSON Schema 的 response 文件名
+import { IResponse } from "../types/kernel";
+
+export class KernelError extends Error {
+    public readonly code: number;
+    constructor(
+        public readonly response: IResponse,
+        public readonly httpResponse: Response,
+    ) {
+        super(response.msg);
+        this.code = response.code;
+    }
 }

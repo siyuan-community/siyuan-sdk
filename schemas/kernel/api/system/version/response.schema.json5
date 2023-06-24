@@ -11,8 +11,8 @@
     $id: "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/version/response.schema.json5",
     $comment: "v2.9.2",
     type: "object",
-    title: "I version response",
-    description: "Get the version of siyuan kernel",
+    title: "I response",
+    description: "get the version of siyuan kernel",
     additionalProperties: false,
     properties: {
         code: {

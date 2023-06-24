@@ -3,6 +3,7 @@
         "zixuanchen.vitest-explorer",
         "dbaeumer.vscode-eslint",
         "ymotongpoo.licenser",
-        "mrmlnc.vscode-json5"
+        "mrmlnc.vscode-json5",
+        "doggy8088.quicktype-refresh"
     ]
 }

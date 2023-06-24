@@ -16,9 +16,9 @@
  */
 
 /**
- * Get the version of siyuan kernel
+ * get the version of siyuan kernel
  */
-export interface IVersionResponse {
+export interface IResponse {
     /**
      * status code
      */

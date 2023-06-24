@@ -15,8 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IVersionResponse } from "./response";
-
-export {
-    IVersionResponse as IResponse,
-}
+export { IResponse } from "./response";

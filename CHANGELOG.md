@@ -12,3 +12,4 @@
 - 添加 API `/api/system/bootProgress` | Add API `/api/system/bootProgress`
 - 添加开发模式 | Add development mode
 - 添加 API `/api/notification/pushMsg` | Add API `/api/notification/pushMsg`
+- 添加 API `/api/notification/pushErrMsg` | Add API `/api/notification/pushErrMsg`

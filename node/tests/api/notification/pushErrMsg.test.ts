@@ -23,9 +23,9 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import pushMsg from "@/types/kernel/api/notification/pushMsg";
+import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 
-const pathname = client.Client.api.notification.pushMsg.pathname;
+const pathname = client.Client.api.notification.pushErrMsg.pathname;
 
 describe.concurrent(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -35,16 +35,16 @@ describe.concurrent(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    testKernelAPI<pushMsg.IPayload, pushMsg.IResponse>({
+    testKernelAPI<pushErrMsg.IPayload, pushErrMsg.IResponse>({
         name: "main",
         payload: {
             data: {
-                msg: "SDK pushMsg test",
+                msg: "SDK pushErrMsg test",
                 timeout: 7000
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.pushMsg(payload!),
+        request: (payload) => client.client.pushErrMsg(payload!),
         response: {
             validate: validate_response,
         },

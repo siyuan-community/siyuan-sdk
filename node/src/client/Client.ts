@@ -13,6 +13,7 @@ import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
 
+import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
 
 import bootProgress from "@/types/kernel/api/system/bootProgress";
@@ -59,6 +60,7 @@ export class Client {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
         notification: {
+            pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
             pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
         },
         system: {
@@ -208,22 +210,32 @@ export class Client {
         return response;
     }
 
-    /* 全局搜索 */
-    public async pushMsg(payload: pushMsg.IPayload): Promise<pushMsg.IResponse> {
-        const response = await this._request(
-            Client.api.notification.pushMsg.pathname,
-            Client.api.notification.pushMsg.method,
-            payload,
-        ) as pushMsg.IResponse;
-        return response;
-    }
-
     /* 获得配置 */
     public async getConf(): Promise<getConf.IResponse> {
         const response = await this._request(
             Client.api.system.getConf.pathname,
             Client.api.system.getConf.method,
         ) as getConf.IResponse;
+        return response;
+    }
+
+    /* 推送错误消息 */
+    public async pushErrMsg(payload: pushErrMsg.IPayload): Promise<pushErrMsg.IResponse> {
+        const response = await this._request(
+            Client.api.notification.pushErrMsg.pathname,
+            Client.api.notification.pushErrMsg.method,
+            payload,
+        ) as pushErrMsg.IResponse;
+        return response;
+    }
+
+    /* 推送提示消息 */
+    public async pushMsg(payload: pushMsg.IPayload): Promise<pushMsg.IResponse> {
+        const response = await this._request(
+            Client.api.notification.pushMsg.pathname,
+            Client.api.notification.pushMsg.method,
+            payload,
+        ) as pushMsg.IResponse;
         return response;
     }
 

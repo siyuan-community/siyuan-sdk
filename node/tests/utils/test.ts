@@ -109,10 +109,6 @@ export function testPayload<T>(
     });
 }
 
-async function buyApples() {
-    return { id: 1 };
-}
-
 /**
  * 校验异步函数调用并返回函数返回值
  */

@@ -2,28 +2,33 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/currentTime/response.schema.json",
     "$comment": "v2.9.2",
-    "type": "object",
-    "title": "I response",
-    "description": "get the timestamp of the current time of the system on which the kernel resides",
-    "additionalProperties": false,
-    "properties": {
-        "code": {
-            "type": "integer",
-            "description": "status code"
-        },
-        "msg": {
-            "type": "string",
-            "description": "status message"
-        },
-        "data": {
-            "type": "integer",
-            "description": "Unix timestamp (millisecond, ms)",
-            "minimum": 1600000000000
+    "$ref": "#/definitions/root",
+    "definitions": {
+        "root": {
+            "type": "object",
+            "title": "response body",
+            "description": "get the timestamp of the current time of the system on which the kernel resides",
+            "additionalProperties": false,
+            "required": [
+                "code",
+                "msg",
+                "data"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "description": "status code"
+                },
+                "msg": {
+                    "type": "string",
+                    "description": "status message"
+                },
+                "data": {
+                    "type": "integer",
+                    "description": "Unix timestamp (millisecond, ms)",
+                    "minimum": 1600000000000
+                }
+            }
         }
-    },
-    "required": [
-        "code",
-        "msg",
-        "data"
-    ]
+    }
 }

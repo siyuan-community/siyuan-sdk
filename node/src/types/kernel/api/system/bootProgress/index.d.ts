@@ -15,20 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * get the timestamp of the current time of the system on which the kernel resides
- */
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    /**
-     * Unix timestamp (millisecond, ms)
-     */
-    data: number;
-    /**
-     * status message
-     */
-    msg: string;
-}
+export { IResponse } from "./response";

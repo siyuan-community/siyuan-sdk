@@ -16,19 +16,30 @@
  */
 
 /**
- * get the timestamp of the current time of the system on which the kernel resides
+ * get the booting progress of siyuan kernel
  */
 export interface IResponse {
     /**
      * status code
      */
     code: number;
-    /**
-     * Unix timestamp (millisecond, ms)
-     */
-    data: number;
+    data: Data;
     /**
      * status message
      */
     msg: string;
+}
+
+/**
+ * response data
+ */
+export interface Data {
+    /**
+     * status details
+     */
+    details: string;
+    /**
+     * booting progress
+     */
+    progress: number;
 }

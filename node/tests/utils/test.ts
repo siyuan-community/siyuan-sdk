@@ -52,29 +52,43 @@ export function testKernelAPI<T, U extends IResponse>(options: {
         test?: (payload: T) => void | Promise<void>,
     },
     request: (payload?: T) => Promise<U>,
-    response: {
+    response?: {
         validate: ValidateFunction,
         test?: (response: U) => void | Promise<void>,
     },
+    debug?: boolean,
 }) {
     describe(options.name, async () => {
         const { payload, response } = options;
 
-        /* 校验请求体 */
+        /* 测试请求体 */
         if (payload) {
+            if (options.debug) {
+                console.debug("payload:", payload.data);
+            }
+
+            /* 校验请求体 */
             testPayload(payload.data, payload.validate);
 
-            /* 对请求体的其他测试 */
+            /* 其他测试 */
             await payload.test?.(payload.data);
         }
 
         /* 测试请求过程 */
-        const response_body = await options.request();
+        const response_body = await options.request(payload?.data);
 
-        /* 校验响应体 */
-        testResponse(response_body, response.validate);
-        /* 对响应体的其他测试 */
-        await response.test?.(response_body);
+        /* 测试响应体 */
+        if (response) {
+            if (options.debug) {
+                console.debug("response:", response_body);
+            }
+
+            /* 校验响应体 */
+            testResponse(response_body, response.validate);
+
+            /* 其他测试 */
+            await response.test?.(response_body);
+        }
     });
 }
 
@@ -111,7 +125,7 @@ export async function testPromise<T>(
         test("promise verify", async () => {
             await expect.soft(
                 promise,
-                `verify promise resolved successfully`,
+                `verify promise resolve`,
             ).resolves.toResolve(resolve);
         });
     });

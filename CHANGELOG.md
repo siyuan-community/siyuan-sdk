@@ -9,3 +9,4 @@
 - 添加 API `/api/system/currentTime` | Add API `/api/system/currentTime`
 - 为配置文件添加 `$schema` | Add `$schema` for configuration file
 - 优化 API 测试 | Optimize API test
+- 添加 API `/api/system/bootProgress` | Add API `/api/system/bootProgress`

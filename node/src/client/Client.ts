@@ -12,8 +12,10 @@ import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
-import version from "@/types/kernel/api/system/version";
+
+import bootProgress from "@/types/kernel/api/system/bootProgress";
 import currentTime from "@/types/kernel/api/system/currentTime";
+import version from "@/types/kernel/api/system/version";
 
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
@@ -55,6 +57,7 @@ export class Client {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
         system: {
+            bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
             currentTime: { pathname: "/api/system/currentTime", method: "POST" },
             version: { pathname: "/api/system/version", method: "POST" },
 
@@ -206,6 +209,15 @@ export class Client {
             Client.api.system.getConf.pathname,
             Client.api.system.getConf.method,
         ) as getConf.IResponse;
+        return response;
+    }
+
+    /* 获取内核启动进度 */
+    public async bootProgress(): Promise<bootProgress.IResponse> {
+        const response = await this._request(
+            Client.api.system.bootProgress.pathname,
+            Client.api.system.bootProgress.method,
+        ) as bootProgress.IResponse;
         return response;
     }
 

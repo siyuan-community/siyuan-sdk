@@ -7,32 +7,33 @@
  * @version: 2.9.2
  */
 {
-    $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/version/response.schema.json5",
-    $comment: "v2.9.2",
-    type: "object",
-    title: "I response",
-    description: "get the version of siyuan kernel",
-    additionalProperties: false,
-    properties: {
-        code: {
-            type: "integer",
-            description: "status code",
-        },
-        msg: {
-            type: "string",
-            description: "status message",
-        },
-        data: {
-            type: "string",
-            description: "semantic version number of siyuan kernel",
-            // REF https://semver.org/
-            pattern: "^(\\d+)\\.(\\d+)\\.(\\d+)$",
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/version/response.schema.json5',
+    $comment: 'v2.9.2',
+    $ref: '#/definitions/root',
+    definitions: {
+        root: {
+            type: 'object',
+            title: 'response body',
+            description: 'get the version of siyuan kernel',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    type: 'string',
+                    description: 'semantic version number of siyuan kernel',
+                    // REF https://semver.org/
+                    pattern: '^(\\d+)\\.(\\d+)\\.(\\d+)$',
+                },
+            },
         },
     },
-    required: [
-        "code",
-        "msg",
-        "data",
-    ],
 }

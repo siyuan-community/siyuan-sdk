@@ -41,8 +41,8 @@ expect.extend({
 
 /**
  * 校验内核 API
- * @params payload: 请求体对象
- * @params validate: ajv 校验函数
+ * @param payload: 请求体对象
+ * @param validate: ajv 校验函数
  */
 export function testKernelAPI<T, U extends IResponse>(options: {
     name: string,
@@ -59,43 +59,48 @@ export function testKernelAPI<T, U extends IResponse>(options: {
     debug?: boolean,
 }) {
     describe(options.name, async () => {
-        const { payload, response } = options;
+        try {
+            /* 测试请求体 */
+            if (options.payload) {
+                if (options.debug) {
+                    console.debug("payload:", options.payload.data);
+                }
 
-        /* 测试请求体 */
-        if (payload) {
-            if (options.debug) {
-                console.debug("payload:", payload.data);
+                /* 校验请求体 */
+                testPayload(options.payload.data, options.payload.validate);
+
+                /* 其他测试 */
+                await options.payload.test?.(options.payload.data);
             }
 
-            /* 校验请求体 */
-            testPayload(payload.data, payload.validate);
+            /* 测试请求过程 */
+            const response = await options.request(options.payload?.data);
 
-            /* 其他测试 */
-            await payload.test?.(payload.data);
-        }
+            /* 测试响应体 */
+            if (options.response) {
+                if (options.debug) {
+                    console.debug("response:", response);
+                }
 
-        /* 测试请求过程 */
-        const response_body = await options.request(payload?.data);
+                /* 校验响应体 */
+                testResponse(response, options.response.validate);
 
-        /* 测试响应体 */
-        if (response) {
-            if (options.debug) {
-                console.debug("response:", response_body);
+                /* 其他测试 */
+                await options.response.test?.(response);
             }
-
-            /* 校验响应体 */
-            testResponse(response_body, response.validate);
-
-            /* 其他测试 */
-            await response.test?.(response_body);
+        } catch (error) {
+            if (options.debug) {
+                console.error(error);
+            }
+            testThrowError(error);
         }
     });
 }
 
 /**
  * 校验请求体
- * @params payload: 请求体对象
- * @params validate: ajv 校验函数
+ * @param payload: 请求体对象
+ * @param validate: ajv 校验函数
  */
 export function testPayload<T>(
     payload: T,
@@ -129,8 +134,8 @@ export async function testPromise<T>(
 
 /**
  * 校验响应体
- * @params payload: 响应体对象
- * @params validate: ajv 校验函数
+ * @param payload: 响应体对象
+ * @param validate: ajv 校验函数
  */
 export function testResponse<T extends IResponse>(
     response: T,
@@ -145,5 +150,17 @@ export function testResponse<T extends IResponse>(
             validate(response),
             `verify response using JSON Schema`,
         ).toBeTruthy(); // 校验响应体
+    });
+}
+
+/**
+ * 测试抛出异常
+ * @param error: 异常对象
+ */
+export function testThrowError(error: unknown) {
+    test(`\x1b[31;1m${(error as object).constructor.name}`, () => {
+        expect(
+            () => { throw error },
+        ).not.toThrowError(); // 输出运行时错误
     });
 }

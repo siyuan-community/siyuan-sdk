@@ -15,3 +15,4 @@
 - 添加 API `/api/notification/pushErrMsg` | Add API `/api/notification/pushErrMsg`
 - 使用 [axios](https://www.npmjs.com/package/axios) 作为 HTTP 客户端 | Use [axios](https://www.npmjs.com/package/axios) as HTTP client
 - 添加 API `/api/convert/pandoc` | Add API `/api/convert/pandoc`
+- 完善测试时对运行时异常的处理 | Improve the handling of runtime exceptions during testing

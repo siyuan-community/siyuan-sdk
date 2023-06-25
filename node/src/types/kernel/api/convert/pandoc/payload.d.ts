@@ -15,16 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IResponse } from "@/types/kernel";
-import * as axios from "axios";
-
-export class KernelError extends Error {
-    public readonly code: number;
-    constructor(
-        public readonly body: IResponse,
-        public readonly response: axios.AxiosResponse | Response,
-    ) {
-        super(body.msg);
-        this.code = body.code;
-    }
+/**
+ * execute pandoc command to convert file
+ */
+export interface IPayload {
+    args: string[];
 }

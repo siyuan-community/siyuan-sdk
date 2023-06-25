@@ -20,17 +20,7 @@ import * as axios from "axios";
 export class HTTPError extends Error {
     public readonly status: number;
     constructor(
-        public readonly response: Response,
-    ) {
-        super(response.statusText);
-        this.status = response.status;
-    }
-}
-
-export class AxiosHTTPError extends Error {
-    public readonly status: number;
-    constructor(
-        public readonly response: axios.AxiosResponse,
+        public readonly response: axios.AxiosResponse | Response,
     ) {
         super(response.statusText);
         this.status = response.status;

@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/convert/pandoc/payload.json",
+    "$comment": "v2.9.2",
+    "$ref": "#/definitions/root",
+    "definitions": {
+        "root": {
+            "title": "payload body",
+            "description": "execute pandoc command to convert file",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "args"
+            ],
+            "properties": {
+                "args": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

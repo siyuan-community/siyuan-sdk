@@ -15,6 +15,8 @@ import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
 
+import pandoc from "@/types/kernel/api/convert/pandoc";
+
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
 
@@ -23,8 +25,8 @@ import currentTime from "@/types/kernel/api/system/currentTime";
 import version from "@/types/kernel/api/system/version";
 
 import constants from "@/constants";
-import { AxiosHTTPError } from "@/errors/http";
-import { AxiosKernelError } from "@/errors/kernel";
+import { HTTPError } from "@/errors/http";
+import { KernelError } from "@/errors/kernel";
 
 
 export interface IOptions extends axios.AxiosRequestConfig {
@@ -78,6 +80,10 @@ export class Client {
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
+
+        convert: {
+            pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
+        },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
             pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
@@ -94,7 +100,7 @@ export class Client {
     protected _axios = axios.default.create({
         baseURL: globalThis.document?.baseURI
             ?? globalThis.location?.origin
-            ?? constants.SIYUAN_DEFAULT_SERVER,
+            ?? constants.SIYUAN_DEFAULT_BASE_URL,
         timeout: constants.REQUEST_TIMEOUT,
         headers: {
             Authorization: `Token ${constants.SIYUAN_DEFAULT_TOKEN}`,
@@ -120,7 +126,7 @@ export class Client {
     }
 
     /* 获取块属性 */
-    public async getBlockAttrs(payload: getBlockAttrs.IPayload, config: axios.AxiosRequestConfig): Promise<getBlockAttrs.IResponse> {
+    public async getBlockAttrs(payload: getBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<getBlockAttrs.IResponse> {
         const response = await this._request(
             Client.api.attr.getBlockAttrs.pathname,
             Client.api.attr.getBlockAttrs.method,
@@ -131,7 +137,7 @@ export class Client {
     }
 
     /* 获取所有书签 */
-    public async getBookmarkLabels(config: axios.AxiosRequestConfig): Promise<getBookmarkLabels.IResponse> {
+    public async getBookmarkLabels(config?: axios.AxiosRequestConfig): Promise<getBookmarkLabels.IResponse> {
         const response = await this._request(
             Client.api.attr.getBookmarkLabels.pathname,
             Client.api.attr.getBookmarkLabels.method,
@@ -142,7 +148,7 @@ export class Client {
     }
 
     /* 设置块属性 */
-    public async setBlockAttrs(payload: setBlockAttrs.IPayload, config: axios.AxiosRequestConfig): Promise<setBlockAttrs.IResponse> {
+    public async setBlockAttrs(payload: setBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<setBlockAttrs.IResponse> {
         const response = await this._request(
             Client.api.attr.setBlockAttrs.pathname,
             Client.api.attr.setBlockAttrs.method,
@@ -153,7 +159,7 @@ export class Client {
     }
 
     /* 获得指定块的面包屑 */
-    public async getBlockBreadcrumb(payload: getBlockBreadcrumb.IPayload, config: axios.AxiosRequestConfig): Promise<getBlockBreadcrumb.IResponse> {
+    public async getBlockBreadcrumb(payload: getBlockBreadcrumb.IPayload, config?: axios.AxiosRequestConfig): Promise<getBlockBreadcrumb.IResponse> {
         const response = await this._request(
             Client.api.block.getBlockBreadcrumb.pathname,
             Client.api.block.getBlockBreadcrumb.method,
@@ -164,7 +170,7 @@ export class Client {
     }
 
     /* 获得指定块所在文档信息 */
-    public async getDocInfo(payload: getDocInfo.IPayload, config: axios.AxiosRequestConfig): Promise<getDocInfo.IResponse> {
+    public async getDocInfo(payload: getDocInfo.IPayload, config?: axios.AxiosRequestConfig): Promise<getDocInfo.IResponse> {
         const response = await this._request(
             Client.api.block.getDocInfo.pathname,
             Client.api.block.getDocInfo.method,
@@ -175,7 +181,7 @@ export class Client {
     }
 
     /* 查询子文档 */
-    public async listDocsByPath(payload: listDocsByPath.IPayload, config: axios.AxiosRequestConfig): Promise<listDocsByPath.IResponse> {
+    public async listDocsByPath(payload: listDocsByPath.IPayload, config?: axios.AxiosRequestConfig): Promise<listDocsByPath.IResponse> {
         const response = await this._request(
             Client.api.filetree.listDocsByPath.pathname,
             Client.api.filetree.listDocsByPath.method,
@@ -186,7 +192,7 @@ export class Client {
     }
 
     /* 文档重命名 */
-    public async renameDoc(payload: renameDoc.IPayload, config: axios.AxiosRequestConfig): Promise<renameDoc.IResponse> {
+    public async renameDoc(payload: renameDoc.IPayload, config?: axios.AxiosRequestConfig): Promise<renameDoc.IResponse> {
         const response = await this._request(
             Client.api.filetree.renameDoc.pathname,
             Client.api.filetree.renameDoc.method,
@@ -197,7 +203,7 @@ export class Client {
     }
 
     /* 搜索文档 */
-    public async searchDocs(payload: searchDocs.IPayload, config: axios.AxiosRequestConfig): Promise<searchDocs.IResponse> {
+    public async searchDocs(payload: searchDocs.IPayload, config?: axios.AxiosRequestConfig): Promise<searchDocs.IResponse> {
         const response = await this._request(
             Client.api.filetree.searchDocs.pathname,
             Client.api.filetree.searchDocs.method,
@@ -208,7 +214,7 @@ export class Client {
     }
 
     /* 列出笔记本信息 */
-    public async lsNotebooks(config: axios.AxiosRequestConfig): Promise<lsNotebooks.IResponse> {
+    public async lsNotebooks(config?: axios.AxiosRequestConfig): Promise<lsNotebooks.IResponse> {
         const response = await this._request(
             Client.api.notebook.lsNotebooks.pathname,
             Client.api.notebook.lsNotebooks.method,
@@ -219,7 +225,7 @@ export class Client {
     }
 
     /* SQL 查询 */
-    public async sql(payload: sql.IPayload, config: axios.AxiosRequestConfig): Promise<sql.IResponse> {
+    public async sql(payload: sql.IPayload, config?: axios.AxiosRequestConfig): Promise<sql.IResponse> {
         const response = await this._request(
             Client.api.query.sql.pathname,
             Client.api.query.sql.method,
@@ -230,7 +236,7 @@ export class Client {
     }
 
     /* 全局搜索 */
-    public async fullTextSearchBlock(payload: fullTextSearchBlock.IPayload, config: axios.AxiosRequestConfig): Promise<fullTextSearchBlock.IResponse> {
+    public async fullTextSearchBlock(payload: fullTextSearchBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<fullTextSearchBlock.IResponse> {
         const response = await this._request(
             Client.api.search.fullTextSearchBlock.pathname,
             Client.api.search.fullTextSearchBlock.method,
@@ -241,7 +247,7 @@ export class Client {
     }
 
     /* 查询最近打开的文档 */
-    public async getRecentDocs(config: axios.AxiosRequestConfig): Promise<getRecentDocs.IResponse> {
+    public async getRecentDocs(config?: axios.AxiosRequestConfig): Promise<getRecentDocs.IResponse> {
         const response = await this._request(
             Client.api.storage.getRecentDocs.pathname,
             Client.api.storage.getRecentDocs.method,
@@ -252,7 +258,7 @@ export class Client {
     }
 
     /* 获得配置 */
-    public async getConf(config: axios.AxiosRequestConfig): Promise<getConf.IResponse> {
+    public async getConf(config?: axios.AxiosRequestConfig): Promise<getConf.IResponse> {
         const response = await this._request(
             Client.api.system.getConf.pathname,
             Client.api.system.getConf.method,
@@ -262,8 +268,19 @@ export class Client {
         return response;
     }
 
+    /* 调用 pandoc 转换转换文件 */
+    public async pandoc(payload: pandoc.IPayload, config?: axios.AxiosRequestConfig): Promise<pandoc.IResponse> {
+        const response = await this._request(
+            Client.api.convert.pandoc.pathname,
+            Client.api.convert.pandoc.method,
+            payload,
+            config,
+        ) as pandoc.IResponse;
+        return response;
+    }
+
     /* 推送错误消息 */
-    public async pushErrMsg(payload: pushErrMsg.IPayload, config: axios.AxiosRequestConfig): Promise<pushErrMsg.IResponse> {
+    public async pushErrMsg(payload: pushErrMsg.IPayload, config?: axios.AxiosRequestConfig): Promise<pushErrMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushErrMsg.pathname,
             Client.api.notification.pushErrMsg.method,
@@ -274,7 +291,7 @@ export class Client {
     }
 
     /* 推送提示消息 */
-    public async pushMsg(payload: pushMsg.IPayload, config: axios.AxiosRequestConfig): Promise<pushMsg.IResponse> {
+    public async pushMsg(payload: pushMsg.IPayload, config?: axios.AxiosRequestConfig): Promise<pushMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushMsg.pathname,
             Client.api.notification.pushMsg.method,
@@ -285,7 +302,7 @@ export class Client {
     }
 
     /* 获取内核启动进度 */
-    public async bootProgress(config: axios.AxiosRequestConfig): Promise<bootProgress.IResponse> {
+    public async bootProgress(config?: axios.AxiosRequestConfig): Promise<bootProgress.IResponse> {
         const response = await this._request(
             Client.api.system.bootProgress.pathname,
             Client.api.system.bootProgress.method,
@@ -296,7 +313,7 @@ export class Client {
     }
 
     /* 获得内核 Unix 时间戳 (单位: ms) */
-    public async currentTime(config: axios.AxiosRequestConfig): Promise<currentTime.IResponse> {
+    public async currentTime(config?: axios.AxiosRequestConfig): Promise<currentTime.IResponse> {
         const response = await this._request(
             Client.api.system.currentTime.pathname,
             Client.api.system.currentTime.method,
@@ -307,7 +324,7 @@ export class Client {
     }
 
     /* 获得内核版本 */
-    public async version(config: axios.AxiosRequestConfig): Promise<version.IResponse> {
+    public async version(config?: axios.AxiosRequestConfig): Promise<version.IResponse> {
         const response = await this._request(
             Client.api.system.version.pathname,
             Client.api.system.version.method,
@@ -338,13 +355,13 @@ export class Client {
                     return body;
                 }
                 else { // 内核异常响应
-                    const error = new AxiosKernelError(body, response);
+                    const error = new KernelError(body, response);
                     throw error;
                 }
             }
 
             else { // HTTP 请求异常
-                const error = new AxiosHTTPError(response);
+                const error = new HTTPError(response);
                 throw error;
             }
         } catch (error) {

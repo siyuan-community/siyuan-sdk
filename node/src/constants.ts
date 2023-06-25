@@ -20,8 +20,8 @@ export default {
     SCHEMA_FILENAME_PAYLOAD: "payload.schema.json", // JSON Schema 的 payload 文件名
     SCHEMA_FILENAME_RESPONSE: "response.schema.json", // JSON Schema 的 response 文件名
 
-    SIYUAN_DEFAULT_SERVER: "http://localhost:6806", // 默认的思源内核服务地址
-    SIYUAN_DEFAULT_TOKEN: "", // 默认的思源内核服务 token
+    SIYUAN_DEFAULT_BASE_URL: "http://localhost:6806/", // 思源内核服务的默认 baseURL
+    SIYUAN_DEFAULT_TOKEN: "", // 思源内核服务的默认 token
 
     REQUEST_TIMEOUT: 60_000, // 请求超时时间 (单位: ms)
 }

@@ -1,0 +1,31 @@
+/**
+ * schemas/kernel/api/convert/pandoc/payload.json5
+ * 调用 pandoc 转换文件
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#pandoc
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/pandoc.go#L27-L49
+ * @pathname: /api/convert/pandoc
+ * @version: 2.9.2
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/convert/pandoc/payload.json5',
+    $comment: 'v2.9.2',
+    $ref: '#/definitions/root',
+    definitions: {
+        root: {
+            title: 'payload body',
+            description: 'execute pandoc command to convert file',
+            type: 'object',
+            additionalProperties: false,
+            required: ['args'],
+            properties: {
+                args: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                    },
+                },
+            },
+        },
+    },
+}

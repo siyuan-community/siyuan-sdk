@@ -15,13 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IResponse } from "../types/kernel";
+import { IResponse } from "@/types/kernel";
+import * as axios from "axios";
 
 export class KernelError extends Error {
     public readonly code: number;
     constructor(
         public readonly response: IResponse,
         public readonly httpResponse: Response,
+    ) {
+        super(response.msg);
+        this.code = response.code;
+    }
+}
+
+export class AxiosKernelError extends Error {
+    public readonly code: number;
+    constructor(
+        public readonly response: IResponse,
+        public readonly httpResponse: axios.AxiosResponse,
     ) {
         super(response.msg);
         this.code = response.code;

@@ -87,5 +87,8 @@
         "vite-plugin-dts": "^2.3.0",
         "vite-plugin-static-copy": "^0.16.0",
         "vitest": "^0.32.2"
+    },
+    "dependencies": {
+        "axios": "^1.4.0"
     }
 }

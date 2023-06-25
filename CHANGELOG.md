@@ -13,3 +13,4 @@
 - 添加开发模式 | Add development mode
 - 添加 API `/api/notification/pushMsg` | Add API `/api/notification/pushMsg`
 - 添加 API `/api/notification/pushErrMsg` | Add API `/api/notification/pushErrMsg`
+- 使用 [axios](https://www.npmjs.com/package/axios) 作为 HTTP 客户端 | Use [axios](https://www.npmjs.com/package/axios) as HTTP client

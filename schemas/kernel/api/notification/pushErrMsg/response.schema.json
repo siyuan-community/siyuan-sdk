@@ -29,7 +29,8 @@
             }
         },
         "data": {
-            "description": "push alert information",
+            "title": "IData",
+            "description": "the related info of the notification",
             "type": "object",
             "additionalProperties": false,
             "required": [

@@ -23,9 +23,9 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import pandoc from "@/types/kernel/api/convert/pandoc";
+import exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
-const pathname = client.Client.api.convert.pandoc.pathname;
+const pathname = client.Client.api.export.exportMdContent.pathname;
 
 describe.concurrent(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -35,19 +35,15 @@ describe.concurrent(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
+    testKernelAPI<exportMdContent.IPayload, exportMdContent.IResponse>({
         name: "main",
         payload: {
             data: {
-                args: [
-                    "--to", "markdown_github-raw_html+tex_math_dollars+pipe_tables",
-                    "./../test.docx",
-                    "-o", "./test.md",
-                ],
+                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.pandoc(payload!),
+        request: (payload) => client.client.exportMdContent(payload!),
         response: {
             validate: validate_response,
         },

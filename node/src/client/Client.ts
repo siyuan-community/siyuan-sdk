@@ -17,6 +17,8 @@ import sql from "@/types/kernel/api/query/sql";
 
 import pandoc from "@/types/kernel/api/convert/pandoc";
 
+import exportMdContent from "@/types/kernel/api/export/exportMdContent";
+
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
 
@@ -83,6 +85,9 @@ export class Client {
 
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
+        },
+        export: {
+            exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -276,6 +281,17 @@ export class Client {
             payload,
             config,
         ) as pandoc.IResponse;
+        return response;
+    }
+
+    /* 导出指定文档块为 Markdown */
+    public async exportMdContent(payload: exportMdContent.IPayload, config?: axios.AxiosRequestConfig): Promise<exportMdContent.IResponse> {
+        const response = await this._request(
+            Client.api.export.exportMdContent.pathname,
+            Client.api.export.exportMdContent.method,
+            payload,
+            config,
+        ) as exportMdContent.IResponse;
         return response;
     }
 

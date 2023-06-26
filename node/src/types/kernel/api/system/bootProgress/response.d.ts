@@ -23,7 +23,7 @@ export interface IResponse {
      * status code
      */
     code: number;
-    data: Data;
+    data: IData;
     /**
      * status message
      */
@@ -33,7 +33,7 @@ export interface IResponse {
 /**
  * response data
  */
-export interface Data {
+export interface IData {
     /**
      * status details
      */

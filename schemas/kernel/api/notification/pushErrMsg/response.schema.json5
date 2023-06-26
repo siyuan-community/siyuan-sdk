@@ -10,11 +10,12 @@
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notification/pushErrMsg/response.schema.json5',
     $comment: 'v2.9.2',
-    $ref: '#/definitions/root',
-    definitions: {
+    $ref: '#/$defs/root',
+    $defs: {
         root: {
             title: 'response body',
             description: 'push error information',
+
             type: 'object',
             additionalProperties: false,
             required: ['code', 'msg', 'data'],
@@ -28,13 +29,14 @@
                     description: 'status message',
                 },
                 data: {
-                    $ref: '#/definitions/data',
+                    $ref: '#/$defs/data',
                 },
             },
         },
         data: {
-            title: "IData",
+            title: 'IData',
             description: 'the related info of the notification',
+
             type: 'object',
             additionalProperties: false,
             required: ['id'],

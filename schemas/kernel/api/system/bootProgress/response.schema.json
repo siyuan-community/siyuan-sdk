@@ -2,12 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/system/bootProgress/response.schema.json",
     "$comment": "v2.9.2",
-    "$ref": "#/definitions/root",
-    "definitions": {
+    "$ref": "#/$defs/root",
+    "$defs": {
         "root": {
-            "type": "object",
             "title": "response body",
             "description": "get the booting progress of siyuan kernel",
+            "type": "object",
             "additionalProperties": false,
             "required": [
                 "code",
@@ -24,14 +24,14 @@
                     "description": "status message"
                 },
                 "data": {
-                    "$ref": "#/definitions/data"
+                    "$ref": "#/$defs/data"
                 }
             }
         },
         "data": {
-            "type": "object",
-            "title": "data",
+            "title": "IData",
             "description": "response data",
+            "type": "object",
             "additionalProperties": false,
             "required": [
                 "details",

@@ -33,12 +33,12 @@
     ],
     "funding": [
         {
-            "type": "AFDIAN",
-            "url": "https://afdian.net/a/zuoqiu"
-        },
-        {
             "type": "Ko-fi",
             "url": "https://ko-fi.com/zuoqiu"
+        },
+        {
+            "type": "AFDIAN",
+            "url": "https://afdian.net/a/zuoqiu"
         }
     ],
     "main": "./dist/index.umd.cjs",

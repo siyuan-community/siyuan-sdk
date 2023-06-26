@@ -10,11 +10,12 @@
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notification/pushMsg/payload.schema.json5',
     $comment: 'v2.9.2',
-    $ref: '#/definitions/root',
-    definitions: {
+    $ref: '#/$defs/root',
+    $defs: {
         root: {
             title: 'payload body',
             description: 'push alert information',
+
             type: 'object',
             additionalProperties: false,
             required: ['msg', 'timeout'],

@@ -1,11 +1,11 @@
 # 更改日志 | Change Log
 
-- 初始化项目 | Initialize project
-- API 测试支持使用 JSON Schema 校验响应体 | API test supports using JSON Schema to verify response body
-- 调整构建配置项 | Adjust build configuration items
-- 调整文件目录结构 | Adjust file directory structure
-- 配置构建选项 | Configure build options
-- 配置 npm 发布选项 | Configure npm release options
+- JSON Schema 中使用 `$defs` 属性替换 `definitions` 属性 | Use `$defs` property in JSON Schema to replace `definitions` property
+  - REF: https://json-schema.org/draft/2020-12/schema
+
+## v0.0.2 / 2023-06-26
+
+- [v0.0.1 ... v0.0.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.1...v0.0.2)
 - 添加 API `/api/system/currentTime` | Add API `/api/system/currentTime`
 - 为配置文件添加 `$schema` | Add `$schema` for configuration file
 - 优化 API 测试 | Optimize API test
@@ -17,3 +17,13 @@
 - 添加 API `/api/convert/pandoc` | Add API `/api/convert/pandoc`
 - 完善测试时对运行时异常的处理 | Improve the handling of runtime exceptions during testing
 - 添加 API `/api/export/exportMdContent` | Add API `/api/export/exportMdContent`
+
+## v0.0.1 / 2023-06-23
+
+- 初始化项目 | Initialize project
+- API 测试支持使用 JSON Schema 校验响应体 | API test supports using JSON Schema to verify response body
+- 调整构建配置项 | Adjust build configuration items
+- 调整文件目录结构 | Adjust file directory structure
+- 配置构建选项 | Configure build options
+- 配置 npm 发布选项 | Configure npm release options
+

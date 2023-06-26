@@ -1,0 +1,61 @@
+/**
+ * schemas/kernel/api/file/readDir/response.schema.json5
+ * 列出指定文件目录下的内容
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#list-files
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/file.go#L135-L182
+ * @pathname: /api/file/readDir
+ * @version: 2.9.2
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/file/readDir/response.schema.json5',
+    $comment: 'v2.9.2',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'response body',
+            description: 'list the contents of the specified file directory',
+            type: 'object',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'response data',
+            type: 'array',
+            items: {
+                $ref: '#/$defs/datum',
+            },
+        },
+        datum: {
+            title: 'IDatum',
+            description: 'file or directory',
+            type: 'object',
+            additionalProperties: false,
+            required: ['isDir', 'name'],
+            properties: {
+                isDir: {
+                    type: 'boolean',
+                    description: 'whether the item is a directory',
+                },
+                name: {
+                    type: 'string',
+                    description: 'file/directory name',
+                },
+            },
+        },
+    },
+}

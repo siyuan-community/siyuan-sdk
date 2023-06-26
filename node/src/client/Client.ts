@@ -19,6 +19,8 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 
 import exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
+import readDir from "@/types/kernel/api/file/readDir";
+
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
 
@@ -56,6 +58,7 @@ export interface IHeaders {
 
 export class Client {
     public static readonly api = {
+        // TODO: refactor
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
@@ -89,6 +92,9 @@ export class Client {
         export: {
             exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
         },
+        file: {
+            readDir: { pathname: "/api/file/readDir", method: "POST" },
+        },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
             pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
@@ -98,6 +104,7 @@ export class Client {
             currentTime: { pathname: "/api/system/currentTime", method: "POST" },
             version: { pathname: "/api/system/version", method: "POST" },
 
+            // TODO: refactor
             getConf: { pathname: "/api/system/getConf", method: "POST" },
         },
     } as const;
@@ -292,6 +299,17 @@ export class Client {
             payload,
             config,
         ) as exportMdContent.IResponse;
+        return response;
+    }
+
+    /* 导出指定文档块为 Markdown */
+    public async readDir(payload: readDir.IPayload, config?: axios.AxiosRequestConfig): Promise<readDir.IResponse> {
+        const response = await this._request(
+            Client.api.file.readDir.pathname,
+            Client.api.file.readDir.method,
+            payload,
+            config,
+        ) as readDir.IResponse;
         return response;
     }
 

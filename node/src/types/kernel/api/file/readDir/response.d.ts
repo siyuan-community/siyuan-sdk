@@ -15,4 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from "./response";
+/**
+ * list the contents of the specified file directory
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IDatum[];
+    /**
+     * status message
+     */
+    msg: string;
+}
+
+/**
+ * response data
+ *
+ * file or directory
+ */
+export interface IDatum {
+    /**
+     * whether the item is a directory
+     */
+    isDir: boolean;
+    /**
+     * file/directory name
+     */
+    name: string;
+}

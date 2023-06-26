@@ -2,6 +2,7 @@
 
 - JSON Schema 中使用 `$defs` 属性替换 `definitions` 属性 | Use `$defs` property in JSON Schema to replace `definitions` property
   - REF: https://json-schema.org/draft/2020-12/schema
+- 添加 API `/api/file/readDir` | Add API `/api/file/readDir`
 
 ## v0.0.2 / 2023-06-26
 

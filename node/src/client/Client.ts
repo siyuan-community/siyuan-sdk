@@ -22,6 +22,7 @@ import exportMdContent from "@/types/kernel/api/export/exportMdContent";
 import getFile from "@/types/kernel/api/file/getFile";
 import putFile from "@/types/kernel/api/file/putFile";
 import readDir from "@/types/kernel/api/file/readDir";
+import removeFile from "@/types/kernel/api/file/removeFile";
 
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
@@ -98,6 +99,7 @@ export class Client {
             getFile: { pathname: "/api/file/getFile", method: "POST" },
             putFile: { pathname: "/api/file/putFile", method: "POST" },
             readDir: { pathname: "/api/file/readDir", method: "POST" },
+            removeFile: { pathname: "/api/file/removeFile", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -362,6 +364,17 @@ export class Client {
             payload,
             config,
         ) as readDir.IResponse;
+        return response;
+    }
+
+    /* 删除文件 */
+    public async removeFile(payload: removeFile.IPayload, config?: axios.AxiosRequestConfig): Promise<removeFile.IResponse> {
+        const response = await this._request(
+            Client.api.file.removeFile.pathname,
+            Client.api.file.removeFile.method,
+            payload,
+            config,
+        ) as removeFile.IResponse;
         return response;
     }
 

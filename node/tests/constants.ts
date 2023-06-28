@@ -17,6 +17,7 @@
 
 export default {
     /* 测试用文件 */
+    TEST_DIR_PATH: "/temp/convert/pandoc/test/",
     TEST_FILE_PATH: "/temp/convert/pandoc/test/test.html",
     TEST_FILE_CONTENT: `<html>
     <body>

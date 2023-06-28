@@ -1,14 +1,14 @@
 /**
- * schemas/kernel/api/file/removeFile/response.schema.json5
- * 移除工作区目录下指定的文件/目录
- * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#remove-file
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/file.go#L219-L249
- * @pathname: /api/file/removeFile
+ * schemas/kernel/api/file/renameFile/response.schema.json5
+ * 重命名/移动工作空间目录下的文件/目录
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#rename-file
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/file.go#L184-L217
+ * @pathname: /api/file/renameFile
  * @version: 2.9.3
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/file/removeFile/response.schema.json5',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/file/renameFile/response.schema.json5',
     $comment: 'v2.9.3',
     $ref: '#/$defs/root',
     $defs: {

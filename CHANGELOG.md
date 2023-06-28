@@ -8,6 +8,7 @@
 - 添加 API `/api/file/putFile` | Add API `/api/file/putFile`
 - 优化 API `/api/convert/pandoc` 测试 | Optimize API `/api/convert/pandoc` test
 - 添加 API `/api/file/removeFile` | Add API `/api/file/removeFile`
+- 添加 API `/api/file/renameFile` | Add API `/api/file/renameFile`
 
 ## v0.0.2 / 2023-06-26
 

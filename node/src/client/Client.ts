@@ -23,6 +23,7 @@ import getFile from "@/types/kernel/api/file/getFile";
 import putFile from "@/types/kernel/api/file/putFile";
 import readDir from "@/types/kernel/api/file/readDir";
 import removeFile from "@/types/kernel/api/file/removeFile";
+import renameFile from "@/types/kernel/api/file/renameFile";
 
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 import pushMsg from "@/types/kernel/api/notification/pushMsg";
@@ -100,6 +101,7 @@ export class Client {
             putFile: { pathname: "/api/file/putFile", method: "POST" },
             readDir: { pathname: "/api/file/readDir", method: "POST" },
             removeFile: { pathname: "/api/file/removeFile", method: "POST" },
+            renameFile: { pathname: "/api/file/renameFile", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -367,7 +369,7 @@ export class Client {
         return response;
     }
 
-    /* 删除文件 */
+    /* 删除文件/目录 */
     public async removeFile(payload: removeFile.IPayload, config?: axios.AxiosRequestConfig): Promise<removeFile.IResponse> {
         const response = await this._request(
             Client.api.file.removeFile.pathname,
@@ -375,6 +377,17 @@ export class Client {
             payload,
             config,
         ) as removeFile.IResponse;
+        return response;
+    }
+
+    /* 重命名/移动文件/目录 */
+    public async renameFile(payload: renameFile.IPayload, config?: axios.AxiosRequestConfig): Promise<renameFile.IResponse> {
+        const response = await this._request(
+            Client.api.file.renameFile.pathname,
+            Client.api.file.renameFile.method,
+            payload,
+            config,
+        ) as renameFile.IResponse;
         return response;
     }
 

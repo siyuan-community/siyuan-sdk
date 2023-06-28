@@ -17,7 +17,9 @@ export default defineConfig({
     },
     plugins: [
         // REF https://github.com/qmhc/vite-plugin-dts/blob/HEAD/README.zh-CN.md
-        dts(),
+        dts({
+            insertTypesEntry: true,
+        }),
         // REF https://www.npmjs.com/package/vite-plugin-static-copy
         viteStaticCopy({
             targets: [
@@ -27,7 +29,7 @@ export default defineConfig({
                 },
                 {
                     src: "./src/types/",
-                    dest: "./",
+                    dest: "./src/",
                 },
             ],
         }),

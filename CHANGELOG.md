@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 修复构建时类型导出问题 | Fix the issue of type exporting problem when building
+
 ## v0.0.4 / 2023-06-29
 
 - [v0.0.3 ... v0.0.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.3...v0.0.4)

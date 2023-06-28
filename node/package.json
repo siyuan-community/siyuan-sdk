@@ -61,7 +61,7 @@
         "dev": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/dev.ts",
         "prebuild": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/prebuild.ts",
         "build": "vite build",
-        "publish": "pnpm run prebuild && pnpm run build && pnpm run publish",
+        "publish": "pnpm run prebuild && pnpm run build && npm publish",
         "format": "eslint --fix .",
         "lint": "eslint . && cspell .",
         "test": "vitest",

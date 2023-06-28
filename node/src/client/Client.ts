@@ -1,5 +1,6 @@
 import * as axios from "axios";
 
+// TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 import getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
 import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
@@ -12,28 +13,10 @@ import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
 import renameDoc from "@/types/kernel/api/filetree/renameDoc";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
-import kernel from "@/types/kernel";
 import sql from "@/types/kernel/api/query/sql";
 
-import pandoc from "@/types/kernel/api/convert/pandoc";
-
-import exportMdContent from "@/types/kernel/api/export/exportMdContent";
-
-import getFile from "@/types/kernel/api/file/getFile";
-import putFile from "@/types/kernel/api/file/putFile";
-import readDir from "@/types/kernel/api/file/readDir";
-import removeFile from "@/types/kernel/api/file/removeFile";
-import renameFile from "@/types/kernel/api/file/renameFile";
-
-import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
-import pushMsg from "@/types/kernel/api/notification/pushMsg";
-
-import bootProgress from "@/types/kernel/api/system/bootProgress";
-import currentTime from "@/types/kernel/api/system/currentTime";
-import version from "@/types/kernel/api/system/version";
-
-import render from "@/types/kernel/api/template/render";
-import renderSprig from "@/types/kernel/api/template/renderSprig";
+import { kernel } from "@/types";
+import { api } from "@/types/kernel";
 
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
@@ -56,11 +39,6 @@ export interface IOptions extends axios.AxiosRequestConfig {
      * REF: https://www.axios-http.cn/docs/req_config
      */
     timeout?: number,
-}
-
-export interface IHeaders {
-    Authorization: string,
-    [key: string]: string,
 }
 
 export class Client {
@@ -297,35 +275,35 @@ export class Client {
 
     /* 调用 pandoc 转换转换文件 */
     public async pandoc(
-        payload: pandoc.IPayload,
+        payload: api.convert.pandoc.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<pandoc.IResponse> {
+    ): Promise<api.convert.pandoc.IResponse> {
         const response = await this._request(
             Client.api.convert.pandoc.pathname,
             Client.api.convert.pandoc.method,
             payload,
             config,
-        ) as pandoc.IResponse;
+        ) as api.convert.pandoc.IResponse;
         return response;
     }
 
     /* 导出指定文档块为 Markdown */
     public async exportMdContent(
-        payload: exportMdContent.IPayload,
+        payload: api.export.exportMdContent.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<exportMdContent.IResponse> {
+    ): Promise<api.export.exportMdContent.IResponse> {
         const response = await this._request(
             Client.api.export.exportMdContent.pathname,
             Client.api.export.exportMdContent.method,
             payload,
             config,
-        ) as exportMdContent.IResponse;
+        ) as api.export.exportMdContent.IResponse;
         return response;
     }
 
     /* 获取文件 */
     public async getFile(
-        payload: getFile.IPayload,
+        payload: api.file.getFile.IPayload,
         config?: axios.AxiosRequestConfig,
     ): Promise<unknown> {
         const response = await this._request(
@@ -340,9 +318,9 @@ export class Client {
 
     /* 设置文件 */
     public async putFile(
-        payload: putFile.IPayload,
+        payload: api.file.putFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<putFile.IResponse> {
+    ): Promise<api.file.putFile.IResponse> {
         /**
          * 若文件不是 File 类型，则转换为 File 类型
          * REF: https://developer.mozilla.org/zh-CN/docs/Web/API/File/File
@@ -373,144 +351,144 @@ export class Client {
             formdata,
             config,
             false,
-        ) as putFile.IResponse;
+        ) as api.file.putFile.IResponse;
         return response;
     }
 
     /* 获取文件目录下级内容 */
     public async readDir(
-        payload: readDir.IPayload,
+        payload: api.file.readDir.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<readDir.IResponse> {
+    ): Promise<api.file.readDir.IResponse> {
         const response = await this._request(
             Client.api.file.readDir.pathname,
             Client.api.file.readDir.method,
             payload,
             config,
-        ) as readDir.IResponse;
+        ) as api.file.readDir.IResponse;
         return response;
     }
 
     /* 删除文件/目录 */
     public async removeFile(
-        payload: removeFile.IPayload,
+        payload: api.file.removeFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<removeFile.IResponse> {
+    ): Promise<api.file.removeFile.IResponse> {
         const response = await this._request(
             Client.api.file.removeFile.pathname,
             Client.api.file.removeFile.method,
             payload,
             config,
-        ) as removeFile.IResponse;
+        ) as api.file.removeFile.IResponse;
         return response;
     }
 
     /* 重命名/移动文件/目录 */
     public async renameFile(
-        payload: renameFile.IPayload,
+        payload: api.file.renameFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<renameFile.IResponse> {
+    ): Promise<api.file.renameFile.IResponse> {
         const response = await this._request(
             Client.api.file.renameFile.pathname,
             Client.api.file.renameFile.method,
             payload,
             config,
-        ) as renameFile.IResponse;
+        ) as api.file.renameFile.IResponse;
         return response;
     }
 
     /* 推送错误消息 */
     public async pushErrMsg(
-        payload: pushErrMsg.IPayload,
+        payload: api.notification.pushErrMsg.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<pushErrMsg.IResponse> {
+    ): Promise<api.notification.pushErrMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushErrMsg.pathname,
             Client.api.notification.pushErrMsg.method,
             payload,
             config,
-        ) as pushErrMsg.IResponse;
+        ) as api.notification.pushErrMsg.IResponse;
         return response;
     }
 
     /* 推送提示消息 */
     public async pushMsg(
-        payload: pushMsg.IPayload,
+        payload: api.notification.pushMsg.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<pushMsg.IResponse> {
+    ): Promise<api.notification.pushMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushMsg.pathname,
             Client.api.notification.pushMsg.method,
             payload,
             config,
-        ) as pushMsg.IResponse;
+        ) as api.notification.pushMsg.IResponse;
         return response;
     }
 
     /* 获取内核启动进度 */
     public async bootProgress(
         config?: axios.AxiosRequestConfig,
-    ): Promise<bootProgress.IResponse> {
+    ): Promise<api.system.bootProgress.IResponse> {
         const response = await this._request(
             Client.api.system.bootProgress.pathname,
             Client.api.system.bootProgress.method,
             undefined,
             config,
-        ) as bootProgress.IResponse;
+        ) as api.system.bootProgress.IResponse;
         return response;
     }
 
     /* 获得内核 Unix 时间戳 (单位: ms) */
     public async currentTime(
         config?: axios.AxiosRequestConfig,
-    ): Promise<currentTime.IResponse> {
+    ): Promise<api.system.currentTime.IResponse> {
         const response = await this._request(
             Client.api.system.currentTime.pathname,
             Client.api.system.currentTime.method,
             undefined,
             config,
-        ) as currentTime.IResponse;
+        ) as api.system.currentTime.IResponse;
         return response;
     }
 
     /* 获得内核版本 */
     public async version(
         config?: axios.AxiosRequestConfig,
-    ): Promise<version.IResponse> {
+    ): Promise<api.system.version.IResponse> {
         const response = await this._request(
             Client.api.system.version.pathname,
             Client.api.system.version.method,
             undefined,
             config,
-        ) as version.IResponse;
+        ) as api.system.version.IResponse;
         return response;
     }
 
     /* 渲染 kramdown 模板文件 */
     public async render(
-        payload: render.IPayload,
+        payload: api.template.render.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<render.IResponse> {
+    ): Promise<api.template.render.IResponse> {
         const response = await this._request(
             Client.api.template.render.pathname,
             Client.api.template.render.method,
             payload,
             config,
-        ) as render.IResponse;
+        ) as api.template.render.IResponse;
         return response;
     }
 
     /* 渲染 Sprig 模板 */
     public async renderSprig(
-        payload: renderSprig.IPayload,
+        payload: api.template.renderSprig.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<renderSprig.IResponse> {
+    ): Promise<api.template.renderSprig.IResponse> {
         const response = await this._request(
             Client.api.template.renderSprig.pathname,
             Client.api.template.renderSprig.method,
             payload,
             config,
-        ) as renderSprig.IResponse;
+        ) as api.template.renderSprig.IResponse;
         return response;
     }
 

@@ -27,6 +27,11 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 
 const pathname = client.Client.api.convert.pandoc.pathname;
 
+interface ICase {
+    dir?: string,
+    debug: boolean,
+}
+
 describe.concurrent(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
     const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
@@ -35,22 +40,33 @@ describe.concurrent(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                args: [
-                    "--to", "markdown_github-raw_html+tex_math_dollars+pipe_tables",
-                    "./../test.docx",
-                    "-o", "./test.md",
-                ],
+    const cases: ICase[] = [
+        {
+            dir: "test",
+            debug: true,
+        },
+        {
+            debug: true,
+        },
+    ];
+
+    cases.forEach(item => {
+        testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
+            name: "main",
+            payload: {
+                data: {
+                    dir: item.dir,
+                    args: [
+                        "-h",
+                    ],
+                },
+                validate: validate_payload,
             },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.pandoc(payload!),
-        response: {
-            validate: validate_response,
-        },
-        // debug: true,
+            request: (payload) => client.client.pandoc(payload!),
+            response: {
+                validate: validate_response,
+            },
+            debug: item.debug,
+        });
     });
 });

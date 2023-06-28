@@ -20,9 +20,19 @@ export interface IResponse {
      * status code
      */
     code: number;
-    data: null;
+    data: IData;
     /**
      * status message
      */
     msg: string;
+}
+
+/**
+ * 转换结果
+ */
+export interface IData {
+    /**
+     * the path under the workspace
+     */
+    path: string;
 }

@@ -2,14 +2,14 @@
  * schemas/kernel/api/convert/pandoc/payload.schema.json5
  * 调用 pandoc 转换文件
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#pandoc
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/pandoc.go#L27-L49
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/pandoc.go#L27-L59
  * @pathname: /api/convert/pandoc
- * @version: 2.9.2
+ * @version: 2.9.3
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/convert/pandoc/response.schema.json5',
-    $comment: 'v2.9.2',
+    $comment: 'v2.9.3',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -28,7 +28,21 @@
                     description: 'status message',
                 },
                 data: {
-                    type: 'null',
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: '转换结果',
+            type: 'object',
+            additionalProperties: false,
+            required: ['path'],
+            properties: {
+                path: {
+                    // 相对于工作空间目录的路径
+                    type: 'string',
+                    description: 'the path under the workspace',
                 },
             },
         },

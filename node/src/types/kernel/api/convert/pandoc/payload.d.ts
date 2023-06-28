@@ -19,5 +19,14 @@
  * execute pandoc command to convert file
  */
 export interface IPayload {
+    /**
+     * pandoc command-line parameter list
+     */
     args: string[];
+    /**
+     * working directory name
+     * workspace/temp/convert/pandoc/:dir
+     * If not set, a random directory name is used
+     */
+    dir?: string;
 }

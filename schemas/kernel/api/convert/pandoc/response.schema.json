@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/convert/pandoc/response.schema.json",
-    "$comment": "v2.9.2",
+    "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -24,7 +24,22 @@
                     "description": "status message"
                 },
                 "data": {
-                    "type": "null"
+                    "$ref": "#/$defs/data"
+                }
+            }
+        },
+        "data": {
+            "title": "IData",
+            "description": "转换结果",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "path"
+            ],
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "the path under the workspace"
                 }
             }
         }

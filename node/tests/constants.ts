@@ -18,6 +18,8 @@
 export default {
     /* pandoc 工作目录 */
     PANDOC_CONVERT_DIR_PATH: "/temp/convert/pandoc", // pandoc 转换目录
+    /* 测试用模板内容 */
+    TEST_TEMPLATE_CONTENT: `.action{now | date "2006-01-02 15:04:05.006"}`,
     /* 测试用文件内容 */
     TEST_FILE_CONTENT: `<html>
     <body>

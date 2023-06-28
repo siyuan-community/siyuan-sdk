@@ -45,7 +45,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "create dir",
             payload: {
-                path: "/temp/convert/pandoc/test",
+                path: "/temp/convert/test",
                 isDir: true,
             },
             debug: false,
@@ -53,7 +53,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "create file with string",
             payload: {
-                path: "/temp/convert/pandoc/test/test0.html",
+                path: "/temp/convert/test/test0.html",
                 file: constants.TEST_FILE_CONTENT,
             },
             debug: false,
@@ -61,7 +61,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "create file with custom modified time",
             payload: {
-                path: "/temp/convert/pandoc/test/test1.html",
+                path: "/temp/convert/test/test1.html",
                 file: constants.TEST_FILE_CONTENT,
                 modTime: new Date("2001-02-03T04:05:06.007Z").getTime(),
             },
@@ -70,7 +70,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "create file with Blob",
             payload: {
-                path: "/temp/convert/pandoc/test/test2.html",
+                path: "/temp/convert/test/test2.html",
                 file: new Blob([constants.TEST_FILE_CONTENT]),
             },
             debug: false,
@@ -78,7 +78,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "create file with File",
             payload: {
-                path: "/temp/convert/pandoc/test/test3.html",
+                path: "/temp/convert/test/test3.html",
                 file: new File([constants.TEST_FILE_CONTENT], "test3.html"),
             },
             debug: false,

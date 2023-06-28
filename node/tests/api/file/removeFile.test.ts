@@ -52,17 +52,17 @@ describe.concurrent(pathname, async () => {
             before: async () => {
                 /* 写入测试文件 */
                 await client.client.putFile({
-                    path: "/temp/convert/pandoc/test/remove-file/test.html",
+                    path: "/temp/convert/test/remove-file/test.html",
                     file: constants.TEST_FILE_CONTENT,
                 });
             },
             payload: {
-                path: "/temp/convert/pandoc/test/remove-file/test.html", // 移除文件测试
+                path: "/temp/convert/test/remove-file/test.html", // 移除文件测试
             },
             after: () => {
                 test("test the result of removing file", async () => {
                     await expect(client.client.getFile({
-                        path: "/temp/convert/pandoc/test/remove-file/test.html",
+                        path: "/temp/convert/test/remove-file/test.html",
                     })).resolves.toContain({ code: 404 });
                 });
             },
@@ -73,17 +73,17 @@ describe.concurrent(pathname, async () => {
             before: async () => {
                 /* 写入测试目录 */
                 await client.client.putFile({
-                    path: "/temp/convert/pandoc/test/remove-dir/",
+                    path: "/temp/convert/test/remove-dir/",
                     isDir: true,
                 });
             },
             payload: {
-                path: "/temp/convert/pandoc/test/remove-dir/", // 移除目录测试
+                path: "/temp/convert/test/remove-dir/", // 移除目录测试
             },
             after: () => {
                 test("test the result of removing directory", async () => {
                     await expect(client.client.readDir({
-                        path: "/temp/convert/pandoc/test/remove-dir/",
+                        path: "/temp/convert/test/remove-dir/",
                     })).rejects.toContain({ code: 404 });
                 });
             },

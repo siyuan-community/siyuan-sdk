@@ -10,19 +10,15 @@
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/template/renderSprig/response.schema.json5',
     $comment: 'v2.9.3',
-    $ref: '#/definitions/root',
-    definitions: {
+    $ref: '#/$defs/root',
+    $defs: {
         root: {
             title: 'response body',
             description: 'render Sprig template',
 
             type: 'object',
             additionalProperties: false,
-            required: [
-                'code',
-                'msg',
-                'data',
-            ],
+            required: ['code', 'msg', 'data'],
             properties: {
                 code: {
                     type: 'integer',

@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/template/renderSprig` | Add API `/api/template/renderSprig`
+- 添加 API `/api/template/render` | Add API `/api/template/render`
 
 ## v0.0.3 / 2023-06-29
 

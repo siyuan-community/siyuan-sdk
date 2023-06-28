@@ -32,6 +32,7 @@ import bootProgress from "@/types/kernel/api/system/bootProgress";
 import currentTime from "@/types/kernel/api/system/currentTime";
 import version from "@/types/kernel/api/system/version";
 
+import render from "@/types/kernel/api/template/render";
 import renderSprig from "@/types/kernel/api/template/renderSprig";
 
 import constants from "@/constants";
@@ -118,6 +119,7 @@ export class Client {
             getConf: { pathname: "/api/system/getConf", method: "POST" },
         },
         template: {
+            render: { pathname: "/api/template/render", method: "POST" },
             renderSprig: { pathname: "/api/template/renderSprig", method: "POST" },
         },
     } as const;
@@ -481,6 +483,20 @@ export class Client {
             undefined,
             config,
         ) as version.IResponse;
+        return response;
+    }
+
+    /* 渲染 kramdown 模板文件 */
+    public async render(
+        payload: render.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<render.IResponse> {
+        const response = await this._request(
+            Client.api.template.render.pathname,
+            Client.api.template.render.method,
+            payload,
+            config,
+        ) as render.IResponse;
         return response;
     }
 

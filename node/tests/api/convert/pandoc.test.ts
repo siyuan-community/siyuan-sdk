@@ -22,13 +22,14 @@ import {
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
+import constants from "~/tests/constants";
 
 import pandoc from "@/types/kernel/api/convert/pandoc";
 
 const pathname = client.Client.api.convert.pandoc.pathname;
 
 interface ICase {
-    dir?: string,
+    payload: pandoc.IPayload,
     debug: boolean,
 }
 
@@ -42,24 +43,39 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
-            dir: "test",
+            payload: {
+                dir: "test",
+                args: [
+                    "--to",
+                    "gfm-raw_html+tex_math_dollars+pipe_tables",
+                    "test.html",
+                    "-o",
+                    "test.md"
+                ],
+            },
             debug: false,
         },
         {
+            payload: {
+                args: [
+                    "-h",
+                ],
+            },
             debug: false,
         },
     ];
+
+    /* 写入测试文件 */
+    await client.client.putFile({
+        path: constants.TEST_FILE_PATH,
+        file: constants.TEST_FILE_CONTENT,
+    });
 
     cases.forEach(item => {
         testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
             name: "main",
             payload: {
-                data: {
-                    dir: item.dir,
-                    args: [
-                        "-h",
-                    ],
-                },
+                data: item.payload,
                 validate: validate_payload,
             },
             request: (payload) => client.client.pandoc(payload!),

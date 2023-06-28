@@ -19,6 +19,7 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 
 import exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
+import getFile from "@/types/kernel/api/file/getFile";
 import readDir from "@/types/kernel/api/file/readDir";
 
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
@@ -93,6 +94,7 @@ export class Client {
             exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
         },
         file: {
+            getFile: { pathname: "/api/file/getFile", method: "POST" },
             readDir: { pathname: "/api/file/readDir", method: "POST" },
         },
         notification: {
@@ -302,7 +304,19 @@ export class Client {
         return response;
     }
 
-    /* 导出指定文档块为 Markdown */
+    /* 获取文件 */
+    public async getFile(payload: getFile.IPayload, config?: axios.AxiosRequestConfig): Promise<unknown> {
+        const response = await this._request(
+            Client.api.file.getFile.pathname,
+            Client.api.file.getFile.method,
+            payload,
+            config,
+            false,
+        );
+        return response;
+    }
+
+    /* 获取文件目录下级内容 */
     public async readDir(payload: readDir.IPayload, config?: axios.AxiosRequestConfig): Promise<readDir.IResponse> {
         const response = await this._request(
             Client.api.file.readDir.pathname,
@@ -368,11 +382,12 @@ export class Client {
         return response;
     }
 
-    public async _request<P extends kernel.IPayload, R extends kernel.IResponse>(
+    public async _request<P extends kernel.IPayload, R>(
         pathname: string,
         method: string,
         payload?: P,
         config?: axios.AxiosRequestConfig,
+        normal: boolean = true,
     ): Promise<R> {
         try {
             const response = await this._axios.request<R>({
@@ -383,14 +398,11 @@ export class Client {
             });
 
             if (response.status === axios.HttpStatusCode.Ok) {
-                const body = response.data;
-
-                if (body.code === 0) { // 内核正常响应
-                    return body;
+                if (normal && typeof response.data === "object") {
+                    return this._parseResponse(response as axios.AxiosResponse<kernel.IResponse>) as R;
                 }
-                else { // 内核异常响应
-                    const error = new KernelError(body, response);
-                    throw error;
+                else {
+                    return response.data;
                 }
             }
 
@@ -399,6 +411,19 @@ export class Client {
                 throw error;
             }
         } catch (error) {
+            throw error;
+        }
+    }
+
+    /**
+     * 解析内核响应
+     */
+    public _parseResponse<T extends kernel.IResponse>(response: axios.AxiosResponse<T>): T {
+        if (response.data.code === 0) { // 内核正常响应
+            return response.data;
+        }
+        else { // 内核异常响应
+            const error = new KernelError(response.data, response);
             throw error;
         }
     }

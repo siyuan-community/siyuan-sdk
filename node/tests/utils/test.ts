@@ -44,16 +44,16 @@ expect.extend({
  * @param payload: 请求体对象
  * @param validate: ajv 校验函数
  */
-export function testKernelAPI<T, U extends IResponse>(options: {
+export function testKernelAPI<T, U>(options: {
     name: string,
     payload?: {
         data: T,
-        validate: ValidateFunction,
+        validate?: ValidateFunction,
         test?: (payload: T) => void | Promise<void>,
     },
     request: (payload?: T) => Promise<U>,
     response?: {
-        validate: ValidateFunction,
+        validate?: ValidateFunction,
         test?: (response: U) => void | Promise<void>,
     },
     debug?: boolean,
@@ -66,8 +66,10 @@ export function testKernelAPI<T, U extends IResponse>(options: {
                     console.debug("payload:", options.payload.data);
                 }
 
-                /* 校验请求体 */
-                testPayload(options.payload.data, options.payload.validate);
+                if (options.payload.validate) {
+                    /* 校验请求体 */
+                    testPayload(options.payload.data, options.payload.validate);
+                }
 
                 /* 其他测试 */
                 await options.payload.test?.(options.payload.data);
@@ -82,8 +84,10 @@ export function testKernelAPI<T, U extends IResponse>(options: {
                     console.debug("response:", response);
                 }
 
-                /* 校验响应体 */
-                testResponse(response, options.response.validate);
+                if (options.response.validate) {
+                    /* 校验响应体 */
+                    testResponse(response as IResponse, options.response.validate);
+                }
 
                 /* 其他测试 */
                 await options.response.test?.(response);
@@ -137,7 +141,7 @@ export async function testPromise<T>(
  * @param payload: 响应体对象
  * @param validate: ajv 校验函数
  */
-export function testResponse<T extends IResponse>(
+export function testResponse<T extends IResponse = IResponse>(
     response: T,
     validate: ValidateFunction,
 ) {

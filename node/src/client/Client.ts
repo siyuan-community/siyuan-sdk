@@ -20,6 +20,7 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 import exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
 import getFile from "@/types/kernel/api/file/getFile";
+import putFile from "@/types/kernel/api/file/putFile";
 import readDir from "@/types/kernel/api/file/readDir";
 
 import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
@@ -95,6 +96,7 @@ export class Client {
         },
         file: {
             getFile: { pathname: "/api/file/getFile", method: "POST" },
+            putFile: { pathname: "/api/file/putFile", method: "POST" },
             readDir: { pathname: "/api/file/readDir", method: "POST" },
         },
         notification: {
@@ -313,6 +315,42 @@ export class Client {
             config,
             false,
         );
+        return response;
+    }
+
+    /* 设置文件 */
+    public async putFile(payload: putFile.IPayload, config?: axios.AxiosRequestConfig): Promise<putFile.IResponse> {
+        /**
+         * 若文件不是 File 类型，则转换为 File 类型
+         * REF: https://developer.mozilla.org/zh-CN/docs/Web/API/File/File
+         */
+        if (payload.file !== undefined && !(payload.file instanceof File)) {
+            payload.file = new File(
+                [payload.file],
+                payload.path.split("/").pop()!,
+            );
+        }
+
+        // REF: https://axios-http.com/zh/docs/post_example
+        const formdata = new FormData();
+        for (const [key, value] of Object.entries(payload)) {
+            if (payload.hasOwnProperty(key)) {
+                if (value instanceof Blob) {
+                    formdata.append(key, value);
+                }
+                else {
+                    formdata.append(key, String(value));
+                }
+            }
+        }
+
+        const response = await this._request(
+            Client.api.file.putFile.pathname,
+            Client.api.file.putFile.method,
+            formdata,
+            config,
+            false,
+        ) as putFile.IResponse;
         return response;
     }
 

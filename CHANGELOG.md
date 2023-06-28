@@ -5,6 +5,7 @@
 - 添加 API `/api/file/readDir` | Add API `/api/file/readDir`
 - API `/api/convert/pandoc` 兼容思源版本 `v2.9.3` | API `/api/convert/pandoc` is compatible with SiYuan version `v2.9.3`
 - 添加 API `/api/file/getFile` | Add API `/api/file/getFile`
+- 添加 API `/api/file/putFile` | Add API `/api/file/putFile`
 
 ## v0.0.2 / 2023-06-26
 

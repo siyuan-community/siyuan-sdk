@@ -20,8 +20,8 @@
             required: ['path'],
             properties: {
                 path: {
-                    type: 'string',
                     // 相对于思源工作空间目录的文件/目录路径
+                    type: 'string',
                     description: 'file/directory path relative to the SiYuan workspace directory',
                 },
             },

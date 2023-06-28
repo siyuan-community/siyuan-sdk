@@ -20,6 +20,7 @@
             required: ["path"],
             properties: {
                 path: {
+                    // 工作空间路径下的文件路径
                     type: 'string',
                     description: 'the file path under the workspace path',
                 },

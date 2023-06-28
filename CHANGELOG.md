@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.0.4 / 2023-06-29
+
+- [v0.0.3 ... v0.0.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.3...v0.0.4)
 - 添加 API `/api/template/renderSprig` | Add API `/api/template/renderSprig`
 - 添加 API `/api/template/render` | Add API `/api/template/render`
 

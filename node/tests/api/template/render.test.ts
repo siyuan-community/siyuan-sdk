@@ -49,7 +49,7 @@ describe(pathname, async () => {
             test: async () => {
                 await client.client.putFile({
                     path: "/temp/convert/test/render/test.md",
-                    file: constants.TEST_TEMPLATE_CONTENT,
+                    file: `.action{now | date "2006-01-02 15:04:05.006"}`,
                 });
             },
         },
@@ -58,9 +58,13 @@ describe(pathname, async () => {
             validate: validate_response,
             test: response => {
                 test("test the result of rendering template file", () => {
-                    expect(response.data.path).toMatch(`${process.env.VITE_SIYUAN_WORKSPACE_PATH}/temp/convert/test/render/test.md`);
+                    expect(response.data.path)
+                        .toMatch(`${process.env.VITE_SIYUAN_WORKSPACE_PATH}/temp/convert/test/render/test.md`);
+                    expect(response.data.content)
+                        .toMatch(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}/);
                 });
             },
         },
+        debug: true,
     });
 });

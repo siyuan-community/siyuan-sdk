@@ -32,6 +32,8 @@ import bootProgress from "@/types/kernel/api/system/bootProgress";
 import currentTime from "@/types/kernel/api/system/currentTime";
 import version from "@/types/kernel/api/system/version";
 
+import renderSprig from "@/types/kernel/api/template/renderSprig";
+
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
 import { KernelError } from "@/errors/kernel";
@@ -114,6 +116,9 @@ export class Client {
 
             // TODO: refactor
             getConf: { pathname: "/api/system/getConf", method: "POST" },
+        },
+        template: {
+            renderSprig: { pathname: "/api/template/renderSprig", method: "POST" },
         },
     } as const;
 
@@ -289,7 +294,10 @@ export class Client {
     }
 
     /* 调用 pandoc 转换转换文件 */
-    public async pandoc(payload: pandoc.IPayload, config?: axios.AxiosRequestConfig): Promise<pandoc.IResponse> {
+    public async pandoc(
+        payload: pandoc.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<pandoc.IResponse> {
         const response = await this._request(
             Client.api.convert.pandoc.pathname,
             Client.api.convert.pandoc.method,
@@ -300,7 +308,10 @@ export class Client {
     }
 
     /* 导出指定文档块为 Markdown */
-    public async exportMdContent(payload: exportMdContent.IPayload, config?: axios.AxiosRequestConfig): Promise<exportMdContent.IResponse> {
+    public async exportMdContent(
+        payload: exportMdContent.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<exportMdContent.IResponse> {
         const response = await this._request(
             Client.api.export.exportMdContent.pathname,
             Client.api.export.exportMdContent.method,
@@ -311,7 +322,10 @@ export class Client {
     }
 
     /* 获取文件 */
-    public async getFile(payload: getFile.IPayload, config?: axios.AxiosRequestConfig): Promise<unknown> {
+    public async getFile(
+        payload: getFile.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<unknown> {
         const response = await this._request(
             Client.api.file.getFile.pathname,
             Client.api.file.getFile.method,
@@ -323,7 +337,10 @@ export class Client {
     }
 
     /* 设置文件 */
-    public async putFile(payload: putFile.IPayload, config?: axios.AxiosRequestConfig): Promise<putFile.IResponse> {
+    public async putFile(
+        payload: putFile.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<putFile.IResponse> {
         /**
          * 若文件不是 File 类型，则转换为 File 类型
          * REF: https://developer.mozilla.org/zh-CN/docs/Web/API/File/File
@@ -359,7 +376,10 @@ export class Client {
     }
 
     /* 获取文件目录下级内容 */
-    public async readDir(payload: readDir.IPayload, config?: axios.AxiosRequestConfig): Promise<readDir.IResponse> {
+    public async readDir(
+        payload: readDir.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<readDir.IResponse> {
         const response = await this._request(
             Client.api.file.readDir.pathname,
             Client.api.file.readDir.method,
@@ -370,7 +390,10 @@ export class Client {
     }
 
     /* 删除文件/目录 */
-    public async removeFile(payload: removeFile.IPayload, config?: axios.AxiosRequestConfig): Promise<removeFile.IResponse> {
+    public async removeFile(
+        payload: removeFile.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<removeFile.IResponse> {
         const response = await this._request(
             Client.api.file.removeFile.pathname,
             Client.api.file.removeFile.method,
@@ -381,7 +404,10 @@ export class Client {
     }
 
     /* 重命名/移动文件/目录 */
-    public async renameFile(payload: renameFile.IPayload, config?: axios.AxiosRequestConfig): Promise<renameFile.IResponse> {
+    public async renameFile(
+        payload: renameFile.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<renameFile.IResponse> {
         const response = await this._request(
             Client.api.file.renameFile.pathname,
             Client.api.file.renameFile.method,
@@ -392,7 +418,10 @@ export class Client {
     }
 
     /* 推送错误消息 */
-    public async pushErrMsg(payload: pushErrMsg.IPayload, config?: axios.AxiosRequestConfig): Promise<pushErrMsg.IResponse> {
+    public async pushErrMsg(
+        payload: pushErrMsg.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<pushErrMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushErrMsg.pathname,
             Client.api.notification.pushErrMsg.method,
@@ -403,7 +432,10 @@ export class Client {
     }
 
     /* 推送提示消息 */
-    public async pushMsg(payload: pushMsg.IPayload, config?: axios.AxiosRequestConfig): Promise<pushMsg.IResponse> {
+    public async pushMsg(
+        payload: pushMsg.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<pushMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushMsg.pathname,
             Client.api.notification.pushMsg.method,
@@ -414,7 +446,9 @@ export class Client {
     }
 
     /* 获取内核启动进度 */
-    public async bootProgress(config?: axios.AxiosRequestConfig): Promise<bootProgress.IResponse> {
+    public async bootProgress(
+        config?: axios.AxiosRequestConfig,
+    ): Promise<bootProgress.IResponse> {
         const response = await this._request(
             Client.api.system.bootProgress.pathname,
             Client.api.system.bootProgress.method,
@@ -425,7 +459,9 @@ export class Client {
     }
 
     /* 获得内核 Unix 时间戳 (单位: ms) */
-    public async currentTime(config?: axios.AxiosRequestConfig): Promise<currentTime.IResponse> {
+    public async currentTime(
+        config?: axios.AxiosRequestConfig,
+    ): Promise<currentTime.IResponse> {
         const response = await this._request(
             Client.api.system.currentTime.pathname,
             Client.api.system.currentTime.method,
@@ -436,13 +472,29 @@ export class Client {
     }
 
     /* 获得内核版本 */
-    public async version(config?: axios.AxiosRequestConfig): Promise<version.IResponse> {
+    public async version(
+        config?: axios.AxiosRequestConfig,
+    ): Promise<version.IResponse> {
         const response = await this._request(
             Client.api.system.version.pathname,
             Client.api.system.version.method,
             undefined,
             config,
         ) as version.IResponse;
+        return response;
+    }
+
+    /* 渲染 Sprig 模板 */
+    public async renderSprig(
+        payload: renderSprig.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<renderSprig.IResponse> {
+        const response = await this._request(
+            Client.api.template.renderSprig.pathname,
+            Client.api.template.renderSprig.method,
+            payload,
+            config,
+        ) as renderSprig.IResponse;
         return response;
     }
 

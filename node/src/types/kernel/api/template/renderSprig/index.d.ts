@@ -15,15 +15,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "dotenv/config";
-import { Client } from "@/client/Client";
-
-const client = new Client({
-    baseURL: process.env.VITE_SIYUAN_SERVE,
-    token: process.env.VITE_SIYUAN_TOKEN,
-});
-
-export default {
-    Client,
-    client,
-};
+export * from "./payload";
+export * from "./response";

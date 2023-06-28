@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/template/renderSprig/payload.schema.json",
+    "$comment": "v2.9.3",
+    "$ref": "#/definitions/root",
+    "definitions": {
+        "root": {
+            "title": "payload body",
+            "description": "render Sprig template",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "template"
+            ],
+            "properties": {
+                "template": {
+                    "type": "string",
+                    "description": "sprig template"
+                }
+            }
+        }
+    }
+}

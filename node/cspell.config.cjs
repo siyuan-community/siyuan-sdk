@@ -15,6 +15,7 @@ module.exports = {
         "enxa",
         "fcontent",
         "filetree",
+        "formdata",
         "iife",
         "katex",
         "nodelib",
@@ -35,5 +36,6 @@ module.exports = {
         "./dist/**",
         "./node_modules/**",
         "./temp/**",
+        "./tests/constants.ts",
     ],
 };

@@ -31,6 +31,8 @@ import removeFile from "@/types/kernel/api/file/removeFile";
 const pathname = client.Client.api.file.removeFile.pathname;
 
 interface ICase {
+    name: string,
+    before?: () => void,
     payload: removeFile.IPayload,
     after?: () => void,
     debug: boolean,
@@ -46,26 +48,42 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
+            name: "test remove file",
+            before: async () => {
+                /* 写入测试文件 */
+                await client.client.putFile({
+                    path: "/temp/convert/pandoc/test/remove-file/test.html",
+                    file: constants.TEST_FILE_CONTENT,
+                });
+            },
             payload: {
-                path: constants.TEST_FILE_PATH, // 移除文件测试
+                path: "/temp/convert/pandoc/test/remove-file/test.html", // 移除文件测试
             },
             after: () => {
                 test("test the result of removing file", async () => {
                     await expect(client.client.getFile({
-                        path: constants.TEST_FILE_PATH,
+                        path: "/temp/convert/pandoc/test/remove-file/test.html",
                     })).resolves.toContain({ code: 404 });
                 });
             },
             debug: false,
         },
         {
+            name: "test remove dir",
+            before: async () => {
+                /* 写入测试目录 */
+                await client.client.putFile({
+                    path: "/temp/convert/pandoc/test/remove-dir/",
+                    isDir: true,
+                });
+            },
             payload: {
-                path: constants.TEST_DIR_PATH, // 移除目录测试
+                path: "/temp/convert/pandoc/test/remove-dir/", // 移除目录测试
             },
             after: () => {
                 test("test the result of removing directory", async () => {
                     await expect(client.client.readDir({
-                        path: constants.TEST_DIR_PATH,
+                        path: "/temp/convert/pandoc/test/remove-dir/",
                     })).rejects.toContain({ code: 404 });
                 });
             },
@@ -73,18 +91,13 @@ describe.concurrent(pathname, async () => {
         },
     ];
 
-    /* 写入测试文件 */
-    await client.client.putFile({
-        path: constants.TEST_FILE_PATH,
-        file: constants.TEST_FILE_CONTENT,
-    });
-
     cases.forEach(item => {
         testKernelAPI<removeFile.IPayload, removeFile.IResponse>({
-            name: "main",
+            name: item.name,
             payload: {
                 data: item.payload,
                 validate: validate_payload,
+                test: item.before,
             },
             request: (payload) => client.client.removeFile(payload!),
             response: {

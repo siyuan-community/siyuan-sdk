@@ -9,6 +9,7 @@
 - 优化 API `/api/convert/pandoc` 测试 | Optimize API `/api/convert/pandoc` test
 - 添加 API `/api/file/removeFile` | Add API `/api/file/removeFile`
 - 添加 API `/api/file/renameFile` | Add API `/api/file/renameFile`
+- 优化 API `/api/file/*` 测试用例 | Optimize API `/api/file/*` test cases
 
 ## v0.0.2 / 2023-06-26
 

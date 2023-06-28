@@ -17,6 +17,8 @@
 
 import {
     describe,
+    test,
+    expect,
 } from "vitest";
 
 import client from "~/tests/utils/client";
@@ -29,7 +31,10 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 const pathname = client.Client.api.convert.pandoc.pathname;
 
 interface ICase {
+    name: string,
+    before?: () => void,
     payload: pandoc.IPayload,
+    after?: () => void,
     debug: boolean,
 }
 
@@ -43,8 +48,32 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
+            name: "test pandoc",
             payload: {
-                dir: "test",
+                args: [
+                    "-h",
+                ],
+            },
+            debug: false,
+        },
+        {
+            name: "test convert",
+            before: async () => {
+                try {
+                    /* 删除可能已存在的测试文件 */
+                    await client.client.removeFile({
+                        path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/`,
+                    });
+                } catch (error) { }
+
+                /* 写入测试文件 */
+                await client.client.putFile({
+                    path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.html`,
+                    file: constants.TEST_FILE_CONTENT,
+                });
+            },
+            payload: {
+                dir: "convert-test",
                 args: [
                     "--to",
                     "gfm-raw_html+tex_math_dollars+pipe_tables",
@@ -53,23 +82,16 @@ describe.concurrent(pathname, async () => {
                     "test.md"
                 ],
             },
-            debug: false,
-        },
-        {
-            payload: {
-                args: [
-                    "-h",
-                ],
+            after: async () => {
+                test("test the result of pandoc converting", async () => {
+                    await expect(client.client.getFile({
+                        path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.md`,
+                    })).resolves.toBeTypeOf("string");
+                });
             },
             debug: false,
         },
     ];
-
-    /* 写入测试文件 */
-    await client.client.putFile({
-        path: constants.TEST_FILE_PATH,
-        file: constants.TEST_FILE_CONTENT,
-    });
 
     cases.forEach(item => {
         testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
@@ -77,10 +99,12 @@ describe.concurrent(pathname, async () => {
             payload: {
                 data: item.payload,
                 validate: validate_payload,
+                test: item.before,
             },
             request: (payload) => client.client.pandoc(payload!),
             response: {
                 validate: validate_response,
+                test: item.after,
             },
             debug: item.debug,
         });

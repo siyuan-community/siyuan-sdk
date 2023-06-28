@@ -17,6 +17,8 @@
 
 import {
     describe,
+    test,
+    expect,
 } from "vitest";
 
 import client from "~/tests/utils/client";
@@ -29,6 +31,7 @@ import putFile from "@/types/kernel/api/file/putFile";
 const pathname = client.Client.api.file.putFile.pathname;
 
 interface ICase {
+    name: string,
     payload: putFile.IPayload,
     debug: boolean,
 }
@@ -40,6 +43,7 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
+            name: "create dir",
             payload: {
                 path: "/temp/convert/pandoc/test",
                 isDir: true,
@@ -47,6 +51,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "create file with string",
             payload: {
                 path: "/temp/convert/pandoc/test/test0.html",
                 file: constants.TEST_FILE_CONTENT,
@@ -54,6 +59,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "create file with custom modified time",
             payload: {
                 path: "/temp/convert/pandoc/test/test1.html",
                 file: constants.TEST_FILE_CONTENT,
@@ -62,6 +68,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "create file with Blob",
             payload: {
                 path: "/temp/convert/pandoc/test/test2.html",
                 file: new Blob([constants.TEST_FILE_CONTENT]),
@@ -69,9 +76,10 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "create file with File",
             payload: {
                 path: "/temp/convert/pandoc/test/test3.html",
-                file: new File([constants.TEST_FILE_CONTENT], "test4.html"),
+                file: new File([constants.TEST_FILE_CONTENT], "test3.html"),
             },
             debug: false,
         },
@@ -79,13 +87,35 @@ describe.concurrent(pathname, async () => {
 
     cases.forEach(item => {
         testKernelAPI<putFile.IPayload, putFile.IResponse>({
-            name: "main",
+            name: item.name,
             payload: {
                 data: item.payload,
             },
             request: (payload) => client.client.putFile(payload!),
             response: {
                 validate: validate_response,
+                test: async () => { 
+                    test("test the result of put file", async () => {
+                        if (item.payload.isDir) {
+                            /* 测试目录是否存在 */
+                            await expect(
+                                client.client.readDir({
+                                    path: item.payload.path,
+                                }),
+                                `dir path: ${item.payload.path}`,
+                            ).resolves.toContain({ code: 0 });
+                        }
+                        else {
+                            /* 测试文件是否存在 */
+                            await expect(
+                                client.client.getFile({
+                                    path: item.payload.path,
+                                }),
+                                `file path: ${item.payload.path}`,
+                            ).resolves.toEqual(constants.TEST_FILE_CONTENT);
+                        }
+                    });
+                },
             },
             debug: item.debug,
         });

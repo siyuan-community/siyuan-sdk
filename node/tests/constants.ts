@@ -16,9 +16,9 @@
  */
 
 export default {
-    /* 测试用文件 */
-    TEST_DIR_PATH: "/temp/convert/pandoc/test/",
-    TEST_FILE_PATH: "/temp/convert/pandoc/test/test.html",
+    /* pandoc 工作目录 */
+    PANDOC_CONVERT_DIR_PATH: "/temp/convert/pandoc", // pandoc 转换目录
+    /* 测试用文件内容 */
     TEST_FILE_CONTENT: `<html>
     <body>
         <h1 id="20230628203216-ppj7cyn" updated="20230628203216">一级标题</h1>

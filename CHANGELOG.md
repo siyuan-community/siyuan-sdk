@@ -11,6 +11,7 @@
 - 添加 API `/api/notebook/closeNotebook` | Add API `/api/notebook/closeNotebook`
 - 添加 API `/api/notebook/openNotebook` | Add API `/api/notebook/openNotebook`
 - 添加 API `/api/notebook/renameNotebook` | Add API `/api/notebook/renameNotebook`
+- 添加 API `/api/notebook/createNotebook` | Add API `/api/notebook/createNotebook`
 
 ## v0.0.4 / 2023-06-29
 

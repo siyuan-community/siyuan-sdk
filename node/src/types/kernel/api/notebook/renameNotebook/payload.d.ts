@@ -15,13 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as closeNotebook from "./closeNotebook";
-export * as getNotebookConf from "./getNotebookConf";
-export * as lsNotebooks from "./lsNotebooks";
-export * as openNotebook from "./openNotebook";
-export * as removeNotebook from "./removeNotebook";
-export * as renameNotebook from "./renameNotebook";
-
-/* flles */
+/**
+ * Open a notebook
+ */
+export interface IPayload {
+    /**
+     * notebook name
+     */
+    name: string;
+    /**
+     * notebook ID
+     */
+    notebook: string;
+}

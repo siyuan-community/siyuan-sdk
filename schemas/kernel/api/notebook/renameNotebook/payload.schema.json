@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/openNotebook/payload.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/renameNotebook/payload.schema.json",
     "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
@@ -10,13 +10,18 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "notebook"
+                "notebook",
+                "name"
             ],
             "properties": {
                 "notebook": {
                     "type": "string",
                     "description": "notebook ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "notebook name"
                 }
             }
         }

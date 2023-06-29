@@ -17,11 +17,7 @@
 
 
 /* directories */
-export * as closeNotebook from "./closeNotebook";
-export * as getNotebookConf from "./getNotebookConf";
-export * as lsNotebooks from "./lsNotebooks";
-export * as openNotebook from "./openNotebook";
-export * as removeNotebook from "./removeNotebook";
-export * as renameNotebook from "./renameNotebook";
 
 /* flles */
+export * from "./payload";
+export * from "./response";

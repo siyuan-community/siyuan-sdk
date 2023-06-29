@@ -80,6 +80,7 @@ export class Client {
             lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
             getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
             openNotebook: { pathname: "/api/notebook/openNotebook", method: "POST" },
+            renameNotebook: { pathname: "/api/notebook/renameNotebook", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -417,7 +418,7 @@ export class Client {
         return response;
     }
 
-    /* 关闭笔记本 */
+    /* 打开笔记本 */
     public async openNotebook(
         payload: kernel.api.notebook.openNotebook.IPayload,
         config?: axios.AxiosRequestConfig
@@ -428,6 +429,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.notebook.openNotebook.IResponse;
+        return response;
+    }
+
+    /* 重命名笔记本 */
+    public async renameNotebook(
+        payload: kernel.api.notebook.renameNotebook.IPayload,
+        config?: axios.AxiosRequestConfig
+    ): Promise<kernel.api.notebook.renameNotebook.IResponse> {
+        const response = await this._request(
+            Client.api.notebook.renameNotebook.pathname,
+            Client.api.notebook.renameNotebook.method,
+            payload,
+            config,
+        ) as kernel.api.notebook.renameNotebook.IResponse;
         return response;
     }
 

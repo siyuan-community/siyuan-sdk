@@ -46,6 +46,12 @@ describe(pathname, async () => {
                 name: new_notebook_name,
             },
             validate: validate_payload,
+            test: async (payload) => {
+                await client.client.renameNotebook({
+                    notebook: payload.notebook,
+                    name: "思源笔记用户指南",
+                });
+            },
         },
         request: (payload) => client.client.renameNotebook(payload!),
         response: {

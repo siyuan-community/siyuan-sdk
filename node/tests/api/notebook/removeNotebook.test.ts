@@ -25,9 +25,9 @@ import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import createNotebook from "@/types/kernel/api/notebook/createNotebook";
+import removeNotebook from "@/types/kernel/api/notebook/removeNotebook";
 
-const pathname = client.Client.api.notebook.createNotebook.pathname;
+const pathname = client.Client.api.notebook.removeNotebook.pathname;
 
 describe(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -37,28 +37,30 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    const notebook_name = "new notebook";
-    testKernelAPI<createNotebook.IPayload, createNotebook.IResponse>({
+    const notebook_name = "notebook will be remove";
+
+    testKernelAPI<removeNotebook.IPayload, removeNotebook.IResponse>({
         name: "main",
         payload: {
             data: {
-                name: notebook_name,
+                notebook: "", // 使用新创建的笔记本
             },
             validate: validate_payload,
+            test: async (payload) => {
+                const response = await client.client.createNotebook({
+                    name: notebook_name,
+                });
+                payload.notebook = response.data.notebook.id;
+            },
         },
-        request: (payload) => client.client.createNotebook(payload!),
+        request: (payload) => client.client.removeNotebook(payload!),
         response: {
             validate: validate_response,
-            test: async (response) => {
+            test: async (_response, payload) => {
                 test("test the result of creating a notebook", async () => {
-                    const res = await client.client.getNotebookConf({
-                        notebook: response.data.notebook.id,
-                    });
-                    expect(res.data.name).toEqual(notebook_name);
-                    expect(res.data.conf.name).toEqual(notebook_name);
-                    await client.client.removeNotebook({
-                        notebook: res.data.box,
-                    });
+                    await expect(client.client.getNotebookConf({
+                        notebook: payload!.notebook,
+                    })).rejects.toThrowError("502");
                 });
             },
         },

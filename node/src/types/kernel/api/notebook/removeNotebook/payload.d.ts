@@ -15,9 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-
-/* flles */
-export * from "./payload";
-export * from "./response";
+/**
+ * Remove a notebook
+ */
+export interface IPayload {
+    /**
+     * notebook ID
+     */
+    notebook: string;
+}

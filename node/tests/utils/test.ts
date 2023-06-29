@@ -54,7 +54,7 @@ export function testKernelAPI<T, U>(options: {
     request: (payload?: T) => Promise<U>,
     response?: {
         validate?: ValidateFunction,
-        test?: (response: U) => void,
+        test?: (response: U, payload?: T) => void,
     },
     debug?: boolean,
 }) {
@@ -62,6 +62,9 @@ export function testKernelAPI<T, U>(options: {
         try {
             /* 测试请求体 */
             if (options.payload) {
+                /* 其他测试 */
+                await options.payload.test?.(options.payload.data);
+
                 if (options.debug) {
                     console.debug("payload:", options.payload.data);
                 }
@@ -70,9 +73,6 @@ export function testKernelAPI<T, U>(options: {
                     /* 校验请求体 */
                     testPayload(options.payload.data, options.payload.validate);
                 }
-
-                /* 其他测试 */
-                await options.payload.test?.(options.payload.data);
             }
 
             /* 测试请求过程 */
@@ -90,7 +90,7 @@ export function testKernelAPI<T, U>(options: {
                 }
 
                 /* 其他测试 */
-                await options.response.test?.(response);
+                await options.response.test?.(response, options.payload?.data);
             }
         } catch (error) {
             if (options.debug) {

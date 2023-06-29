@@ -1,0 +1,115 @@
+/**
+ * schemas/kernel/api/notebook/getNotebookConf/response.schema.json5
+ * 获取笔记本配置信息
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#get-notebook-configuration
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/notebook.go#L222-L242
+ * @pathname: /api/notebook/getNotebookConf
+ * @version: 2.9.3
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/getNotebookConf/response.schema.json5',
+    $comment: 'v2.9.3',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'response body',
+            description: 'Get notebook configuration',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'notebook info',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['box', 'conf', 'name'],
+            properties: {
+                box: {
+                    type: 'string',
+                    description: 'notebook ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                conf: {
+                    $ref: '#/$defs/conf',
+                },
+                name: {
+                    type: 'string',
+                    description: 'notebook name',
+                },
+            },
+        },
+        conf: {
+            title: 'IConf',
+            description: 'notebook configuration',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['closed', 'dailyNoteSavePath', 'dailyNoteTemplatePath', 'docCreateSavePath', 'icon', 'name', 'refCreateSavePath', 'sort', 'sortMode'],
+            properties: {
+                name: {
+                    // 笔记本名称
+                    type: 'string',
+                    description: 'notebook name',
+                },
+                sort: {
+                    // 排序序号
+                    type: 'integer',
+                    description: 'sequence number',
+                    minimum: 0,
+                },
+                icon: {
+                    // 笔记本图标
+                    type: 'string',
+                    description: 'notebook icon',
+                },
+                closed: {
+                    // 笔记本是否关闭
+                    type: 'boolean',
+                    description: 'notebook open state',
+                },
+                refCreateSavePath: {
+                    // 块引新建文档存放位置
+                    type: 'string',
+                    description: 'Ref create doc save location',
+                },
+                docCreateSavePath: {
+                    // 新建文档存放位置
+                    type: 'string',
+                    description: 'New document save location',
+                },
+                dailyNoteSavePath: {
+                    // 新建日记时的存放路径
+                    type: 'string',
+                    description: 'the path of new daily note',
+                },
+                dailyNoteTemplatePath: {
+                    // 新建日记的模板位置
+                    type: 'string',
+                    description: 'the template file path of new daily note',
+                },
+                sortMode: {
+                    // 文档排序模式
+                    type: 'integer',
+                    minimum: 0,
+                },
+            },
+        },
+    },
+}

@@ -1,7 +1,8 @@
 /**
  * schemas/kernel/api/notebook/lsNotebooks/response.schema.json5
  * 列出所有笔记本
- * REF:
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#list-notebooks
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/notebook.go#L316-L344
  * @pathname: /api/notebook/lsNoteboks
  * @version: 2.9.3
  */
@@ -72,7 +73,6 @@
                     // 名称
                     type: 'string',
                     description: 'notebook name',
-                    minLength: 1,
                 },
                 icon: {
                     // 图标

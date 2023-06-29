@@ -54,11 +54,11 @@ export class Client {
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
-        
+
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-            
+
             // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
@@ -77,6 +77,7 @@ export class Client {
         },
         notebook: {
             lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
+            getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -373,8 +374,24 @@ export class Client {
         return response;
     }
 
+    /* 获取笔记本配置信息 */
+    public async getNotebookConf(
+        payload: kernel.api.notebook.getNotebookConf.IPayload,
+        config?: axios.AxiosRequestConfig
+    ): Promise<kernel.api.notebook.getNotebookConf.IResponse> {
+        const response = await this._request(
+            Client.api.notebook.getNotebookConf.pathname,
+            Client.api.notebook.getNotebookConf.method,
+            payload,
+            config,
+        ) as kernel.api.notebook.getNotebookConf.IResponse;
+        return response;
+    }
+
     /* 列出笔记本信息 */
-    public async lsNotebooks(config?: axios.AxiosRequestConfig): Promise<kernel.api.notebook.lsNotebooks.IResponse> {
+    public async lsNotebooks(
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.notebook.lsNotebooks.IResponse> {
         const response = await this._request(
             Client.api.notebook.lsNotebooks.pathname,
             Client.api.notebook.lsNotebooks.method,
@@ -413,7 +430,10 @@ export class Client {
     }
 
     /* SQL 查询 */
-    public async sql(payload: kernel.api.query.sql.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.query.sql.IResponse> {
+    public async sql(
+        payload: kernel.api.query.sql.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.query.sql.IResponse> {
         const response = await this._request(
             Client.api.query.sql.pathname,
             Client.api.query.sql.method,

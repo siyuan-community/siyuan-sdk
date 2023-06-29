@@ -74,8 +74,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "notebook name",
-                    "minLength": 1
+                    "description": "notebook name"
                 },
                 "icon": {
                     "type": "string",

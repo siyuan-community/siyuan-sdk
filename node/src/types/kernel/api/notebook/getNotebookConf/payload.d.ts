@@ -15,9 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as getNotebookConf from "./getNotebookConf";
-export * as lsNotebooks from "./lsNotebooks";
-
-/* flles */
+/**
+ * Get notebook configuration
+ */
+export interface IPayload {
+    /**
+     * notebook ID
+     */
+    notebook: string;
+}

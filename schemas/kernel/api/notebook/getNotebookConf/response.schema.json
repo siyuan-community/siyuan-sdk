@@ -1,0 +1,113 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/getNotebookConf/response.schema.json",
+    "$comment": "v2.9.3",
+    "$ref": "#/$defs/root",
+    "$defs": {
+        "root": {
+            "title": "response body",
+            "description": "Get notebook configuration",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "code",
+                "msg",
+                "data"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "description": "status code"
+                },
+                "msg": {
+                    "type": "string",
+                    "description": "status message"
+                },
+                "data": {
+                    "$ref": "#/$defs/data"
+                }
+            }
+        },
+        "data": {
+            "title": "IData",
+            "description": "notebook info",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "box",
+                "conf",
+                "name"
+            ],
+            "properties": {
+                "box": {
+                    "type": "string",
+                    "description": "notebook ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "conf": {
+                    "$ref": "#/$defs/conf"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "notebook name"
+                }
+            }
+        },
+        "conf": {
+            "title": "IConf",
+            "description": "notebook configuration",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "closed",
+                "dailyNoteSavePath",
+                "dailyNoteTemplatePath",
+                "docCreateSavePath",
+                "icon",
+                "name",
+                "refCreateSavePath",
+                "sort",
+                "sortMode"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "notebook name"
+                },
+                "sort": {
+                    "type": "integer",
+                    "description": "sequence number",
+                    "minimum": 0
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "notebook icon"
+                },
+                "closed": {
+                    "type": "boolean",
+                    "description": "notebook open state"
+                },
+                "refCreateSavePath": {
+                    "type": "string",
+                    "description": "Ref create doc save location"
+                },
+                "docCreateSavePath": {
+                    "type": "string",
+                    "description": "New document save location"
+                },
+                "dailyNoteSavePath": {
+                    "type": "string",
+                    "description": "the path of new daily note"
+                },
+                "dailyNoteTemplatePath": {
+                    "type": "string",
+                    "description": "the template file path of new daily note"
+                },
+                "sortMode": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        }
+    }
+}

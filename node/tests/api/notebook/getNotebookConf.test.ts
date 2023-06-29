@@ -35,17 +35,31 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
+    const notebook_name = "getNotebookConf"
     testKernelAPI<getNotebookConf.IPayload, getNotebookConf.IResponse>({
         name: "main",
         payload: {
             data: {
-                notebook: "20210808180117-czj9bvb", // 思源笔记用户指南
+                notebook: "", // 将使用新创建的笔记本的 ID
             },
             validate: validate_payload,
+            test: async (payload) => {
+                /* 新建一个笔记本以进行测试 */
+                const response = await client.client.createNotebook({
+                    name: notebook_name,
+                });
+                payload.notebook = response.data.notebook.id;
+            },
         },
         request: (payload) => client.client.getNotebookConf(payload!),
         response: {
             validate: validate_response,
+            test: async (_response, payload) => { 
+                /* 删除测试用的笔记本 */
+                await client.client.removeNotebook({
+                    notebook: payload!.notebook,
+                });
+            },
         },
     });
 });

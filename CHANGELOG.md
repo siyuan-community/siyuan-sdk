@@ -14,6 +14,7 @@
 - 添加 API `/api/notebook/createNotebook` | Add API `/api/notebook/createNotebook`
 - 添加 API `/api/notebook/removeNotebook` | Add API `/api/notebook/removeNotebook`
 - 添加 API `/api/notebook/setNotebookConf` | Add API `/api/notebook/setNotebookConf`
+- 优化 API `/api/notebook/*` 测试用例 | Optimize API `/api/notebook/*` test cases
 
 ## v0.0.4 / 2023-06-29
 

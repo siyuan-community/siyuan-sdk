@@ -37,7 +37,7 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    const notebook_name = "new notebook";
+    const notebook_name = "createNotebook";
     testKernelAPI<createNotebook.IPayload, createNotebook.IResponse>({
         name: "main",
         payload: {
@@ -56,6 +56,8 @@ describe(pathname, async () => {
                     });
                     expect(res.data.name).toEqual(notebook_name);
                     expect(res.data.conf.name).toEqual(notebook_name);
+
+                    /* 删除测试用的笔记本 */
                     await client.client.removeNotebook({
                         notebook: res.data.box,
                     });

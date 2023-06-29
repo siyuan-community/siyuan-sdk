@@ -43,10 +43,11 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                notebook: "", // 使用新创建的笔记本
+                notebook: "", // 将使用新创建的笔记本的 ID
             },
             validate: validate_payload,
             test: async (payload) => {
+                /* 新建一个笔记本以进行测试 */
                 const response = await client.client.createNotebook({
                     name: notebook_name,
                 });
@@ -57,7 +58,7 @@ describe(pathname, async () => {
         response: {
             validate: validate_response,
             test: async (_response, payload) => {
-                test("test the result of creating a notebook", async () => {
+                test("test the result of removing a notebook", async () => {
                     await expect(client.client.getNotebookConf({
                         notebook: payload!.notebook,
                     })).rejects.toThrowError("502");

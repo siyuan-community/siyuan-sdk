@@ -37,32 +37,39 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    const new_notebook_name = globalThis.crypto.randomUUID();
+    const notebook_name = "renameNotebook";
+    const notebook_name_new = globalThis.crypto.randomUUID();
     testKernelAPI<renameNotebook.IPayload, renameNotebook.IResponse>({
         name: "main",
         payload: {
             data: {
-                notebook: "20210808180117-czj9bvb", // 思源笔记用户指南
-                name: new_notebook_name,
+                notebook: "", // 将使用新创建的笔记本的 ID
+                name: notebook_name_new,
             },
             validate: validate_payload,
             test: async (payload) => {
-                await client.client.renameNotebook({
-                    notebook: payload.notebook,
-                    name: "思源笔记用户指南",
+                /* 新建一个笔记本以进行测试 */
+                const response = await client.client.createNotebook({
+                    name: notebook_name,
                 });
+                payload.notebook = response.data.notebook.id;
             },
         },
         request: (payload) => client.client.renameNotebook(payload!),
         response: {
             validate: validate_response,
-            test: async () => {
-                test("test the status of notebook", async () => {
+            test: async (_response, payload) => {
+                test("test the result of renaming a notebook", async () => {
                     const response = await client.client.getNotebookConf({
-                        notebook: "20210808180117-czj9bvb",
+                        notebook: payload!.notebook,
                     });
-                    expect(response.data.name).toEqual(new_notebook_name);
-                    expect(response.data.conf.name).toEqual(new_notebook_name);
+                    expect(response.data.name).toEqual(notebook_name_new);
+                    expect(response.data.conf.name).toEqual(notebook_name_new);
+
+                    /* 删除测试用的笔记本 */
+                    await client.client.removeNotebook({
+                        notebook: payload!.notebook,
+                    });
                 });
             },
         },

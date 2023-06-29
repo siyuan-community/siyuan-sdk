@@ -37,27 +37,35 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
+    const notebook_name = "closeNotebook"
     testKernelAPI<closeNotebook.IPayload, closeNotebook.IResponse>({
         name: "main",
         payload: {
             data: {
-                notebook: "20210808180117-6v0mkxr", // SiYuan User Guide
+                notebook: "", // 将使用新创建的笔记本的 ID
             },
             validate: validate_payload,
-            test: async () => {
-                await client.client.openNotebook({
-                    notebook: "20210808180117-6v0mkxr",
+            test: async (payload) => {
+                /* 新建一个笔记本以进行测试 */
+                const response = await client.client.createNotebook({
+                    name: notebook_name,
                 });
+                payload.notebook = response.data.notebook.id;
             }
         },
         request: (payload) => client.client.closeNotebook(payload!),
         response: {
             validate: validate_response,
-            test: async () => {
+            test: async (_response, payload) => {
                 test("test the status of notebook", async () => {
                     await expect(client.client.getNotebookConf({
-                        notebook: "20210808180117-6v0mkxr",
+                        notebook: payload!.notebook,
                     })).rejects.toThrowError("502");
+
+                    /* 删除测试用的笔记本 */
+                    await client.client.removeNotebook({
+                        notebook: payload!.notebook,
+                    });
                 });
             },
         },

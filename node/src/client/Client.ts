@@ -76,6 +76,7 @@ export class Client {
             renameFile: { pathname: "/api/file/renameFile", method: "POST" },
         },
         notebook: {
+            closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
             lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
             getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
         },
@@ -371,6 +372,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.file.renameFile.IResponse;
+        return response;
+    }
+
+    /* 关闭笔记本 */
+    public async closeNotebook(
+        payload: kernel.api.notebook.closeNotebook.IPayload,
+        config?: axios.AxiosRequestConfig
+    ): Promise<kernel.api.notebook.closeNotebook.IResponse> {
+        const response = await this._request(
+            Client.api.notebook.closeNotebook.pathname,
+            Client.api.notebook.closeNotebook.method,
+            payload,
+            config,
+        ) as kernel.api.notebook.closeNotebook.IResponse;
         return response;
     }
 

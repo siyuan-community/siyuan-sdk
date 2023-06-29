@@ -8,6 +8,7 @@
 - 添加 API `/api/attr/setBlockAttrs` | Add API `/api/attr/setBlockAttrs`
 - 添加 API `/api/notebook/lsNotebooks` | Add API `/api/notebook/lsNotebooks`
 - 添加 API `/api/notebook/getNotebookConf` | Add API `/api/notebook/getNotebookConf`
+- 添加 API `/api/notebook/closeNotebook` | Add API `/api/notebook/closeNotebook`
 
 ## v0.0.4 / 2023-06-29
 

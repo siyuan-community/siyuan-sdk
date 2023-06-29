@@ -22,7 +22,7 @@ import {
 } from "vitest";
 import { ValidateFunction } from "ajv";
 
-import { IResponse } from "~/src/types/kernel";
+import { IResponse } from "~/src/types/kernel/kernel";
 
 /**
  * 添加额外的断言
@@ -49,12 +49,12 @@ export function testKernelAPI<T, U>(options: {
     payload?: {
         data: T,
         validate?: ValidateFunction,
-        test?: (payload: T) => void | Promise<void>,
+        test?: (payload: T) => void,
     },
     request: (payload?: T) => Promise<U>,
     response?: {
         validate?: ValidateFunction,
-        test?: (response: U) => void | Promise<void>,
+        test?: (response: U) => void,
     },
     debug?: boolean,
 }) {

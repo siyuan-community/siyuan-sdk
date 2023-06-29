@@ -3,6 +3,7 @@
 - 修复构建时类型导出问题 | Fix the issue of type exporting problem when building
 - 优化开发模式脚本 | Optimize development mode script
 - 添加 API `/api/query/sql` | Add API `/api/query/sql`
+- 添加 API `/api/query/sql` 测试文件 | Add API `/api/query/sql` test file
 
 ## v0.0.4 / 2023-06-29
 

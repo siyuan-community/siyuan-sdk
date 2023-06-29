@@ -13,7 +13,6 @@ import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
 import renameDoc from "@/types/kernel/api/filetree/renameDoc";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
-import sql from "@/types/kernel/api/query/sql";
 
 import { kernel } from "@/types";
 
@@ -60,9 +59,6 @@ export class Client {
         notebook: {
             lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
         },
-        query: {
-            sql: { pathname: "/api/query/sql", method: "POST" },
-        },
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
         },
@@ -86,6 +82,9 @@ export class Client {
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
             pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
+        },
+        query: {
+            sql: { pathname: "/api/query/sql", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -225,17 +224,6 @@ export class Client {
             undefined,
             config,
         ) as lsNotebooks.IResponse;
-        return response;
-    }
-
-    /* SQL 查询 */
-    public async sql(payload: sql.IPayload, config?: axios.AxiosRequestConfig): Promise<sql.IResponse> {
-        const response = await this._request(
-            Client.api.query.sql.pathname,
-            Client.api.query.sql.method,
-            payload,
-            config,
-        ) as sql.IResponse;
         return response;
     }
 
@@ -421,6 +409,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.notification.pushMsg.IResponse;
+        return response;
+    }
+
+    /* SQL 查询 */
+    public async sql(payload: kernel.api.query.sql.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.query.sql.IResponse> {
+        const response = await this._request(
+            Client.api.query.sql.pathname,
+            Client.api.query.sql.method,
+            payload,
+            config,
+        ) as kernel.api.query.sql.IResponse;
         return response;
     }
 

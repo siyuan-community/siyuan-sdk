@@ -17,7 +17,8 @@
 
 
 /* directories */
-export * as pushErrMsg from "./pushErrMsg";
-export * as pushMsg from "./pushMsg";
 
 /* flles */
+export * as listDocsByPath from "./listDocsByPath";
+export * as renameDoc from "./renameDoc";
+export * as searchDocs from "./searchDocs";

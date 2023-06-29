@@ -15,9 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* 请求体 */
+export interface IPayload extends object {
 
-/* directories */
-export * as pushErrMsg from "./pushErrMsg";
-export * as pushMsg from "./pushMsg";
+}
 
-/* flles */
+/* 响应体 */
+export interface IResponse {
+    code: number;
+    msg: string;
+    data: object | string | number | boolean | null | any[];
+}

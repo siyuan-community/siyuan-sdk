@@ -15,8 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/* directories */
 export * as getFile from "./getFile";
 export * as putFile from "./putFile";
 export * as readDir from "./readDir";
 export * as removeFile from "./removeFile";
 export * as renameFile from "./renameFile";
+
+/* flles */

@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/* directories */
 export * as attr from "./attr";
 export * as block from "./block";
 export * as convert from "./convert";
@@ -28,3 +30,5 @@ export * as search from "./search";
 export * as storage from "./storage";
 export * as system from "./system";
 export * as template from "./template";
+
+/* flles */

@@ -17,7 +17,8 @@
 
 
 /* directories */
-export * as pushErrMsg from "./pushErrMsg";
-export * as pushMsg from "./pushMsg";
 
 /* flles */
+export * as getBlockAttrs from "./getBlockAttrs";
+export * as getBookmarkLabels from "./getBookmarkLabels";
+export * as setBlockAttrs from "./setBlockAttrs";

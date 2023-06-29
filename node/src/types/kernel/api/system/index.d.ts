@@ -15,6 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/* directories */
 export * as bootProgress from "./bootProgress";
 export * as currentTime from "./currentTime";
 export * as version from "./version";
+
+/* flles */
+export * as getConf from "./getConf";

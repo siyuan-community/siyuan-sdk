@@ -16,7 +16,6 @@ import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 import sql from "@/types/kernel/api/query/sql";
 
 import { kernel } from "@/types";
-import { api } from "@/types/kernel";
 
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
@@ -112,7 +111,7 @@ export class Client {
         },
     });
 
-    constructor(options: IOptions) {
+    constructor(options: IOptions = {}) {
         this.updateOptions(options);
     }
 
@@ -275,35 +274,35 @@ export class Client {
 
     /* 调用 pandoc 转换转换文件 */
     public async pandoc(
-        payload: api.convert.pandoc.IPayload,
+        payload: kernel.api.convert.pandoc.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.convert.pandoc.IResponse> {
+    ): Promise<kernel.api.convert.pandoc.IResponse> {
         const response = await this._request(
             Client.api.convert.pandoc.pathname,
             Client.api.convert.pandoc.method,
             payload,
             config,
-        ) as api.convert.pandoc.IResponse;
+        ) as kernel.api.convert.pandoc.IResponse;
         return response;
     }
 
     /* 导出指定文档块为 Markdown */
     public async exportMdContent(
-        payload: api.export.exportMdContent.IPayload,
+        payload: kernel.api.export.exportMdContent.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.export.exportMdContent.IResponse> {
+    ): Promise<kernel.api.export.exportMdContent.IResponse> {
         const response = await this._request(
             Client.api.export.exportMdContent.pathname,
             Client.api.export.exportMdContent.method,
             payload,
             config,
-        ) as api.export.exportMdContent.IResponse;
+        ) as kernel.api.export.exportMdContent.IResponse;
         return response;
     }
 
     /* 获取文件 */
     public async getFile(
-        payload: api.file.getFile.IPayload,
+        payload: kernel.api.file.getFile.IPayload,
         config?: axios.AxiosRequestConfig,
     ): Promise<unknown> {
         const response = await this._request(
@@ -318,9 +317,9 @@ export class Client {
 
     /* 设置文件 */
     public async putFile(
-        payload: api.file.putFile.IPayload,
+        payload: kernel.api.file.putFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.file.putFile.IResponse> {
+    ): Promise<kernel.api.file.putFile.IResponse> {
         /**
          * 若文件不是 File 类型，则转换为 File 类型
          * REF: https://developer.mozilla.org/zh-CN/docs/Web/API/File/File
@@ -351,148 +350,148 @@ export class Client {
             formdata,
             config,
             false,
-        ) as api.file.putFile.IResponse;
+        ) as kernel.api.file.putFile.IResponse;
         return response;
     }
 
     /* 获取文件目录下级内容 */
     public async readDir(
-        payload: api.file.readDir.IPayload,
+        payload: kernel.api.file.readDir.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.file.readDir.IResponse> {
+    ): Promise<kernel.api.file.readDir.IResponse> {
         const response = await this._request(
             Client.api.file.readDir.pathname,
             Client.api.file.readDir.method,
             payload,
             config,
-        ) as api.file.readDir.IResponse;
+        ) as kernel.api.file.readDir.IResponse;
         return response;
     }
 
     /* 删除文件/目录 */
     public async removeFile(
-        payload: api.file.removeFile.IPayload,
+        payload: kernel.api.file.removeFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.file.removeFile.IResponse> {
+    ): Promise<kernel.api.file.removeFile.IResponse> {
         const response = await this._request(
             Client.api.file.removeFile.pathname,
             Client.api.file.removeFile.method,
             payload,
             config,
-        ) as api.file.removeFile.IResponse;
+        ) as kernel.api.file.removeFile.IResponse;
         return response;
     }
 
     /* 重命名/移动文件/目录 */
     public async renameFile(
-        payload: api.file.renameFile.IPayload,
+        payload: kernel.api.file.renameFile.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.file.renameFile.IResponse> {
+    ): Promise<kernel.api.file.renameFile.IResponse> {
         const response = await this._request(
             Client.api.file.renameFile.pathname,
             Client.api.file.renameFile.method,
             payload,
             config,
-        ) as api.file.renameFile.IResponse;
+        ) as kernel.api.file.renameFile.IResponse;
         return response;
     }
 
     /* 推送错误消息 */
     public async pushErrMsg(
-        payload: api.notification.pushErrMsg.IPayload,
+        payload: kernel.api.notification.pushErrMsg.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.notification.pushErrMsg.IResponse> {
+    ): Promise<kernel.api.notification.pushErrMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushErrMsg.pathname,
             Client.api.notification.pushErrMsg.method,
             payload,
             config,
-        ) as api.notification.pushErrMsg.IResponse;
+        ) as kernel.api.notification.pushErrMsg.IResponse;
         return response;
     }
 
     /* 推送提示消息 */
     public async pushMsg(
-        payload: api.notification.pushMsg.IPayload,
+        payload: kernel.api.notification.pushMsg.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.notification.pushMsg.IResponse> {
+    ): Promise<kernel.api.notification.pushMsg.IResponse> {
         const response = await this._request(
             Client.api.notification.pushMsg.pathname,
             Client.api.notification.pushMsg.method,
             payload,
             config,
-        ) as api.notification.pushMsg.IResponse;
+        ) as kernel.api.notification.pushMsg.IResponse;
         return response;
     }
 
     /* 获取内核启动进度 */
     public async bootProgress(
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.system.bootProgress.IResponse> {
+    ): Promise<kernel.api.system.bootProgress.IResponse> {
         const response = await this._request(
             Client.api.system.bootProgress.pathname,
             Client.api.system.bootProgress.method,
             undefined,
             config,
-        ) as api.system.bootProgress.IResponse;
+        ) as kernel.api.system.bootProgress.IResponse;
         return response;
     }
 
     /* 获得内核 Unix 时间戳 (单位: ms) */
     public async currentTime(
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.system.currentTime.IResponse> {
+    ): Promise<kernel.api.system.currentTime.IResponse> {
         const response = await this._request(
             Client.api.system.currentTime.pathname,
             Client.api.system.currentTime.method,
             undefined,
             config,
-        ) as api.system.currentTime.IResponse;
+        ) as kernel.api.system.currentTime.IResponse;
         return response;
     }
 
     /* 获得内核版本 */
     public async version(
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.system.version.IResponse> {
+    ): Promise<kernel.api.system.version.IResponse> {
         const response = await this._request(
             Client.api.system.version.pathname,
             Client.api.system.version.method,
             undefined,
             config,
-        ) as api.system.version.IResponse;
+        ) as kernel.api.system.version.IResponse;
         return response;
     }
 
     /* 渲染 kramdown 模板文件 */
     public async render(
-        payload: api.template.render.IPayload,
+        payload: kernel.api.template.render.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.template.render.IResponse> {
+    ): Promise<kernel.api.template.render.IResponse> {
         const response = await this._request(
             Client.api.template.render.pathname,
             Client.api.template.render.method,
             payload,
             config,
-        ) as api.template.render.IResponse;
+        ) as kernel.api.template.render.IResponse;
         return response;
     }
 
     /* 渲染 Sprig 模板 */
     public async renderSprig(
-        payload: api.template.renderSprig.IPayload,
+        payload: kernel.api.template.renderSprig.IPayload,
         config?: axios.AxiosRequestConfig,
-    ): Promise<api.template.renderSprig.IResponse> {
+    ): Promise<kernel.api.template.renderSprig.IResponse> {
         const response = await this._request(
             Client.api.template.renderSprig.pathname,
             Client.api.template.renderSprig.method,
             payload,
             config,
-        ) as api.template.renderSprig.IResponse;
+        ) as kernel.api.template.renderSprig.IResponse;
         return response;
     }
 
-    public async _request<P extends kernel.IPayload, R>(
+    public async _request<P extends kernel.kernel.IPayload, R>(
         pathname: string,
         method: string,
         payload?: P,
@@ -509,7 +508,7 @@ export class Client {
 
             if (response.status === axios.HttpStatusCode.Ok) {
                 if (normal && typeof response.data === "object") {
-                    return this._parseResponse(response as axios.AxiosResponse<kernel.IResponse>) as R;
+                    return this._parseResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
                 }
                 else {
                     return response.data;
@@ -528,7 +527,7 @@ export class Client {
     /**
      * 解析内核响应
      */
-    public _parseResponse<T extends kernel.IResponse>(response: axios.AxiosResponse<T>): T {
+    public _parseResponse<T extends kernel.kernel.IResponse>(response: axios.AxiosResponse<T>): T {
         if (response.data.code === 0) { // 内核正常响应
             return response.data;
         }

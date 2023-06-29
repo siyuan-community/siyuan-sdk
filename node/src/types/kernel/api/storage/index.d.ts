@@ -17,7 +17,6 @@
 
 
 /* directories */
-export * as pushErrMsg from "./pushErrMsg";
-export * as pushMsg from "./pushMsg";
 
 /* flles */
+export * as getRecentDocs from "./getRecentDocs";

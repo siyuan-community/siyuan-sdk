@@ -17,7 +17,7 @@
 
 
 /* directories */
-export * as pushErrMsg from "./pushErrMsg";
-export * as pushMsg from "./pushMsg";
 
 /* flles */
+export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
+export * as getDocInfo from "./getDocInfo";

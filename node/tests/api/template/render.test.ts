@@ -24,7 +24,6 @@ import {
 import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
-import constants from "~/tests/constants";
 
 import render from "@/types/kernel/api/template/render";
 
@@ -65,6 +64,6 @@ describe(pathname, async () => {
                 });
             },
         },
-        debug: true,
+        debug: false,
     });
 });

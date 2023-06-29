@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 修复构建时类型导出问题 | Fix the issue of type exporting problem when building
+- 优化开发模式脚本 | Optimize development mode script
 
 ## v0.0.4 / 2023-06-29
 

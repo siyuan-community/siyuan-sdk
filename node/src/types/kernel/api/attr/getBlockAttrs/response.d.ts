@@ -42,5 +42,5 @@ export interface IData {
      * block last updated file
      */
     updated?: string;
-    [property: string]: any;
+    [property: string]: string;
 }

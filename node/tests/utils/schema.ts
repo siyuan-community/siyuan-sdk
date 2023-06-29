@@ -17,7 +17,7 @@
 
 import { resolve } from "path";
 
-import Ajv2020, { Schema, ValidateFunction } from "ajv/dist/2020";
+import Ajv2020, { Schema, ValidateFunction, Options } from "ajv/dist/2020";
 
 import constants from "@/constants";
 import { loadJSON5 } from "./json5";
@@ -49,8 +49,9 @@ export class SchemaJSON {
 
     constructor(
         public filepath: string,
+        options?: Options,
     ) {
-        this._ajv = new Ajv2020();
+        this._ajv = new Ajv2020(options);
     }
 
     public updateSchema(schema: Schema): void {

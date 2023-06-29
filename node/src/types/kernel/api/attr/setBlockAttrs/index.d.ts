@@ -17,8 +17,7 @@
 
 
 /* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-export * as setBlockAttrs from "./setBlockAttrs";
 
 /* flles */
-export * as getBookmarkLabels from "./getBookmarkLabels";
+export * from "./payload";
+export * from "./response";

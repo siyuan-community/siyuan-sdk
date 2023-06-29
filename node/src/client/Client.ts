@@ -11,7 +11,6 @@ import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
 import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
 import renameDoc from "@/types/kernel/api/filetree/renameDoc";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
-import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 
 import { kernel } from "@/types";
 
@@ -62,10 +61,10 @@ export class Client {
         
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
+            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
 
             // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
-            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
         },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
@@ -137,17 +136,6 @@ export class Client {
             undefined,
             config,
         ) as getBookmarkLabels.IResponse;
-        return response;
-    }
-
-    /* 设置块属性 */
-    public async setBlockAttrs(payload: setBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<setBlockAttrs.IResponse> {
-        const response = await this._request(
-            Client.api.attr.setBlockAttrs.pathname,
-            Client.api.attr.setBlockAttrs.method,
-            payload,
-            config,
-        ) as setBlockAttrs.IResponse;
         return response;
     }
 
@@ -259,6 +247,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.attr.getBlockAttrs.IResponse;
+        return response;
+    }
+
+    /* 设置块属性 */
+    public async setBlockAttrs(payload: kernel.api.attr.setBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.attr.setBlockAttrs.IResponse> {
+        const response = await this._request(
+            Client.api.attr.setBlockAttrs.pathname,
+            Client.api.attr.setBlockAttrs.method,
+            payload,
+            config,
+        ) as kernel.api.attr.setBlockAttrs.IResponse;
         return response;
     }
 

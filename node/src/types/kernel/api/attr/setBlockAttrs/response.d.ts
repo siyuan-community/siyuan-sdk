@@ -15,10 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-export * as setBlockAttrs from "./setBlockAttrs";
-
-/* flles */
-export * as getBookmarkLabels from "./getBookmarkLabels";
+/**
+ * Set block attributes
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: null;
+    /**
+     * status message
+     */
+    msg: string;
+}

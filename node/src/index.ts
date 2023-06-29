@@ -18,5 +18,6 @@
 export type * as types from "./types";
 
 export * from "./client/Client";
+export * from "./errors";
 export * as siyuan from "./utils/siyuan";
 export { default as CONSTANTS } from "./constants";

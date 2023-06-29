@@ -18,7 +18,7 @@
 
 /* directories */
 
-/* flles */
+/* files */
 export * as listDocsByPath from "./listDocsByPath";
 export * as renameDoc from "./renameDoc";
 export * as searchDocs from "./searchDocs";

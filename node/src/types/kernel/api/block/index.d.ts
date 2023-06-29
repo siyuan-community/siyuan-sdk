@@ -18,6 +18,6 @@
 
 /* directories */
 
-/* flles */
+/* files */
 export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
 export * as getDocInfo from "./getDocInfo";

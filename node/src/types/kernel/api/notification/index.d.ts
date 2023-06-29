@@ -20,4 +20,4 @@
 export * as pushErrMsg from "./pushErrMsg";
 export * as pushMsg from "./pushMsg";
 
-/* flles */
+/* files */

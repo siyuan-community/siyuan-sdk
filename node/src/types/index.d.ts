@@ -19,4 +19,4 @@
 /* directories */
 export * as kernel from "./kernel";
 
-/* flles */
+/* files */

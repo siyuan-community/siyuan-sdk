@@ -18,5 +18,5 @@
 
 /* directories */
 
-/* flles */
+/* files */
 export * as getRecentDocs from "./getRecentDocs";

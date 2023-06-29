@@ -26,4 +26,4 @@ export * as removeNotebook from "./removeNotebook";
 export * as renameNotebook from "./renameNotebook";
 export * as setNotebookConf from "./setNotebookConf";
 
-/* flles */
+/* files */

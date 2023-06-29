@@ -18,6 +18,6 @@
 
 /* directories */
 
-/* flles */
+/* files */
 export * from "./payload";
 export * from "./response";

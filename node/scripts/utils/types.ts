@@ -42,7 +42,7 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
     });
 
     /* 导出文件的类型定义 */
-    ts.push(`\n/* flles */`)
+    ts.push(`\n/* files */`)
     files.forEach(file => {
         const name = file.name.split(".").shift()!;
         switch (name) {

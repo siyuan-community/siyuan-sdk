@@ -20,5 +20,5 @@
 export * as getBlockAttrs from "./getBlockAttrs";
 export * as setBlockAttrs from "./setBlockAttrs";
 
-/* flles */
+/* files */
 export * as getBookmarkLabels from "./getBookmarkLabels";

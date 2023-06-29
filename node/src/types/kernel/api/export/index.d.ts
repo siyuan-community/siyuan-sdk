@@ -19,4 +19,4 @@
 /* directories */
 export * as exportMdContent from "./exportMdContent";
 
-/* flles */
+/* files */

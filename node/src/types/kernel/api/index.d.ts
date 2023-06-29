@@ -31,4 +31,4 @@ export * as storage from "./storage";
 export * as system from "./system";
 export * as template from "./template";
 
-/* flles */
+/* files */

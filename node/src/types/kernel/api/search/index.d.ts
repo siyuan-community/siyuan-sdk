@@ -18,5 +18,5 @@
 
 /* directories */
 
-/* flles */
+/* files */
 export * as fullTextSearchBlock from "./fullTextSearchBlock";

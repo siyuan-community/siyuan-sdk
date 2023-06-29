@@ -20,4 +20,4 @@
 export * as render from "./render";
 export * as renderSprig from "./renderSprig";
 
-/* flles */
+/* files */

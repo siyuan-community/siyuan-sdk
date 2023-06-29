@@ -19,4 +19,4 @@
 /* directories */
 export * as pandoc from "./pandoc";
 
-/* flles */
+/* files */

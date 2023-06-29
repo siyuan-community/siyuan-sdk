@@ -21,5 +21,5 @@ export * as bootProgress from "./bootProgress";
 export * as currentTime from "./currentTime";
 export * as version from "./version";
 
-/* flles */
+/* files */
 export * as getConf from "./getConf";

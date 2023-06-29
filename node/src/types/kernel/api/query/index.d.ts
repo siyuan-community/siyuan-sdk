@@ -19,4 +19,4 @@
 /* directories */
 export * as sql from "./sql";
 
-/* flles */
+/* files */

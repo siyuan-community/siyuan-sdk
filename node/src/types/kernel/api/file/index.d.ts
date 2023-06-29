@@ -23,4 +23,4 @@ export * as readDir from "./readDir";
 export * as removeFile from "./removeFile";
 export * as renameFile from "./renameFile";
 
-/* flles */
+/* files */

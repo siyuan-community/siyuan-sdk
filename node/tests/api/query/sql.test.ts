@@ -78,7 +78,7 @@ function verifyRecords<T>(
 /**
  * 构造表测试用例
  */
-function buildTabelFieldsTestCase(
+function buildTableFieldsTestCase(
     tableName: string, // 表名
     fields: string[], // 字段列表
     debug: boolean = false, // 是否开启调试模式
@@ -152,7 +152,7 @@ describe(pathname, async () => {
             debug: false,
         },
         /* 校验 assets 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "assets",
             [
                 "id",
@@ -167,7 +167,7 @@ describe(pathname, async () => {
             ],
         ),
         /* 校验 attributes 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "attributes",
             [
                 "id",
@@ -181,7 +181,7 @@ describe(pathname, async () => {
             ],
         ),
         /* 校验 blocks 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "blocks",
             [
                 "id",
@@ -208,7 +208,7 @@ describe(pathname, async () => {
             ],
         ),
         /* 校验 file_annotation_refs 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "file_annotation_refs",
             [
                 "id",
@@ -223,7 +223,7 @@ describe(pathname, async () => {
             ],
         ),
         /* 校验 refs 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "refs",
             [
                 "id",
@@ -241,7 +241,7 @@ describe(pathname, async () => {
             ],
         ),
         /* 校验 spans 表字段名称 */
-        buildTabelFieldsTestCase(
+        buildTableFieldsTestCase(
             "spans",
             [
                 "id",

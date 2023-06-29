@@ -19,5 +19,5 @@
 /* directories */
 export * as api from "./api";
 
-/* flles */
+/* files */
 export * as kernel from "./kernel";

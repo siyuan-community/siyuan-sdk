@@ -15,10 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Get block attributes
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-
-/* flles */
-export * as getBookmarkLabels from "./getBookmarkLabels";
-export * as setBlockAttrs from "./setBlockAttrs";
+/**
+ * Inline Attribute List (IAL)
+ */
+export interface IData {
+    /**
+     * block ID
+     */
+    id: string;
+    /**
+     * block last updated file
+     */
+    updated?: string;
+    [property: string]: any;
+}

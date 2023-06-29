@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-
-/* flles */
-export * as getBookmarkLabels from "./getBookmarkLabels";
-export * as setBlockAttrs from "./setBlockAttrs";
+/**
+ * Get block attributes
+ */
+export interface IPayload {
+    /**
+     * block ID
+     */
+    id: string;
+}

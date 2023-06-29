@@ -2,7 +2,6 @@ import * as axios from "axios";
 
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
-import getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
 import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
 import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
 import getConf from "@/types/kernel/api/system/getConf";
@@ -42,11 +41,6 @@ export interface IOptions extends axios.AxiosRequestConfig {
 export class Client {
     public static readonly api = {
         // TODO: refactor
-        attr: {
-            getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
-            getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
-            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-        },
         block: {
             getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
@@ -65,7 +59,14 @@ export class Client {
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
+        
+        attr: {
+            getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
 
+            // TODO: refactor
+            getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
+            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
+        },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
         },
@@ -126,17 +127,6 @@ export class Client {
                     break;
             }
         }
-    }
-
-    /* 获取块属性 */
-    public async getBlockAttrs(payload: getBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<getBlockAttrs.IResponse> {
-        const response = await this._request(
-            Client.api.attr.getBlockAttrs.pathname,
-            Client.api.attr.getBlockAttrs.method,
-            payload,
-            config,
-        ) as getBlockAttrs.IResponse;
-        return response;
     }
 
     /* 获取所有书签 */
@@ -257,6 +247,18 @@ export class Client {
             undefined,
             config,
         ) as getConf.IResponse;
+        return response;
+    }
+
+    /* 👇 由 JSON Schema 生成的类型定义👇 */
+    /* 获取块属性 */
+    public async getBlockAttrs(payload: kernel.api.attr.getBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.attr.getBlockAttrs.IResponse> {
+        const response = await this._request(
+            Client.api.attr.getBlockAttrs.pathname,
+            Client.api.attr.getBlockAttrs.method,
+            payload,
+            config,
+        ) as kernel.api.attr.getBlockAttrs.IResponse;
         return response;
     }
 

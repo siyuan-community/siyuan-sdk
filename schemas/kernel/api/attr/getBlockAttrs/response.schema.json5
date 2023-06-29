@@ -1,0 +1,59 @@
+/**
+ * schemas/kernel/api/attr/getBlockAttrs/response.schema.json5
+ * 获取块属性
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#get-block-attributes
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/attr.go#L36-L51
+ * @pathname: /api/attr/getBlockAttrs
+ * @version: 2.9.3
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/attr/getBlockAttrs/response.schema.json5',
+    $comment: 'v2.9.3',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'response body',
+            description: 'Get block attributes',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'Inline Attribute List (IAL)',
+
+            type: 'object',
+            additionalProperties: true,
+            required: ['id'],
+            properties: {
+                id: {
+                    // 块 ID
+                    type: 'string',
+                    description: 'block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                updated: {
+                    // 块上次更新时间 YYYYMMDDhhmmss
+                    type: 'string',
+                    description: 'block last updated file',
+                    pattern: '^\\d{14}$',
+                },
+            },
+        },
+    },
+}

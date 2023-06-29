@@ -4,6 +4,7 @@
 - 优化开发模式脚本 | Optimize development mode script
 - 添加 API `/api/query/sql` | Add API `/api/query/sql`
 - 添加 API `/api/query/sql` 测试文件 | Add API `/api/query/sql` test file
+- 添加 API `/api/attr/getBlockAttrs` | Add API `/api/attr/getBlockAttrs`
 
 ## v0.0.4 / 2023-06-29
 

@@ -79,6 +79,7 @@ export class Client {
             closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
             lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
             getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
+            openNotebook: { pathname: "/api/notebook/openNotebook", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -413,6 +414,20 @@ export class Client {
             undefined,
             config,
         ) as kernel.api.notebook.lsNotebooks.IResponse;
+        return response;
+    }
+
+    /* 关闭笔记本 */
+    public async openNotebook(
+        payload: kernel.api.notebook.openNotebook.IPayload,
+        config?: axios.AxiosRequestConfig
+    ): Promise<kernel.api.notebook.openNotebook.IResponse> {
+        const response = await this._request(
+            Client.api.notebook.openNotebook.pathname,
+            Client.api.notebook.openNotebook.method,
+            payload,
+            config,
+        ) as kernel.api.notebook.openNotebook.IResponse;
         return response;
     }
 

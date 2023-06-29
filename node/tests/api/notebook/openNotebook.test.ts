@@ -25,9 +25,9 @@ import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import closeNotebook from "@/types/kernel/api/notebook/closeNotebook";
+import openNotebook from "@/types/kernel/api/notebook/openNotebook";
 
-const pathname = client.Client.api.notebook.closeNotebook.pathname;
+const pathname = client.Client.api.notebook.openNotebook.pathname;
 
 describe(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -37,27 +37,28 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    testKernelAPI<closeNotebook.IPayload, closeNotebook.IResponse>({
+    testKernelAPI<openNotebook.IPayload, openNotebook.IResponse>({
         name: "main",
         payload: {
             data: {
-                notebook: "20210808180117-6v0mkxr", // SiYuan User Guide
+                notebook: "20211226090932-5lcq56f", // 思源筆記用戶指南
             },
             validate: validate_payload,
             test: async () => {
                 await client.client.openNotebook({
-                    notebook: "20210808180117-6v0mkxr",
+                    notebook: "20211226090932-5lcq56f",
                 });
             }
         },
-        request: (payload) => client.client.closeNotebook(payload!),
+        request: (payload) => client.client.openNotebook(payload!),
         response: {
             validate: validate_response,
             test: async () => {
                 test("test the status of notebook", async () => {
-                    await expect(client.client.getNotebookConf({
-                        notebook: "20210808180117-6v0mkxr",
-                    })).rejects.toThrowError("502");
+                    const response = await client.client.getNotebookConf({
+                        notebook: "20211226090932-5lcq56f",
+                    });
+                    expect(response.data.conf.closed).toBeFalsy;
                 });
             },
         },

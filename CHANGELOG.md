@@ -6,6 +6,7 @@
 - 添加 API `/api/query/sql` 测试文件 | Add API `/api/query/sql` test file
 - 添加 API `/api/attr/getBlockAttrs` | Add API `/api/attr/getBlockAttrs`
 - 添加 API `/api/attr/setBlockAttrs` | Add API `/api/attr/setBlockAttrs`
+- 添加 API `/api/notebook/lsNotebooks` | Add API `/api/notebook/lsNotebooks`
 
 ## v0.0.4 / 2023-06-29
 

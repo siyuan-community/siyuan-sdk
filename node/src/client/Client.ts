@@ -8,7 +8,6 @@ import getConf from "@/types/kernel/api/system/getConf";
 import getDocInfo from "@/types/kernel/api/block/getDocInfo";
 import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
 import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
-import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
 import renameDoc from "@/types/kernel/api/filetree/renameDoc";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
@@ -49,9 +48,6 @@ export class Client {
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
-        notebook: {
-            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
-        },
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
         },
@@ -62,7 +58,7 @@ export class Client {
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-
+            
             // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
@@ -78,6 +74,9 @@ export class Client {
             readDir: { pathname: "/api/file/readDir", method: "POST" },
             removeFile: { pathname: "/api/file/removeFile", method: "POST" },
             renameFile: { pathname: "/api/file/renameFile", method: "POST" },
+        },
+        notebook: {
+            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
         },
         notification: {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
@@ -191,17 +190,6 @@ export class Client {
             payload,
             config,
         ) as searchDocs.IResponse;
-        return response;
-    }
-
-    /* 列出笔记本信息 */
-    public async lsNotebooks(config?: axios.AxiosRequestConfig): Promise<lsNotebooks.IResponse> {
-        const response = await this._request(
-            Client.api.notebook.lsNotebooks.pathname,
-            Client.api.notebook.lsNotebooks.method,
-            undefined,
-            config,
-        ) as lsNotebooks.IResponse;
         return response;
     }
 
@@ -382,6 +370,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.file.renameFile.IResponse;
+        return response;
+    }
+
+    /* 列出笔记本信息 */
+    public async lsNotebooks(config?: axios.AxiosRequestConfig): Promise<kernel.api.notebook.lsNotebooks.IResponse> {
+        const response = await this._request(
+            Client.api.notebook.lsNotebooks.pathname,
+            Client.api.notebook.lsNotebooks.method,
+            undefined,
+            config,
+        ) as kernel.api.notebook.lsNotebooks.IResponse;
         return response;
     }
 

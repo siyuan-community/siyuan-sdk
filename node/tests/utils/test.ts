@@ -111,10 +111,14 @@ export function testPayload<T>(
     validate: ValidateFunction,
 ) {
     test("payload verify", async () => {
+        const valid = validate(payload);
         expect.soft(
-            validate(payload),
+            valid,
             `verify payload using JSON Schema`,
         ).toBeTruthy(); // 校验请求体
+        if (!valid) {
+            console.warn(validate.errors);
+        }
     });
 }
 
@@ -150,10 +154,15 @@ export function testResponse<T extends IResponse = IResponse>(
             response.code,
             `verify response code`,
         ).toEqual(0); // 校验响应码
+
+        const valid = validate(response);
         expect.soft(
-            validate(response),
+            valid,
             `verify response using JSON Schema`,
         ).toBeTruthy(); // 校验响应体
+        if (!valid) {
+            console.warn(validate.errors);
+        }
     });
 }
 

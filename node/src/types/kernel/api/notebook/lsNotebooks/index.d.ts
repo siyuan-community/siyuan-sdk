@@ -17,6 +17,6 @@
 
 
 /* directories */
-export * as lsNotebooks from "./lsNotebooks";
 
 /* flles */
+export * from "./response";

@@ -105,7 +105,7 @@ describe(pathname, async () => {
                     ).toBeUndefined();
                 });
             },
-            debug: true,
+            debug: false,
         },
     ];
 

@@ -1,55 +1,26 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/getNotebookConf/response.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/notebook/setNotebookConf/payload.schema.json",
     "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
-            "title": "response body",
-            "description": "Get notebook configuration",
+            "title": "payload body",
+            "description": "Set notebook configuration",
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "code",
-                "msg",
-                "data"
+                "notebook",
+                "conf"
             ],
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "description": "status code"
-                },
-                "msg": {
-                    "type": "string",
-                    "description": "status message"
-                },
-                "data": {
-                    "$ref": "#/$defs/data"
-                }
-            }
-        },
-        "data": {
-            "title": "IData",
-            "description": "notebook info",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "box",
-                "conf",
-                "name"
-            ],
-            "properties": {
-                "box": {
+                "notebook": {
                     "type": "string",
                     "description": "notebook ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 },
                 "conf": {
                     "$ref": "#/$defs/conf"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "notebook name"
                 }
             }
         },
@@ -58,17 +29,6 @@
             "description": "notebook configuration",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-                "closed",
-                "dailyNoteSavePath",
-                "dailyNoteTemplatePath",
-                "docCreateSavePath",
-                "icon",
-                "name",
-                "refCreateSavePath",
-                "sort",
-                "sortMode"
-            ],
             "properties": {
                 "name": {
                     "type": "string",

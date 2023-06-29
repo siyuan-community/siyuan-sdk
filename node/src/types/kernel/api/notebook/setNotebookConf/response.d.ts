@@ -16,7 +16,7 @@
  */
 
 /**
- * Get notebook configuration
+ * Set notebook configuration
  */
 export interface IResponse {
     /**
@@ -31,24 +31,9 @@ export interface IResponse {
 }
 
 /**
- * notebook info
- */
-export interface IData {
-    /**
-     * notebook ID
-     */
-    box:  string;
-    conf: IConf;
-    /**
-     * notebook name
-     */
-    name: string;
-}
-
-/**
  * notebook configuration
  */
-export interface IConf {
+export interface IData {
     /**
      * notebook open state
      */

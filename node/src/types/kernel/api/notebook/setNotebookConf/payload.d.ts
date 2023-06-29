@@ -16,33 +16,14 @@
  */
 
 /**
- * Get notebook configuration
+ * Set notebook configuration
  */
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    data: IData;
-    /**
-     * status message
-     */
-    msg: string;
-}
-
-/**
- * notebook info
- */
-export interface IData {
+export interface IPayload {
+    conf: IConf;
     /**
      * notebook ID
      */
-    box:  string;
-    conf: IConf;
-    /**
-     * notebook name
-     */
-    name: string;
+    notebook: string;
 }
 
 /**
@@ -52,37 +33,37 @@ export interface IConf {
     /**
      * notebook open state
      */
-    closed: boolean;
+    closed?: boolean;
     /**
      * the path of new daily note
      */
-    dailyNoteSavePath: string;
+    dailyNoteSavePath?: string;
     /**
      * the template file path of new daily note
      */
-    dailyNoteTemplatePath: string;
+    dailyNoteTemplatePath?: string;
     /**
      * New document save location
      */
-    docCreateSavePath: string;
+    docCreateSavePath?: string;
     /**
      * notebook icon
      */
-    icon: string;
+    icon?: string;
     /**
      * notebook name
      */
-    name: string;
+    name?: string;
     /**
      * Ref create doc save location
      */
-    refCreateSavePath: string;
+    refCreateSavePath?: string;
     /**
      * sequence number
      */
-    sort: number;
+    sort?: number;
     /**
      * document sorting mode
      */
-    sortMode: number;
+    sortMode?: number;
 }

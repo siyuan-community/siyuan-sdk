@@ -16,10 +16,7 @@
  */
 
 import asyncFs from "fs/promises";
-import {
-    parse,
-    resolve,
-} from "path";
+import { resolve } from "path";
 
 import * as constants from "./constants";
 
@@ -29,10 +26,6 @@ import * as constants from "./constants";
  * @return: 该目录的类型定义文件名
  */
 export async function updateTypeDefinitionFile(path: string): Promise<string> {
-    const stat = await asyncFs.stat(path);
-    if (stat.isFile()) {
-        path = parse(path).dir;
-    }
     const ts: string[] = [constants.LICENSE]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
     const dirs = children.filter(child => child.isDirectory()); // 下级目录列表

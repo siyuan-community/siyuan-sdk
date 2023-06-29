@@ -15,8 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as sql from "./sql";
-
-/* flles */
+/**
+ * render template file
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: { [key: string]: any }[];
+    /**
+     * status message
+     */
+    msg: string;
+}

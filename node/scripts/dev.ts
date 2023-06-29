@@ -19,7 +19,10 @@
 
 import fs from "fs";
 import asyncFs from "fs/promises";
-import { resolve } from "path";
+import {
+    parse,
+    resolve,
+} from "path";
 
 import chokidar from "chokidar";
 
@@ -113,7 +116,7 @@ async function typesHandler(
             case "add":
             case "unlink": { 
                 /* 更新在其目录下的 index.d.ts 文件 */
-                const index_path = await updateTypeDefinitionFile(path);
+                const index_path = await updateTypeDefinitionFile(parse(path).dir);
                 logger.change(index_path);
                 break;
             }

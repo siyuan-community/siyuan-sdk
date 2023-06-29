@@ -15,8 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as sql from "./sql";
-
-/* flles */
+/**
+ * query the database using SQL
+ */
+export interface IPayload {
+    /**
+     * SQL query statements
+     */
+    stmt: string;
+}

@@ -15,15 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as getHPathByID from "./getHPathByID";
-export * as getHPathByPath from "./getHPathByPath";
-export * as moveDocs from "./moveDocs";
-export * as removeDoc from "./removeDoc";
-export * as renameDoc from "./renameDoc";
-
-/* files */
-export * as listDocsByPath from "./listDocsByPath";
-export * as searchDocs from "./searchDocs";
+/**
+ * Move documents
+ */
+export interface IPayload {
+    /**
+     * document paths list
+     */
+    fromPaths: string[];
+    /**
+     * target notebook ID
+     */
+    toNotebook: string;
+    /**
+     * target path
+     */
+    toPath: string;
+}

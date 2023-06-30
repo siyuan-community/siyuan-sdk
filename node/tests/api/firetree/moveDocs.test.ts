@@ -25,9 +25,9 @@ import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import renameDoc from "@/types/kernel/api/filetree/renameDoc";
+import moveDocs from "@/types/kernel/api/filetree/moveDocs";
 
-const pathname = client.Client.api.filetree.renameDoc.pathname;
+const pathname = client.Client.api.filetree.moveDocs.pathname;
 
 describe(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -37,50 +37,57 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    const notebook_name = "renameDoc";
-    const hpath = "/renameDoc";
-    const markdown = "# renameDoc\n";
-    const title_new = "renameDoc-new";
-    const hpath_new = "/renameDoc-new";
-    testKernelAPI<renameDoc.IPayload, renameDoc.IResponse>({
+    const notebook_name = "moveDocs";
+    const hpaths = [
+        "/path1",
+        "/path1/path2",
+        "/path1/path2/moveDocs",
+    ];
+    const markdown = "# moveDocs\n";
+    const hpath = "/moveDocs";
+    testKernelAPI<moveDocs.IPayload, moveDocs.IResponse>({
         name: "main",
         payload: {
             data: {
-                notebook: "", // 将使用新创建的笔记本的 ID
-                path: "", // 将使用新创建的文档的 ID
-                title: title_new,
+                fromPaths: [], // 将使用新创建的文档的 ID
+                toNotebook: "", // 将使用新创建的笔记本的 ID
+                toPath: "/",
             },
             validate: validate_payload,
-            test: async (payload) => {
+            test: async (payload, options) => {
                 /* 新建一个笔记本以进行测试 */
                 const response_createNotebook = await client.client.createNotebook({
                     name: notebook_name,
                 });
-                payload.notebook = response_createNotebook.data.notebook.id;
+                payload.toNotebook = response_createNotebook.data.notebook.id;
 
-                /* 新建一个文档以测试 */
-                const response_createDocWithMd = await client.client.createDocWithMd({
-                    notebook: payload.notebook,
-                    path: hpath,
-                    markdown: markdown,
-                });
-                payload.path = `/${response_createDocWithMd.data}.sy`;
+                options.ids = [] as string[]; // 文档 ID 列表
+                /* 新建数个文档以测试 */
+                for (const hpath of hpaths) {
+                    const response_createDocWithMd = await client.client.createDocWithMd({
+                        notebook: payload.toNotebook,
+                        path: hpath,
+                        markdown: markdown,
+                    });
+                    options.ids.push(response_createDocWithMd.data);
+                }
+                payload.fromPaths.push(`/${options.ids.join("/")}.sy`);
             },
         },
-        request: (payload) => client.client.renameDoc(payload!),
+        request: (payload) => client.client.moveDocs(payload!),
         response: {
             validate: validate_response,
-            test: async (_response, payload) => {
-                test("test the result of renaming a document", async () => {
+            test: async (_response, payload, options) => {
+                test("test the result of moving documents", async () => {
                     const res = await client.client.getHPathByPath({
-                        notebook: payload.notebook,
-                        path: payload.path,
+                        notebook: payload.toNotebook,
+                        path: `/${options.ids.pop()}.sy`,
                     });
-                    expect(res.data).toEqual(hpath_new);
+                    expect(res.data).toEqual(hpath);
 
                     /* 删除测试用的笔记本 */
                     await client.client.removeNotebook({
-                        notebook: payload!.notebook,
+                        notebook: payload.toNotebook,
                     });
                 });
             },

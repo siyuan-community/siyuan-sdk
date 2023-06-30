@@ -73,6 +73,7 @@ export class Client {
             createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
             getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
             getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" },
+            moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" },
             removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
 
@@ -410,6 +411,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.getHPathByPath.IResponse;
+        return response;
+    }
+
+    /* 批量移动文档 */
+    public async moveDocs(payload: kernel.api.filetree.moveDocs.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.filetree.moveDocs.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.moveDocs.pathname,
+            Client.api.filetree.moveDocs.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.moveDocs.IResponse;
         return response;
     }
 

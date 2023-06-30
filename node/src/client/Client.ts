@@ -59,6 +59,7 @@ export class Client {
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
+            prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
 
             // TODO: refactor
             getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
@@ -304,6 +305,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.insertBlock.IResponse;
+        return response;
+    }
+
+    /* 在下级块首插入块 */
+    public async prependBlock(payload: kernel.api.block.prependBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.prependBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.prependBlock.pathname,
+            Client.api.block.prependBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.prependBlock.IResponse;
         return response;
     }
 

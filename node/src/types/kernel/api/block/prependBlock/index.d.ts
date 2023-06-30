@@ -17,12 +17,7 @@
 
 
 /* directories */
-export * as appendBlock from "./appendBlock";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as prependBlock from "./prependBlock";
 
 /* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+export * from "./payload";
+export * from "./response";

@@ -18,30 +18,52 @@
 /**
  * Insert blocks
  */
-export interface IPayload {
+export interface IResponse {
     /**
-     * block data content
+     * status code
      */
-    data: string;
+    code: number;
+    data: ITransaction[];
     /**
-     * block data format
+     * status message
      */
-    dataType: DataType;
-    /**
-     * block ID: insert before this block
-     */
-    nextID?: string;
-    /**
-     * block ID: insert into this block head
-     */
-    parentID?: string;
-    /**
-     * block ID: insert after this block
-     */
-    previousID?: string;
+    msg: string;
 }
 
 /**
- * block data format
+ * Insert transactions
+ *
+ * Insert transaction
  */
-export type DataType = "markdown" | "dom";
+export interface ITransaction {
+    doOperations: IOperation[];
+    /**
+     * undo operation list
+     */
+    undoOperations: null;
+}
+
+/**
+ * insert operation list
+ *
+ * insert operation
+ */
+export interface IOperation {
+    /**
+     * operation action type
+     */
+    action: string;
+    /**
+     * HTML DOM of inserting blocks
+     */
+    data: string;
+    /**
+     * block ID: the first inserting block
+     */
+    id: string;
+    /**
+     * block ID: insert into this block
+     */
+    parentID: string;
+    [property: string]: any;
+}

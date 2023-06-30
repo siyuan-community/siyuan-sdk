@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/prependBlock/prependBlock.schema.json",
+    "$comment": "v2.9.3",
+    "$ref": "#/$defs/root",
+    "$defs": {
+        "root": {
+            "title": "prependBlock body",
+            "description": "Prepend blocks",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "dataType",
+                "data",
+                "parentID"
+            ],
+            "properties": {
+                "dataType": {
+                    "type": "string",
+                    "description": "block data format",
+                    "enum": [
+                        "markdown",
+                        "dom"
+                    ]
+                },
+                "data": {
+                    "type": "string",
+                    "description": "block data content"
+                },
+                "parentID": {
+                    "type": "string",
+                    "description": "block ID: insert into this block head\nThe ID of the parent block, used to anchor the insertion position",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                }
+            }
+        }
+    }
+}

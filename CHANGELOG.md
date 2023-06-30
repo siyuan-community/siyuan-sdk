@@ -10,6 +10,7 @@
 - 添加 API `/api/block/getChildBlocks` | Add API `/api/block/getChildBlocks`
 - 添加 API `/api/block/getBlockKramdown` | Add API `/api/block/getBlockKramdown`
 - 添加 API `/api/block/insertBlock` | Add API `/api/block/insertBlock`
+- 添加 API `/api/block/prependBlock` | Add API `/api/block/prependBlock`
 
 ## v0.0.5 / 2023-06-30
 

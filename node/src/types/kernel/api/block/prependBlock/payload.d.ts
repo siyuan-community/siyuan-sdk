@@ -15,14 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Prepend blocks
+ */
+export interface IPayload {
+    /**
+     * block data content
+     */
+    data: string;
+    /**
+     * block data format
+     */
+    dataType: DataType;
+    /**
+     * block ID: insert into this block head
+     * The ID of the parent block, used to anchor the insertion position
+     */
+    parentID: string;
+}
 
-/* directories */
-export * as appendBlock from "./appendBlock";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as prependBlock from "./prependBlock";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * block data format
+ */
+export type DataType = "markdown" | "dom";

@@ -53,11 +53,11 @@
                 },
                 parentID: {
                     /**
-                     * 上级块的块 ID (插入到该块内)
+                     * 上级块的块 ID (插入到该块内的首部)
                      * 用于锚定插入位置
                      */
                     type: 'string',
-                    description: 'block ID: insert into this block',
+                    description: 'block ID: insert into this block head',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
             },

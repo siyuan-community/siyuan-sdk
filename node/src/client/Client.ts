@@ -71,6 +71,7 @@ export class Client {
         },
         filetree: {
             createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
+            getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
             getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" },
             removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
@@ -384,6 +385,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.createDocWithMd.IResponse;
+        return response;
+    }
+
+    /* 根据 ID 获取人类可读路径 */
+    public async getHPathByID(
+        payload: kernel.api.filetree.getHPathByID.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.filetree.getHPathByID.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.getHPathByID.pathname,
+            Client.api.filetree.getHPathByID.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.getHPathByID.IResponse;
         return response;
     }
 

@@ -15,6 +15,7 @@
         root: {
             title: 'response body',
             description: 'Exports the specified document block as Markdown',
+
             type: 'object',
             additionalProperties: false,
             required: ['code', 'msg', 'data'],

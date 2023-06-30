@@ -4,6 +4,7 @@
 - 添加 API `/api/filetree/renameDoc` | Add API `/api/filetree/renameDoc`
 - 添加 API `/api/filetree/removeDoc` | Add API `/api/filetree/removeDoc`
 - 添加 API `/api/filetree/getHPathByPath` | Add API `/api/filetree/getHPathByPath`
+- 添加 API `/api/filetree/getHPathByID` | Add API `/api/filetree/getHPathByID`
 
 ## v0.0.5 / 2023-06-30
 

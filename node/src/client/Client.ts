@@ -49,6 +49,9 @@ export class Client {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
 
+        asset: {
+            upload: { pathname: "/api/asset/upload", method: "POST" },
+        },
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
@@ -229,6 +232,21 @@ export class Client {
     }
 
     /* 👇 由 JSON Schema 生成的类型定义👇 */
+    /* 上传资源文件 */
+    public async upload(payload: kernel.api.asset.upload.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.asset.upload.IResponse> {
+        const formdata = new FormData();
+        formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
+        payload.files.forEach(file => formdata.append("file[]", file));
+        
+        const response = await this._request(
+            Client.api.asset.upload.pathname,
+            Client.api.asset.upload.method,
+            formdata,
+            config,
+        ) as kernel.api.asset.upload.IResponse;
+        return response;
+    }
+
     /* 获取块属性 */
     public async getBlockAttrs(payload: kernel.api.attr.getBlockAttrs.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.attr.getBlockAttrs.IResponse> {
         const response = await this._request(
@@ -328,7 +346,6 @@ export class Client {
             Client.api.file.putFile.method,
             formdata,
             config,
-            false,
         ) as kernel.api.file.putFile.IResponse;
         return response;
     }

@@ -15,21 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as asset from "./asset";
-export * as attr from "./attr";
-export * as block from "./block";
-export * as convert from "./convert";
-export * as export from "./export";
-export * as file from "./file";
-export * as filetree from "./filetree";
-export * as notebook from "./notebook";
-export * as notification from "./notification";
-export * as query from "./query";
-export * as search from "./search";
-export * as storage from "./storage";
-export * as system from "./system";
-export * as template from "./template";
-
-/* files */
+/**
+ * Upload assets
+ */
+export interface IPayload {
+    /**
+     * The folder path where assets are stored
+     * with the data folder as the root path
+     * @example "/assets/": workspace/data/assets/
+     * @example "/assets/sub/": workspace/data/assets/sub/
+     * @default "/assets/"
+     */
+    assetsDirPath?: string;
+    /**
+     * Uploaded file list
+     */
+    files: File[];
+}

@@ -6,6 +6,7 @@
 - 添加 API `/api/filetree/getHPathByPath` | Add API `/api/filetree/getHPathByPath`
 - 添加 API `/api/filetree/getHPathByID` | Add API `/api/filetree/getHPathByID`
 - 添加 API `/api/filetree/moveDocs` | Add API `/api/filetree/moveDocs`
+- 添加 API `/api/asset/upload` | Add API `/api/asset/upload`
 
 ## v0.0.5 / 2023-06-30
 

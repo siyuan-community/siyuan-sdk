@@ -62,11 +62,11 @@
         "test": "vitest",
         "prebuild": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/prebuild.ts",
         "build": "vite build",
-        "publish": "pnpm run prebuild && pnpm run build && npm publish",
+        "publish": "npm run prebuild && npm run build && npm publish",
         "format": "eslint --fix .",
         "lint": "eslint . && cspell .",
         "coverage": "vitest run --coverage",
-        "check": "pnpm run lint && pnpm run format && pnpm run coverage"
+        "check": "npm run lint && npm run format && npm run coverage"
     },
     "devDependencies": {
         "@ltd/j-toml": "^1.38.0",

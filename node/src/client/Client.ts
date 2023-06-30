@@ -43,11 +43,6 @@ export class Client {
             getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
         },
-        filetree: {
-            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
-            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
-            searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
-        },
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
         },
@@ -74,6 +69,14 @@ export class Client {
             readDir: { pathname: "/api/file/readDir", method: "POST" },
             removeFile: { pathname: "/api/file/removeFile", method: "POST" },
             renameFile: { pathname: "/api/file/renameFile", method: "POST" },
+        },
+        filetree: {
+            createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
+
+            // TODO: refactor
+            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
+            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
+            searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
         notebook: {
             closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
@@ -377,6 +380,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.file.renameFile.IResponse;
+        return response;
+    }
+
+    /* 通过 Markdown 创建文档 */
+    public async createDocWithMd(
+        payload: kernel.api.filetree.createDocWithMd.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.filetree.createDocWithMd.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.createDocWithMd.pathname,
+            Client.api.filetree.createDocWithMd.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.createDocWithMd.IResponse;
         return response;
     }
 

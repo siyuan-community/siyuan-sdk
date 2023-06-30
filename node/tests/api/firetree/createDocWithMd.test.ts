@@ -25,9 +25,9 @@ import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import closeNotebook from "@/types/kernel/api/notebook/closeNotebook";
+import createDocWithMd from "@/types/kernel/api/filetree/createDocWithMd";
 
-const pathname = client.Client.api.notebook.closeNotebook.pathname;
+const pathname = client.Client.api.filetree.createDocWithMd.pathname;
 
 describe(pathname, async () => {
     const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
@@ -37,12 +37,16 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
-    const notebook_name = "closeNotebook"
-    testKernelAPI<closeNotebook.IPayload, closeNotebook.IResponse>({
+    const notebook_name = "createDocWithMd";
+    const path = "/createDocWithMd"
+    const markdown = "# createDocWithMd\n";
+    testKernelAPI<createDocWithMd.IPayload, createDocWithMd.IResponse>({
         name: "main",
         payload: {
             data: {
                 notebook: "", // 将使用新创建的笔记本的 ID
+                path: path,
+                markdown: markdown,
             },
             validate: validate_payload,
             test: async (payload) => {
@@ -53,14 +57,16 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: (payload) => client.client.closeNotebook(payload!),
+        request: (payload) => client.client.createDocWithMd(payload!),
         response: {
             validate: validate_response,
-            test: async (_response, payload) => {
-                test("test the status of notebook", async () => {
-                    await expect(client.client.getNotebookConf({
-                        notebook: payload!.notebook,
-                    })).rejects.toThrowError("502");
+            test: async (response, payload) => {
+                test("test the result of creating a document", async () => {
+                    const res = await client.client.exportMdContent({
+                        id: response.data,
+                    });
+                    expect(res.data.hPath).toEqual(path);
+                    expect(res.data.content).toEqual(markdown);
 
                     /* 删除测试用的笔记本 */
                     await client.client.removeNotebook({

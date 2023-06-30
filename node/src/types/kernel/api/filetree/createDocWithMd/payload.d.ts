@@ -15,11 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as createDocWithMd from "./createDocWithMd";
-
-/* files */
-export * as listDocsByPath from "./listDocsByPath";
-export * as renameDoc from "./renameDoc";
-export * as searchDocs from "./searchDocs";
+/**
+ * Create a document with Markdown
+ */
+export interface IPayload {
+    /**
+     * Markdown text (GitLab Flavored Markdown, GFM)
+     * REF: https://github.github.com/gfm/
+     */
+    markdown: string;
+    /**
+     * notebook ID
+     */
+    notebook: string;
+    /**
+     * document path
+     */
+    path: string;
+}

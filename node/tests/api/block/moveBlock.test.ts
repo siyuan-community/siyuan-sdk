@@ -90,7 +90,7 @@ describe.concurrent(pathname, async () => {
                 /* 插入一个测试用的块 */
                 const response_moveBlock = await client.client.insertBlock({
                     dataType: "markdown",
-                    data: "markdown",
+                    data: markdown,
                     parentID: context.block,
                 });
                 payload.id = response_moveBlock.data[0].doOperations[0].id;
@@ -107,7 +107,7 @@ describe.concurrent(pathname, async () => {
                 /* 插入一个测试用的块 */
                 const response_moveBlock = await client.client.insertBlock({
                     dataType: "markdown",
-                    data: "markdown",
+                    data: markdown,
                     parentID: context.block,
                 });
                 payload.id = response_moveBlock.data[0].doOperations[0].id;

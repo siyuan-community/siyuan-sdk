@@ -1,0 +1,73 @@
+/**
+ * schemas/kernel/api/block/transferBlockRef/payload.schema.json5
+ * 转移块引用
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#transfer-block-ref
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block.go#L32-L64
+ * @pathname: /api/block/transferBlockRef
+ * @version: 2.9.3
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/transferBlockRef/payload.schema.json5',
+    $comment: 'v2.9.3',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'payload body',
+            description: 'Transfer block ref',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['fromID', 'toID', 'refIDs'],
+            properties: {
+                fromID: {
+                    // 移动前引用指向的块 ID
+                    type: 'string',
+                    description: 'Def block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                toID: {
+                    // 移动后引用指向的块 ID
+                    type: 'string',
+                    description: 'Target block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                refIDs: {
+                    oneOf: [
+                        {
+                            // 转移所有块引用
+                            type: 'null',
+                            description: 'Transfer all block references',
+                        },
+                        {
+                            // 转移所有块引用
+                            type: 'array',
+                            items: {
+                                // 块引用所在的块 ID
+                                type: 'string',
+                                description: 'The block where the block reference is located',
+                                pattern: '^\\d{14}-[0-9a-z]{7}$',
+                            },
+                            oneOf: [
+                                {
+                                    // 转移所有块引用
+                                    maxItems: 0,
+                                    description: 'Transfer all block references',
+                                },
+                                {
+                                    /**
+                                     * 仅移动部分引用
+                                     * 想要转移目标的块引用所在的块 ID 列表
+                                     * 移除无效的块 (不含指定引用的块)
+                                     */
+                                    minItems: 1,
+                                    description: 'Ref block IDs point to def block ID, optional, if not specified, all ref block IDs will be transferred',
+                                },
+                            ],
+                        },
+                    ],
+                },
+            },
+        },
+    },
+}

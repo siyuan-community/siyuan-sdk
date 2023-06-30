@@ -81,7 +81,7 @@ describe.concurrent(pathname, async () => {
                 /* 插入一个测试用的块 */
                 const response_deleteBlock = await client.client.insertBlock({
                     dataType: "markdown",
-                    data: "markdown",
+                    data: markdown,
                     parentID: context.document,
                 });
                 payload.id = response_deleteBlock.data[0].doOperations[0].id;

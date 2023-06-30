@@ -15,6 +15,7 @@
 - 添加 API `/api/block/updateBlock` | Add API `/api/block/updateBlock`
 - 添加 API `/api/block/deleteBlock` | Add API `/api/block/deleteBlock`
 - 添加 API `/api/block/moveBlock` | Add API `/api/block/moveBlock`
+- 添加 API `/api/block/transferBlockRef` | Add API `/api/block/transferBlockRef`
 
 ## v0.0.5 / 2023-06-30
 

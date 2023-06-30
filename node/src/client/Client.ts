@@ -63,6 +63,7 @@ export class Client {
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
             moveBlock: { pathname: "/api/block/moveBlock", method: "POST" },
             prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
+            transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" },
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
 
             // TODO: refactor
@@ -353,6 +354,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.prependBlock.IResponse;
+        return response;
+    }
+
+    /* 转移块引用 */
+    public async transferBlockRef(payload: kernel.api.block.transferBlockRef.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.transferBlockRef.IResponse> {
+        const response = await this._request(
+            Client.api.block.transferBlockRef.pathname,
+            Client.api.block.transferBlockRef.method,
+            payload,
+            config,
+        ) as kernel.api.block.transferBlockRef.IResponse;
         return response;
     }
 

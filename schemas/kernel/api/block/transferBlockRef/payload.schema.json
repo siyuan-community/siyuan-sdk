@@ -1,0 +1,57 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/transferBlockRef/payload.schema.json",
+    "$comment": "v2.9.3",
+    "$ref": "#/$defs/root",
+    "$defs": {
+        "root": {
+            "title": "payload body",
+            "description": "Transfer block ref",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "fromID",
+                "toID",
+                "refIDs"
+            ],
+            "properties": {
+                "fromID": {
+                    "type": "string",
+                    "description": "Def block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "toID": {
+                    "type": "string",
+                    "description": "Target block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "refIDs": {
+                    "oneOf": [
+                        {
+                            "type": "null",
+                            "description": "Transfer all block references"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "description": "The block where the block reference is located",
+                                "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                            },
+                            "oneOf": [
+                                {
+                                    "maxItems": 0,
+                                    "description": "Transfer all block references"
+                                },
+                                {
+                                    "minItems": 1,
+                                    "description": "Ref block IDs point to def block ID, optional, if not specified, all ref block IDs will be transferred"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

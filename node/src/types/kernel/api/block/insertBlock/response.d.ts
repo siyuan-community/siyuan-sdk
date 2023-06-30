@@ -16,14 +16,14 @@
  */
 
 /**
- * Get child blocks
+ * Insert blocks
  */
 export interface IResponse {
     /**
      * status code
      */
     code: number;
-    data: IBlock[];
+    data: ITransaction[];
     /**
      * status message
      */
@@ -31,31 +31,47 @@ export interface IResponse {
 }
 
 /**
- * sub block list
+ * Insert transactions
  *
- * sub block
+ * Insert transaction
  */
-export interface IBlock {
+export interface ITransaction {
+    doOperations: IOperation[];
     /**
-     * block ID
+     * undo operation list
      */
-    id: string;
-    /**
-     * block subtype
-     */
-    subType?: SubType;
-    /**
-     * block type
-     */
-    type: Type;
+    undoOperations: null;
 }
 
 /**
- * block subtype
+ * insert operation list
+ *
+ * insert operation
  */
-export type SubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "u" | "o" | "t";
-
-/**
- * block type
- */
-export type Type = "d" | "s" | "b" | "l" | "i" | "h" | "p" | "m" | "t" | "c" | "html" | "query_embed" | "tb" | "audio" | "video" | "iframe" | "widget";
+export interface IOperation {
+    /**
+     * operation action type
+     */
+    action: string;
+    /**
+     * HTML DOM of inserting blocks
+     */
+    data: string;
+    /**
+     * block ID: the first inserting block
+     */
+    id: string;
+    /**
+     * block ID: insert before this block
+     */
+    nextID: string;
+    /**
+     * block ID: insert into this block
+     */
+    parentID: string;
+    /**
+     * block ID: insert after this block
+     */
+    previousID: string;
+    [property: string]: any;
+}

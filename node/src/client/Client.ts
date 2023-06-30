@@ -8,7 +8,6 @@ import getConf from "@/types/kernel/api/system/getConf";
 import getDocInfo from "@/types/kernel/api/block/getDocInfo";
 import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
 import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
-import renameDoc from "@/types/kernel/api/filetree/renameDoc";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
 import { kernel } from "@/types";
@@ -72,10 +71,10 @@ export class Client {
         },
         filetree: {
             createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
+            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
 
             // TODO: refactor
             listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
-            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
         notebook: {
@@ -178,17 +177,6 @@ export class Client {
             payload,
             config,
         ) as listDocsByPath.IResponse;
-        return response;
-    }
-
-    /* 文档重命名 */
-    public async renameDoc(payload: renameDoc.IPayload, config?: axios.AxiosRequestConfig): Promise<renameDoc.IResponse> {
-        const response = await this._request(
-            Client.api.filetree.renameDoc.pathname,
-            Client.api.filetree.renameDoc.method,
-            payload,
-            config,
-        ) as renameDoc.IResponse;
         return response;
     }
 
@@ -394,6 +382,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.createDocWithMd.IResponse;
+        return response;
+    }
+
+    /* 文档重命名 */
+    public async renameDoc(payload: kernel.api.filetree.renameDoc.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.filetree.renameDoc.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.renameDoc.pathname,
+            Client.api.filetree.renameDoc.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.renameDoc.IResponse;
         return response;
     }
 

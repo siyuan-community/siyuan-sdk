@@ -29,7 +29,8 @@ export interface IPayload {
      */
     notebook: string;
     /**
-     * document path
+     * Document path, which needs to start with / and separate levels with /
+     * path here corresponds to the database hpath field
      */
     path: string;
 }

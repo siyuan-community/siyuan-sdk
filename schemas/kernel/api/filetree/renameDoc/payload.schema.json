@@ -1,18 +1,18 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/filetree/createDocWithMd/payload.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/filetree/renameDoc/payload.schema.json",
     "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "payload body",
-            "description": "Create a document with Markdown",
+            "description": "Rename a document",
             "type": "object",
             "additionalProperties": false,
             "required": [
                 "notebook",
                 "path",
-                "markdown"
+                "title"
             ],
             "properties": {
                 "notebook": {
@@ -22,16 +22,17 @@
                 },
                 "path": {
                     "type": "string",
-                    "description": "Document path, which needs to start with / and separate levels with /\npath here corresponds to the database hpath field",
-                    "pattern": "^(/[^/\\t\\r\\n\\u2028\\u2029]+)+$",
+                    "description": "Document path, which needs to start with / and separate levels with /\npath here corresponds to the database path field",
+                    "pattern": "^(/\\d{14}-[0-9a-z]{7})+\\.sy$",
                     "examples": [
-                        "/doc-name",
-                        "/parent-doc-name/doc-name"
+                        "/20200812220555-lj3enxa.sy",
+                        "/20200812220555-lj3enxa/20210808180320-fqgskfj.sy"
                     ]
                 },
-                "markdown": {
+                "title": {
                     "type": "string",
-                    "description": "Markdown text (GitLab Flavored Markdown, GFM)\nREF: https://github.github.com/gfm/"
+                    "description": "new document title",
+                    "pattern": "^[^/\\t\\r\\n\\u2028\\u2029]+$"
                 }
             }
         }

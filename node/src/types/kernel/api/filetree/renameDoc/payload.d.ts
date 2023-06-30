@@ -15,12 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as renameDoc from "./renameDoc";
-
-/* files */
-export * as listDocsByPath from "./listDocsByPath";
-export * as renameDoc from "./renameDoc";
-export * as searchDocs from "./searchDocs";
+/**
+ * Rename a document
+ */
+export interface IPayload {
+    /**
+     * notebook ID
+     */
+    notebook: string;
+    /**
+     * Document path, which needs to start with / and separate levels with /
+     * path here corresponds to the database path field
+     */
+    path: string;
+    /**
+     * new document title
+     */
+    title: string;
+}

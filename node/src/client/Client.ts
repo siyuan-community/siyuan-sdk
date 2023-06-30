@@ -56,6 +56,7 @@ export class Client {
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
         block: {
+            getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
 
             // TODO: refactor
@@ -269,6 +270,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.attr.setBlockAttrs.IResponse;
+        return response;
+    }
+
+    /* 获得块的 kramdown 源码 */
+    public async getBlockKramdown(payload: kernel.api.block.getBlockKramdown.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getBlockKramdown.IResponse> {
+        const response = await this._request(
+            Client.api.block.getBlockKramdown.pathname,
+            Client.api.block.getBlockKramdown.method,
+            payload,
+            config,
+        ) as kernel.api.block.getBlockKramdown.IResponse;
         return response;
     }
 

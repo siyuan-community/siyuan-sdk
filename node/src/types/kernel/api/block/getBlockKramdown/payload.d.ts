@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * Get a block kramdown
+ */
+export interface IPayload {
+    /**
+     * block ID
+     */
+    id: string;
+}

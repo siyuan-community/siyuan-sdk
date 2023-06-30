@@ -8,6 +8,7 @@
 - 添加 API `/api/filetree/moveDocs` | Add API `/api/filetree/moveDocs`
 - 添加 API `/api/asset/upload` | Add API `/api/asset/upload`
 - 添加 API `/api/block/getChildBlocks` | Add API `/api/block/getChildBlocks`
+- 添加 API `/api/block/getBlockKramdown` | Add API `/api/block/getBlockKramdown`
 
 ## v0.0.5 / 2023-06-30
 

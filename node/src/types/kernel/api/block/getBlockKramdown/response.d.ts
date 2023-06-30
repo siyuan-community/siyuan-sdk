@@ -15,11 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Get a block kramdown
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* directories */
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * block kramdown info
+ */
+export interface IData {
+    /**
+     * block ID
+     */
+    id: string;
+    /**
+     * block kramdown text
+     */
+    kramdown: string;
+}

@@ -15,15 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Update a block
+ */
+export interface IPayload {
+    /**
+     * Data to be updated
+     */
+    data: string;
+    /**
+     * block data format
+     */
+    dataType: DataType;
+    /**
+     * ID of the block to be updated
+     */
+    id: string;
+}
 
-/* directories */
-export * as appendBlock from "./appendBlock";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as prependBlock from "./prependBlock";
-export * as updateBlock from "./updateBlock";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * block data format
+ */
+export type DataType = "markdown" | "dom";

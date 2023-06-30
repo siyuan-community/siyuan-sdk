@@ -12,6 +12,7 @@
 - 添加 API `/api/block/insertBlock` | Add API `/api/block/insertBlock`
 - 添加 API `/api/block/prependBlock` | Add API `/api/block/prependBlock`
 - 添加 API `/api/block/appendBlock` | Add API `/api/block/appendBlock`
+- 添加 API `/api/block/updateBlock` | Add API `/api/block/updateBlock`
 
 ## v0.0.5 / 2023-06-30
 

@@ -1,30 +1,18 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/insertBlock/payload.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/moveBlock/payload.schema.json",
     "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "payload body",
-            "description": "Insert blocks",
+            "description": "Move a block",
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "dataType": {
+                "id": {
                     "type": "string",
-                    "description": "block data format",
-                    "enum": [
-                        "markdown",
-                        "dom"
-                    ]
-                },
-                "data": {
-                    "type": "string",
-                    "description": "block data content"
-                },
-                "nextID": {
-                    "type": "string",
-                    "description": "block ID: insert before this block",
+                    "description": "Block ID to move",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 },
                 "previousID": {
@@ -41,22 +29,13 @@
             "oneOf": [
                 {
                     "required": [
-                        "dataType",
-                        "data",
-                        "nextID"
-                    ]
-                },
-                {
-                    "required": [
-                        "dataType",
-                        "data",
+                        "id",
                         "previousID"
                     ]
                 },
                 {
                     "required": [
-                        "dataType",
-                        "data",
+                        "id",
                         "parentID"
                     ]
                 }

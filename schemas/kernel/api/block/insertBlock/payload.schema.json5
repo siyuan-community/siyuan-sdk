@@ -1,5 +1,5 @@
 /**
- * schemas/kernel/api/block/insertBlock/insertBlock.schema.json5
+ * schemas/kernel/api/block/insertBlock/payload.schema.json5
  * 插入块
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#insert-blocks
  * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L165-L220
@@ -8,12 +8,12 @@
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/insertBlock/insertBlock.schema.json5',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/insertBlock/payload.schema.json5',
     $comment: 'v2.9.3',
     $ref: '#/$defs/root',
     $defs: {
         root: {
-            title: 'insertBlock body',
+            title: 'payload body',
             description: 'Insert blocks',
 
             type: 'object',

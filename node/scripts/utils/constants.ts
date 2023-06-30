@@ -65,7 +65,7 @@ export const QUICKTYPE_OPTIONS: Partial<quicktype.Options> = {
     rendererOptions: {
         "just-types": true, // 仅生成类型定义
         "nice-property-names": true, // 优化属性名
-        "explicit-unions": false, // 显式命名联合类型
+        "explicit-unions": true, // 显式命名联合类型
         "prefer-unions": true, // 使用联合类型替代 enum
         "prefer-types": false, // 使用类型替代接口
     }, // 渲染器选项

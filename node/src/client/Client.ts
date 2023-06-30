@@ -61,6 +61,7 @@ export class Client {
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
+            moveBlock: { pathname: "/api/block/moveBlock", method: "POST" },
             prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
 
@@ -330,6 +331,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.insertBlock.IResponse;
+        return response;
+    }
+
+    /* 移动块 */
+    public async moveBlock(payload: kernel.api.block.moveBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.moveBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.moveBlock.pathname,
+            Client.api.block.moveBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.moveBlock.IResponse;
         return response;
     }
 

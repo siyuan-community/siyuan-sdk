@@ -15,13 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as removeDoc from "./removeDoc";
-export * as renameDoc from "./renameDoc";
-
-/* files */
-export * as listDocsByPath from "./listDocsByPath";
-export * as renameDoc from "./renameDoc";
-export * as searchDocs from "./searchDocs";
+/**
+ * Create a document with Markdown
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: null;
+    /**
+     * status message
+     */
+    msg: string;
+}

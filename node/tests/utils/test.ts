@@ -39,31 +39,33 @@ expect.extend({
     },
 });
 
+interface ITestKernelAPIOptions<P, R = undefined> {
+    name: string,
+    payload?: {
+        data: P,
+        validate?: ValidateFunction,
+        test?: (payload: P, options?: ITestKernelAPIOptions<P, R>) => void,
+    },
+    request: (payload?: P) => Promise<R>,
+    response?: {
+        validate?: ValidateFunction,
+        test?: (response: R, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void,
+    },
+    debug?: boolean,
+    [key: string]: any,
+}
 /**
  * 校验内核 API
  * @param payload: 请求体对象
  * @param validate: ajv 校验函数
  */
-export function testKernelAPI<T, U>(options: {
-    name: string,
-    payload?: {
-        data: T,
-        validate?: ValidateFunction,
-        test?: (payload: T) => void,
-    },
-    request: (payload?: T) => Promise<U>,
-    response?: {
-        validate?: ValidateFunction,
-        test?: (response: U, payload?: T) => void,
-    },
-    debug?: boolean,
-}) {
+export function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
     describe(options.name, async () => {
         try {
             /* 测试请求体 */
             if (options.payload) {
                 /* 其他测试 */
-                await options.payload.test?.(options.payload.data);
+                await options.payload.test?.(options.payload.data, options);
 
                 if (options.debug) {
                     console.debug("payload:", options.payload.data);
@@ -90,7 +92,7 @@ export function testKernelAPI<T, U>(options: {
                 }
 
                 /* 其他测试 */
-                await options.response.test?.(response, options.payload?.data);
+                await options.response.test?.(response, options.payload?.data, options);
             }
         } catch (error) {
             if (options.debug) {

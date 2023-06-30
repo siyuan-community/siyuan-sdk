@@ -71,6 +71,7 @@ export class Client {
         },
         filetree: {
             createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
+            removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
 
             // TODO: refactor
@@ -382,6 +383,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.createDocWithMd.IResponse;
+        return response;
+    }
+
+    /* 删除文档 */
+    public async removeDoc(payload: kernel.api.filetree.removeDoc.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.filetree.removeDoc.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.removeDoc.pathname,
+            Client.api.filetree.removeDoc.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.removeDoc.IResponse;
         return response;
     }
 

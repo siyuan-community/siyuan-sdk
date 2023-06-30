@@ -6,7 +6,7 @@
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "Rename a document",
+            "description": "Create a document with Markdown",
             "type": "object",
             "additionalProperties": false,
             "required": [

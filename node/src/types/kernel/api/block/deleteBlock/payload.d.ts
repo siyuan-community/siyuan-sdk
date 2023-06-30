@@ -15,16 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as appendBlock from "./appendBlock";
-export * as deleteBlock from "./deleteBlock";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as prependBlock from "./prependBlock";
-export * as updateBlock from "./updateBlock";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * Delete a block
+ */
+export interface IPayload {
+    /**
+     * ID of the block to be deleted
+     */
+    id: string;
+}

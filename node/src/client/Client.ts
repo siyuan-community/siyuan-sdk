@@ -57,6 +57,7 @@ export class Client {
         },
         block: {
             appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
+            deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
@@ -285,6 +286,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.appendBlock.IResponse;
+        return response;
+    }
+
+    /* 删除块 */
+    public async deleteBlock(payload: kernel.api.block.deleteBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.deleteBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.deleteBlock.pathname,
+            Client.api.block.deleteBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.deleteBlock.IResponse;
         return response;
     }
 

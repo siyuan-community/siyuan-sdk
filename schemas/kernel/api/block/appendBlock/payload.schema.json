@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/prependBlock/payload.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/appendBlock/payload.schema.json",
     "$comment": "v2.9.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "payload body",
-            "description": "Prepend blocks",
+            "description": "Append blocks",
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -29,7 +29,7 @@
                 },
                 "parentID": {
                     "type": "string",
-                    "description": "block ID: insert into this block head\nThe ID of the parent block, used to anchor the insertion position",
+                    "description": "block ID: insert into this block tail\nThe ID of the parent block, used to anchor the insertion position",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 }
             }

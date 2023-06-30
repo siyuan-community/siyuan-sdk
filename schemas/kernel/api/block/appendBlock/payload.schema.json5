@@ -1,20 +1,20 @@
 /**
- * schemas/kernel/api/block/prependBlock/payload.schema.json5
- * 在块内的首部插入块 (插入前置子块)
- * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#prepend-blocks
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L126-L163
- * @pathname: /api/block/prependBlock
+ * schemas/kernel/api/block/appendBlock/payload.schema.json5
+ * 在块内的尾部插入块 (插入后置子块)
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#append-blocks
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L87-L124
+ * @pathname: /api/block/appendBlock
  * @version: 2.9.3
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/prependBlock/payload.schema.json5',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/appendBlock/payload.schema.json5',
     $comment: 'v2.9.3',
     $ref: '#/$defs/root',
     $defs: {
         root: {
             title: 'payload body',
-            description: 'Prepend blocks',
+            description: 'Append blocks',
 
             type: 'object',
             additionalProperties: false,
@@ -36,11 +36,11 @@
                 },
                 parentID: {
                     /**
-                     * 上级块的块 ID (插入到该块内首部)
+                     * 上级块的块 ID (插入到该块内尾部)
                      * 用于锚定插入位置
                      */
                     type: 'string',
-                    description: 'block ID: insert into this block head\nThe ID of the parent block, used to anchor the insertion position',
+                    description: 'block ID: insert into this block tail\nThe ID of the parent block, used to anchor the insertion position',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
             },

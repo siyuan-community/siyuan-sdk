@@ -16,7 +16,7 @@
  */
 
 /**
- * Prepend blocks
+ * Append blocks
  */
 export interface IResponse {
     /**

@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/prependBlock/response.schema.json",
+    "$id": "https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/block/appendBlock/response.schema.json",
     "$comment": "v",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "Prepend blocks",
+            "description": "Append blocks",
             "type": "object",
             "additionalProperties": false,
             "required": [

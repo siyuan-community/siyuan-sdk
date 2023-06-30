@@ -56,6 +56,7 @@ export class Client {
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
         block: {
+            appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
@@ -275,6 +276,17 @@ export class Client {
         return response;
     }
 
+    /* 在下级块尾部插入块 */
+    public async appendBlock(payload: kernel.api.block.appendBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.appendBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.appendBlock.pathname,
+            Client.api.block.appendBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.appendBlock.IResponse;
+        return response;
+    }
+
     /* 获得块的 kramdown 源码 */
     public async getBlockKramdown(payload: kernel.api.block.getBlockKramdown.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getBlockKramdown.IResponse> {
         const response = await this._request(
@@ -308,7 +320,7 @@ export class Client {
         return response;
     }
 
-    /* 在下级块首插入块 */
+    /* 在下级块首部插入块 */
     public async prependBlock(payload: kernel.api.block.prependBlock.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.prependBlock.IResponse> {
         const response = await this._request(
             Client.api.block.prependBlock.pathname,

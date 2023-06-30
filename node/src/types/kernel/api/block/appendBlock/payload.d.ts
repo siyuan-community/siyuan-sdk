@@ -16,54 +16,25 @@
  */
 
 /**
- * Prepend blocks
+ * Append blocks
  */
-export interface IResponse {
+export interface IPayload {
     /**
-     * status code
-     */
-    code: number;
-    data: ITransaction[];
-    /**
-     * status message
-     */
-    msg: string;
-}
-
-/**
- * Insert transactions
- *
- * Insert transaction
- */
-export interface ITransaction {
-    doOperations: IOperation[];
-    /**
-     * undo operation list
-     */
-    undoOperations: null;
-}
-
-/**
- * insert operation list
- *
- * insert operation
- */
-export interface IOperation {
-    /**
-     * operation action type
-     */
-    action: string;
-    /**
-     * HTML DOM of inserting blocks
+     * block data content
      */
     data: string;
     /**
-     * block ID: the first inserting block
+     * block data format
      */
-    id: string;
+    dataType: DataType;
     /**
-     * block ID: insert into this block
+     * block ID: insert into this block tail
+     * The ID of the parent block, used to anchor the insertion position
      */
     parentID: string;
-    [property: string]: any;
 }
+
+/**
+ * block data format
+ */
+export type DataType = "markdown" | "dom";

@@ -11,6 +11,7 @@
 - 添加 API `/api/block/getBlockKramdown` | Add API `/api/block/getBlockKramdown`
 - 添加 API `/api/block/insertBlock` | Add API `/api/block/insertBlock`
 - 添加 API `/api/block/prependBlock` | Add API `/api/block/prependBlock`
+- 添加 API `/api/block/appendBlock` | Add API `/api/block/appendBlock`
 
 ## v0.0.5 / 2023-06-30
 

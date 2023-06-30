@@ -3,6 +3,7 @@
 - 添加 API `/api/filetree/createDocWithMd` | Add API `/api/filetree/createDocWithMd`
 - 添加 API `/api/filetree/renameDoc` | Add API `/api/filetree/renameDoc`
 - 添加 API `/api/filetree/removeDoc` | Add API `/api/filetree/removeDoc`
+- 添加 API `/api/filetree/getHPathByPath` | Add API `/api/filetree/getHPathByPath`
 
 ## v0.0.5 / 2023-06-30
 

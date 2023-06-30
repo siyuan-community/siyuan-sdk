@@ -39,17 +39,17 @@ expect.extend({
     },
 });
 
-interface ITestKernelAPIOptions<P, R = undefined> {
+interface ITestKernelAPIOptions<P, R> {
     name: string,
     payload?: {
-        data: P,
+        data?: P,
         validate?: ValidateFunction,
-        test?: (payload: P, options?: ITestKernelAPIOptions<P, R>) => void,
+        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void,
     },
     request: (payload?: P) => Promise<R>,
     response?: {
         validate?: ValidateFunction,
-        test?: (response: R, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void,
+        test?: (response: R, payload: P, options: ITestKernelAPIOptions<P, R>) => void,
     },
     debug?: boolean,
     [key: string]: any,
@@ -65,7 +65,7 @@ export function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
             /* 测试请求体 */
             if (options.payload) {
                 /* 其他测试 */
-                await options.payload.test?.(options.payload.data, options);
+                await options.payload.test?.(options.payload.data!, options);
 
                 if (options.debug) {
                     console.debug("payload:", options.payload.data);
@@ -92,7 +92,7 @@ export function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
                 }
 
                 /* 其他测试 */
-                await options.response.test?.(response, options.payload?.data, options);
+                await options.response.test?.(response, options.payload?.data!, options);
             }
         } catch (error) {
             if (options.debug) {

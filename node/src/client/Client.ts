@@ -38,26 +38,29 @@ export interface IOptions extends axios.AxiosRequestConfig {
 export class Client {
     public static readonly api = {
         // TODO: refactor
-        block: {
-            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
-            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
-        },
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
         },
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
-
+        
         asset: {
             upload: { pathname: "/api/asset/upload", method: "POST" },
         },
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-
+            
             // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
+        },
+        block: {
+            getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
+
+            // TODO: refactor
+            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
+            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
         },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
@@ -266,6 +269,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.attr.setBlockAttrs.IResponse;
+        return response;
+    }
+
+    /* 获得指定块的所有下级块 */
+    public async getChildBlocks(payload: kernel.api.block.getChildBlocks.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getChildBlocks.IResponse> {
+        const response = await this._request(
+            Client.api.block.getChildBlocks.pathname,
+            Client.api.block.getChildBlocks.method,
+            payload,
+            config,
+        ) as kernel.api.block.getChildBlocks.IResponse;
         return response;
     }
 

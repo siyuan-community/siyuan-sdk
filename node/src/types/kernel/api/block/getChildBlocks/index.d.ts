@@ -17,8 +17,7 @@
 
 
 /* directories */
-export * as getChildBlocks from "./getChildBlocks";
 
 /* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+export * from "./payload";
+export * from "./response";

@@ -24,7 +24,7 @@ export interface IPayload {
      */
     msg: string;
     /**
-     * message timeout
+     * message timeout (ms)
      */
-    timeout: number;
+    timeout?: number;
 }

@@ -22,9 +22,17 @@ export interface IPayload {
     /**
      * The folder path where assets are stored
      * with the data folder as the root path
+     * @default "assets"
+     * 
+     * @example "assets": workspace/data/assets/
+     * @example "assets/": workspace/data/assets/
+     * @example "/assets": workspace/data/assets/
      * @example "/assets/": workspace/data/assets/
+     * 
+     * @example "assets/sub": workspace/data/assets/sub/
+     * @example "assets/sub/": workspace/data/assets/sub/
+     * @example "/assets/sub": workspace/data/assets/sub/
      * @example "/assets/sub/": workspace/data/assets/sub/
-     * @default "/assets/"
      */
     assetsDirPath?: string;
     /**

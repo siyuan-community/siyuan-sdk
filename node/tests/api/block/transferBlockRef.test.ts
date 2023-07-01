@@ -114,6 +114,22 @@ describe.concurrent(pathname, async () => {
             payload: {
                 fromID: context.block,
                 toID: context.document,
+            },
+            debug: false,
+        });
+        cases.push({
+            name: `✖Transfer all block ref: ${markdown}`,
+            before: async (payload) => {
+                /* 插入一个测试用的块 */
+                const response_insertBlock = await client.client.insertBlock({
+                    dataType: "markdown",
+                    data: `((${context.block} "${markdown}")) `.repeat(3),
+                    previousID: context.block,
+                });
+            },
+            payload: {
+                fromID: context.block,
+                toID: context.document,
                 refIDs: [],
             },
             debug: false,

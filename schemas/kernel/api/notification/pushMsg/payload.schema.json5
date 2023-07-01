@@ -18,15 +18,20 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['msg', 'timeout'],
+            required: ['msg'],
             properties: {
                 msg: {
                     type: 'string',
                     description: 'message content',
                 },
                 timeout: {
+                    /**
+                     * 消息显示时间
+                     * 单位: 毫秒
+                     */
                     type: 'integer',
-                    description: 'message timeout',
+                    description: 'message timeout (ms)',
+                    default: 7000,
                 },
             },
         },

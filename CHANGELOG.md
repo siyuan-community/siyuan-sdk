@@ -2,6 +2,7 @@
 
 - 更新文档 | Update document
 - 更新依赖 | Update dependencies
+- 优化 JSON Schema 描述 | Optimize JSON Schema description
 
 ## v0.0.6 / 2023-06-30
 

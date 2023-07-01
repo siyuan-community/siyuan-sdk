@@ -10,8 +10,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "msg",
-                "timeout"
+                "msg"
             ],
             "properties": {
                 "msg": {
@@ -20,7 +19,8 @@
                 },
                 "timeout": {
                     "type": "integer",
-                    "description": "message timeout"
+                    "description": "message timeout (ms)",
+                    "default": 7000
                 }
             }
         }

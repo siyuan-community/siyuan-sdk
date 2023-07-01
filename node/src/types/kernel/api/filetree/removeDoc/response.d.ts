@@ -16,7 +16,7 @@
  */
 
 /**
- * Create a document with Markdown
+ * Remove a document
  */
 export interface IResponse {
     /**

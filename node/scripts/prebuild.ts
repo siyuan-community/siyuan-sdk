@@ -17,11 +17,15 @@
 
 import fsWalk from "@nodelib/fs.walk";
 
-import { KERNEL_SCHEMAS_DIR_PATH } from "./utils/constants";
+import {
+    KERNEL_SCHEMAS_DIR_PATH,
+    KERNEL_TYPES_DIR_PATH,
+} from "./utils/constants";
 import {
     json52json,
     json2types,
 } from "./utils/schema";
+import { updateTypeDefinitionFile } from "./utils/types";
 
 /**
  * 将 *.schema.json5 转换为 *.schema.json
@@ -43,9 +47,7 @@ fsWalk.walk(
             .then(paths => {
                 console.log(paths); // 打印转换后的 *.schema.json 文件路径
 
-                /**
-                 * 将 *.schema.json 转换为 *.d.ts
-                 */
+                /* 将所有 *.schema.json 文件转换为对应的 *.d.ts */
                 fsWalk.walk(
                     KERNEL_SCHEMAS_DIR_PATH,
                     {
@@ -60,6 +62,27 @@ fsWalk.walk(
                         Promise.all(promise_pool)
                             .then(paths => {
                                 console.log(paths); // 打印转换后的 *.d.ts 文件路径
+
+                                /* 更新各目录下的 index.d.ts */
+                                fsWalk.walk(
+                                    KERNEL_TYPES_DIR_PATH,
+                                    {
+                                        entryFilter: (entry) => entry.dirent.isDirectory(), // 仅处理目录
+                                    },
+                                    (_error, entries) => {
+                                        /* 更新目录下的 index.d.ts 文件 */
+                                        const promise_pool: Promise<string>[] = [];
+                                        entries.forEach(entry => {
+                                            promise_pool.push(updateTypeDefinitionFile(entry.path));
+                                        })
+                                        Promise.all(promise_pool)
+                                            .then(paths => {
+                                                console.log(paths); // 打印更新的 index.d.ts 文件目录
+                                            })
+                                            .finally(() => {
+                                            });
+                                    },
+                                );
                             })
                             .finally(() => {
                             });

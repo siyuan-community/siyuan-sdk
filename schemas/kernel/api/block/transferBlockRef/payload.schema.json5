@@ -18,7 +18,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['fromID', 'toID', 'refIDs'],
+            required: ['fromID', 'toID'],
             properties: {
                 fromID: {
                     // 移动前引用指向的块 ID
@@ -33,6 +33,7 @@
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
                 refIDs: {
+                    // 仅转移指定块的块引用目标
                     oneOf: [
                         {
                             // 转移所有块引用
@@ -40,7 +41,7 @@
                             description: 'Transfer all block references',
                         },
                         {
-                            // 转移所有块引用
+                            // 转移部分引用
                             type: 'array',
                             items: {
                                 // 块引用所在的块 ID
@@ -56,9 +57,10 @@
                                 },
                                 {
                                     /**
-                                     * 仅移动部分引用
+                                     * 仅转移部分块引用目标
                                      * 想要转移目标的块引用所在的块 ID 列表
-                                     * 移除无效的块 (不含指定引用的块)
+                                     * 该列表中的块可以是不限层级的上级块
+                                     * @example: 若为文档块 ID, 则该文档下所有目标为 fromID 的块引用都会被转移到 toID
                                      */
                                     minItems: 1,
                                     description: 'Ref block IDs point to def block ID, optional, if not specified, all ref block IDs will be transferred',

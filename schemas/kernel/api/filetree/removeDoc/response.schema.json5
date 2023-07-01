@@ -6,7 +6,6 @@
  * @pathname: /api/filetree/removeDoc
  * @version: 2.9.3
  */
- */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/filetree/removeDoc/response.schema.json5',

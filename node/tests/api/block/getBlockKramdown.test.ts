@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * cSpell:ignoreRegExp \d{14}-[0-9a-z]{7}
+ */
 import {
     describe,
 } from "vitest";

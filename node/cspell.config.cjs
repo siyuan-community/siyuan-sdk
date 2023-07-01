@@ -19,12 +19,14 @@ module.exports = {
         "filetree",
         "formdata",
         "hpath",
+        "hpaths",
         "iife",
         "katex",
         "nodelib",
         "pandoc",
         "quicktype",
         "siyuan",
+        "succ",
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

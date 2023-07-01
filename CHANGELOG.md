@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.0.6 / 2023-06-30
+
+- [v0.0.5 ... v0.0.6](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.5...v0.0.6)
 - 添加 API `/api/filetree/createDocWithMd` | Add API `/api/filetree/createDocWithMd`
 - 添加 API `/api/filetree/renameDoc` | Add API `/api/filetree/renameDoc`
 - 添加 API `/api/filetree/removeDoc` | Add API `/api/filetree/removeDoc`

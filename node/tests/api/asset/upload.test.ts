@@ -91,7 +91,7 @@ describe.concurrent(pathname, async () => {
                         payload.files.map(file => file.name).forEach(filename => {
                             expect.soft(
                                 response.data.succMap[filename],
-                                `uploade file "${filename}" failed`,
+                                `uploaded file "${filename}" failed`,
                             ).not.toBeUndefined();
                         });
 

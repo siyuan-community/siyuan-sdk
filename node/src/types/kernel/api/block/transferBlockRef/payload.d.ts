@@ -22,8 +22,8 @@ export interface IPayload {
     /**
      * Def block ID
      */
-    fromID: string;
-    refIDs: string[] | null;
+    fromID:  string;
+    refIDs?: string[] | null;
     /**
      * Target block ID
      */

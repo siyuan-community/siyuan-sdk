@@ -93,14 +93,6 @@ async function typesHandler(
 ) {
     console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`);
     try {
-        /**
-         * TODO: 监听 types 目录下文件的变化
-         * addDir:
-         *  1. 在其目录下添加/更新 index.d.ts 文件
-         *  2. 更新其上级目录的 index.d.ts 文件
-         * add:
-         *  1. 非 index.d.ts 文件: 更新其所在目录下的 index.d.ts 文件
-         */
         switch (eventName) {
             case "addDir": {
                 /* 更新在其目录下的 index.d.ts 文件 */

@@ -1,10 +1,13 @@
 # 更改日志 | Change Log
 
+## v0.1.0 / 2023-07-02
+
+- [v0.0.6 ... v0.1.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.6...v0.1.0)
 - 更新文档 | Update document
 - 更新依赖 | Update dependencies
 - 优化 JSON Schema 描述 | Optimize JSON Schema description
 
-## v0.0.6 / 2023-06-30
+## v0.0.6 / 2023-07-01
 
 - [v0.0.5 ... v0.0.6](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.5...v0.0.6)
 - 添加 API `/api/filetree/createDocWithMd` | Add API `/api/filetree/createDocWithMd`

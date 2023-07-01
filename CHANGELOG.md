@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 更新文档 | Update document
+
 ## v0.0.6 / 2023-06-30
 
 - [v0.0.5 ... v0.0.6](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.5...v0.0.6)

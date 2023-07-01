@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 更新文档 | Update document
+- 更新依赖 | Update dependencies
 
 ## v0.0.6 / 2023-06-30
 

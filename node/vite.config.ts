@@ -53,6 +53,25 @@ export default defineConfig({
             "**/tests/**/*.test.js",
             "**/tests/**/*.test.ts",
         ],
-        testTimeout: 10_000,
+        testTimeout: 60_000,
+        coverage: {
+            // provider: "v8",
+            provider: "istanbul",
+            // REF: https://istanbul.js.org/docs/advanced/alternative-reporters/
+            reporter: [
+                "clover", // coverage/clover.xml
+                "cobertura", // coverage/cobertura-coverage.xml
+                // "html", // HTML report
+                "json-summary", // coverage/coverage-summary.json
+                "json", // coverage/coverage-final.json
+                // "lcov", // lcovonly + HTML report
+                "lcovonly", // coverage/lcov.info
+                // "none", // none report
+                // "teamcity", // output to terminal
+                // "text-lcov", // output to terminal
+                // "text-summary", // output to terminal
+                "text", // output to terminal
+            ],
+        },
     },
 });

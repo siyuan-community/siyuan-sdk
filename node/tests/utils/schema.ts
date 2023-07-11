@@ -18,6 +18,7 @@
 import { resolve } from "path";
 
 import Ajv2020, { Schema, ValidateFunction, Options } from "ajv/dist/2020";
+import addFormats from "ajv-formats"
 
 import constants from "@/constants";
 import { loadJSON5 } from "./json5";
@@ -51,7 +52,7 @@ export class SchemaJSON {
         public filepath: string,
         options?: Options,
     ) {
-        this._ajv = new Ajv2020(options);
+        this._ajv = addFormats(new Ajv2020(options));
     }
 
     public updateSchema(schema: Schema): void {

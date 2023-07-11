@@ -1,0 +1,77 @@
+/**
+ * schemas/kernel/api/network/forwardProxy/payload.schema.json5
+ * 正向代理
+ * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Forward-proxy
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/network.go#L33-L115
+ * @pathname: /api/network/forwardProxy
+ * @version: 2.9.5
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/schemas/kernel/api/network/forwardProxy/payload.schema.json5',
+    $comment: 'v2.9.5',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'payload body',
+            description: 'Forward proxy',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['url', 'headers'],
+            properties: {
+                url: {
+                    // 请求 URL
+                    type: 'string',
+                    description: 'URL to request',
+
+                    format: 'uri',
+                },
+                method: {
+                    // HTTP 请求方法
+                    type: 'string',
+                    description: 'HTTP method to request\n@default: "GET"',
+
+                    enum: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'CONNECT'],
+                    default: 'GET',
+                },
+                timeout: {
+                    // 请求超时时间 (单位: ms)
+                    type: 'integer',
+                    description: 'timeout to request (ms)\n@default: 7000',
+
+                    minimum: 0,
+                    default: 7000,
+                },
+                contentType: {
+                    // 请求体内容类型
+                    type: 'string',
+                    description: 'Content-Type for request body\n@default: "application/json"',
+
+                    default: 'application/json',
+                },
+                headers: {
+                    // 请求头
+                    type: 'array',
+                    description: 'request headers list',
+                    items: {
+                        $ref: '#/$defs/headers',
+                    },
+                },
+                payload: {
+                    // 请求体
+                    type: ['object', 'string'],
+                    description: 'request body',
+                },
+            },
+        },
+        headers: {
+            title: 'IHeaders',
+            description: 'Request headers',
+            type: 'object',
+            additionalProperties: {
+                type: 'string',
+            },
+        },
+    },
+}

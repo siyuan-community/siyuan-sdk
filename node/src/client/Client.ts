@@ -95,6 +95,9 @@ export class Client {
             listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
+        network: {
+            forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" },
+        },
         notebook: {
             closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
             createNotebook: { pathname: "/api/notebook/createNotebook", method: "POST" },
@@ -571,6 +574,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.renameDoc.IResponse;
+        return response;
+    }
+    
+    /* 正向代理 */
+    public async forwardProxy(payload: kernel.api.network.forwardProxy.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.network.forwardProxy.IResponse> {
+        const response = await this._request(
+            Client.api.network.forwardProxy.pathname,
+            Client.api.network.forwardProxy.method,
+            payload,
+            config,
+        ) as kernel.api.network.forwardProxy.IResponse;
         return response;
     }
 

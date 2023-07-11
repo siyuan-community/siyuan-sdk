@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 添加 API `/api/filetree/getHPathByID` | Add API `/api/filetree/getHPathByID`
+
 ## v0.1.0 / 2023-07-02
 
 - [v0.0.6 ... v0.1.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.0.6...v0.1.0)

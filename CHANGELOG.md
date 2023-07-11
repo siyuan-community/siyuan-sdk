@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/filetree/getHPathByID` | Add API `/api/filetree/getHPathByID`
+- schema ID 更改为 `https://github.com/:user/:repo/raw/:branch/*` | Change schema ID to `https://github.com/:user/:repo/raw/:branch/*`
 
 ## v0.1.0 / 2023-07-02
 

@@ -31,7 +31,7 @@
             " */",
             "{",
             "\t\\$schema: 'https://json-schema.org/draft/2020-12/schema',",
-            "\t\\$id: 'https://raw.githubusercontent.com/siyuan-community/siyuan-sdk/main/${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}',",
+            "\t\\$id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}',",
             "\t\\$comment: 'v$3',",
             "\t\\$ref: '#/\\$defs/root',",
             "\t\\$defs: {",

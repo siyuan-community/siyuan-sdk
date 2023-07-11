@@ -24,12 +24,13 @@
                     "description": "HTTP method to request\n@default: \"GET\"",
                     "enum": [
                         "GET",
+                        "HEAD",
                         "POST",
                         "PUT",
                         "PATCH",
                         "DELETE",
-                        "HEAD",
                         "OPTIONS",
+                        "TRACE",
                         "CONNECT"
                     ],
                     "default": "GET"

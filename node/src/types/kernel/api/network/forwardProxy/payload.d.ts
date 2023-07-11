@@ -52,7 +52,7 @@ export interface IPayload {
  * HTTP method to request
  * @default: "GET"
  */
-export type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS" | "CONNECT";
+export type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "TRACE" | "CONNECT";
 
 /**
  * request body

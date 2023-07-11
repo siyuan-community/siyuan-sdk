@@ -34,30 +34,18 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "body",
-                "contentType",
-                "elapsed",
-                "headers",
+                "url",
                 "status",
-                "url"
+                "elapsed",
+                "contentType",
+                "headers",
+                "body"
             ],
             "properties": {
-                "body": {
+                "url": {
                     "type": "string",
-                    "description": "response body"
-                },
-                "contentType": {
-                    "type": "string",
-                    "description": "response content-type"
-                },
-                "elapsed": {
-                    "type": "integer",
-                    "description": "response elapsed",
-                    "minimum": 0
-                },
-                "headers": {
-                    "description": "response headers",
-                    "$ref": "#/$defs/headers"
+                    "description": "URL to request",
+                    "format": "uri"
                 },
                 "status": {
                     "type": "integer",
@@ -65,10 +53,22 @@
                     "minimum": 100,
                     "maximum": 599
                 },
-                "url": {
+                "elapsed": {
+                    "type": "integer",
+                    "description": "response elapsed",
+                    "minimum": 0
+                },
+                "contentType": {
                     "type": "string",
-                    "description": "URL to request",
-                    "format": "uri"
+                    "description": "response content-type"
+                },
+                "headers": {
+                    "description": "response headers",
+                    "$ref": "#/$defs/headers"
+                },
+                "body": {
+                    "type": "string",
+                    "description": "response body"
                 }
             }
         },

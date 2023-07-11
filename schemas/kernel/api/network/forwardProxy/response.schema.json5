@@ -39,28 +39,13 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['body', 'contentType', 'elapsed', 'headers', 'status', 'url'],
+            required: ['url', 'status', 'elapsed', 'contentType', 'headers', 'body'],
             properties: {
-                body: {
-                    // 响应体内容
+                url: {
+                    // 请求 URL
                     type: 'string',
-                    description: 'response body',
-                },
-                contentType: {
-                    // 响应体内容类型
-                    type: 'string',
-                    description: 'response content-type',
-                },
-                elapsed: {
-                    // 响应用时
-                    type: 'integer',
-                    description: 'response elapsed',
-                    minimum: 0,
-                },
-                headers: {
-                    // 响应头
-                    description: 'response headers',
-                    $ref: '#/$defs/headers',
+                    description: 'URL to request',
+                    format: 'uri',
                 },
                 status: {
                     // HTTP 状态码
@@ -69,10 +54,26 @@
                     minimum: 100,
                     maximum: 599,
                 },
-                url: {
+                elapsed: {
+                    // 响应用时
+                    type: 'integer',
+                    description: 'response elapsed',
+                    minimum: 0,
+                },
+                contentType: {
+                    // 响应体内容类型
                     type: 'string',
-                    description: 'URL to request',
-                    format: 'uri',
+                    description: 'response content-type',
+                },
+                headers: {
+                    // 响应头
+                    description: 'response headers',
+                    $ref: '#/$defs/headers',
+                },
+                body: {
+                    // 响应体内容
+                    type: 'string',
+                    description: 'response body',
                 },
             },
         },

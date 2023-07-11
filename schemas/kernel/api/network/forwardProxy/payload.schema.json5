@@ -32,7 +32,7 @@
                     type: 'string',
                     description: 'HTTP method to request\n@default: "GET"',
 
-                    enum: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'CONNECT'],
+                    enum: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE', 'CONNECT'],
                     default: 'GET',
                 },
                 timeout: {

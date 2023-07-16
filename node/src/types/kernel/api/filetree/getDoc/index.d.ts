@@ -17,14 +17,7 @@
 
 
 /* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as getDoc from "./getDoc";
-export * as getHPathByID from "./getHPathByID";
-export * as getHPathByPath from "./getHPathByPath";
-export * as moveDocs from "./moveDocs";
-export * as removeDoc from "./removeDoc";
-export * as renameDoc from "./renameDoc";
 
 /* files */
-export * as listDocsByPath from "./listDocsByPath";
-export * as searchDocs from "./searchDocs";
+export * from "./payload";
+export * from "./response";

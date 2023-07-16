@@ -52,7 +52,7 @@ export interface IOperation {
     /**
      * operation action type
      */
-    action: string;
+    action: Action;
     /**
      * HTML DOM of inserting blocks
      */
@@ -75,3 +75,5 @@ export interface IOperation {
     previousID: string;
     [property: string]: any;
 }
+
+export type Action = "insert";

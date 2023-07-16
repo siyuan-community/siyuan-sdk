@@ -52,7 +52,7 @@ export interface IOperation {
     /**
      * operation action type
      */
-    action: string;
+    action: Action;
     /**
      * HTML DOM of updating blocks
      */
@@ -64,3 +64,5 @@ export interface IOperation {
     parentID: any;
     [property: string]: any;
 }
+
+export type Action = "delete";

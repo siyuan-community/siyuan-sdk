@@ -12,12 +12,14 @@
             "required": [
                 "id"
             ],
-            "dependencies": {
+            "dependentRequired": {
                 "startID": [
-                    "endID"
+                    "endID",
+                    "scroll"
                 ],
                 "endID": [
-                    "startID"
+                    "startID",
+                    "scroll"
                 ]
             },
             "properties": {

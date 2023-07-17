@@ -15,19 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Get block breadcrumb
+ */
+export interface IPayload {
+    /**
+     * The block types that needs to be excluded
+     */
+    excludeTypes?: ExcludeType[];
+    /**
+     * Block ID
+     */
+    id: string;
+}
 
-/* directories */
-export * as appendBlock from "./appendBlock";
-export * as deleteBlock from "./deleteBlock";
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getBlockDOM from "./getBlockDOM";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as moveBlock from "./moveBlock";
-export * as prependBlock from "./prependBlock";
-export * as transferBlockRef from "./transferBlockRef";
-export * as updateBlock from "./updateBlock";
-
-/* files */
-export * as getDocInfo from "./getDocInfo";
+/**
+ * Block type
+ */
+export type ExcludeType = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeList" | "NodeListItem" | "NodeHeading" | "NodeParagraph" | "NodeMathBlock" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed";

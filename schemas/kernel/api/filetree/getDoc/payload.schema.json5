@@ -18,10 +18,13 @@
             type: 'object',
             additionalProperties: false,
             required: ['id'],
-            dependencies: {
-                // 属性相互依赖
-                startID: ['endID'],
-                endID: ['startID'],
+            dependentRequired: {
+                /**
+                 * 属性相互依赖
+                 * REF: https://ajv.js.org/json-schema.html#dependentrequired
+                 */
+                startID: ['endID', 'scroll'],
+                endID: ['startID', 'scroll'],
             },
             properties: {
                 id: {

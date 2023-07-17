@@ -2,7 +2,6 @@ import * as axios from "axios";
 
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
-import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
 import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
 import getConf from "@/types/kernel/api/system/getConf";
 import getDocInfo from "@/types/kernel/api/block/getDocInfo";
@@ -58,6 +57,7 @@ export class Client {
         block: {
             appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
             deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
+            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
@@ -68,7 +68,6 @@ export class Client {
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
 
             // TODO: refactor
-            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
         },
         convert: {
@@ -167,17 +166,6 @@ export class Client {
             undefined,
             config,
         ) as getBookmarkLabels.IResponse;
-        return response;
-    }
-
-    /* 获得指定块的面包屑 */
-    public async getBlockBreadcrumb(payload: getBlockBreadcrumb.IPayload, config?: axios.AxiosRequestConfig): Promise<getBlockBreadcrumb.IResponse> {
-        const response = await this._request(
-            Client.api.block.getBlockBreadcrumb.pathname,
-            Client.api.block.getBlockBreadcrumb.method,
-            payload,
-            config,
-        ) as getBlockBreadcrumb.IResponse;
         return response;
     }
 
@@ -304,6 +292,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.deleteBlock.IResponse;
+        return response;
+    }
+
+    /* 获得块面包屑 */
+    public async getBlockBreadcrumb(payload: kernel.api.block.getBlockBreadcrumb.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getBlockBreadcrumb.IResponse> {
+        const response = await this._request(
+            Client.api.block.getBlockBreadcrumb.pathname,
+            Client.api.block.getBlockBreadcrumb.method,
+            payload,
+            config,
+        ) as kernel.api.block.getBlockBreadcrumb.IResponse;
         return response;
     }
 

@@ -5,6 +5,7 @@
 - 更新 API `/api/filetree/getHPathByID` | Update API `/api/filetree/getHPathByID`
 - 添加 API `/api/filetree/getDoc` | Add API `/api/filetree/getDoc`
 - 添加 API `/api/block/getBlockDOM` | Add API `/api/block/getBlockDOM`
+- 添加 API `/api/block/getBlockBreadcrumb` | Add API `/api/block/getBlockBreadcrumb`
 
 ## v0.1.0 / 2023-07-02
 

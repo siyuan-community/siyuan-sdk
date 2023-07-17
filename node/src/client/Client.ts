@@ -58,6 +58,7 @@ export class Client {
         block: {
             appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
             deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
+            getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
@@ -303,6 +304,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.deleteBlock.IResponse;
+        return response;
+    }
+
+    /* 获得块的 DOM */
+    public async getBlockDOM(payload: kernel.api.block.getBlockDOM.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getBlockDOM.IResponse> {
+        const response = await this._request(
+            Client.api.block.getBlockDOM.pathname,
+            Client.api.block.getBlockDOM.method,
+            payload,
+            config,
+        ) as kernel.api.block.getBlockDOM.IResponse;
         return response;
     }
 

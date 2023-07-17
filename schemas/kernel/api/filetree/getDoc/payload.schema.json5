@@ -1,6 +1,6 @@
 /**
  * schemas/kernel/api/filetree/getDoc/payload.schema.json5
- * 获取文档 DOM 字符串
+ * 获取块 DOM 与相关信息
  * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/filetree.go#L663-L752
  * @pathname: /api/filetree/getDoc
  * @version: 2.9.5
@@ -13,7 +13,7 @@
     $defs: {
         root: {
             title: 'payload body',
-            description: 'Get document content its information',
+            description: 'Get block HTML DOM and other information',
 
             type: 'object',
             additionalProperties: false,

@@ -4,6 +4,7 @@
 - schema ID 更改为 `https://github.com/:user/:repo/raw/:branch/*` | Change schema ID to `https://github.com/:user/:repo/raw/:branch/*`
 - 更新 API `/api/filetree/getHPathByID` | Update API `/api/filetree/getHPathByID`
 - 添加 API `/api/filetree/getDoc` | Add API `/api/filetree/getDoc`
+- 添加 API `/api/block/getBlockDOM` | Add API `/api/block/getBlockDOM`
 
 ## v0.1.0 / 2023-07-02
 

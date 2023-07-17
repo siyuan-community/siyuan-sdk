@@ -1,0 +1,176 @@
+/**
+ * Copyright (C) 2023 SiYuan Community
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import {
+    afterAll,
+    describe,
+    test,
+    expect,
+} from "vitest";
+
+import client from "~/tests/utils/client";
+import { SchemaJSON } from "~/tests/utils/schema";
+import { testKernelAPI } from "~/tests/utils/test";
+
+import getBlockDOM from "@/types/kernel/api/block/getBlockDOM";
+
+const pathname = client.Client.api.block.getBlockDOM.pathname;
+
+/* 测试环境上下文 */
+const context = {
+    notebook: "", // 测试用笔记本的 ID
+    document: "", // 测试用文档的 ID
+    container: "", // 测试用的容器块 ID
+    heading: "", // 测试用的标题块 ID
+    block: "", // 测试用的块 ID
+};
+
+/* 初始化测试上下文 */
+async function initContext() {
+    /* 创建一个测试用笔记本 */
+    const response_createNotebook = await client.client.createNotebook({
+        name: "getBlockDOM",
+    });
+    context.notebook = response_createNotebook.data.notebook.id;
+
+    /* 创建一个测试用文档 */
+    const response_createDocWithMd = await client.client.createDocWithMd({
+        notebook: context.notebook,
+        markdown: "",
+        path: "/getBlockDOM",
+    });
+    context.document = response_createDocWithMd.data;
+
+    /* 插入一个测试用容器块 */
+    const response_container = await client.client.prependBlock({
+        dataType: "markdown",
+        data: "{{{\ngetBlockDOM\n}}}",
+        parentID: context.document,
+    });
+    context.container = response_container.data[0].doOperations[0].id;
+
+    /* 插入一个测试用标题 */
+    const response_heading = await client.client.prependBlock({
+        dataType: "markdown",
+        data: "# getBlockDOM",
+        parentID: context.container,
+    });
+    context.heading = response_heading.data[0].doOperations[0].id;
+
+    /* 插入一个测试用普通块 */
+    const response_block = await client.client.appendBlock({
+        dataType: "markdown",
+        data: "getBlockDOM",
+        parentID: context.container,
+    });
+    context.block = response_block.data[0].doOperations[0].id;
+
+    return context;
+}
+
+interface ICase {
+    name: string,
+    payload: getBlockDOM.IPayload,
+    after?: (response: getBlockDOM.IResponse) => void,
+    debug: boolean,
+}
+
+describe.concurrent(pathname, async () => {
+    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
+    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
+    await schema_payload.loadSchemaFile();
+    await schema_response.loadSchemaFile();
+    const validate_payload = schema_payload.constructValidateFuction();
+    const validate_response = schema_response.constructValidateFuction();
+
+    const context = await initContext();
+
+    /* 测试各种块的插入 */
+    const cases: ICase[] = [];
+    cases.push({
+        name: `document: ${context.document}`,
+        payload: {
+            id: context.document,
+        },
+        after: response => {
+            test("document", () => {
+                expect.soft(response.data.id).toEqual(context.document);
+            });
+        },
+        debug: false,
+    });
+    cases.push({
+        name: `container: ${context.container}`,
+        payload: {
+            id: context.container,
+        },
+        after: response => {
+            test("document > container", () => {
+                expect.soft(response.data.id).toEqual(context.container);
+            });
+        },
+        debug: false,
+    });
+    cases.push({
+        name: `heading: ${context.heading}`,
+        payload: {
+            id: context.heading,
+        },
+        after: response => {
+            test("document > container > heading", () => {
+                expect.soft(response.data.id).toEqual(context.heading);
+            });
+        },
+        debug: false,
+    });
+    cases.push({
+        name: `block: ${context.block}`,
+        payload: {
+            id: context.block,
+        },
+        after: response => {
+            test("document > container > heading > block", () => {
+                expect.soft(response.data.id).toEqual(context.block);
+            });
+        },
+        debug: false,
+    });
+
+    cases.forEach(item => {
+        testKernelAPI<getBlockDOM.IPayload, getBlockDOM.IResponse>({
+            name: item.name,
+            payload: {
+                data: item.payload,
+                validate: validate_payload,
+            },
+            request: (payload) => client.client.getBlockDOM(payload!),
+            response: {
+                validate: validate_response,
+                test: item.after,
+            },
+            debug: item.debug,
+        });
+    });
+});
+
+// REF: https://cn.vitest.dev/api/#afterall
+afterAll(async () => {
+    /* 删除测试用笔记本 */
+    await client.client.removeNotebook({
+        notebook: context.notebook,
+    });
+});

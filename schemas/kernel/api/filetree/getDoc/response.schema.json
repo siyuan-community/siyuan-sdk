@@ -6,7 +6,7 @@
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "Get document content its information",
+            "description": "Get block HTML DOM and other information",
             "type": "object",
             "additionalProperties": false,
             "required": [

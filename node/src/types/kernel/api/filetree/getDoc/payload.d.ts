@@ -16,7 +16,7 @@
  */
 
 /**
- * Get document content its information
+ * Get block HTML DOM and other information
  */
 export interface IPayload {
     /**

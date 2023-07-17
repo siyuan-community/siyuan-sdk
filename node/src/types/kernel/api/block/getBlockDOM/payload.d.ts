@@ -15,19 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as appendBlock from "./appendBlock";
-export * as deleteBlock from "./deleteBlock";
-export * as getBlockDOM from "./getBlockDOM";
-export * as getBlockKramdown from "./getBlockKramdown";
-export * as getChildBlocks from "./getChildBlocks";
-export * as insertBlock from "./insertBlock";
-export * as moveBlock from "./moveBlock";
-export * as prependBlock from "./prependBlock";
-export * as transferBlockRef from "./transferBlockRef";
-export * as updateBlock from "./updateBlock";
-
-/* files */
-export * as getBlockBreadcrumb from "./getBlockBreadcrumb";
-export * as getDocInfo from "./getDocInfo";
+/**
+ * Get block HTML DOM string
+ */
+export interface IPayload {
+    /**
+     * Block ID
+     */
+    id: string;
+}

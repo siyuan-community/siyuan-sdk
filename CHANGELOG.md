@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.1.1 / 2023-07-18
+
+- [v0.1.0 ... v0.1.1](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.0...v0.1.1)
 - 添加 API `/api/filetree/getHPathByID` | Add API `/api/filetree/getHPathByID`
 - schema ID 更改为 `https://github.com/:user/:repo/raw/:branch/*` | Change schema ID to `https://github.com/:user/:repo/raw/:branch/*`
 - 更新 API `/api/filetree/getHPathByID` | Update API `/api/filetree/getHPathByID`

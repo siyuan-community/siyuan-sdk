@@ -6,6 +6,7 @@
 - 添加 API `/api/filetree/getDoc` | Add API `/api/filetree/getDoc`
 - 添加 API `/api/block/getBlockDOM` | Add API `/api/block/getBlockDOM`
 - 添加 API `/api/block/getBlockBreadcrumb` | Add API `/api/block/getBlockBreadcrumb`
+- 添加 API `/api/block/getBlockInfo` | Add API `/api/block/getBlockInfo`
 
 ## v0.1.0 / 2023-07-02
 

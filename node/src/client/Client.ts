@@ -59,6 +59,7 @@ export class Client {
             deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
             getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" },
+            getBlockInfo: { pathname: "/api/block/getBlockInfo", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
@@ -314,6 +315,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.getBlockDOM.IResponse;
+        return response;
+    }
+
+    /* 获得块所在文档的信息 */
+    public async getBlockInfo(payload: kernel.api.block.getBlockInfo.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.block.getBlockInfo.IResponse> {
+        const response = await this._request(
+            Client.api.block.getBlockInfo.pathname,
+            Client.api.block.getBlockInfo.method,
+            payload,
+            config,
+        ) as kernel.api.block.getBlockInfo.IResponse;
         return response;
     }
 

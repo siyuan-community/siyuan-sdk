@@ -15,23 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Set code snippet list
+ */
+export interface IPayload {
+    /**
+     * snippet list
+     */
+    snippets: ISnippet[];
+}
 
-/* directories */
-export * as asset from "./asset";
-export * as attr from "./attr";
-export * as block from "./block";
-export * as convert from "./convert";
-export * as export from "./export";
-export * as file from "./file";
-export * as filetree from "./filetree";
-export * as network from "./network";
-export * as notebook from "./notebook";
-export * as notification from "./notification";
-export * as query from "./query";
-export * as search from "./search";
-export * as snippet from "./snippet";
-export * as storage from "./storage";
-export * as system from "./system";
-export * as template from "./template";
+/**
+ * code snippet
+ */
+export interface ISnippet {
+    /**
+     * snippet content
+     */
+    content: string;
+    /**
+     * snippet enable status
+     */
+    enabled: boolean;
+    /**
+     * snippet ID
+     */
+    id: string;
+    /**
+     * snippet name
+     */
+    name: string;
+    /**
+     * snippet type
+     */
+    type: Type;
+}
 
-/* files */
+/**
+ * snippet type
+ */
+export type Type = "js" | "css";

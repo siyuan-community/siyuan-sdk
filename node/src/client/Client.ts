@@ -43,14 +43,14 @@ export class Client {
         storage: {
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
-        
+
         asset: {
             upload: { pathname: "/api/asset/upload", method: "POST" },
         },
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-            
+
             // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
@@ -116,6 +116,10 @@ export class Client {
         },
         query: {
             sql: { pathname: "/api/query/sql", method: "POST" },
+        },
+        snippet: {
+            getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
+            setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -242,7 +246,7 @@ export class Client {
         const formdata = new FormData();
         formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
         payload.files.forEach(file => formdata.append("file[]", file));
-        
+
         const response = await this._request(
             Client.api.asset.upload.pathname,
             Client.api.asset.upload.method,
@@ -614,7 +618,7 @@ export class Client {
         ) as kernel.api.filetree.renameDoc.IResponse;
         return response;
     }
-    
+
     /* 正向代理 */
     public async forwardProxy(payload: kernel.api.network.forwardProxy.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.network.forwardProxy.IResponse> {
         const response = await this._request(
@@ -776,6 +780,34 @@ export class Client {
             payload,
             config,
         ) as kernel.api.query.sql.IResponse;
+        return response;
+    }
+
+    /* 获取代码片段 */
+    public async getSnippet(
+        payload: kernel.api.snippet.getSnippet.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.snippet.getSnippet.IResponse> {
+        const response = await this._request(
+            Client.api.snippet.getSnippet.pathname,
+            Client.api.snippet.getSnippet.method,
+            payload,
+            config,
+        ) as kernel.api.snippet.getSnippet.IResponse;
+        return response;
+    }
+
+    /* 设置代码片段 */
+    public async setSnippet(
+        payload: kernel.api.snippet.setSnippet.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.snippet.setSnippet.IResponse> {
+        const response = await this._request(
+            Client.api.snippet.setSnippet.pathname,
+            Client.api.snippet.setSnippet.method,
+            payload,
+            config,
+        ) as kernel.api.snippet.setSnippet.IResponse;
         return response;
     }
 

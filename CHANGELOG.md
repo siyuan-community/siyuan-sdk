@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
+- 添加 API `/api/snippet/setSnippet` | Add API `/api/snippet/setSnippet`
 
 ## v0.1.1 / 2023-07-18
 

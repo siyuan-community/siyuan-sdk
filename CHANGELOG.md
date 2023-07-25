@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
+
 ## v0.1.1 / 2023-07-18
 
 - [v0.1.0 ... v0.1.1](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.0...v0.1.1)

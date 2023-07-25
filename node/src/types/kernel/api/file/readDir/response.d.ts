@@ -41,6 +41,10 @@ export interface IDatum {
      */
     isDir: boolean;
     /**
+     * whether the item is a symbolic link
+     */
+    isSymlink: boolean;
+    /**
      * file/directory name
      */
     name: string;

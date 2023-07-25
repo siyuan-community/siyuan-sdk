@@ -18,7 +18,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['msg', 'timeout'],
+            required: ['msg'],
             properties: {
                 msg: {
                     type: 'string',

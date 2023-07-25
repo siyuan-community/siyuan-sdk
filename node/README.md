@@ -41,17 +41,17 @@
 
 > A simple and easy to use SDK for [SiYuan Note](https://github.com/siyuan-note/siyuan).
 
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-- [Examples](#examples)
-  - [Initialize the client](#initialize-the-client)
-  - [Update client configuration](#update-client-configuration)
-  - [Call Kernel API (async)](#call-kernel-api-async)
-  - [Call Kernel API (Promise)](#call-kernel-api-promise)
-  - [Use type definitions](#use-type-definitions)
-- [References](#references)
-  - [API References](#api-references)
-- [Changelog](#changelog)
+* [Getting Started](#getting-started)
+  * [Installation](#installation)
+* [Examples](#examples)
+  * [Initialize the client](#initialize-the-client)
+  * [Update client configuration](#update-client-configuration)
+  * [Call Kernel API (async)](#call-kernel-api-async)
+  * [Call Kernel API (Promise)](#call-kernel-api-promise)
+  * [Use type definitions](#use-type-definitions)
+* [References](#references)
+  * [API References](#api-references)
+* [Changelog](#changelog)
 
 ## Getting Started
 
@@ -80,7 +80,7 @@ $ yarn add @siyuan-community/siyuan-sdk
 ### Initialize the client
 
 ```javascript
-import { Client } from "siyuan-sdk";
+import { Client } from "@siyuan-community/siyuan-sdk";
 
 /* Initialize the client */
 const client = new Client({
@@ -124,7 +124,7 @@ client.updateOptions({
 ### Call Kernel API (async)
 
 ```javascript
-import { KernelError, HTTPError } from "siyuan-sdk";
+import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
 
 async function func() {
     try {
@@ -159,7 +159,7 @@ async function func() {
 ### Call Kernel API (Promise)
 
 ```javascript
-import { KernelError, HTTPError } from "siyuan-sdk";
+import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
 
 function func() {
     /**
@@ -205,7 +205,7 @@ const payload: types.kernel.api.notification.pushMsg.IPayload = {
 ```
 
 ```typescript
-import pushMsg from "@siyuan-community/siyuan-sdk/dist/src/types/kernel/api/notification/pushMsg";
+import pushMsg from "@siyuan-community/siyuan-sdk/dist/types/kernel/api/notification/pushMsg";
 
 const payload: pushMsg.IPayload = {
     msg: "This is a notification message", // Notification content

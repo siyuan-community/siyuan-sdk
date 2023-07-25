@@ -41,17 +41,17 @@
 
 > 一个简单易用的 [思源笔记](https://github.com/siyuan-note/siyuan) 开发工具包 (SDK)。
 
-- [开始](#开始)
-  - [安装](#安装)
-- [示例](#示例)
-  - [初始化客户端](#初始化客户端)
-  - [更改客户端配置](#更改客户端配置)
-  - [调用内核 API (async)](#调用内核-api-async)
-  - [调用内核 API (Promise)](#调用内核-api-promise)
-  - [使用类型定义](#使用类型定义)
-- [参考](#参考)
-  - [API 参考](#api-参考)
-- [更改日志](#更改日志)
+* [开始](#开始)
+  * [安装](#安装)
+* [示例](#示例)
+  * [初始化客户端](#初始化客户端)
+  * [更改客户端配置](#更改客户端配置)
+  * [调用内核 API (async)](#调用内核-api-async)
+  * [调用内核 API (Promise)](#调用内核-api-promise)
+  * [使用类型定义](#使用类型定义)
+* [参考](#参考)
+  * [API 参考](#api-参考)
+* [更改日志](#更改日志)
 
 ## 开始
 
@@ -80,7 +80,7 @@ $ yarn add @siyuan-community/siyuan-sdk
 ### 初始化客户端
 
 ```javascript
-import { Client } from "siyuan-sdk";
+import { Client } from "@siyuan-community/siyuan-sdk";
 
 /* 初始化客户端 */
 const client = new Client({
@@ -124,7 +124,7 @@ client.updateOptions({
 ### 调用内核 API (async)
 
 ```javascript
-import { KernelError, HTTPError } from "siyuan-sdk";
+import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
 
 async function func() {
     try {
@@ -159,7 +159,7 @@ async function func() {
 ### 调用内核 API (Promise)
 
 ```javascript
-import { KernelError, HTTPError } from "siyuan-sdk";
+import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
 
 function func() {
     /**
@@ -205,7 +205,7 @@ const payload: types.kernel.api.notification.pushMsg.IPayload = {
 ```
 
 ```typescript
-import pushMsg from "@siyuan-community/siyuan-sdk/dist/src/types/kernel/api/notification/pushMsg";
+import pushMsg from "@siyuan-community/siyuan-sdk/dist/types/kernel/api/notification/pushMsg";
 
 const payload: pushMsg.IPayload = {
     msg: "这是一条通知消息", // 通知内容

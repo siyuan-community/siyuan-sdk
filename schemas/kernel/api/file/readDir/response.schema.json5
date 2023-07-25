@@ -2,14 +2,14 @@
  * schemas/kernel/api/file/readDir/response.schema.json5
  * 列出指定文件目录下的内容
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#list-files
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.2/kernel/api/file.go#L135-L182
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/file.go#L135-L191
  * @pathname: /api/file/readDir
- * @version: 2.9.2
+ * @version: 2.9.7
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/file/readDir/response.schema.json5',
-    $comment: 'v2.9.2',
+    $comment: 'v2.9.7',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -48,11 +48,15 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['isDir', 'name'],
+            required: ['isDir', 'isSymlink', 'name'],
             properties: {
                 isDir: {
                     type: 'boolean',
                     description: 'whether the item is a directory',
+                },
+                isSymlink: {
+                    type: 'boolean',
+                    description: 'whether the item is a symbolic link',
                 },
                 name: {
                     type: 'string',

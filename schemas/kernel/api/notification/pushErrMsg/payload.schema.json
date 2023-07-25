@@ -10,8 +10,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "msg",
-                "timeout"
+                "msg"
             ],
             "properties": {
                 "msg": {

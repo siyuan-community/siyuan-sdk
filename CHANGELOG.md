@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.1.2 / 2023-07-26
+
+- [v0.1.1 ... v0.1.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.1...v0.1.2)
 - 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
 - 添加 API `/api/snippet/setSnippet` | Add API `/api/snippet/setSnippet`
 - 添加 API `/api/snippet/getSnippet` | Add API `/api/snippet/getSnippet`

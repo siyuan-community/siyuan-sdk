@@ -68,13 +68,13 @@
                 rootIcon: {
                     // 文档图标
                     type: 'string',
-                    description: 'Documenticon icon',
+                    description: 'Document icon',
                     examples: ['1f3d8', 'icon.svg', 'folder/iocn.png'],
                 },
                 rootTitle: {
                     // 文档图标
                     type: 'string',
-                    description: 'Documenticon title',
+                    description: 'Document title',
                     minLength: 1,
                 },
             },

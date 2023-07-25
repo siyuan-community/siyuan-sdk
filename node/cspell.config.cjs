@@ -22,6 +22,7 @@ module.exports = {
         "hpath",
         "hpaths",
         "iife",
+        "instanceof",
         "katex",
         "lcov",
         "nodelib",

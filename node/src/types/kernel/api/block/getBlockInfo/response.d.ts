@@ -48,7 +48,7 @@ export interface IData {
      */
     rootChildID: string;
     /**
-     * Documenticon icon
+     * Document icon
      */
     rootIcon: string;
     /**
@@ -56,7 +56,7 @@ export interface IData {
      */
     rootID: string;
     /**
-     * Documenticon title
+     * Document title
      */
     rootTitle: string;
 }

@@ -68,7 +68,7 @@
                 },
                 "rootIcon": {
                     "type": "string",
-                    "description": "Documenticon icon",
+                    "description": "Document icon",
                     "examples": [
                         "1f3d8",
                         "icon.svg",
@@ -77,7 +77,7 @@
                 },
                 "rootTitle": {
                     "type": "string",
-                    "description": "Documenticon title",
+                    "description": "Document title",
                     "minLength": 1
                 }
             }

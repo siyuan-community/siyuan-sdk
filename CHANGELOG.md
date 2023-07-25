@@ -2,6 +2,7 @@
 
 - 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
 - 添加 API `/api/snippet/setSnippet` | Add API `/api/snippet/setSnippet`
+- 添加 API `/api/snippet/getSnippet` | Add API `/api/snippet/getSnippet`
 
 ## v0.1.1 / 2023-07-18
 

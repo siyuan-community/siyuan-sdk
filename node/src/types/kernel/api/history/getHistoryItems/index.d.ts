@@ -17,7 +17,7 @@
 
 
 /* directories */
-export * as getDocHistoryContent from "./getDocHistoryContent";
-export * as getHistoryItems from "./getHistoryItems";
 
 /* files */
+export * from "./payload";
+export * from "./response";

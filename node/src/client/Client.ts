@@ -99,6 +99,7 @@ export class Client {
         },
         history: {
             getDocHistoryContent: { pathname: "/api/history/getDocHistoryContent", method: "POST" },
+            getHistoryItems: { pathname: "/api/history/getHistoryItems", method: "POST" },
         },
         inbox: {
             getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" },
@@ -635,6 +636,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.history.getDocHistoryContent.IResponse;
+        return response;
+    }
+
+    /* 查询历史项 */
+    public async getHistoryItems(payload: kernel.api.history.getHistoryItems.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.history.getHistoryItems.IResponse> {
+        const response = await this._request(
+            Client.api.history.getHistoryItems.pathname,
+            Client.api.history.getHistoryItems.method,
+            payload,
+            config,
+        ) as kernel.api.history.getHistoryItems.IResponse;
         return response;
     }
 

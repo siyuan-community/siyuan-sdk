@@ -15,9 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Query the list of historical items
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* directories */
-export * as getDocHistoryContent from "./getDocHistoryContent";
-export * as getHistoryItems from "./getHistoryItems";
+/**
+ * Response information
+ */
+export interface IData {
+    items: IItem[];
+}
 
-/* files */
+/**
+ * History item
+ */
+export interface IItem {
+    /**
+     * Absolute path of the historical document file
+     */
+    path: string;
+    /**
+     * Historical document titme
+     */
+    title: string;
+}

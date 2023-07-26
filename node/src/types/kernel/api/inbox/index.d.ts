@@ -17,22 +17,6 @@
 
 
 /* directories */
-export * as asset from "./asset";
-export * as attr from "./attr";
-export * as block from "./block";
-export * as convert from "./convert";
-export * as export from "./export";
-export * as file from "./file";
-export * as filetree from "./filetree";
-export * as inbox from "./inbox";
-export * as network from "./network";
-export * as notebook from "./notebook";
-export * as notification from "./notification";
-export * as query from "./query";
-export * as search from "./search";
-export * as snippet from "./snippet";
-export * as storage from "./storage";
-export * as system from "./system";
-export * as template from "./template";
+export * as getShorthand from "./getShorthand";
 
 /* files */

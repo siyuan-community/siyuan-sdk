@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - API `/api/file/getFile` 支持自定义响应类型 | API `/api/file/getFile` supports custom response types
+- 添加 API `/api/inbox/getShorthand` | Add API `/api/inbox/getShorthand`
 
 ## v0.1.2 / 2023-07-26
 

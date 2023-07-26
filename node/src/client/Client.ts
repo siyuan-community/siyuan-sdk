@@ -97,6 +97,9 @@ export class Client {
             listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
+        inbox: {
+            getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" },
+        },
         network: {
             forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" },
         },
@@ -618,6 +621,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.renameDoc.IResponse;
+        return response;
+    }
+
+    /* 收集箱速记内容 */
+    public async getShorthand(payload: kernel.api.inbox.getShorthand.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.inbox.getShorthand.IResponse> {
+        const response = await this._request(
+            Client.api.inbox.getShorthand.pathname,
+            Client.api.inbox.getShorthand.method,
+            payload,
+            config,
+        ) as kernel.api.inbox.getShorthand.IResponse;
         return response;
     }
 

@@ -20,6 +20,7 @@ import {
     expect,
     test,
 } from "vitest";
+import type { ResponseType } from "axios";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -27,11 +28,15 @@ import { testKernelAPI } from "~/tests/utils/test";
 
 import getFile from "@/types/kernel/api/file/getFile";
 
+
 const pathname = client.Client.api.file.getFile.pathname;
 
 interface ICase {
+    name: string,
     path: string,
+    responseType: ResponseType,
     type: string,
+    protoType?: any,
     debug: boolean,
 }
 
@@ -42,22 +47,53 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
+            name: "blob-icon.png",
             path: "/conf/appearance/boot/icon.png", // 二进制文件
+            responseType: "blob",
             type: "string",
             debug: false,
         },
         {
-            path: "/data/.siyuan/conf.json", // json 文件
+            name: "text-icon.png",
+            path: "/conf/appearance/boot/icon.png", // 二进制文件
+            responseType: "text",
+            type: "string",
+            debug: false,
+        },
+        {
+            name: "arraybuffer-icon.png",
+            path: "/conf/appearance/boot/icon.png", // 二进制文件
+            responseType: "arraybuffer",
             type: "object",
+            protoType: Buffer,
             debug: false,
         },
         {
-            path: "/temp/siyuan.log", // 纯文本文件
+            name: "json-theme.json",
+            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
+            responseType: "json",
+            type: "object",
+            protoType: Object,
+            debug: false,
+        },
+        {
+            name: "text-theme.json",
+            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
+            responseType: "text",
             type: "string",
             debug: false,
         },
         {
+            name: "text-siyuan.log",
+            path: "/temp/siyuan.log", // 纯文本文件
+            responseType: "text",
+            type: "string",
+            debug: false,
+        },
+        {
+            name: "json-dir",
             path: "/temp", // 目录
+            responseType: "json",
             type: "object", // 返回 { code: 405, msg: 'file is a directory', data: null }
             debug: false,
         },
@@ -65,21 +101,23 @@ describe.concurrent(pathname, async () => {
 
     cases.forEach(item => {
         testKernelAPI<getFile.IPayload, unknown>({
-            name: "main",
+            name: item.name,
             payload: {
                 data: {
                     path: item.path, // 数据
                 },
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getFile(payload!),
+            request: (payload) => client.client.getFile(payload!, item.responseType),
             response: {
                 test: body => {
                     if (item.debug) {
                         console.debug(body);
                     }
                     test("response body type verify", () => {
-                        expect(typeof body).toEqual(item.type);
+                        expect.soft(typeof body, "typeof").toEqual(item.type);
+                        if (item.protoType)
+                            expect.soft(body, "instanceof").toBeInstanceOf(item.protoType);
                     });
                 },
             },

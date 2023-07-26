@@ -441,6 +441,7 @@ export class Client {
     /* 获取文件 */
     public async getFile(
         payload: kernel.api.file.getFile.IPayload,
+        responseType: axios.ResponseType = "blob",
         config?: axios.AxiosRequestConfig,
     ): Promise<unknown> {
         const response = await this._request(
@@ -449,6 +450,7 @@ export class Client {
             payload,
             config,
             false,
+            responseType,
         );
         return response;
     }
@@ -884,17 +886,19 @@ export class Client {
         payload?: P,
         config?: axios.AxiosRequestConfig,
         normal: boolean = true,
+        responseType: axios.ResponseType = "json",
     ): Promise<R> {
         try {
             const response = await this._axios.request<R>({
                 url: pathname,
                 method,
                 data: payload,
+                responseType,
                 ...config,
             });
 
             if (response.status === axios.HttpStatusCode.Ok) {
-                if (normal && typeof response.data === "object") {
+                if (normal && responseType === "json" && typeof response.data === "object") {
                     return this._parseResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
                 }
                 else {

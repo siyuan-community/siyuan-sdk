@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- API `/api/file/getFile` 支持自定义响应类型 | API `/api/file/getFile` supports custom response types
+
 ## v0.1.2 / 2023-07-26
 
 - [v0.1.1 ... v0.1.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.1...v0.1.2)

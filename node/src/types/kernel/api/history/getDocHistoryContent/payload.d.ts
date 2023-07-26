@@ -16,50 +16,15 @@
  */
 
 /**
- * Get the content of a shorthand
+ * Get document history content from history document file absolute path
  */
-export interface IResponse {
+export interface IPayload {
     /**
-     * status code
+     * Absolute path of history document file
      */
-    code: number;
-    data: IData;
+    historyPath: string;
     /**
-     * status message
+     * Highlight keyword
      */
-    msg: string;
-}
-
-/**
- * Response information
- */
-export interface IData {
-    /**
-     * Human-friendly creation time
-     */
-    hCreated: string;
-    /**
-     * shorthand object ID
-     */
-    oID: string;
-    /**
-     * shorthand article content
-     */
-    shorthandContent: string;
-    /**
-     * shorthand article description
-     */
-    shorthandDesc: string;
-    /**
-     * shorthand source type
-     */
-    shorthandFrom: number;
-    /**
-     * shorthand article title
-     */
-    shorthandTitle: string;
-    /**
-     * shorthand original URL address
-     */
-    shorthandURL: string;
+    k?: string;
 }

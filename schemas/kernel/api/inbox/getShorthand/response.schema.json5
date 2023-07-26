@@ -27,7 +27,9 @@
                     type: 'string',
                     description: 'status message',
                 },
-                data: {},
+                data: {
+                    $ref: '#/$defs/data',
+                },
             },
         },
         data: {

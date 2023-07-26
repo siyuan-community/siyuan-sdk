@@ -97,6 +97,9 @@ export class Client {
             listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
+        history: {
+            getDocHistoryContent: { pathname: "/api/history/getDocHistoryContent", method: "POST" },
+        },
         inbox: {
             getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" },
         },
@@ -621,6 +624,17 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.renameDoc.IResponse;
+        return response;
+    }
+
+    /* 获取历史文档内容 */
+    public async getDocHistoryContent(payload: kernel.api.history.getDocHistoryContent.IPayload, config?: axios.AxiosRequestConfig): Promise<kernel.api.history.getDocHistoryContent.IResponse> {
+        const response = await this._request(
+            Client.api.history.getDocHistoryContent.pathname,
+            Client.api.history.getDocHistoryContent.method,
+            payload,
+            config,
+        ) as kernel.api.history.getDocHistoryContent.IResponse;
         return response;
     }
 

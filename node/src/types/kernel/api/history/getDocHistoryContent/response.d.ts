@@ -16,7 +16,7 @@
  */
 
 /**
- * Get the content of a shorthand
+ * Get document history content from history document file absolute path
  */
 export interface IResponse {
     /**
@@ -35,31 +35,21 @@ export interface IResponse {
  */
 export interface IData {
     /**
-     * Human-friendly creation time
+     * document content
      */
-    hCreated: string;
+    content: string;
     /**
-     * shorthand object ID
+     * Block ID
      */
-    oID: string;
+    id: string;
     /**
-     * shorthand article content
+     * is a large document?
+     * large document return markdown
+     * others return block DOM
      */
-    shorthandContent: string;
+    isLargeDoc: boolean;
     /**
-     * shorthand article description
+     * Document block ID
      */
-    shorthandDesc: string;
-    /**
-     * shorthand source type
-     */
-    shorthandFrom: number;
-    /**
-     * shorthand article title
-     */
-    shorthandTitle: string;
-    /**
-     * shorthand original URL address
-     */
-    shorthandURL: string;
+    rootID: string;
 }

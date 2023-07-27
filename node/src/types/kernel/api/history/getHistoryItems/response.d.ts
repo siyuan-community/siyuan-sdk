@@ -46,7 +46,7 @@ export interface IItem {
      */
     path: string;
     /**
-     * Historical document titme
+     * Historical document title
      */
     title: string;
 }

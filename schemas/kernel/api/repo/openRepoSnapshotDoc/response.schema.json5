@@ -47,14 +47,20 @@
                     examples: [1690296491237],
                 },
                 isProtyleDoc: {
-                    // 内容是否为原始内容, true: 原始文本, false: 块 DOM 字符串
+                    // 内容是否为原始内容, true: 原始文本/文件路径, false: 块 DOM 字符串
                     type: 'boolean',
-                    description: 'Whether the content is original\ntrue: text file original text / binary file path\nfalse: block DOM string',
+                    description: 'Whether the content is original\ntrue: json file original text / other file path\nfalse: block DOM string',
                 },
                 content: {
                     // 快照文件内容
                     type: 'string',
                     description: 'snapshot file content',
+                    examples: [
+                        '\u003cdiv data-node-id="20230725221731-6g59iid" data-node-index="1" data-type="NodeParagraph" class="p" updated="20230725221745"\u003e\u003cdiv contenteditable="false" spellcheck="false"\u003e123\u003c/div\u003e\u003cdiv class="protyle-attr" contenteditable="false"\u003e​\u003c/div\u003e\u003c/div\u003e\u003cdiv data-node-id="20230725224810-naky2y2" data-node-index="2" data-type="NodeParagraph" class="p"\u003e\u003cdiv contenteditable="false" spellcheck="false"\u003e\u003c/div\u003e\u003cdiv class="protyle-attr" contenteditable="false"\u003e​\u003c/div\u003e\u003c/div\u003e', // 文档文件
+                        '{}', // json 文件
+                        '/plugins/open-api/README.md', // 其他文件
+                        '/plugins/open-api/icon.png', // 其他文件
+                    ],
                 },
             },
         },

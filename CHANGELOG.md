@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.1.3 / 2023-07-27
+
+- [v0.1.2 ... v0.1.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.2...v0.1.3)
 - API `/api/file/getFile` 支持自定义响应类型 | API `/api/file/getFile` supports custom response types
 - 添加 API `/api/inbox/getShorthand` | Add API `/api/inbox/getShorthand`
 - 添加 API `/api/history/getDocHistoryContent` | Add API `/api/history/getDocHistoryContent`

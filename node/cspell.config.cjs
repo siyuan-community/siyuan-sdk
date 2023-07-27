@@ -27,6 +27,7 @@ module.exports = {
         "lcov",
         "nodelib",
         "pandoc",
+        "protyle",
         "quicktype",
         "siyuan",
         "succ",

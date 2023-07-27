@@ -48,11 +48,17 @@
                 },
                 "isProtyleDoc": {
                     "type": "boolean",
-                    "description": "Whether the content is original\ntrue: text file original text / binary file path\nfalse: block DOM string"
+                    "description": "Whether the content is original\ntrue: json file original text / other file path\nfalse: block DOM string"
                 },
                 "content": {
                     "type": "string",
-                    "description": "snapshot file content"
+                    "description": "snapshot file content",
+                    "examples": [
+                        "<div data-node-id=\"20230725221731-6g59iid\" data-node-index=\"1\" data-type=\"NodeParagraph\" class=\"p\" updated=\"20230725221745\"><div contenteditable=\"false\" spellcheck=\"false\">123</div><div class=\"protyle-attr\" contenteditable=\"false\">​</div></div><div data-node-id=\"20230725224810-naky2y2\" data-node-index=\"2\" data-type=\"NodeParagraph\" class=\"p\"><div contenteditable=\"false\" spellcheck=\"false\"></div><div class=\"protyle-attr\" contenteditable=\"false\">​</div></div>",
+                        "{}",
+                        "/plugins/open-api/README.md",
+                        "/plugins/open-api/icon.png"
+                    ]
                 }
             }
         }

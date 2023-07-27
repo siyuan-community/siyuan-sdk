@@ -40,7 +40,7 @@ export interface IData {
     content: string;
     /**
      * Whether the content is original
-     * true: text file original text / binary file path
+     * true: json file original text / other file path
      * false: block DOM string
      */
     isProtyleDoc: boolean;

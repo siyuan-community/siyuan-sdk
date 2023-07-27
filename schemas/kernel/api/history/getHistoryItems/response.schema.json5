@@ -61,7 +61,7 @@
                 title: {
                     // 历史文档标题
                     type: 'string',
-                    description: 'Historical document titme',
+                    description: 'Historical document title',
                 },
                 path: {
                     // 历史文档文件的绝对路径

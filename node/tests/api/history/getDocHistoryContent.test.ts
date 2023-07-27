@@ -45,14 +45,14 @@ describe(pathname, async () => {
 
     const cases: ICase[] = [
         {
-            name: "history without keywork",
+            name: "history without keyword",
             payload: {
                 historyPath: "D:\\Note\\siyuan\\workspace\\test\\history\\2023-07-26-085536-update\\20210808180117-czj9bvb\\20200812220555-lj3enxa\\20210808180320-abz7w6k\\20200825162036-4dx365o.sy",
             },
             debug: false,
         },
         {
-            name: "history with keywork",
+            name: "history with keyword",
             payload: {
                 historyPath: "D:\\Note\\siyuan\\workspace\\test\\history\\2023-07-26-085536-update\\20210808180117-czj9bvb\\20200812220555-lj3enxa\\20210808180320-abz7w6k\\20200825162036-4dx365o.sy",
                 k: "元素",

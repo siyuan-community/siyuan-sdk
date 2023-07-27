@@ -57,7 +57,7 @@
             "properties": {
                 "title": {
                     "type": "string",
-                    "description": "Historical document titme"
+                    "description": "Historical document title"
                 },
                 "path": {
                     "type": "string",

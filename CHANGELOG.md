@@ -4,6 +4,7 @@
 - 添加 API `/api/inbox/getShorthand` | Add API `/api/inbox/getShorthand`
 - 添加 API `/api/history/getDocHistoryContent` | Add API `/api/history/getDocHistoryContent`
 - 添加 API `/api/history/getHistoryItems` | Add API `/api/history/getHistoryItems`
+- 添加 API `/api/repo/openRepoSnapshotDoc` | Add API `/api/repo/openRepoSnapshotDoc`
 
 ## v0.1.2 / 2023-07-26
 

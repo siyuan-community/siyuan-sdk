@@ -1,0 +1,62 @@
+/**
+ * schemas/kernel/api/history/getDocHistoryContent/response.schema.json5
+ * 打开快照中仓库中的文档
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/repo.go#L29-L51
+ * @pathname: /api/repo/openRepoSnapshotDoc
+ * @version: 2.9.7
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getDocHistoryContent/response.schema.json5',
+    $comment: 'v2.9.7',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'response body',
+            description: 'Open document in repository snapshot',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'Response information',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['updated', 'isProtyleDoc', 'content'],
+            properties: {
+                updated: {
+                    // 更新时间 (Unix 时间戳, 单位: ms)
+                    type: 'integer',
+                    description: 'update time (Unix timestamp, ms)',
+                    examples: [1690296491237],
+                },
+                isProtyleDoc: {
+                    // 内容是否为原始内容, true: 原始文本, false: 块 DOM 字符串
+                    type: 'boolean',
+                    description: 'Whether the content is original\ntrue: text file original text / binary file path\nfalse: block DOM string',
+                },
+                content: {
+                    // 快照文件内容
+                    type: 'string',
+                    description: 'snapshot file content',
+                },
+            },
+        },
+    },
+}

@@ -124,6 +124,9 @@ export class Client {
         query: {
             sql: { pathname: "/api/query/sql", method: "POST" },
         },
+        repo: {
+            openRepoSnapshotDoc: { pathname: "/api/repo/openRepoSnapshotDoc", method: "POST" },
+        },
         snippet: {
             getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
             setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
@@ -822,6 +825,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.query.sql.IResponse;
+        return response;
+    }
+
+    /* 读取快照文件内容 */
+    public async openRepoSnapshotDoc(
+        payload: kernel.api.repo.openRepoSnapshotDoc.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.repo.openRepoSnapshotDoc.IResponse> {
+        const response = await this._request(
+            Client.api.repo.openRepoSnapshotDoc.pathname,
+            Client.api.repo.openRepoSnapshotDoc.method,
+            payload,
+            config,
+        ) as kernel.api.repo.openRepoSnapshotDoc.IResponse;
         return response;
     }
 

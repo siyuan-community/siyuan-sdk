@@ -34,7 +34,8 @@
         },
         data: {
             title: 'IData',
-            description: '转换结果',
+            description: 'response data',
+
             type: 'object',
             additionalProperties: false,
             required: ['path'],
@@ -42,7 +43,7 @@
                 path: {
                     // 相对于工作空间目录的路径
                     type: 'string',
-                    description: 'the path under the workspace',
+                    description: 'the path of output file under the workspace',
                 },
             },
         },

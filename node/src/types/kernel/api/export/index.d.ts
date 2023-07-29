@@ -18,5 +18,6 @@
 
 /* directories */
 export * as exportMdContent from "./exportMdContent";
+export * as exportResources from "./exportResources";
 
 /* files */

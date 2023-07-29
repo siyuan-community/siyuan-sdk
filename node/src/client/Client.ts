@@ -76,6 +76,7 @@ export class Client {
         },
         export: {
             exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
+            exportResources: { pathname: "/api/export/exportResources", method: "POST" },
         },
         file: {
             getFile: { pathname: "/api/file/getFile", method: "POST" },
@@ -431,6 +432,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.convert.pandoc.IResponse;
+        return response;
+    }
+
+    /* 打包文件与文件夹以导出 */
+    public async exportResources(
+        payload: kernel.api.export.exportResources.IPayload,
+        config?: axios.AxiosRequestConfig,
+    ): Promise<kernel.api.export.exportResources.IResponse> {
+        const response = await this._request(
+            Client.api.export.exportResources.pathname,
+            Client.api.export.exportResources.method,
+            payload,
+            config,
+        ) as kernel.api.export.exportResources.IResponse;
         return response;
     }
 

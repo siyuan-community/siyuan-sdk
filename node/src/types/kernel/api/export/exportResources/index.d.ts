@@ -15,24 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    data: IData;
-    /**
-     * status message
-     */
-    msg: string;
-}
 
-/**
- * response data
- */
-export interface IData {
-    /**
-     * the path of output file under the workspace
-     */
-    path: string;
-}
+/* directories */
+
+/* files */
+export * from "./payload";
+export * from "./response";

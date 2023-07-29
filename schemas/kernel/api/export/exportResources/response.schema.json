@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/convert/pandoc/response.schema.json",
-    "$comment": "v2.9.3",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportResources/response.schema.json",
+    "$comment": "v2.9.8",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
-            "title": "response body",
-            "description": "",
+            "title": "payload body",
+            "description": "Packages the specified files and folders as *.zip files and returns their download addresses",
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -39,7 +39,11 @@
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "the path of output file under the workspace"
+                    "description": "the path of *.zip exported under the workspace",
+                    "examples": [
+                        "temp/export/custom-file-name.zip",
+                        "temp/export/export-2023-07-28_15-05-49.zip"
+                    ]
                 }
             }
         }

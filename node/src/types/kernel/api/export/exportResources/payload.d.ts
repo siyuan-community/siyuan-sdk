@@ -15,24 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    data: IData;
-    /**
-     * status message
-     */
-    msg: string;
-}
-
 /**
- * response data
+ * Packages the specified files and folders as *.zip files and returns their download
+ * addresses
  */
-export interface IData {
+export interface IPayload {
     /**
-     * the path of output file under the workspace
+     * main name of the zip file created
      */
-    path: string;
+    name?: string;
+    /**
+     * path list of files and folders
+     */
+    paths: string[];
 }

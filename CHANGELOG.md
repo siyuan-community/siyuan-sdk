@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 添加 API `/api/export/exportResources` | Add API `/api/export/exportResources`
+
 ## v0.1.3 / 2023-07-27
 
 - [v0.1.2 ... v0.1.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.2...v0.1.3)

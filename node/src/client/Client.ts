@@ -146,13 +146,17 @@ export class Client {
         },
     } as const;
 
+    protected _baseURL: string = globalThis.document?.baseURI
+        ?? globalThis.location?.origin
+        ?? constants.SIYUAN_DEFAULT_BASE_URL;
+
+    protected _token: string = constants.SIYUAN_DEFAULT_TOKEN;
+
     protected _axios = axios.default.create({
-        baseURL: globalThis.document?.baseURI
-            ?? globalThis.location?.origin
-            ?? constants.SIYUAN_DEFAULT_BASE_URL,
+        baseURL: this._baseURL,
         timeout: constants.REQUEST_TIMEOUT,
         headers: {
-            Authorization: `Token ${constants.SIYUAN_DEFAULT_TOKEN}`,
+            Authorization: `Token ${this._token}`,
         },
     });
 
@@ -172,6 +176,8 @@ export class Client {
                     break;
             }
         }
+        this._baseURL = this._axios.defaults.baseURL ?? this._baseURL;
+        this._token = options.token ?? this._token;
     }
 
     /* 获取所有书签 */
@@ -466,18 +472,40 @@ export class Client {
     /* 获取文件 */
     public async getFile(
         payload: kernel.api.file.getFile.IPayload,
-        responseType: axios.ResponseType = "blob",
+        responseType: "stream",
+        config?: axios.AxiosRequestConfig,
+    ): Promise<ReadableStream<Uint8Array> | null>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: axios.ResponseType = "text",
         config?: axios.AxiosRequestConfig,
     ): Promise<unknown> {
-        const response = await this._request(
-            Client.api.file.getFile.pathname,
-            Client.api.file.getFile.method,
-            payload,
-            config,
-            false,
-            responseType,
-        );
-        return response;
+        if (responseType === "stream") {
+            const response = await globalThis.fetch(
+                import.meta.env.DEV
+                    ? `${this._baseURL.replace(/\/$/, "")}${Client.api.file.getFile.pathname}`
+                    : Client.api.file.getFile.pathname,
+                {
+                    body: JSON.stringify(payload),
+                    method: Client.api.file.getFile.method,
+                    headers: {
+                        Authorization: `Token ${this._token}`,
+                    },
+                },
+            );
+            return response.body;
+        }
+        else {
+            const response = await this._request(
+                Client.api.file.getFile.pathname,
+                Client.api.file.getFile.method,
+                payload,
+                config,
+                false,
+                responseType,
+            );
+            return response;
+        }
     }
 
     /* 设置文件 */
@@ -968,10 +996,27 @@ export class Client {
                 responseType,
                 ...config,
             });
-
             if (response.status === axios.HttpStatusCode.Ok) {
                 if (normal && responseType === "json" && typeof response.data === "object") {
                     return this._parseResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
+                }
+                else if (typeof response.data === "string") {
+                    switch (responseType) {
+                        case "arraybuffer":
+                            return new Blob([response.data]).arrayBuffer() as R;
+                        case "blob":
+                            return new Blob([response.data]) as R;
+                        case "document":
+                            return response.data as R;
+                        case "json":
+                            return JSON.parse(response.data) as R;
+                        case "text":
+                            return response.data as R;
+                        case "stream":
+                            return new Blob([response.data]).stream() as R;
+                        default:
+                            return response.data as R;
+                    }
                 }
                 else {
                     return response.data;

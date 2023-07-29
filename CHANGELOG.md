@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/export/exportResources` | Add API `/api/export/exportResources`
+- API `/api/file/getFile` 支持流式传输 | API `/api/file/getFile` supports streaming transmission
 
 ## v0.1.3 / 2023-07-27
 

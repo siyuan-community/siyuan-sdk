@@ -27,6 +27,7 @@ import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
 import getFile from "@/types/kernel/api/file/getFile";
+import { Stream } from "stream";
 
 
 const pathname = client.Client.api.file.getFile.pathname;
@@ -47,10 +48,19 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = [
         {
+            name: "arraybuffer-icon.png",
+            path: "/conf/appearance/boot/icon.png", // 二进制文件
+            responseType: "arraybuffer",
+            type: "object",
+            protoType: Buffer,
+            debug: false,
+        },
+        {
             name: "blob-icon.png",
             path: "/conf/appearance/boot/icon.png", // 二进制文件
             responseType: "blob",
-            type: "string",
+            type: "object",
+            protoType: Blob,
             debug: false,
         },
         {
@@ -61,11 +71,11 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
-            name: "arraybuffer-icon.png",
+            name: "stream-icon.png",
             path: "/conf/appearance/boot/icon.png", // 二进制文件
-            responseType: "arraybuffer",
+            responseType: "stream",
             type: "object",
-            protoType: Buffer,
+            protoType: ReadableStream,
             debug: false,
         },
         {
@@ -84,6 +94,14 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "stream-theme.json",
+            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
+            responseType: "stream",
+            type: "object",
+            protoType: ReadableStream,
+            debug: false,
+        },
+        {
             name: "text-siyuan.log",
             path: "/temp/siyuan.log", // 纯文本文件
             responseType: "text",
@@ -91,10 +109,19 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "stream-siyuan.log",
+            path: "/temp/siyuan.log", // 纯文本文件
+            responseType: "stream",
+            type: "object",
+            protoType: ReadableStream,
+            debug: false,
+        },
+        {
             name: "json-dir",
             path: "/temp", // 目录
             responseType: "json",
             type: "object", // 返回 { code: 405, msg: 'file is a directory', data: null }
+            protoType: Object,
             debug: false,
         },
     ];

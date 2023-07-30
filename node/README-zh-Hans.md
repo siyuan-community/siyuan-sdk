@@ -45,7 +45,11 @@
   * [安装](#安装)
 * [示例](#示例)
   * [初始化客户端](#初始化客户端)
-  * [更改客户端配置](#更改客户端配置)
+    * [默认配置](#默认配置)
+    * [配置为 XHR 客户端](#配置为-xhr-客户端)
+    * [配置为 Fetch 客户端](#配置为-fetch-客户端)
+  * [更改 HTTP 客户端模式](#更改-http-客户端模式)
+  * [更新客户端全局配置](#更新客户端全局配置)
   * [调用内核 API (async)](#调用内核-api-async)
   * [调用内核 API (Promise)](#调用内核-api-promise)
   * [使用类型定义](#使用类型定义)
@@ -79,10 +83,13 @@ $ yarn add @siyuan-community/siyuan-sdk
 
 ### 初始化客户端
 
+
+#### 默认配置
+
 ```javascript
 import { Client } from "@siyuan-community/siyuan-sdk";
 
-/* 初始化客户端 */
+/* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 const client = new Client({
     /**
      * (可选) 思源内核服务地址
@@ -97,28 +104,104 @@ const client = new Client({
     token: "0123456789abcdef", // , 默认为空
 
     /**
-     * (可选) HTTP 请求超时时间
-     * 单位: 毫秒(ms)
-     * @default: 60_000
-     */
-    timeout: 10_000,
-
-    /**
      * (可选) Axios 其他请求配置
      * REF: https://axios-http.com/zh/docs/req_config
      * REF: https://www.axios-http.cn/docs/req_config
      */
 });
-
 ```
 
-### 更改客户端配置
+#### 配置为 XHR 客户端
 
 ```javascript
-client.updateOptions({
-    timeout: 30_000, // 将 HTTP 请求超时时间更改为 30 秒
+import { Client } from "@siyuan-community/siyuan-sdk";
+
+/* 初始化为 XHR 客户端 (使用 Axios 发起 XHR 请求) */
+const client = new Client(
+    {
+        /**
+         * (可选) 思源内核服务地址
+         * @default: document.baseURI
+         */
+        baseURL: "http://localhost:6806/",
+
+        /**
+         * (可选) 思源内核服务 token
+         * @default: <空>
+         */
+        token: "0123456789abcdef", // , 默认为空
+
+        /**
+         * (可选) Axios 其他请求配置
+         * REF: https://axios-http.com/zh/docs/req_config
+         * REF: https://www.axios-http.cn/docs/req_config
+         */
+    },
+    "xhr",
+);
+```
+
+#### 配置为 Fetch 客户端
+
+```javascript
+import { Client } from "@siyuan-community/siyuan-sdk";
+
+/* 初始化为 Fetch 客户端 (使用 ofetch 发起 Fetch 请求) */
+const client = new Client(
+    {
+        /**
+         * (可选) 思源内核服务地址
+         * @default: document.baseURI
+         */
+        baseURL: "http://localhost:6806/",
+
+        /**
+         * (可选) 思源内核服务 token
+         * @default: <空>
+         */
+        token: "0123456789abcdef", // , 默认为空
+
+        /**
+         * (可选) ofetch 其他请求配置
+         * REF: https://www.npmjs.com/package/ofetch
+         */
+    },
+    "fetch",
+);
+```
+
+### 更改 HTTP 客户端模式
+
+```javascript
+client._setClientType("fetch"); // 将客户端模式更改为 Fetch
+client._setClientType("xhr"); // 将客户端模式更改为 XHR
+```
+
+### 更新客户端全局配置
+
+```javascript
+/* 默认更新当前模式的全局配置 */
+client._updateOptions({
+    token: "abcdef0123456789", // 将思源 API token 更改为 abcdef0123456789
 });
 
+/* 更新 XHR 客户端 Axios 的全局配置 */
+client._updateOptions(
+    {
+        timeout: 10_000, // 请求超时时间为 10s
+        /* 其他 Axios 请求配置 */
+    },
+    "xhr",
+);
+
+/* 更新 Fetch 客户端 ofetch 的全局配置 */
+client._updateOptions(
+    {
+        retry: 3, // 请求重试次数为 3 次
+        /* 其他 ofetch 请求配置 */
+    },
+    "fetch",
+);
 ```
 
 ### 调用内核 API (async)

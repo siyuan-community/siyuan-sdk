@@ -77,7 +77,7 @@ describe.concurrent(pathname, async () => {
                     await expect(
                         client.client.getFile({
                             path: "/temp/convert/pandoc/test/rename-file/test.html",
-                        }),
+                        }, "json"),
                         `original path: /temp/convert/pandoc/test/rename-file/test.html`,
                     ).resolves.toContain({ code: 404 });
 

@@ -52,7 +52,7 @@ describe.concurrent(pathname, async () => {
             path: "/conf/appearance/boot/icon.png", // 二进制文件
             responseType: "arraybuffer",
             type: "object",
-            protoType: Buffer,
+            protoType: ArrayBuffer,
             debug: false,
         },
         {

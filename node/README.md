@@ -45,7 +45,11 @@
   * [Installation](#installation)
 * [Examples](#examples)
   * [Initialize the client](#initialize-the-client)
-  * [Update client configuration](#update-client-configuration)
+    * [Default configuration](#default-configuration)
+    * [Configure as a XHR client](#configure-as-a-xhr-client)
+    * [Configure as a Fetch client](#configure-as-a-fetch-client)
+  * [Update the model of HTTP client](#update-the-model-of-http-client)
+  * [Update client global configuration](#update-client-global-configuration)
   * [Call Kernel API (async)](#call-kernel-api-async)
   * [Call Kernel API (Promise)](#call-kernel-api-promise)
   * [Use type definitions](#use-type-definitions)
@@ -79,10 +83,12 @@ $ yarn add @siyuan-community/siyuan-sdk
 
 ### Initialize the client
 
+#### Default configuration
+
 ```javascript
 import { Client } from "@siyuan-community/siyuan-sdk";
 
-/* Initialize the client */
+/* Initialize the client (Axios is used to issue XHR by default) */
 const client = new Client({
     /**
      * (Optional) SiYuan kernel service URL
@@ -97,13 +103,6 @@ const client = new Client({
     token: "0123456789abcdef", // , default is empty
 
     /**
-     * (Optional) HTTP request timeout
-     * Unit: milliseconds (ms)
-     * @default: 60_000
-     */
-    timeout: 10_000,
-
-    /**
      * (Optional) Other Axios request configurations
      * REF: https://axios-http.com/zh/docs/req_config
      * REF: https://www.axios-http.cn/docs/req_config
@@ -112,13 +111,97 @@ const client = new Client({
 
 ```
 
-### Update client configuration
+#### Configure as a XHR client
 
 ```javascript
-client.updateOptions({
-    timeout: 30_000, // Change HTTP request timeout to 30 seconds
+import { Client } from "@siyuan-community/siyuan-sdk";
+
+/* Initialize the XHR client (Axios is used to issue XHR) */
+const client = new Client(
+    {
+        /**
+         * (Optional) SiYuan kernel service URL
+         * @default: document.baseURI
+         */
+        baseURL: "http://localhost:6806/",
+
+        /**
+         * (Optional) SiYuan kernel service token
+         * @default: empty
+         */
+        token: "0123456789abcdef", // , default is empty
+
+        /**
+         * (Optional) Other Axios request configurations
+         * REF: https://axios-http.com/zh/docs/req_config
+         * REF: https://www.axios-http.cn/docs/req_config
+         */
+    },
+    "xhr",
+);
+```
+
+#### Configure as a Fetch client
+
+```javascript
+import { Client } from "@siyuan-community/siyuan-sdk";
+
+/* Initialize the Fetch client (ofetch is used to issue Fetch request) */
+const client = new Client(
+    {
+        /**
+         * (Optional) SiYuan kernel service URL
+         * @default: document.baseURI
+         */
+        baseURL: "http://localhost:6806/",
+
+        /**
+         * (Optional) SiYuan kernel service token
+         * @default: empty
+         */
+        token: "0123456789abcdef", // , default is empty
+
+        /**
+         * (Optional) Other ofetch request configurations
+         * REF: https://www.npmjs.com/package/ofetch
+         */
+    },
+    "fetch",
+);
+```
+
+### Update the model of HTTP client
+
+```javascript
+client._setClientType("fetch"); // Change the client mode to Fetch
+client._setClientType("xhr"); // Change the client mode to XHR
+```
+
+### Update client global configuration
+
+```javascript
+/* The global configuration of the current mode is updated by default */
+client._updateOptions({
+    token: "abcdef0123456789", // Change SiYuan API token to abcdef0123456789
 });
 
+/* Update the global configuration of XHR client Axios */
+client._updateOptions(
+    {
+        timeout: 10_000, // The request timeout period is 10s
+        /* Other Axios request configurations */
+    },
+    "xhr",
+);
+
+/* Update the global configuration of Fetch client ofetch */
+client._updateOptions(
+    {
+        retry: 3, // The number of request retries is 3
+        /* Other ofetch request configurations */
+    },
+    "fetch",
+);
 ```
 
 ### Call Kernel API (async)

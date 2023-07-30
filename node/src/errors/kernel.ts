@@ -22,7 +22,7 @@ export class KernelError extends Error {
     public readonly code: number;
     constructor(
         public readonly body: IResponse,
-        public readonly response: axios.AxiosResponse | Response,
+        public readonly response?: axios.AxiosResponse | Response,
     ) {
         super(body.msg);
         this.code = body.code;

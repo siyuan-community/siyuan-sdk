@@ -61,7 +61,7 @@ describe(pathname, async () => {
                 test("test the result of removing a notebook", async () => {
                     await expect(client.client.getNotebookConf({
                         notebook: payload!.notebook,
-                    })).rejects.toThrowError("502");
+                    })).rejects.toThrowError(/502|fetch failed/);
                 });
             },
         },

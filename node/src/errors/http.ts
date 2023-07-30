@@ -16,6 +16,7 @@
  */
 
 import * as axios from "axios";
+export { FetchError } from "ofetch";
 
 export class HTTPError extends Error {
     public readonly status: number;

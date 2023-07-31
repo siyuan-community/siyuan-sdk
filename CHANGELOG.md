@@ -3,6 +3,7 @@
 - 添加 API `/api/export/exportResources` | Add API `/api/export/exportResources`
 - API `/api/file/getFile` 支持流式传输 | API `/api/file/getFile` supports streaming transmission
 - 支持使用 `ofetch` 作为 HTTP 请求客户端 | Support using `ofetch` as HTTP request client
+- API `/api/file/getFile` 提供响应类型定义 | API `/api/file/getFile` provides response type definition
 
 ## v0.1.3 / 2023-07-27
 

@@ -644,10 +644,40 @@ export class Client {
     /* 获取文件 */
     public async getFile(
         payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "arrayBuffer" | "arraybuffer">,
+        config?: TempOptions,
+    ): Promise<ArrayBuffer>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "blob">,
+        config?: TempOptions,
+    ): Promise<Blob>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "document">,
+        config?: TempOptions,
+    ): Promise<Document>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "json">,
+        config?: TempOptions,
+    ): Promise<Object>;
+    public async getFile<R = any>(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "stream">,
+        config?: TempOptions,
+    ): Promise<ReadableStream<R>>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: Extract<ResponseType, "text">,
+        config?: TempOptions,
+    ): Promise<string>;
+    public async getFile<R>(
+        payload: kernel.api.file.getFile.IPayload,
         responseType: ResponseType = "text",
         config?: TempOptions,
-    ): Promise<unknown> {
-        const response = await this._request(
+    ): Promise<R> {
+        const response: R = await this._request(
             Client.api.file.getFile.pathname,
             Client.api.file.getFile.method,
             payload,

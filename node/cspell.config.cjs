@@ -26,6 +26,7 @@ module.exports = {
         "katex",
         "lcov",
         "nodelib",
+        "ofetch",
         "pandoc",
         "protyle",
         "quicktype",

@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.2.0 / 2023-08-01
+
+- [v0.1.3 ... v0.2.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.3...v0.2.0)
 - 添加 API `/api/export/exportResources` | Add API `/api/export/exportResources`
 - API `/api/file/getFile` 支持流式传输 | API `/api/file/getFile` supports streaming transmission
 - 支持使用 `ofetch` 作为 HTTP 请求客户端 | Support using `ofetch` as HTTP request client

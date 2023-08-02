@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 调整默认 `baseURL` | Adjust default `baseURL`
+
 ## v0.2.0 / 2023-08-01
 
 - [v0.1.3 ... v0.2.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.1.3...v0.2.0)

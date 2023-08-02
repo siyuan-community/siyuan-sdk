@@ -185,7 +185,8 @@ export class Client {
 
     protected _type: ClientType = "xhr";
 
-    protected _baseURL: string = globalThis.document?.baseURI
+    protected _baseURL: string = globalThis.top?.document?.baseURI
+        ?? globalThis.parent?.document?.baseURI
         ?? globalThis.location?.origin
         ?? constants.SIYUAN_DEFAULT_BASE_URL;
 
@@ -207,11 +208,11 @@ export class Client {
     });
 
     constructor(
-        options: FetchOptions,
+        options?: FetchOptions,
         type?: Extract<ClientType, "fetch">,
     );
     constructor(
-        options: AxiosOptions,
+        options?: AxiosOptions,
         type?: Extract<ClientType, "xhr">,
     );
     constructor(

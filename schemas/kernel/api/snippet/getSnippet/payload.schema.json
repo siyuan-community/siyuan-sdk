@@ -25,7 +25,7 @@
                 },
                 "enabled": {
                     "type": "integer",
-                    "description": "Get code snippets of a enabled state",
+                    "description": "Get code snippets of a enabled state\n0: disabled\n1: enabled\n2: all",
                     "enum": [
                         0,
                         1,

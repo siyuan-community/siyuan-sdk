@@ -21,6 +21,9 @@
 export interface IPayload {
     /**
      * Get code snippets of a enabled state
+     * 0: disabled
+     * 1: enabled
+     * 2: all
      */
     enabled: number;
     /**

@@ -32,9 +32,9 @@
                 enabled: {
                     // 获取指定启用状态的代码片段
                     type: 'integer',
-                    description: 'Get code snippets of a enabled state',
+                    description: 'Get code snippets of a enabled state\n0: disabled\n1: enabled\n2: all',
                     enum: [
-                        0, // 禁用的代码判断
+                        0, // 禁用的代码片段
                         1, // 启用的代码片段
                         2, // 所有状态的代码片段
                     ],

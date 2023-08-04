@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 调整默认 `baseURL` | Adjust default `baseURL`
+- 添加 API `/api/filetree/listDocsByPath` | Add API `/api/filetree/listDocsByPath`
 
 ## v0.2.0 / 2023-08-01
 

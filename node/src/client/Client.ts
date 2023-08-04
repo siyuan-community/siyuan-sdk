@@ -7,7 +7,6 @@ import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
 import getConf from "@/types/kernel/api/system/getConf";
 import getDocInfo from "@/types/kernel/api/block/getDocInfo";
 import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
-import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
 import { kernel } from "@/types";
@@ -127,12 +126,12 @@ export class Client {
             getDoc: { pathname: "/api/filetree/getDoc", method: "POST" },
             getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
             getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" },
+            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" },
             removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
 
             // TODO: refactor
-            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
         history: {
@@ -319,15 +318,15 @@ export class Client {
 
     /* 查询子文档 */
     public async listDocsByPath(
-        payload: listDocsByPath.IPayload,
+        payload: kernel.api.filetree.listDocsByPath.IPayload,
         config?: TempOptions,
-    ): Promise<listDocsByPath.IResponse> {
+    ): Promise<kernel.api.filetree.listDocsByPath.IResponse> {
         const response = await this._request(
             Client.api.filetree.listDocsByPath.pathname,
             Client.api.filetree.listDocsByPath.method,
             payload,
             config,
-        ) as listDocsByPath.IResponse;
+        ) as kernel.api.filetree.listDocsByPath.IResponse;
         return response;
     }
 

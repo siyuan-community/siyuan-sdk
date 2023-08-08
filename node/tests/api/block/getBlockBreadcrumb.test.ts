@@ -133,7 +133,7 @@ describe.concurrent(pathname, async () => {
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
                 expect.soft(document.subType).toEqual(BlockSubType.none);            });
         },
-        debug: true,
+        debug: false,
     });
     cases.push({
         name: `heading: ${context.heading}`,

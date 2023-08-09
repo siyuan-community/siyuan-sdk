@@ -4,6 +4,7 @@
 - 添加 API `/api/filetree/listDocsByPath` | Add API `/api/filetree/listDocsByPath`
 - 优化部分测试用例 | Optimize some test cases
 - 添加 API `/api/attr/getBookmarkLabels` | Add API `/api/attr/getBookmarkLabels`
+- 添加 API `/api/block/getDocInfo` | Add API `/api/block/getDocInfo`
 
 ## v0.2.0 / 2023-08-01
 

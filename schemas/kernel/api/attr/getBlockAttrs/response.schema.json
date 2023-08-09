@@ -60,7 +60,7 @@
                 },
                 "updated": {
                     "type": "string",
-                    "description": "block last updated file",
+                    "description": "The last time the block was updated",
                     "pattern": "^((?:19|20)\\d{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])([01]\\d|2[0-3])([0-5]\\d)([0-5]\\d)$",
                     "examples": [
                         "20210714092948"

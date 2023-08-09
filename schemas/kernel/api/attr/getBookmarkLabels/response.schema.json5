@@ -1,7 +1,7 @@
 /**
  * schemas/kernel/api/attr/getBookmarkLabels/response.schema.json5
  * 获取所有书签
- * REF:
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.9/kernel/api/attr.go#L29-L34
  * @pathname: /api/attr/getBookmarkLabels
  * @version: 2.9.9
  */

@@ -4,7 +4,6 @@ import * as ofetch from "ofetch";
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 import getConf from "@/types/kernel/api/system/getConf";
-import getDocInfo from "@/types/kernel/api/block/getDocInfo";
 import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
@@ -95,14 +94,12 @@ export class Client {
             getBlockInfo: { pathname: "/api/block/getBlockInfo", method: "POST" },
             getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
             getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
+            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
             insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
             moveBlock: { pathname: "/api/block/moveBlock", method: "POST" },
             prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
             transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" },
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
-
-            // TODO: refactor
-            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
         },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
@@ -284,20 +281,6 @@ export class Client {
                 break;
         }
         this._baseURL = options.baseURL ?? this._baseURL;
-    }
-
-    /* 获得指定块所在文档信息 */
-    public async getDocInfo(
-        payload: getDocInfo.IPayload,
-        config?: TempOptions,
-    ): Promise<getDocInfo.IResponse> {
-        const response = await this._request(
-            Client.api.block.getDocInfo.pathname,
-            Client.api.block.getDocInfo.method,
-            payload,
-            config,
-        ) as getDocInfo.IResponse;
-        return response;
     }
 
     /* 搜索文档 */
@@ -509,6 +492,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.getChildBlocks.IResponse;
+        return response;
+    }
+
+    /* 获得指定块所在文档信息 */
+    public async getDocInfo(
+        payload: kernel.api.block.getDocInfo.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.block.getDocInfo.IResponse> {
+        const response = await this._request(
+            Client.api.block.getDocInfo.pathname,
+            Client.api.block.getDocInfo.method,
+            payload,
+            config,
+        ) as kernel.api.block.getDocInfo.IResponse;
         return response;
     }
 

@@ -16,7 +16,7 @@
  */
 
 /**
- * Get block attributes
+ * Get document information
  */
 export interface IResponse {
     /**
@@ -31,16 +31,55 @@ export interface IResponse {
 }
 
 /**
- * Inline Attribute List (IAL)
+ * document information
  */
 export interface IData {
+    ial: Ial;
+    /**
+     * document icon
+     */
+    icon: string;
     /**
      * block ID
      */
     id: string;
     /**
+     * document name
+     */
+    name: string;
+    /**
+     * The number of references to the document
+     */
+    refCount: number;
+    /**
+     * ID of the block referencing the document
+     */
+    refIDs: string[];
+    /**
+     * document block ID
+     */
+    rootID: string;
+    /**
+     * The number of sub-documents
+     */
+    subFileCount: number;
+}
+
+/**
+ * Inline Attribute List (IAL) of document block
+ */
+export interface Ial {
+    /**
+     * document block ID
+     */
+    id: string;
+    /**
+     * document title
+     */
+    title: string;
+    /**
      * The last time the block was updated
      */
-    updated?: string;
+    updated: string;
     [property: string]: string;
 }

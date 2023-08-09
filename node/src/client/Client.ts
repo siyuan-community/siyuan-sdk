@@ -3,7 +3,6 @@ import * as ofetch from "ofetch";
 
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
-import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
 import getConf from "@/types/kernel/api/system/getConf";
 import getDocInfo from "@/types/kernel/api/block/getDocInfo";
 import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
@@ -86,8 +85,6 @@ export class Client {
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
             setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-
-            // TODO: refactor
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
         },
         block: {
@@ -289,19 +286,6 @@ export class Client {
         this._baseURL = options.baseURL ?? this._baseURL;
     }
 
-    /* 获取所有书签 */
-    public async getBookmarkLabels(
-        config?: TempOptions,
-    ): Promise<getBookmarkLabels.IResponse> {
-        const response = await this._request(
-            Client.api.attr.getBookmarkLabels.pathname,
-            Client.api.attr.getBookmarkLabels.method,
-            undefined,
-            config,
-        ) as getBookmarkLabels.IResponse;
-        return response;
-    }
-
     /* 获得指定块所在文档信息 */
     public async getDocInfo(
         payload: getDocInfo.IPayload,
@@ -313,20 +297,6 @@ export class Client {
             payload,
             config,
         ) as getDocInfo.IResponse;
-        return response;
-    }
-
-    /* 查询子文档 */
-    public async listDocsByPath(
-        payload: kernel.api.filetree.listDocsByPath.IPayload,
-        config?: TempOptions,
-    ): Promise<kernel.api.filetree.listDocsByPath.IResponse> {
-        const response = await this._request(
-            Client.api.filetree.listDocsByPath.pathname,
-            Client.api.filetree.listDocsByPath.method,
-            payload,
-            config,
-        ) as kernel.api.filetree.listDocsByPath.IResponse;
         return response;
     }
 
@@ -414,6 +384,19 @@ export class Client {
             payload,
             config,
         ) as kernel.api.attr.getBlockAttrs.IResponse;
+        return response;
+    }
+
+    /* 获取所有书签 */
+    public async getBookmarkLabels(
+        config?: TempOptions,
+    ): Promise<kernel.api.attr.getBookmarkLabels.IResponse> {
+        const response = await this._request(
+            Client.api.attr.getBookmarkLabels.pathname,
+            Client.api.attr.getBookmarkLabels.method,
+            undefined,
+            config,
+        ) as kernel.api.attr.getBookmarkLabels.IResponse;
         return response;
     }
 
@@ -821,6 +804,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.getHPathByPath.IResponse;
+        return response;
+    }
+
+    /* 查询子文档 */
+    public async listDocsByPath(
+        payload: kernel.api.filetree.listDocsByPath.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.filetree.listDocsByPath.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.listDocsByPath.pathname,
+            Client.api.filetree.listDocsByPath.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.listDocsByPath.IResponse;
         return response;
     }
 

@@ -17,8 +17,6 @@
 
 
 /* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-export * as getBookmarkLabels from "./getBookmarkLabels";
-export * as setBlockAttrs from "./setBlockAttrs";
 
 /* files */
+export * from "./response";

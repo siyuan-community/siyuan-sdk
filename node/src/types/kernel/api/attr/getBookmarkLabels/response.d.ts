@@ -15,10 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/* directories */
-export * as getBlockAttrs from "./getBlockAttrs";
-export * as getBookmarkLabels from "./getBookmarkLabels";
-export * as setBlockAttrs from "./setBlockAttrs";
-
-/* files */
+/**
+ * Get all bookmark labels
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    /**
+     * bookmark list
+     */
+    data: string[];
+    /**
+     * status message
+     */
+    msg: string;
+}

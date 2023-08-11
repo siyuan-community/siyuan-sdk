@@ -58,7 +58,7 @@
         },
         "file": {
             "title": "IFile",
-            "description": "Document infomation",
+            "description": "Document information",
             "type": "object",
             "additionalProperties": false,
             "required": [

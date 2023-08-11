@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.2.1 / 2023-08-11
+
+- [v0.2.0 ... v0.2.1](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.0...v0.2.1)
 - 调整默认 `baseURL` | Adjust default `baseURL`
 - 添加 API `/api/filetree/listDocsByPath` | Add API `/api/filetree/listDocsByPath`
 - 优化部分测试用例 | Optimize some test cases

@@ -46,7 +46,7 @@ export interface IData {
 }
 
 /**
- * Document infomation
+ * Document information
  */
 export interface IFile {
     /**

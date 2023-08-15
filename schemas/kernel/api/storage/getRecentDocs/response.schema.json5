@@ -1,7 +1,7 @@
 /**
  * schemas/kernel/api/storage/getRecentDocs/response.schema.json5
  * 获取最近更新的文档
- * REF:
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.0/kernel/api/storage.go#L28-L39
  * @pathname: /api/storage/getRecentDocs
  * @version: 2.10.0
  */
@@ -38,7 +38,7 @@
             },
         },
         datum: {
-            title: 'IBreadcrumbItem',
+            title: 'IDocInfo',
             type: 'object',
             additionalProperties: false,
             required: ['rootID', 'icon', 'title'],

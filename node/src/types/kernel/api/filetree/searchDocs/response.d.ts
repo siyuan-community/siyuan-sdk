@@ -16,7 +16,7 @@
  */
 
 /**
- * Get the most recently updated documentation
+ * Search Document by Keyword
  */
 export interface IResponse {
     /**
@@ -35,15 +35,32 @@ export interface IResponse {
 
 export interface IDocInfo {
     /**
-     * Document icon
-     */
-    icon: string;
-    /**
      * Document Block ID
      */
-    rootID: string;
+    box: string;
     /**
-     * Document title
+     * Notebook icon
      */
-    title: string;
+    boxIcon: string;
+    /**
+     * Number of expired cards
+     */
+    dueFlashcardCount?: number;
+    /**
+     * Total number of cards
+     */
+    flashcardCount?: number;
+    /**
+     * The readable path that contains the name of the notebook
+     */
+    hPath: string;
+    /**
+     * Number of new cards
+     */
+    newFlashcardCount?: number;
+    /**
+     * Directory path
+     */
+    path: string;
+    [property: string]: any;
 }

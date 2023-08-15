@@ -2,6 +2,7 @@
 
 - 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
 - 添加 API `/api/storage/getRecentDocs` | Add API `/api/storage/getRecentDocs`
+- 添加 API `/api/filetree/searchDocs` | Add API `/api/filetree/searchDocs`
 
 ## v0.2.1 / 2023-08-11
 

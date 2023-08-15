@@ -15,35 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Get the most recently updated documentation
- */
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    /**
-     * document info list
-     */
-    data: IDocInfo[];
-    /**
-     * status message
-     */
-    msg: string;
-}
 
-export interface IDocInfo {
-    /**
-     * Document icon
-     */
-    icon: string;
-    /**
-     * Document Block ID
-     */
-    rootID: string;
-    /**
-     * Document title
-     */
-    title: string;
-}
+/* directories */
+
+/* files */
+export * from "./payload";
+export * from "./response";

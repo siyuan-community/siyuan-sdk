@@ -16,34 +16,15 @@
  */
 
 /**
- * Get the most recently updated documentation
+ * Search Document by Keyword
  */
-export interface IResponse {
+export interface IPayload {
     /**
-     * status code
+     * whether is flashcard
      */
-    code: number;
+    flashcard?: boolean;
     /**
-     * document info list
+     * keyword
      */
-    data: IDocInfo[];
-    /**
-     * status message
-     */
-    msg: string;
-}
-
-export interface IDocInfo {
-    /**
-     * Document icon
-     */
-    icon: string;
-    /**
-     * Document Block ID
-     */
-    rootID: string;
-    /**
-     * Document title
-     */
-    title: string;
+    k: string;
 }

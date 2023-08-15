@@ -4,7 +4,6 @@ import * as ofetch from "ofetch";
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 import getConf from "@/types/kernel/api/system/getConf";
-import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
 import { kernel } from "@/types";
 
@@ -120,8 +119,6 @@ export class Client {
             moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" },
             removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
             renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
-
-            // TODO: refactor
             searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
         },
         history: {
@@ -280,20 +277,6 @@ export class Client {
                 break;
         }
         this._baseURL = options.baseURL ?? this._baseURL;
-    }
-
-    /* 搜索文档 */
-    public async searchDocs(
-        payload: searchDocs.IPayload,
-        config?: TempOptions,
-    ): Promise<searchDocs.IResponse> {
-        const response = await this._request(
-            Client.api.filetree.searchDocs.pathname,
-            Client.api.filetree.searchDocs.method,
-            payload,
-            config,
-        ) as searchDocs.IResponse;
-        return response;
     }
 
     /* 全局搜索 */
@@ -843,6 +826,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.renameDoc.IResponse;
+        return response;
+    }
+
+    /* 搜索文档 */
+    public async searchDocs(
+        payload: kernel.api.filetree.searchDocs.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.filetree.searchDocs.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.searchDocs.pathname,
+            Client.api.filetree.searchDocs.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.searchDocs.IResponse;
         return response;
     }
 

@@ -25,6 +25,6 @@ export * as listDocsByPath from "./listDocsByPath";
 export * as moveDocs from "./moveDocs";
 export * as removeDoc from "./removeDoc";
 export * as renameDoc from "./renameDoc";
+export * as searchDocs from "./searchDocs";
 
 /* files */
-export * as searchDocs from "./searchDocs";

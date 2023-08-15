@@ -33,7 +33,7 @@
             }
         },
         "datum": {
-            "title": "IBreadcrumbItem",
+            "title": "IDocInfo",
             "type": "object",
             "additionalProperties": false,
             "required": [

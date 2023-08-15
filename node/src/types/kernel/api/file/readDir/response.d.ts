@@ -48,4 +48,8 @@ export interface IDatum {
      * file/directory name
      */
     name: string;
+    /**
+     * file/directory last modified time (Unix timestamp, seconds)
+     */
+    updated: number;
 }

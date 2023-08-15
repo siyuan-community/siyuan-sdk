@@ -143,14 +143,14 @@
                 },
                 "mtime": {
                     "type": "integer",
-                    "description": "document modified time (Unix timestamp, unit: ms)",
+                    "description": "document modified time (Unix timestamp, unit: s)",
                     "examples": [
                         1690511805
                     ]
                 },
                 "ctime": {
                     "type": "integer",
-                    "description": "document created time (Unix timestamp, unit: ms)",
+                    "description": "document created time (Unix timestamp, unit: s)",
                     "examples": [
                         1597241155
                     ]

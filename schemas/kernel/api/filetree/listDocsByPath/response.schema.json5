@@ -128,13 +128,13 @@
                 mtime: {
                     // 文档修改时间 (Unix 时间戳, 单位: ms)
                     type: 'integer',
-                    description: 'document modified time (Unix timestamp, unit: ms)',
+                    description: 'document modified time (Unix timestamp, unit: s)',
                     examples: [1690511805],
                 },
                 ctime: {
                     // 文档创建时间 (Unix 时间戳, 单位: ms)
                     type: 'integer',
-                    description: 'document created time (Unix timestamp, unit: ms)',
+                    description: 'document created time (Unix timestamp, unit: s)',
                     examples: [1597241155],
                 },
                 hMtime: {

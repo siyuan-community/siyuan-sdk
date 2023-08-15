@@ -62,7 +62,7 @@ export interface IFile {
      */
     count: number;
     /**
-     * document created time (Unix timestamp, unit: ms)
+     * document created time (Unix timestamp, unit: s)
      */
     ctime: number;
     /**
@@ -98,7 +98,7 @@ export interface IFile {
      */
     memo: string;
     /**
-     * document modified time (Unix timestamp, unit: ms)
+     * document modified time (Unix timestamp, unit: s)
      */
     mtime: number;
     /**

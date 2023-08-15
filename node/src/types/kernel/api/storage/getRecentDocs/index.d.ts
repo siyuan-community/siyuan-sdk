@@ -17,6 +17,6 @@
 
 
 /* directories */
-export * as getRecentDocs from "./getRecentDocs";
 
 /* files */
+export * from "./response";

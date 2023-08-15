@@ -4,7 +4,6 @@ import * as ofetch from "ofetch";
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 import getConf from "@/types/kernel/api/system/getConf";
-import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
 import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
 import { kernel } from "@/types";
@@ -73,9 +72,6 @@ export class Client {
         // TODO: refactor
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
-        },
-        storage: {
-            getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
 
         asset: {
@@ -161,6 +157,9 @@ export class Client {
         snippet: {
             getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
             setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
+        },
+        storage: {
+            getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -308,19 +307,6 @@ export class Client {
             payload,
             config,
         ) as fullTextSearchBlock.IResponse;
-        return response;
-    }
-
-    /* 查询最近打开的文档 */
-    public async getRecentDocs(
-        config?: TempOptions,
-    ): Promise<getRecentDocs.IResponse> {
-        const response = await this._request(
-            Client.api.storage.getRecentDocs.pathname,
-            Client.api.storage.getRecentDocs.method,
-            undefined,
-            config,
-        ) as getRecentDocs.IResponse;
         return response;
     }
 
@@ -1108,6 +1094,19 @@ export class Client {
             payload,
             config,
         ) as kernel.api.snippet.setSnippet.IResponse;
+        return response;
+    }
+
+    /* 查询最近打开的文档 */
+    public async getRecentDocs(
+        config?: TempOptions,
+    ): Promise<kernel.api.storage.getRecentDocs.IResponse> {
+        const response = await this._request(
+            Client.api.storage.getRecentDocs.pathname,
+            Client.api.storage.getRecentDocs.method,
+            undefined,
+            config,
+        ) as kernel.api.storage.getRecentDocs.IResponse;
         return response;
     }
 

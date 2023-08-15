@@ -15,8 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Get the most recently updated documentation
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    /**
+     * document info list
+     */
+    data: IBreadcrumbItem[];
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* directories */
-export * as getRecentDocs from "./getRecentDocs";
-
-/* files */
+export interface IBreadcrumbItem {
+    /**
+     * Document icon
+     */
+    icon: string;
+    /**
+     * Document Block ID
+     */
+    rootID: string;
+    /**
+     * Document title
+     */
+    title: string;
+}

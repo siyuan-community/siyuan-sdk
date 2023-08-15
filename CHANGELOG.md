@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.2.2 / 2023-08-16
+
+- [v0.2.1 ... v0.2.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.1...v0.2.2)
 - 更新 API `/api/file/readDir` | Update API `/api/file/readDir`
 - 添加 API `/api/storage/getRecentDocs` | Add API `/api/storage/getRecentDocs`
 - 添加 API `/api/filetree/searchDocs` | Add API `/api/filetree/searchDocs`

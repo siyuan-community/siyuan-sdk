@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.2.3 / 2023-08-29
+
+- [v0.2.2 ... v0.2.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.2...v0.2.3)
 - 添加 API `/api/broadcast/channels` | Add API `/api/broadcast/channels`
 - 添加 API `/api/broadcast/getChannelInfo` | Add API `/api/broadcast/getChannelInfo`
 - 添加 API `/api/broadcast/postMessage` | Add API `/api/broadcast/postMessage`

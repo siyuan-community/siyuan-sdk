@@ -50,13 +50,13 @@ describe(pathname, async () => {
             validate: validate_payload,
             test: (payload, options) => {
                 options.promise = new Promise((resolve: (msg: string) => void, rejects: (err: undefined) => void) => {
-                    const lestener = (e: WebSocketEventMap["message"]) => {
+                    const listener = (e: WebSocketEventMap["message"]) => {
                         if (e.data === message) {
-                            client.broadcast.removeEventListener("message", lestener);
+                            client.broadcast.removeEventListener("message", listener);
                             resolve(e.data);
                         }
                     }
-                    client.broadcast.addEventListener("message", lestener);
+                    client.broadcast.addEventListener("message", listener);
                 });
             },
         },

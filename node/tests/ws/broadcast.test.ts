@@ -36,12 +36,12 @@ describe(pathname, async () => {
         });
         await expect.soft(
             new Promise((resolve, rejects) => {
-                const lestener = (e: WebSocketEventMap["message"]) => {
-                    client.broadcast.removeEventListener("message", lestener);
+                const listener = (e: WebSocketEventMap["message"]) => {
+                    client.broadcast.removeEventListener("message", listener);
                     resolve(e.data);
                 }
 
-                client.broadcast.addEventListener("message", lestener);
+                client.broadcast.addEventListener("message", listener);
 
                 ws.addEventListener("error", rejects);
                 ws.addEventListener("open", () => {

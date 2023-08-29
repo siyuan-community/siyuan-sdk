@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 添加 API `/api/broadcast/channels` | Add API `/api/broadcast/channels`
+
 ## v0.2.2 / 2023-08-16
 
 - [v0.2.1 ... v0.2.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.1...v0.2.2)
@@ -140,4 +142,3 @@
 - 调整文件目录结构 | Adjust file directory structure
 - 配置构建选项 | Configure build options
 - 配置 npm 发布选项 | Configure npm release options
-

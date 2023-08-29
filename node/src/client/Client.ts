@@ -96,6 +96,9 @@ export class Client {
             transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" },
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
         },
+        broadcast: {
+            channels: { pathname: "/api/broadcast/channels", method: "GET" },
+        },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
         },
@@ -545,6 +548,19 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.updateBlock.IResponse;
+        return response;
+    }
+
+    /* 获取所有广播频道信息 */
+    public async channels(
+        config?: TempOptions,
+    ): Promise<kernel.api.broadcast.channels.IResponse> {
+        const response = await this._request(
+            Client.api.broadcast.channels.pathname,
+            Client.api.broadcast.channels.method,
+            undefined,
+            config,
+        ) as kernel.api.broadcast.channels.IResponse;
         return response;
     }
 

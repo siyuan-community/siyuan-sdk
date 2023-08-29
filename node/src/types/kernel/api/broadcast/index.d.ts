@@ -18,5 +18,7 @@
 
 /* directories */
 export * as channels from "./channels";
+export * as getChannelInfo from "./getChannelInfo";
+export * as postMessage from "./postMessage";
 
 /* files */

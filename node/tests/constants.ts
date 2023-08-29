@@ -18,6 +18,8 @@
 export default {
     /* pandoc 工作目录 */
     PANDOC_CONVERT_DIR_PATH: "/temp/convert/pandoc", // pandoc 转换目录
+
+    BROADCAST_CHANNEL_NAME: "channel-test", // 测试用广播通道名称
     /* 测试用文件内容 */
     TEST_FILE_CONTENT: `<html>
     <body>

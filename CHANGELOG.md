@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/broadcast/channels` | Add API `/api/broadcast/channels`
+- 添加 API `/api/broadcast/getChannelInfo` | Add API `/api/broadcast/getChannelInfo`
 
 ## v0.2.2 / 2023-08-16
 

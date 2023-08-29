@@ -15,21 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "dotenv/config";
-import { Client } from "@/client/Client";
-import CONSTANTS from "~/tests/constants";
+/**
+ * Get the information of specified broadcast channel
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-const client = new Client({
-    baseURL: process.env.VITE_SIYUAN_SERVE,
-    token: process.env.VITE_SIYUAN_TOKEN,
-}, "fetch");
+/**
+ * response data
+ */
+export interface IData {
+    channel: IChannel;
+}
 
-const broadcast = client.broadcast({
-    channel: CONSTANTS.BROADCAST_CHANNEL_NAME,
-});
-
-export default {
-    Client,
-    client,
-    broadcast,
-};
+/**
+ * channel object
+ */
+export interface IChannel {
+    /**
+     * The count of broadcast channel listener
+     */
+    count: number;
+    /**
+     * channel name
+     */
+    name: string;
+}

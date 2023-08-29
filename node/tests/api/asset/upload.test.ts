@@ -101,9 +101,12 @@ describe.concurrent(pathname, async () => {
                     test("test the file is accessible", async () => {
                         for (const [filename, filepath] of Object.entries(response.data.succMap)) {
                             const path = `/data/${filepath}`;
-                            await expect.soft(client.client.getFile({
-                                path,
-                            })).resolves.toEqual(filename);
+                            await expect.soft(client.client.getFile(
+                                {
+                                    path,
+                                },
+                                "text",
+                            )).resolves.toEqual(filename);
 
                             /* 删除测试文件 */
                             await client.client.removeFile({

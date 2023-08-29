@@ -15,21 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "dotenv/config";
-import { Client } from "@/client/Client";
-import CONSTANTS from "~/tests/constants";
 
-const client = new Client({
-    baseURL: process.env.VITE_SIYUAN_SERVE,
-    token: process.env.VITE_SIYUAN_TOKEN,
-}, "fetch");
+/* directories */
 
-const broadcast = client.broadcast({
-    channel: CONSTANTS.BROADCAST_CHANNEL_NAME,
-});
-
-export default {
-    Client,
-    client,
-    broadcast,
-};
+/* files */
+export * from "./payload";
+export * from "./response";

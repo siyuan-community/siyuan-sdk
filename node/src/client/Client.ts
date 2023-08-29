@@ -1,5 +1,6 @@
 import * as axios from "axios";
 import * as ofetch from "ofetch";
+import Websocket from "isomorphic-ws";
 
 // TODO: refactor
 import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
@@ -67,6 +68,10 @@ export interface TempAxiosOptions {
 export type TempOptions = TempFetchOptions | TempAxiosOptions;
 
 export class Client {
+    public static readonly ws = {
+        broadcast: { pathname: "/ws/broadcast" },
+    } as const;
+
     public static readonly api = {
         // TODO: refactor
         search: {
@@ -98,6 +103,8 @@ export class Client {
         },
         broadcast: {
             channels: { pathname: "/api/broadcast/channels", method: "GET" },
+            getChannelInfo: { pathname: "/api/broadcast/getChannelInfo", method: "POST" },
+            postMessage: { pathname: "/api/broadcast/postMessage", method: "POST" },
         },
         convert: {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
@@ -235,6 +242,8 @@ export class Client {
         type: ClientType = this._type,
     ): void {
         this._token = options.token ?? this._token;
+        this._baseURL = options.baseURL ?? this._baseURL;
+
         switch (type) {
             case "fetch":
                 const ofetch_options = options as FetchOptions;
@@ -270,7 +279,7 @@ export class Client {
                 for (const [key, value] of Object.entries(options)) {
                     switch (key) {
                         case "token":
-                            this._axios.defaults.headers.Authorization = `Token ${options.token}`;
+                            this._axios.defaults.headers.Authorization = `Token ${this._token}`;
                             break;
                         default:
                             this._axios.defaults[key as keyof axios.AxiosRequestConfig] = value;
@@ -280,6 +289,29 @@ export class Client {
                 break;
         }
         this._baseURL = options.baseURL ?? this._baseURL;
+    }
+
+    /* 👇 WebSocket 👇 */
+    /* 消息广播 */
+    public broadcast(
+        params: kernel.ws.broadcast.IParams,
+        protocols?: string | string[],
+        config?: IBaseOptions,
+    ): WebSocket {
+        const baseURL = config?.baseURL ?? this._baseURL;
+        const token = config?.token ?? this._token;
+
+        const searchParams = new URLSearchParams(params);
+        searchParams.set("token", token);
+
+        const url = new URL(baseURL);
+        url.protocol = url.protocol.replace(/^http/, "ws");
+        url.pathname = url.pathname.endsWith("/")
+            ? `${url.pathname}${Client.ws.broadcast.pathname.substring(1)}`
+            : `${url.pathname}${Client.ws.broadcast.pathname}`;
+        url.search = searchParams.toString();
+
+        return new Websocket(url, protocols);
     }
 
     /* 全局搜索 */
@@ -561,6 +593,34 @@ export class Client {
             undefined,
             config,
         ) as kernel.api.broadcast.channels.IResponse;
+        return response;
+    }
+
+    /* 获取指定广播频道的信息 */
+    public async getChannelInfo(
+        payload: kernel.api.broadcast.getChannelInfo.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.broadcast.getChannelInfo.IResponse> {
+        const response = await this._request(
+            Client.api.broadcast.getChannelInfo.pathname,
+            Client.api.broadcast.getChannelInfo.method,
+            payload,
+            config,
+        ) as kernel.api.broadcast.getChannelInfo.IResponse;
+        return response;
+    }
+
+    /* 推送广播消息 */
+    public async postMessage(
+        payload: kernel.api.broadcast.postMessage.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.broadcast.postMessage.IResponse> {
+        const response = await this._request(
+            Client.api.broadcast.postMessage.pathname,
+            Client.api.broadcast.postMessage.method,
+            payload,
+            config,
+        ) as kernel.api.broadcast.postMessage.IResponse;
         return response;
     }
 

@@ -18,6 +18,7 @@
 
 /* directories */
 export * as api from "./api";
+export * as ws from "./ws";
 
 /* files */
 export * as kernel from "./kernel";

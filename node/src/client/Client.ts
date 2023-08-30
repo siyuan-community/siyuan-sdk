@@ -697,6 +697,19 @@ export class Client {
         responseType: Extract<ResponseType, "text">,
         config?: TempOptions,
     ): Promise<string>;
+    public async getFile(
+        payload: kernel.api.file.getFile.IPayload,
+        responseType: ResponseType,
+        config?: TempOptions,
+    ): Promise<
+        ArrayBuffer
+        | Blob
+        | Document
+        | Object
+        | ReadableStream
+        | string
+    >;
+
     public async getFile<R>(
         payload: kernel.api.file.getFile.IPayload,
         responseType: ResponseType = "text",
@@ -1255,6 +1268,22 @@ export class Client {
         method: string,
         payload?: P,
         config?: TempOptions,
+        normal?: true,
+        responseType?: "json",
+    ): Promise<R>;
+    public async _request<P extends kernel.kernel.IPayload, R>(
+        pathname: string,
+        method: string,
+        payload?: P,
+        config?: TempOptions,
+        normal?: boolean,
+        responseType?: ResponseType,
+    ): Promise<R>;
+    public async _request<P extends kernel.kernel.IPayload, R>(
+        pathname: string,
+        method: string,
+        payload?: P,
+        config?: TempOptions,
         normal: boolean = true,
         responseType: ResponseType = "json",
     ): Promise<R> {
@@ -1278,6 +1307,22 @@ export class Client {
                             method,
                             body: payload,
                             responseType,
+                            onResponse: async (context) => {
+                                switch (context.response.status) {
+                                    case axios.HttpStatusCode.Ok:
+                                        break;
+
+                                    case axios.HttpStatusCode.Accepted:
+                                        /* api/file/getFile */
+                                        if (pathname === Client.api.file.getFile.pathname) {
+                                            this._parseFetchResponse(context.response._data);
+                                        }
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            },
                             ...options,
                         },
                     );
@@ -1306,17 +1351,27 @@ export class Client {
                         responseType,
                         ...options,
                     });
-                    if (response.status === axios.HttpStatusCode.Ok) {
-                        if (normal && responseType === "json" && typeof response.data === "object") {
-                            return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
-                        }
-                        else {
-                            return response.data;
-                        }
-                    }
-                    else { // HTTP 请求异常
-                        const error = new HTTPError(response);
-                        throw error;
+                    switch (response.status) {
+                        case axios.HttpStatusCode.Ok:
+                            if (normal && responseType === "json" && typeof response.data === "object") {
+                                return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
+                            }
+                            else {
+                                return response.data;
+                            }
+
+                        case axios.HttpStatusCode.Accepted:
+                            /* api/file/getFile */
+                            if (pathname === Client.api.file.getFile.pathname) {
+                                return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
+                            }
+                            else {
+                                return response.data;
+                            }
+
+                        default:
+                            const error = new HTTPError(response);
+                            throw error;
                     }
                 }
             }

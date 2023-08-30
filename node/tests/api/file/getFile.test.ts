@@ -20,15 +20,14 @@ import {
     expect,
     test,
 } from "vitest";
-import type { ResponseType } from "axios";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getFile from "@/types/kernel/api/file/getFile";
-import { Stream } from "stream";
-
+import type getFile from "@/types/kernel/api/file/getFile";
+import type { ResponseType } from "@/client/Client";
+import { KernelError } from "~/src";
 
 const pathname = client.Client.api.file.getFile.pathname;
 
@@ -38,6 +37,7 @@ interface ICase {
     responseType: ResponseType,
     type: string,
     protoType?: any,
+    catch?: (err: unknown) => void,
     debug: boolean,
 }
 
@@ -117,11 +117,41 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "json-non-existent",
+            path: "/none-existent", // 不存在的文件
+            responseType: "json",
+            type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
+            catch: (error) => {
+                test("KernelError: 404", async () => {
+                    expect(
+                        error,
+                        "error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "error's code",
+                    ).toEqual(404);
+                });
+            },
+            debug: false,
+        },
+        {
             name: "json-dir",
             path: "/temp", // 目录
             responseType: "json",
-            type: "object", // 返回 { code: 405, msg: 'file is a directory', data: null }
-            protoType: Object,
+            type: "object", // 返回 { code: 405, msg: 'file [/temp] is a directory', data: null }
+            catch: (error) => {
+                test("KernelError: 405", async () => {
+                    expect(
+                        error,
+                        "error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "error's code",
+                    ).toEqual(405);
+                });
+            },
             debug: false,
         },
     ];
@@ -136,6 +166,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
             },
             request: (payload) => client.client.getFile(payload!, item.responseType),
+            catch: item.catch,
             response: {
                 test: body => {
                     if (item.debug) {

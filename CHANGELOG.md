@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 优化 API `/api/file/getFile` | Optimize API `/api/file/getFile`
+
 ## v0.2.3 / 2023-08-29
 
 - [v0.2.2 ... v0.2.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.2...v0.2.3)

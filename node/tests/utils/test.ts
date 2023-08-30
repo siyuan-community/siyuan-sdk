@@ -44,12 +44,24 @@ interface ITestKernelAPIOptions<P, R> {
     payload?: {
         data?: P,
         validate?: ValidateFunction,
-        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void,
+        test?: (
+            payload: P,
+            options: ITestKernelAPIOptions<P, R>,
+        ) => void,
     },
     request: (payload?: P) => Promise<R>,
+    catch?: (
+        error: unknown,
+        payload: P,
+        options: ITestKernelAPIOptions<P, R>,
+    ) => void,
     response?: {
         validate?: ValidateFunction,
-        test?: (response: R, payload: P, options: ITestKernelAPIOptions<P, R>) => void,
+        test?: (
+            response: R,
+            payload: P,
+            options: ITestKernelAPIOptions<P, R>,
+        ) => void,
     },
     debug?: boolean,
     [key: string]: any,
@@ -78,7 +90,21 @@ export function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
             }
 
             /* 测试请求过程 */
-            const response = await options.request(options.payload?.data);
+            var response: R;
+            try {
+                response = await options.request(options.payload?.data);
+            } catch (error) {
+                if (options.catch) {
+                    if (options.debug) {
+                        console.debug("error:", error);
+                    }
+                    await options.catch(error, options.payload?.data!, options);
+                    return;
+                }
+                else {
+                    throw error;
+                }
+            }
 
             /* 测试响应体 */
             if (options.response) {

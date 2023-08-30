@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 优化 API `/api/file/getFile` | Optimize API `/api/file/getFile`
+- 添加思源文件系统管理接口 | Add SiYuan file system management interface
 
 ## v0.2.3 / 2023-08-29
 

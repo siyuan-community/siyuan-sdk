@@ -53,6 +53,7 @@
     },
     "files": [
         "dist",
+        "src",
         "package.json",
         "README.md",
         "README-zh-Hans.md",
@@ -86,6 +87,7 @@
         "dotenv": "^16.3.1",
         "eslint": "^8.48.0",
         "json5": "^2.2.3",
+        "path-browserify": "^1.0.1",
         "quicktype-core": "^23.0.73",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",

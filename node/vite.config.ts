@@ -39,6 +39,7 @@ export default defineConfig({
     ],
     build: {
         outDir: "./dist",
+        sourcemap: true,
         lib: {
             entry: resolve(__dirname, "src/index.ts"),
             name: "SiyuanSDK",

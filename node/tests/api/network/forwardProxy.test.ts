@@ -17,21 +17,24 @@
 
 import {
     describe,
+    test,
+    expect,
 } from "vitest";
 
 import client from "~/tests/utils/client";
-import { testKernelAPI } from "~/tests/utils/test";
+import { testKernelAPI, testResponse } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
 import forwardProxy from "@/types/kernel/api/network/forwardProxy";
 
 const pathname = client.Client.api.network.forwardProxy.pathname;
+const pathname_version = client.Client.api.system.version.pathname;
 
 interface ICase {
     name: string,
     before?: () => void,
     payload: forwardProxy.IPayload,
-    after?: () => void,
+    after?: (respone: forwardProxy.IResponse, payload: forwardProxy.IPayload) => void,
     debug: boolean,
 }
 
@@ -43,16 +46,88 @@ describe(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
+    const schema_response_version = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname_version));
+    await schema_response_version.loadSchemaFile();
+    const validate_response_version = schema_response_version.constructValidateFuction();
+
     const cases: ICase[] = [
         /* GET 请求测试 */
         {
             name: "GET request",
             payload: {
-                url: `${process.env.VITE_SIYUAN_SERVE}${client.Client.api.system.version.pathname}`,
+                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
                 method: "GET",
                 headers: [{
                     Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`
                 }],
+            },
+            after: (response, payload) => {
+                test("test response.data.body", async () => {
+                    expect.soft(
+                        response.data.bodyEncoding,
+                        "verify bodyEncoding",
+                    ).toEqual("text");
+                });
+            },
+            debug: false,
+        },
+        {
+            name: "GET request [text]",
+            payload: {
+                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
+                method: "GET",
+                headers: [{
+                    Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`
+                }],
+                responseEncoding: "text",
+            },
+            after: (response, payload) => {
+                test("test response.data.body", async () => {
+                    expect.soft(
+                        response.data.bodyEncoding,
+                        "verify bodyEncoding",
+                    ).toEqual(payload.responseEncoding);
+
+                    expect.soft(
+                        validate_response_version(
+                            JSON.parse(
+                                response.data.body
+                            )
+                        ),
+                        `verify response using JSON Schema`,
+                    ).toBeTruthy(); // 校验响应体
+                });
+            },
+            debug: false,
+        },
+        {
+            name: "GET request [base64]",
+            payload: {
+                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
+                method: "GET",
+                headers: [{
+                    Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`
+                }],
+                responseEncoding: "base64",
+            },
+            after: (response, payload) => {
+                console.log(response.data.body)
+                test("test response.data.body", async () => {
+                    expect.soft(
+                        response.data.bodyEncoding,
+                        "verify bodyEncoding",
+                    ).toEqual(payload.responseEncoding);
+                    expect.soft(
+                        validate_response_version(
+                            JSON.parse(
+                                atob(
+                                    response.data.body
+                                )
+                            )
+                        ),
+                        `verify response using JSON Schema`,
+                    ).toBeTruthy(); // 校验响应体
+                });
             },
             debug: false,
         },

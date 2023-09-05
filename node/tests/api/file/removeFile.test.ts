@@ -63,7 +63,7 @@ describe.concurrent(pathname, async () => {
                 test("test the result of removing file", async () => {
                     await expect(client.client.getFile({
                         path: "/temp/convert/test/remove-file/test.html",
-                    }, "json")).resolves.toContain({ code: 404 });
+                    }, "json")).rejects.toContain({ code: 404 });
                 });
             },
             debug: false,

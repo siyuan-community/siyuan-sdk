@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/network/forwardProxy/payload.schema.json",
-    "$comment": "v2.9.5",
+    "$comment": "v2.10.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -59,6 +59,36 @@
                         "string"
                     ],
                     "description": "request body"
+                },
+                "payloadEncoding": {
+                    "type": "string",
+                    "description": "Encoding schema for request payload\n@default: \"text\"",
+                    "enum": [
+                        "text",
+                        "base64",
+                        "base64-std",
+                        "base64-url",
+                        "base32",
+                        "base32-std",
+                        "base32-hex",
+                        "hex"
+                    ],
+                    "default": "text"
+                },
+                "responseEncoding": {
+                    "type": "string",
+                    "description": "Encoding schema for response body\n@default: \"text\"",
+                    "enum": [
+                        "text",
+                        "base64",
+                        "base64-std",
+                        "base64-url",
+                        "base32",
+                        "base32-std",
+                        "base32-hex",
+                        "hex"
+                    ],
+                    "default": "text"
                 }
             }
         },

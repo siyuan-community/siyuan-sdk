@@ -38,6 +38,16 @@ export interface IPayload {
      */
     payload?: Payload;
     /**
+     * Encoding schema for request payload
+     * @default: "text"
+     */
+    payloadEncoding?: Encoding;
+    /**
+     * Encoding schema for response body
+     * @default: "text"
+     */
+    responseEncoding?: Encoding;
+    /**
      * timeout to request (ms)
      * @default: 7000
      */
@@ -58,3 +68,12 @@ export type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPT
  * request body
  */
 export type Payload = { [key: string]: any } | string;
+
+/**
+ * Encoding schema for request payload
+ * @default: "text"
+ *
+ * Encoding schema for response body
+ * @default: "text"
+ */
+export type Encoding = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";

@@ -2,14 +2,14 @@
  * schemas/kernel/api/network/forwardProxy/payload.schema.json5
  * 正向代理
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Forward-proxy
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/network.go#L33-L115
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.3/kernel/api/network.go#L36-L200
  * @pathname: /api/network/forwardProxy
- * @version: 2.9.5
+ * @version: 2.10.3
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/network/forwardProxy/payload.schema.json5',
-    $comment: 'v2.9.5',
+    $comment: 'v2.10.3',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -62,6 +62,22 @@
                     // 请求体
                     type: ['object', 'string'],
                     description: 'request body',
+                },
+                payloadEncoding: {
+                    // 请求体编码类型
+                    type: 'string',
+                    description: 'Encoding schema for request payload\n@default: "text"',
+
+                    enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
+                    default: 'text',
+                },
+                responseEncoding: {
+                    // 响应体编码类型
+                    type: 'string',
+                    description: 'Encoding schema for response body\n@default: "text"',
+
+                    enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
+                    default: 'text',
                 },
             },
         },

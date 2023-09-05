@@ -2,9 +2,9 @@
  * schemas/kernel/api/network/forwardProxy/response.schema.json5
  * 正向代理
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Forward-proxy
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/network.go#L33-L115
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.3/kernel/api/network.go#L36-L200
  * @pathname: /api/network/forwardProxy
- * @version: 2.9.5
+ * @version: 2.10.3
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
@@ -39,7 +39,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['url', 'status', 'elapsed', 'contentType', 'headers', 'body'],
+            required: ['url', 'status', 'elapsed', 'contentType', 'headers', 'body', 'bodyEncoding'],
             properties: {
                 url: {
                     // 请求 URL
@@ -74,6 +74,13 @@
                     // 响应体内容
                     type: 'string',
                     description: 'response body',
+                },
+                bodyEncoding: {
+                    // 响应体内容所使用的编码方案
+                    type: 'string',
+                    description: 'response body encoding schema',
+                    enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
+                    default: 'text',
                 },
             },
         },

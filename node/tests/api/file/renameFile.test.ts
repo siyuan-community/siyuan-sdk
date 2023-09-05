@@ -79,13 +79,13 @@ describe.concurrent(pathname, async () => {
                             path: "/temp/convert/pandoc/test/rename-file/test.html",
                         }, "json"),
                         `original path: /temp/convert/pandoc/test/rename-file/test.html`,
-                    ).resolves.toContain({ code: 404 });
+                    ).rejects.toContain({ code: 404 });
 
                     /* 测试重命名后文件是否存在 */
                     await expect(
                         client.client.getFile({
                             path: "/temp/convert/pandoc/test/rename-file/test-new.html",
-                        }),
+                        }, "text"),
                         `new path: /temp/convert/pandoc/test/rename-file/test-new.html`,
                     ).resolves.toEqual(constants.TEST_FILE_CONTENT);
                 });

@@ -39,6 +39,10 @@ export interface IData {
      */
     body: string;
     /**
+     * response body encoding schema
+     */
+    bodyEncoding?: BodyEncoding;
+    /**
      * response content-type
      */
     contentType: string;
@@ -59,3 +63,8 @@ export interface IData {
      */
     url: string;
 }
+
+/**
+ * response body encoding schema
+ */
+export type BodyEncoding = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";

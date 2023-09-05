@@ -39,7 +39,8 @@
                 "elapsed",
                 "contentType",
                 "headers",
-                "body"
+                "body",
+                "bodyEncoding"
             ],
             "properties": {
                 "url": {

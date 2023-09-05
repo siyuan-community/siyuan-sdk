@@ -41,7 +41,7 @@ export interface IData {
     /**
      * response body encoding schema
      */
-    bodyEncoding?: BodyEncoding;
+    bodyEncoding: BodyEncoding;
     /**
      * response content-type
      */

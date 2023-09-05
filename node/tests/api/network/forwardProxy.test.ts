@@ -34,7 +34,7 @@ interface ICase {
     name: string,
     before?: () => void,
     payload: forwardProxy.IPayload,
-    after?: (respone: forwardProxy.IResponse, payload: forwardProxy.IPayload) => void,
+    after?: (response: forwardProxy.IResponse, payload: forwardProxy.IPayload) => void,
     debug: boolean,
 }
 

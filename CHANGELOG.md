@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.0 / 2023-09-05
+
+- [v0.2.3 ... v0.3.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.3...v0.3.0)
 - 优化 API `/api/file/getFile` | Optimize API `/api/file/getFile`
 - 添加思源文件系统管理接口 | Add SiYuan file system management interface
 - 优化 API `/ws/broadcast` | Optimize API `/ws/broadcast`

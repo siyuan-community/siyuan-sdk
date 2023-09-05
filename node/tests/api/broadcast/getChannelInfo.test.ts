@@ -42,7 +42,7 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                name: CONSTANTS.BROADCAST_CHANNEL_NAME,
+                name: CONSTANTS.BROADCAST_CHANNEL_NAME_MESSAGE,
             },
             validate: validate_payload,
         },
@@ -55,6 +55,7 @@ describe(pathname, async () => {
                         response.data.channel.name,
                         "channel name"
                     ).toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
+
                     expect.soft(
                         response.data.channel.count,
                         "channel count"

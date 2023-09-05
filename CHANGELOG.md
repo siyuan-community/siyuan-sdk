@@ -2,6 +2,7 @@
 
 - 优化 API `/api/file/getFile` | Optimize API `/api/file/getFile`
 - 添加思源文件系统管理接口 | Add SiYuan file system management interface
+- 优化 API `/ws/broadcast` | Optimize API `/ws/broadcast`
 
 ## v0.2.3 / 2023-08-29
 

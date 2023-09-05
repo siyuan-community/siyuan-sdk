@@ -44,7 +44,7 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                channel: CONSTANTS.BROADCAST_CHANNEL_NAME,
+                channel: CONSTANTS.BROADCAST_CHANNEL_NAME_MESSAGE,
                 message,
             },
             validate: validate_payload,

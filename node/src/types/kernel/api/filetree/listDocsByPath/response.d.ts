@@ -78,6 +78,10 @@ export interface IFile {
      */
     hCtime: string;
     /**
+     * is hidden
+     */
+    hidden: boolean;
+    /**
      * human readable document modified time
      */
     hMtime: string;

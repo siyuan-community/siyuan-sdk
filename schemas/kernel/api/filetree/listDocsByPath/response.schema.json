@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/listDocsByPath/response.schema.json",
-    "$comment": "v2.9.8",
+    "$comment": "v2.10.4",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -79,6 +79,7 @@
                 "hCtime",
                 "sort",
                 "subFileCount",
+                "hidden",
                 "newFlashcardCount",
                 "dueFlashcardCount",
                 "flashcardCount"
@@ -196,6 +197,10 @@
                 "subFileCount": {
                     "type": "integer",
                     "description": "sub file count"
+                },
+                "hidden": {
+                    "type": "boolean",
+                    "description": "is hidden"
                 },
                 "newFlashcardCount": {
                     "type": "integer",

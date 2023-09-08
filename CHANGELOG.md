@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 更新 API `/api/filetree/listDocsByPath` | Update API `/api/filetree/listDocsByPath`
+
 ## v0.3.0 / 2023-09-05
 
 - [v0.2.3 ... v0.3.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.2.3...v0.3.0)

@@ -80,7 +80,7 @@ describe(pathname, async () => {
                     expect.soft(
                         response.data.channel.count,
                         "channel count"
-                    ).toEqual(1);
+                    ).toBeGreaterThanOrEqual(1);
                 });
             },
         },

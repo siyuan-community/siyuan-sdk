@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/listDocsByPath/response.schema.json5
  * 根据文档文件路径列出文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.8/kernel/api/filetree.go#L617-L661
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.4/kernel/api/filetree.go#L627-L675
  * @pathname: /api/filetree/listDocsByPath
- * @version: 2.9.8
+ * @version: 2.10.4
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/listDocsByPath/response.schema.json5',
-    $comment: 'v2.9.8',
+    $comment: 'v2.10.4',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -65,7 +65,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['path', 'name', 'icon', 'name1', 'alias', 'memo', 'bookmark', 'id', 'count', 'size', 'hSize', 'mtime', 'ctime', 'hMtime', 'hCtime', 'sort', 'subFileCount', 'newFlashcardCount', 'dueFlashcardCount', 'flashcardCount'],
+            required: ['path', 'name', 'icon', 'name1', 'alias', 'memo', 'bookmark', 'id', 'count', 'size', 'hSize', 'mtime', 'ctime', 'hMtime', 'hCtime', 'sort', 'subFileCount', 'hidden', 'newFlashcardCount', 'dueFlashcardCount', 'flashcardCount'],
             properties: {
                 path: {
                     // 文档文件路径
@@ -155,7 +155,7 @@
                     description: 'document sort rule\n0: Name Alphabet ASC\n1: Name Alphabet DESC\n2: Modified Time ASC\n3: Modified Time DESC\n4: Name Natural ASC\n5: Name Natural DESC\n6: Custom Sorting\n7: Ref Count ASC\n8: Ref Count DESC\n9: Created Time ASC\n10: Created Time DESC\n11: Document Size ASC\n12: Document Size DESC\n13: Sub-docs Count ASC \n14: Sub-docs Count DESC\n15: Use doc tree sorting rule\n256: (default) Use notebook sorting rule',
                     default: 256, // 默认使用笔记本排序规则
                     enum: [
-                        // REF: https://github.com/siyuan-note/siyuan/blob/v2.9.8/kernel/util/sort.go#L60-L79
+                        // REF: https://github.com/siyuan-note/siyuan/blob/v2.10.4/kernel/util/sort.go#L60-L79
                         0, //文件名字母升序
                         1, //文件名字母降序
                         2, //文件更新时间升序
@@ -179,6 +179,11 @@
                     // 下级文件数
                     type: 'integer',
                     description: 'sub file count',
+                },
+                hidden: {
+                    // 是否隐藏
+                    type: 'boolean',
+                    description: 'is hidden',
                 },
                 newFlashcardCount: {
                     // 新闪卡数

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get block HTML DOM and other information
  */
@@ -99,3 +100,5 @@ export interface IData {
  * Block type
  */
 export type Type = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeList" | "NodeListItem" | "NodeHeading" | "NodeParagraph" | "NodeMathBlock" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed";
+
+//#endregion content

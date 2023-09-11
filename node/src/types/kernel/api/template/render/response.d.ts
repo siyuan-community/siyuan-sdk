@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * render template file
  */
@@ -43,3 +44,5 @@ export interface IData {
      */
     path: string;
 }
+
+//#endregion content

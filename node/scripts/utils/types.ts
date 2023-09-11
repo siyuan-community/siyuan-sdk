@@ -35,8 +35,10 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
         && child.name !== "index.d.ts"
     ); // 下级文件列表
 
+    ts.push(constants.REGION_BEGIN_CONTENT); // 代码内容首
+
     /* 导出下级目录的类型定义 */
-    ts.push(`\n/* directories */`)
+    ts.push(`/* directories */`)
     dirs.forEach(dir => {
         ts.push(`export * as ${dir.name} from "./${dir.name}";`);
     });
@@ -56,6 +58,9 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
                 break;
         }
     });
+
+    ts.push(constants.REGION_END_CONTENT); // 代码内容尾
+    ts.push(""); // 文件末尾空行
 
     const index_path = resolve(path, "index.d.ts");
     await asyncFs.writeFile(index_path, ts.join("\n"));

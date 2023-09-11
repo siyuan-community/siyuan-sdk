@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * execute pandoc command to convert file
  */
@@ -30,3 +31,5 @@ export interface IPayload {
      */
     dir?: string;
 }
+
+//#endregion content

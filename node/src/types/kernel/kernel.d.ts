@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /* 请求体 */
 export interface IPayload extends object {
 
@@ -26,3 +27,5 @@ export interface IResponse {
     msg: string;
     data: object | string | number | boolean | null | any[];
 }
+
+//#endregion content

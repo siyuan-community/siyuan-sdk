@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get the content of a shorthand
  */
@@ -63,3 +64,5 @@ export interface IData {
      */
     shorthandURL: string;
 }
+
+//#endregion content

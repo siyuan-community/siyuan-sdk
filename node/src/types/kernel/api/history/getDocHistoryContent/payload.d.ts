@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get document history content from history document file absolute path
  */
@@ -28,3 +29,5 @@ export interface IPayload {
      */
     k?: string;
 }
+
+//#endregion content

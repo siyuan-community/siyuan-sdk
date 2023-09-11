@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * List sub docs by path
  */
@@ -58,3 +59,5 @@ export interface IPayload {
      */
     sort?: number;
 }
+
+//#endregion content

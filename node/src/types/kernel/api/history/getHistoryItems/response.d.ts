@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Query the list of historical items
  */
@@ -50,3 +51,5 @@ export interface IItem {
      */
     title: string;
 }
+
+//#endregion content

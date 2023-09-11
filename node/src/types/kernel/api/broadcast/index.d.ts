@@ -15,10 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+//#region content
 /* directories */
 export * as channels from "./channels";
 export * as getChannelInfo from "./getChannelInfo";
 export * as postMessage from "./postMessage";
 
 /* files */
+//#endregion content

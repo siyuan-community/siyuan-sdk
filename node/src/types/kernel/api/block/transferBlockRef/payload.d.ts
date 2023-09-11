@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Transfer block ref
  */
@@ -29,3 +30,5 @@ export interface IPayload {
      */
     toID: string;
 }
+
+//#endregion content

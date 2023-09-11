@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get the most recently updated documentation
  */
@@ -47,3 +48,5 @@ export interface IDocInfo {
      */
     title: string;
 }
+
+//#endregion content

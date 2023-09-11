@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Move a block
  */
@@ -32,3 +33,5 @@ export interface IPayload {
      */
     previousID?: string;
 }
+
+//#endregion content

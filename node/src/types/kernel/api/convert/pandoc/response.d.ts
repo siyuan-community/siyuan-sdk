@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 export interface IResponse {
     /**
      * status code
@@ -36,3 +37,5 @@ export interface IData {
      */
     path: string;
 }
+
+//#endregion content

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Forward proxy
  */
@@ -68,3 +69,5 @@ export interface IData {
  * response body encoding schema
  */
 export type BodyEncoding = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
+
+//#endregion content

@@ -56,6 +56,9 @@ export const LICENSE = `/**
  */
 `; // 注释
 
+export const REGION_BEGIN_CONTENT = `//#region content`; // #region 自动生成的代码，请勿手动修改
+export const REGION_END_CONTENT = `//#endregion content`; // #region 自动生成的代码，请勿手动修改
+
 /* quicktype 相关配置 */
 export const QUICKTYPE_OPTIONS: Partial<quicktype.Options> = {
     lang: new quicktype.TypeScriptTargetLanguage(), // 目标语言

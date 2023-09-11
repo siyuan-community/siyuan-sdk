@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * remove file/directory under the workspace directory
  */
@@ -29,3 +30,5 @@ export interface IResponse {
      */
     msg: string;
 }
+
+//#endregion content

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Exports the specified document block as Markdown
  */
@@ -43,3 +44,5 @@ export interface IData {
      */
     hPath: string;
 }
+
+//#endregion content

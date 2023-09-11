@@ -164,6 +164,7 @@ const client = new Client(
         /**
          * (Optional) Other ofetch request configurations
          * REF: https://www.npmjs.com/package/ofetch
+         * REF: https://www.jsdocs.io/package/ofetch
          */
     },
     "fetch",

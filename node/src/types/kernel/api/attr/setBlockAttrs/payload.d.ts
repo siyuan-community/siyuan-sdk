@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Set block attributes
  */
@@ -25,3 +26,5 @@ export interface IPayload {
      */
     id: string;
 }
+
+//#endregion content

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Set notebook configuration
  */
@@ -71,3 +72,5 @@ export interface IData {
      */
     sortMode: number;
 }
+
+//#endregion content

@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+//#region content
 /* directories */
 export * as render from "./render";
 export * as renderSprig from "./renderSprig";
 
 /* files */
+//#endregion content

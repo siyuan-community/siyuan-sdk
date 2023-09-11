@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Append blocks
  */
@@ -69,3 +70,5 @@ export interface IOperation {
 }
 
 export type Action = "insert";
+
+//#endregion content

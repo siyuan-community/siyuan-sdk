@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * list the contents of the specified file directory
  */
@@ -24,3 +25,5 @@ export interface IPayload {
      */
     path: string;
 }
+
+//#endregion content

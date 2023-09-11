@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Create a notebook
  */
@@ -78,3 +79,5 @@ export interface INotebook {
      */
     sortMode: number;
 }
+
+//#endregion content

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get human readable path based on path
  */
@@ -33,3 +34,5 @@ export interface IResponse {
      */
     msg: string;
 }
+
+//#endregion content

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get document information
  */
@@ -83,3 +84,5 @@ export interface Ial {
     updated: string;
     [property: string]: string;
 }
+
+//#endregion content

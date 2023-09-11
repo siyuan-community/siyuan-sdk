@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get a block kramdown
  */
@@ -24,3 +25,5 @@ export interface IPayload {
      */
     id: string;
 }
+
+//#endregion content

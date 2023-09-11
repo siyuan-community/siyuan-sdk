@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * get file under the workspace directory
  */
@@ -24,3 +25,5 @@ export interface IPayload {
      */
     path: string;
 }
+
+//#endregion content

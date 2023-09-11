@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * push alert information
  */
@@ -39,3 +40,5 @@ export interface IData {
      */
     id: string;
 }
+
+//#endregion content

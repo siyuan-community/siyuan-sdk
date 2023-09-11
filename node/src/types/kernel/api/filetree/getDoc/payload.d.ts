@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Get block HTML DOM and other information
  */
@@ -111,3 +112,5 @@ export interface IQueryTypes {
      */
     table?: boolean;
 }
+
+//#endregion content

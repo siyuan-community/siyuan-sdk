@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+//#region content
 /* directories */
 export * as closeNotebook from "./closeNotebook";
 export * as createNotebook from "./createNotebook";
@@ -27,3 +27,4 @@ export * as renameNotebook from "./renameNotebook";
 export * as setNotebookConf from "./setNotebookConf";
 
 /* files */
+//#endregion content

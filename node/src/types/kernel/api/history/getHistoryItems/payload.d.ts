@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//#region content
 /**
  * Query the list of historical items
  */
@@ -51,3 +52,5 @@ export interface IPayload {
  * Filter based on the reason established by the history
  */
 export type Op = "all" | "clean" | "update" | "delete" | "format" | "sync" | "replace";
+
+//#endregion content

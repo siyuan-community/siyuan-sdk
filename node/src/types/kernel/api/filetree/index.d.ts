@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+//#region content
 /* directories */
 export * as createDocWithMd from "./createDocWithMd";
 export * as getDoc from "./getDoc";
@@ -28,3 +28,4 @@ export * as renameDoc from "./renameDoc";
 export * as searchDocs from "./searchDocs";
 
 /* files */
+//#endregion content

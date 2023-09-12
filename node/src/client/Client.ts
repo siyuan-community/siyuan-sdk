@@ -3,7 +3,6 @@ import * as ofetch from "ofetch";
 import Websocket from "isomorphic-ws";
 
 // TODO: refactor
-import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 import getConf from "@/types/kernel/api/system/getConf";
 
 import { kernel } from "@/types";
@@ -73,18 +72,13 @@ export class Client {
     } as const;
 
     public static readonly api = {
-        // TODO: refactor
-        search: {
-            fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
-        },
-
         asset: {
             upload: { pathname: "/api/asset/upload", method: "POST" },
         },
         attr: {
             getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
-            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
             getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
+            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
         },
         block: {
             appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
@@ -144,8 +138,8 @@ export class Client {
         notebook: {
             closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
             createNotebook: { pathname: "/api/notebook/createNotebook", method: "POST" },
-            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
             getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
+            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
             openNotebook: { pathname: "/api/notebook/openNotebook", method: "POST" },
             removeNotebook: { pathname: "/api/notebook/removeNotebook", method: "POST" },
             renameNotebook: { pathname: "/api/notebook/renameNotebook", method: "POST" },
@@ -160,6 +154,9 @@ export class Client {
         },
         repo: {
             openRepoSnapshotDoc: { pathname: "/api/repo/openRepoSnapshotDoc", method: "POST" },
+        },
+        search: {
+            fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
         },
         snippet: {
             getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
@@ -312,20 +309,6 @@ export class Client {
         url.search = searchParams.toString();
 
         return new Websocket(url, protocols);
-    }
-
-    /* 全局搜索 */
-    public async fullTextSearchBlock(
-        payload: fullTextSearchBlock.IPayload,
-        config?: TempOptions,
-    ): Promise<fullTextSearchBlock.IResponse> {
-        const response = await this._request(
-            Client.api.search.fullTextSearchBlock.pathname,
-            Client.api.search.fullTextSearchBlock.method,
-            payload,
-            config,
-        ) as fullTextSearchBlock.IResponse;
-        return response;
     }
 
     /* 获得配置 */
@@ -1152,6 +1135,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.repo.openRepoSnapshotDoc.IResponse;
+        return response;
+    }
+
+    /* 全局搜索 */
+    public async fullTextSearchBlock(
+        payload: kernel.api.search.fullTextSearchBlock.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.search.fullTextSearchBlock.IResponse> {
+        const response = await this._request(
+            Client.api.search.fullTextSearchBlock.pathname,
+            Client.api.search.fullTextSearchBlock.method,
+            payload,
+            config,
+        ) as kernel.api.search.fullTextSearchBlock.IResponse;
         return response;
     }
 

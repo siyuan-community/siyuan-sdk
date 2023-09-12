@@ -2,6 +2,7 @@
 
 - 更新 API `/api/filetree/listDocsByPath` | Update API `/api/filetree/listDocsByPath`
 - 添加 `#region content` 标识 | Add `#region content` mark
+- 添加 API `/api/search/fullTextSearchBlock` | Add API `/api/search/fullTextSearchBlock`
 
 ## v0.3.0 / 2023-09-05
 

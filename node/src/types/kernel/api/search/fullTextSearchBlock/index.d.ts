@@ -17,7 +17,8 @@
 
 //#region content
 /* directories */
-export * as fullTextSearchBlock from "./fullTextSearchBlock";
 
 /* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

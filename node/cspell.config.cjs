@@ -15,6 +15,7 @@ module.exports = {
         "docpath",
         "docsize",
         "dotfiles",
+        "endregion",
         "enxa",
         "fcontent",
         "filetree",

@@ -34,6 +34,9 @@ module.exports = {
         "siyuan",
         "succ",
     ],
+    ignoreRegExpList: [
+        String.raw`\d{14}-[0-9a-z]{7}`,
+    ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.
     // For example "hte" should be "the"

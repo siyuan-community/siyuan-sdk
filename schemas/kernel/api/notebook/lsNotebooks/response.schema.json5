@@ -3,7 +3,7 @@
  * 列出所有笔记本
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#list-notebooks
  * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/notebook.go#L316-L344
- * @pathname: /api/notebook/lsNoteboks
+ * @pathname: /api/notebook/lsNotebooks
  * @version: 2.9.3
  */
 {

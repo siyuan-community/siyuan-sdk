@@ -53,7 +53,7 @@
                     // 文档图标
                     type: 'string',
                     description: 'Document icon',
-                    examples: ['1f3d8', 'icon.svg', 'folder/iocn.png'],
+                    examples: ['1f3d8', 'icon.svg', 'folder/icon.png'],
                 },
                 title: {
                     // 文档标题

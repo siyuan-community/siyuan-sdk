@@ -69,7 +69,7 @@
                     // 文档图标
                     type: 'string',
                     description: 'Document icon',
-                    examples: ['1f3d8', 'icon.svg', 'folder/iocn.png'],
+                    examples: ['1f3d8', 'icon.svg', 'folder/icon.png'],
                 },
                 rootTitle: {
                     // 文档图标

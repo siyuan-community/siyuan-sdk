@@ -1,5 +1,10 @@
 # 更改日志 | Change Log
 
+- 修复拼写错误 | Fix spelling errors
+
+## v0.3.1 / 2023-09-12
+
+- [v0.3.0 ... v0.3.1](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.0...v0.3.1)
 - 更新 API `/api/filetree/listDocsByPath` | Update API `/api/filetree/listDocsByPath`
 - 添加 `#region content` 标识 | Add `#region content` mark
 - 添加 API `/api/search/fullTextSearchBlock` | Add API `/api/search/fullTextSearchBlock`

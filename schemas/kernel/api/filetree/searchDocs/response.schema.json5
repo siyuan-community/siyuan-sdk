@@ -53,7 +53,7 @@
                     // 笔记本图标
                     type: 'string',
                     description: 'Notebook icon',
-                    examples: ['1f3d8', 'icon.svg', 'folder/iocn.png'],
+                    examples: ['1f3d8', 'icon.svg', 'folder/icon.png'],
                 },
                 hPath: {
                     // 包含笔记本名称的可读路径

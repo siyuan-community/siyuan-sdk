@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.2 / 2023-09-19
+
+- [v0.3.1 ... v0.3.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.1...v0.3.2)
 - 修复拼写错误 | Fix spelling errors
 - 更新 API JSON Schemas | Update API JSON Schemas
 

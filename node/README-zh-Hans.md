@@ -40,6 +40,7 @@
 </div>
 
 > 一个简单易用的 [思源笔记](https://github.com/siyuan-note/siyuan) 开发工具包 (SDK)。
+> 完整文档请参考 [siyuan-SDK | 思源开发者文档](https://docs.siyuan-note.club/zh-Hans/reference/community/siyuan-sdk/)
 
 * [开始](#开始)
   * [安装](#安装)
@@ -303,7 +304,8 @@ const payload: pushMsg.IPayload = {
 ### API 参考
 
 - [思源 API 参考文档](https://github.com/siyuan-note/siyuan/blob/master/API_zh_CN.md)
-- [JSON Schema 定义](https://github.com/siyuan-community/siyuan-sdk/tree/main/schemas)
+- [思源 API JSON Schema 定义](https://github.com/siyuan-community/siyuan-sdk/tree/main/schemas)
+- [思源内核 API | 思源开发者文档](https://docs.siyuan-note.club/zh-Hans/reference/community/siyuan-sdk/kernel/)
 
 ## 更改日志
 

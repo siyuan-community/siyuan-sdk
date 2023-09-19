@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 修复拼写错误 | Fix spelling errors
+- 更新 API JSON Schemas | Update API JSON Schemas
 
 ## v0.3.1 / 2023-09-12
 

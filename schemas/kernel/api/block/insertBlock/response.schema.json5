@@ -2,14 +2,14 @@
  * schemas/kernel/api/block/insertBlock/response.schema.json5
  * 插入块
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#insert-blocks
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L165-L220
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.6/kernel/api/block_op.go#L165-L220
  * @pathname: /api/block/insertBlock
- * @version: 2.9.3
+ * @version: 2.10.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/insertBlock/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v2.10.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -50,8 +50,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['doOperations', 'undoOperations'],
+            required: ['timestamp', 'doOperations', 'undoOperations'],
             properties: {
+                timestamp: {
+                    type: 'integer',
+                    description: 'timestamp',
+                },
                 doOperations: {
                     $ref: '#/$defs/operations',
                 },

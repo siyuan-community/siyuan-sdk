@@ -2,14 +2,14 @@
  * schemas/kernel/api/block/appendBlock/response.schema.json5
  * 在块内的尾部插入块 (插入后置子块)
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#append-blocks
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L87-L124
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.6/kernel/api/block_op.go#L87-L124
  * @pathname: /api/block/appendBlock
- * @version: 2.9.3
+ * @version: 2.10.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/appendBlock/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v2.10.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -50,8 +50,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['doOperations', 'undoOperations'],
+            required: ['timestamp', 'doOperations', 'undoOperations'],
             properties: {
+                timestamp: {
+                    type: 'integer',
+                    description: 'timestamp',
+                },
                 doOperations: {
                     $ref: '#/$defs/operations',
                 },

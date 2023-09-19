@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/insertBlock/response.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v2.10.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -44,10 +44,15 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "timestamp",
                 "doOperations",
                 "undoOperations"
             ],
             "properties": {
+                "timestamp": {
+                    "type": "integer",
+                    "description": "timestamp"
+                },
                 "doOperations": {
                     "$ref": "#/$defs/operations"
                 },

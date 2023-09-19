@@ -39,6 +39,10 @@ export interface IResponse {
 export interface ITransaction {
     doOperations: IOperation[];
     /**
+     * timestamp
+     */
+    timestamp: number;
+    /**
      * undo operation list
      */
     undoOperations: null;

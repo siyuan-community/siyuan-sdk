@@ -20,6 +20,7 @@
                     "format": "uri"
                 },
                 "method": {
+                    "title": "TRequestMethod",
                     "type": "string",
                     "description": "HTTP method to request\n@default: \"GET\"",
                     "enum": [
@@ -61,34 +62,12 @@
                     "description": "request body"
                 },
                 "payloadEncoding": {
-                    "type": "string",
                     "description": "Encoding schema for request payload\n@default: \"text\"",
-                    "enum": [
-                        "text",
-                        "base64",
-                        "base64-std",
-                        "base64-url",
-                        "base32",
-                        "base32-std",
-                        "base32-hex",
-                        "hex"
-                    ],
-                    "default": "text"
+                    "$ref": "#/$defs/encodeSchema"
                 },
                 "responseEncoding": {
-                    "type": "string",
                     "description": "Encoding schema for response body\n@default: \"text\"",
-                    "enum": [
-                        "text",
-                        "base64",
-                        "base64-std",
-                        "base64-url",
-                        "base32",
-                        "base32-std",
-                        "base32-hex",
-                        "hex"
-                    ],
-                    "default": "text"
+                    "$ref": "#/$defs/encodeSchema"
                 }
             }
         },
@@ -99,6 +78,21 @@
             "additionalProperties": {
                 "type": "string"
             }
+        },
+        "encodeSchema": {
+            "title": "TEncodeSchema",
+            "type": "string",
+            "default": "text",
+            "enum": [
+                "text",
+                "base64",
+                "base64-std",
+                "base64-url",
+                "base32",
+                "base32-std",
+                "base32-hex",
+                "hex"
+            ]
         }
     }
 }

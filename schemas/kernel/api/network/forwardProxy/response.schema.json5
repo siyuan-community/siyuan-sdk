@@ -77,10 +77,11 @@
                 },
                 bodyEncoding: {
                     // 响应体内容所使用的编码方案
+                    title: 'TEncodeSchema',
                     type: 'string',
                     description: 'response body encoding schema',
-                    enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
                     default: 'text',
+                    enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
                 },
             },
         },

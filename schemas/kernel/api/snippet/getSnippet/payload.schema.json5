@@ -21,6 +21,7 @@
             properties: {
                 type: {
                     // 获取指定类型的代码片段
+                    title: 'TSnippetType',
                     type: 'string',
                     description: 'Get code snippets of a specified type',
                     enum: [

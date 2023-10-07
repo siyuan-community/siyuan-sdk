@@ -28,21 +28,24 @@
                     description: 'status message',
                 },
                 data: {
-                    title: 'IData',
-                    description: 'response data',
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'response data',
 
-                    type: 'object',
-                    additionalProperties: false,
-                    required: ['channels'],
-                    properties: {
-                        channels: {
-                            title: 'IChannels',
-                            description: 'channels list',
-                            type: 'array',
-                            items: {
-                                $ref: '#/$defs/channel',
-                            },
-                        },
+            type: 'object',
+            additionalProperties: false,
+            required: ['channels'],
+            properties: {
+                channels: {
+                    title: 'IChannels',
+                    description: 'channels list',
+                    type: 'array',
+                    items: {
+                        $ref: '#/$defs/channel',
                     },
                 },
             },

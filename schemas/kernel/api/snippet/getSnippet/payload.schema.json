@@ -15,6 +15,7 @@
             ],
             "properties": {
                 "type": {
+                    "title": "TSnippetType",
                     "type": "string",
                     "description": "Get code snippets of a specified type",
                     "enum": [

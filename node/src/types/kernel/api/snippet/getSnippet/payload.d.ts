@@ -30,12 +30,12 @@ export interface IPayload {
     /**
      * Get code snippets of a specified type
      */
-    type: Type;
+    type: TSnippetType;
 }
 
 /**
  * Get code snippets of a specified type
  */
-export type Type = "js" | "css" | "all";
+export type TSnippetType = "js" | "css" | "all";
 
 //#endregion content

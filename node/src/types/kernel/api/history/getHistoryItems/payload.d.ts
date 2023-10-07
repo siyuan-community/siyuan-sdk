@@ -32,7 +32,7 @@ export interface IPayload {
      * Operation type
      * Filter based on the reason established by the history
      */
-    op?: Op;
+    op?: TOperationType;
     /**
      * Query keywords, which can be document block IDs
      */
@@ -51,6 +51,6 @@ export interface IPayload {
  * Operation type
  * Filter based on the reason established by the history
  */
-export type Op = "all" | "clean" | "update" | "delete" | "format" | "sync" | "replace";
+export type TOperationType = "all" | "clean" | "update" | "delete" | "format" | "sync" | "replace";
 
 //#endregion content

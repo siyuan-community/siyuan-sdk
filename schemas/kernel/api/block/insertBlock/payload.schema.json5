@@ -21,6 +21,7 @@
             properties: {
                 dataType: {
                     // 块数据格式
+                    title: 'TDataType',
                     type: 'string',
                     description: 'block data format',
                     enum: [

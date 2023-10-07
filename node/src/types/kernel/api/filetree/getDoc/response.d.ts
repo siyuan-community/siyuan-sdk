@@ -93,12 +93,12 @@ export interface IData {
     /**
      * Block type
      */
-    type: Type;
+    type: TBlockType;
 }
 
 /**
  * Block type
  */
-export type Type = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeList" | "NodeListItem" | "NodeHeading" | "NodeParagraph" | "NodeMathBlock" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed";
+export type TBlockType = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeList" | "NodeListItem" | "NodeHeading" | "NodeParagraph" | "NodeMathBlock" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed" | "NodeAttributeView";
 
 //#endregion content

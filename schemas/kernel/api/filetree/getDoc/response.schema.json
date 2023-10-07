@@ -113,6 +113,7 @@
                     "description": "is dynamic loading?"
                 },
                 "type": {
+                    "title": "TBlockType",
                     "type": "string",
                     "description": "Block type",
                     "enum": [
@@ -132,7 +133,8 @@
                         "NodeVideo",
                         "NodeIFrame",
                         "NodeWidget",
-                        "NodeBlockQueryEmbed"
+                        "NodeBlockQueryEmbed",
+                        "NodeAttributeView"
                     ]
                 }
             }

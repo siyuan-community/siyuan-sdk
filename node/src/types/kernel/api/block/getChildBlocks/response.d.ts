@@ -44,21 +44,21 @@ export interface IBlock {
     /**
      * block subtype
      */
-    subType?: SubType;
+    subType?: TBlockSubType;
     /**
      * block type
      */
-    type: Type;
+    type: TBlockType;
 }
 
 /**
  * block subtype
  */
-export type SubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "u" | "o" | "t";
+export type TBlockSubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "u" | "o" | "t";
 
 /**
  * block type
  */
-export type Type = "d" | "s" | "b" | "l" | "i" | "h" | "p" | "m" | "t" | "c" | "html" | "query_embed" | "tb" | "audio" | "video" | "iframe" | "widget";
+export type TBlockType = "d" | "s" | "b" | "l" | "i" | "h" | "p" | "m" | "t" | "c" | "html" | "query_embed" | "tb" | "audio" | "video" | "iframe" | "widget";
 
 //#endregion content

@@ -59,6 +59,6 @@ export interface IBreadcrumbItem {
 
 export type SubTypeEnum = "" | "u" | "o" | "t" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export type TypeEnum = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeHeading" | "NodeParagraph" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed" | "NodeList" | "NodeListItem";
+export type TypeEnum = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeHeading" | "NodeParagraph" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed" | "NodeAttributeView" | "NodeList" | "NodeListItem";
 
 //#endregion content

@@ -42,7 +42,7 @@ export interface IData {
     /**
      * response body encoding schema
      */
-    bodyEncoding: BodyEncoding;
+    bodyEncoding: TEncodeSchema;
     /**
      * response content-type
      */
@@ -68,6 +68,6 @@ export interface IData {
 /**
  * response body encoding schema
  */
-export type BodyEncoding = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
+export type TEncodeSchema = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
 
 //#endregion content

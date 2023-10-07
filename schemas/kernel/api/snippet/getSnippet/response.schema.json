@@ -73,6 +73,7 @@
                     "description": "snippet memo"
                 },
                 "type": {
+                    "title": "TSnippetType",
                     "type": "string",
                     "description": "snippet type",
                     "enum": [

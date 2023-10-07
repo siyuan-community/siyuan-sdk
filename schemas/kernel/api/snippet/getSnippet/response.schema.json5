@@ -75,6 +75,7 @@
                 },
                 type: {
                     // 代码片段类型
+                    title: 'TSnippetType',
                     type: 'string',
                     description: 'snippet type',
                     enum: [

@@ -39,6 +39,7 @@
                 },
                 op: {
                     // 待查询的操作类型 (过滤器, 根据历史记录建立的原因进行过滤)
+                    title: 'TOperationType',
                     type: 'string',
                     description: 'Operation type\nFilter based on the reason established by the history',
                     default: 'all',

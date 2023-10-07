@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 自定义常量联合类型定义名 | Custom constant union type definition name
+
 ## v0.3.2 / 2023-09-19
 
 - [v0.3.1 ... v0.3.2](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.1...v0.3.2)

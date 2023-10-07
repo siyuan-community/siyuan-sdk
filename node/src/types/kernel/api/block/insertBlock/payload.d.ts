@@ -27,7 +27,7 @@ export interface IPayload {
     /**
      * block data format
      */
-    dataType: DataType;
+    dataType: TDataType;
     /**
      * block ID: insert before this block
      */
@@ -45,6 +45,6 @@ export interface IPayload {
 /**
  * block data format
  */
-export type DataType = "markdown" | "dom";
+export type TDataType = "markdown" | "dom";
 
 //#endregion content

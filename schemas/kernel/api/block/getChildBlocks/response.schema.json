@@ -48,6 +48,7 @@
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 },
                 "type": {
+                    "title": "TBlockType",
                     "type": "string",
                     "description": "block type",
                     "enum": [
@@ -71,6 +72,7 @@
                     ]
                 },
                 "subType": {
+                    "title": "TBlockSubType",
                     "type": "string",
                     "description": "block subtype",
                     "enum": [

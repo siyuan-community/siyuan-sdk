@@ -33,7 +33,7 @@ export interface IPayload {
      * HTTP method to request
      * @default: "GET"
      */
-    method?: Method;
+    method?: TRequestMethod;
     /**
      * request body
      */
@@ -42,12 +42,12 @@ export interface IPayload {
      * Encoding schema for request payload
      * @default: "text"
      */
-    payloadEncoding?: Encoding;
+    payloadEncoding?: TEncodeSchema;
     /**
      * Encoding schema for response body
      * @default: "text"
      */
-    responseEncoding?: Encoding;
+    responseEncoding?: TEncodeSchema;
     /**
      * timeout to request (ms)
      * @default: 7000
@@ -63,7 +63,7 @@ export interface IPayload {
  * HTTP method to request
  * @default: "GET"
  */
-export type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "TRACE" | "CONNECT";
+export type TRequestMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "TRACE" | "CONNECT";
 
 /**
  * request body
@@ -77,6 +77,6 @@ export type Payload = { [key: string]: any } | string;
  * Encoding schema for response body
  * @default: "text"
  */
-export type Encoding = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
+export type TEncodeSchema = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
 
 //#endregion content

@@ -19,8 +19,8 @@
 /* directories */
 export * as bootProgress from "./bootProgress";
 export * as currentTime from "./currentTime";
+export * as getConf from "./getConf";
 export * as version from "./version";
 
 /* files */
-export * as getConf from "./getConf";
 //#endregion content

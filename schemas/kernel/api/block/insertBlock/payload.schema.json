@@ -11,6 +11,7 @@
             "additionalProperties": false,
             "properties": {
                 "dataType": {
+                    "title": "TDataType",
                     "type": "string",
                     "description": "block data format",
                     "enum": [

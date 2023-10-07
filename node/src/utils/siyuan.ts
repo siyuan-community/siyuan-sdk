@@ -15,13 +15,14 @@ export enum NodeType {
     NodeTable = "NodeTable",
     NodeCodeBlock = "NodeCodeBlock",
     NodeHTMLBlock = "NodeHTMLBlock",
+    NodeBlockQueryEmbed = "NodeBlockQueryEmbed",
+    NodeAttributeView = "NodeAttributeView",
 
     NodeThematicBreak = "NodeThematicBreak",
     NodeAudio = "NodeAudio",
     NodeVideo = "NodeVideo",
     NodeIFrame = "NodeIFrame",
     NodeWidget = "NodeWidget",
-    NodeBlockQueryEmbed = "NodeBlockQueryEmbed",
 }
 
 /* 块类型 */

@@ -56,11 +56,13 @@
                 },
                 type: {
                     // 块类型
+                    title: 'TBlockType',
                     type: 'string',
                     description: 'Block type',
                 },
                 subType: {
                     // 块子类型
+                    title: 'TBlockSubType',
                     type: 'string',
                     description: 'Block subtype',
                 },
@@ -90,6 +92,7 @@
                                 'NodeIFrame', // iframe 块
                                 'NodeWidget', // 挂件块
                                 'NodeBlockQueryEmbed', // 嵌入块
+                                'NodeAttributeView', // 属性表
                             ],
                         },
                         subType: {

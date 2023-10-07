@@ -22,6 +22,7 @@
                     "type": "array",
                     "description": "The block types that needs to be excluded",
                     "items": {
+                        "title": "TBlockType",
                         "type": "string",
                         "description": "Block type",
                         "enum": [
@@ -41,7 +42,8 @@
                             "NodeVideo",
                             "NodeIFrame",
                             "NodeWidget",
-                            "NodeBlockQueryEmbed"
+                            "NodeBlockQueryEmbed",
+                            "NodeAttributeView"
                         ]
                     }
                 }

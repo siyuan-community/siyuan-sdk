@@ -65,12 +65,12 @@ export interface ISnippet {
     /**
      * snippet type
      */
-    type: Type;
+    type: TSnippetType;
 }
 
 /**
  * snippet type
  */
-export type Type = "js" | "css";
+export type TSnippetType = "js" | "css";
 
 //#endregion content

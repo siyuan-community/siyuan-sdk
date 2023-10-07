@@ -174,10 +174,12 @@
                     "description": "Whether to fold"
                 },
                 "type": {
+                    "title": "TBlockType",
                     "type": "string",
                     "description": "Block type"
                 },
                 "subType": {
+                    "title": "TBlockSubType",
                     "type": "string",
                     "description": "Block subtype"
                 },
@@ -269,7 +271,8 @@
                                 "NodeVideo",
                                 "NodeIFrame",
                                 "NodeWidget",
-                                "NodeBlockQueryEmbed"
+                                "NodeBlockQueryEmbed",
+                                "NodeAttributeView"
                             ]
                         },
                         "subType": {

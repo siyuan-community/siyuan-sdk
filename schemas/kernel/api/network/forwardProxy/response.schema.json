@@ -72,8 +72,10 @@
                     "description": "response body"
                 },
                 "bodyEncoding": {
+                    "title": "TEncodeSchema",
                     "type": "string",
                     "description": "response body encoding schema",
+                    "default": "text",
                     "enum": [
                         "text",
                         "base64",
@@ -83,8 +85,7 @@
                         "base32-std",
                         "base32-hex",
                         "hex"
-                    ],
-                    "default": "text"
+                    ]
                 }
             }
         },

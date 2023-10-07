@@ -118,6 +118,7 @@
                 },
                 type: {
                     // 目标对应的块类型
+                    title: 'TBlockType',
                     type: 'string',
                     description: 'Block type',
                     enum: [
@@ -138,6 +139,7 @@
                         'NodeIFrame', // iframe 块
                         'NodeWidget', // 挂件块
                         'NodeBlockQueryEmbed', // 嵌入块
+                        'NodeAttributeView', // 属性表
                     ],
                 },
             },

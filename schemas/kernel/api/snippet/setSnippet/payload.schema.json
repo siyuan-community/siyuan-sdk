@@ -52,6 +52,7 @@
                     "description": "snippet name"
                 },
                 "type": {
+                    "title": "TSnippetType",
                     "type": "string",
                     "description": "snippet type",
                     "enum": [

@@ -62,6 +62,7 @@
                 },
                 type: {
                     // 块类型
+                    title: 'TBlockType',
                     type: 'string',
                     description: 'block type',
                     enum: [
@@ -88,6 +89,7 @@
                 },
                 subType: {
                     // 块子类型
+                    title: 'TBlockSubType',
                     type: 'string',
                     description: 'block subtype',
                     enum: [

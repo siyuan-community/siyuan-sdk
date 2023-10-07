@@ -24,9 +24,6 @@ export interface IResponse {
      * status code
      */
     code: number;
-    /**
-     * response data
-     */
     data: IData;
     /**
      * status message

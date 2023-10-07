@@ -32,6 +32,7 @@
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 },
                 "op": {
+                    "title": "TOperationType",
                     "type": "string",
                     "description": "Operation type\nFilter based on the reason established by the history",
                     "default": "all",

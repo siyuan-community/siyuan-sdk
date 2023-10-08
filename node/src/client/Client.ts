@@ -2,9 +2,6 @@ import * as axios from "axios";
 import * as ofetch from "ofetch";
 import Websocket from "isomorphic-ws";
 
-// TODO: refactor
-import getConf from "@/types/kernel/api/system/getConf";
-
 import { kernel } from "@/types";
 
 import constants from "@/constants";
@@ -168,10 +165,8 @@ export class Client {
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
             currentTime: { pathname: "/api/system/currentTime", method: "POST" },
-            version: { pathname: "/api/system/version", method: "POST" },
-
-            // TODO: refactor
             getConf: { pathname: "/api/system/getConf", method: "POST" },
+            version: { pathname: "/api/system/version", method: "POST" },
         },
         template: {
             render: { pathname: "/api/template/render", method: "POST" },
@@ -309,19 +304,6 @@ export class Client {
         url.search = searchParams.toString();
 
         return new Websocket(url, protocols);
-    }
-
-    /* 获得配置 */
-    public async getConf(
-        config?: TempOptions,
-    ): Promise<getConf.IResponse> {
-        const response = await this._request(
-            Client.api.system.getConf.pathname,
-            Client.api.system.getConf.method,
-            undefined,
-            config,
-        ) as getConf.IResponse;
-        return response;
     }
 
     /* 👇 由 JSON Schema 生成的类型定义👇 */
@@ -1203,6 +1185,19 @@ export class Client {
             undefined,
             config,
         ) as kernel.api.system.bootProgress.IResponse;
+        return response;
+    }
+
+    /* 获得配置 */
+    public async getConf(
+        config?: TempOptions,
+    ): Promise<kernel.api.system.getConf.IResponse> {
+        const response = await this._request(
+            Client.api.system.getConf.pathname,
+            Client.api.system.getConf.method,
+            undefined,
+            config,
+        ) as kernel.api.system.getConf.IResponse;
         return response;
     }
 

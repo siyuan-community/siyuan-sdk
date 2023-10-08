@@ -1,0 +1,208 @@
+/**
+ * schemas/kernel/api/system/getConf/response.schema.json5
+ * 获取工作空间完整配置
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.8/kernel/api/system.go#L190-L209
+ * @pathname: /api/system/getConf
+ * @version: 2.10.8
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
+    $comment: 'v2.10.8',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'response body',
+            description: '',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['code', 'msg', 'data'],
+            properties: {
+                code: {
+                    type: 'integer',
+                    description: 'status code',
+                },
+                msg: {
+                    type: 'string',
+                    description: 'status message',
+                },
+                data: {
+                    $ref: '#/$defs/data',
+                },
+            },
+        },
+        data: {
+            title: 'IData',
+            description: 'response data',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['start', 'conf'],
+            properties: {
+                start: {
+                    // 是否未加载用户界面
+                    type: 'boolean',
+                    description: 'Whether the user interface is not loaded',
+                },
+                conf: {
+                    // 配置对象
+                    $ref: '#/$defs/conf',
+                },
+            },
+        },
+        conf: {
+            title: 'IConf',
+            description: 'Configuration object',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['accessAuthCode', 'account', 'ai', 'api', 'appearance', 'bazaar', 'cloudRegion', 'editor', 'export', 'fileTree', 'flashcard', 'graph', 'keymap', 'lang', 'langs', 'localIPs', 'logLevel', 'openHelp', 'readonly', 'repo', 'search', 'showChangelog', 'stat', 'sync', 'system', 'tag', 'uiLayout', 'userData'],
+            properties: {
+                accessAuthCode: {
+                    // 访问授权码
+                    type: 'string',
+                    description: 'Access authorization code',
+                    default: '',
+                    enum: ['', '*******'],
+                },
+                account: {
+                    // 账户相关配置
+                    $ref: '#/$defs/account',
+                },
+                ai: {
+                    // TODO
+                },
+                api: {
+                    // TODO
+                },
+                appearance: {
+                    // TODO
+                },
+                bazaar: {
+                    // TODO
+                },
+                cloudRegion: {
+                    // 云服务供应商地区
+                    type: 'integer',
+                    description: 'Cloud Service Provider Region\n- `0`: Chinese mainland\n- `1`: North America',
+                    enum: [0, 1],
+                },
+                editor: {
+                    // TODO
+                },
+                export: {
+                    // TODO
+                },
+                fileTree: {
+                    // TODO
+                },
+                flashcard: {
+                    // TODO
+                },
+                graph: {
+                    // TODO
+                },
+                keymap: {
+                    // TODO
+                },
+                lang: {
+                    // 界面语言
+                    title: 'TLang',
+                    type: 'string',
+                    description: 'User interface language  \nSame as {@link IAppearance.lang}',
+                    enum: [
+                        'en_US', // 英文
+                        'es_ES', // 西班牙文
+                        'fr_FR', // 法文
+                        'zh_CHT', // 繁体中文
+                        'zh_CN', // 简体中文
+                    ],
+                },
+                langs: {
+                    // TODO
+                },
+                localIPs: {
+                    // TODO
+                },
+                logLevel: {
+                    // 日志级别
+                    title: 'TLogLevel',
+                    type: 'string',
+                    description: 'Log level',
+                    enum: [
+                        'off', // 无日志
+                        'trace', // 少量
+                        'debug', // 调试
+                        'info', // 信息
+                        'warn', // 警告
+                        'error', // 错误
+                        'fatal', // 致命
+                    ],
+                },
+                openHelp: {
+                    // 启动后是否需要打开用户指南
+                    type: 'boolean',
+                    description: 'Whether to open the user guide after startup',
+                },
+                readonly: {
+                    // 是否是以只读模式运行
+                    type: 'boolean',
+                    description: 'Whether it is running in read-only mode',
+                },
+                repo: {
+                    // TODO
+                },
+                search: {
+                    // TODO
+                },
+                showChangelog: {
+                    // 是否显示本版本更新日志
+                    type: 'boolean',
+                    description: 'Whether to display the changelog for this release version',
+                },
+                stat: {
+                    // TODO
+                },
+                sync: {
+                    // TODO
+                },
+                system: {
+                    // TODO
+                },
+                tag: {
+                    // TODO
+                },
+                uiLayout: {
+                    // TODO
+                },
+                userData: {
+                    // 社区用户信息
+                    type: 'string',
+                    description: 'Community user data (Encrypted)',
+                    default: '',
+                },
+            },
+        },
+        account: {
+            title: 'IAccount',
+            description: 'Account configuration',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['displayTitle', 'displayVIP'],
+            properties: {
+                displayTitle: {
+                    // 顶栏显示头衔
+                    type: 'boolean',
+                    description: 'Display the title icon',
+                },
+                displayVIP: {
+                    // 顶栏显示 VIP 图标
+                    type: 'boolean',
+                    description: 'Display the VIP icon',
+                },
+            },
+        },
+    },
+}

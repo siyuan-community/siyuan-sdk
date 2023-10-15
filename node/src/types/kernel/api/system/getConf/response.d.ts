@@ -48,10 +48,10 @@ export interface IConf {
      */
     accessAuthCode: AccessAuthCode;
     account:        IAccount;
-    ai:             any;
-    api:            any;
+    ai:             IAI;
+    api:            IAPI;
     appearance:     any;
-    bazaar:         any;
+    bazaar:         IBazaar;
     /**
      * Cloud Service Provider Region
      * - `0`: Chinese mainland
@@ -92,7 +92,7 @@ export interface IConf {
     stat:          any;
     sync:          any;
     system:        any;
-    tag:           any;
+    tag:           ITag;
     uiLayout:      any;
     /**
      * Community user data (Encrypted)
@@ -120,6 +120,72 @@ export interface IAccount {
 }
 
 /**
+ * Artificial Intelligence (AI) related configuration
+ */
+export interface IAI {
+    openAI: IOpenAI;
+}
+
+/**
+ * Open AI related configuration
+ */
+export interface IOpenAI {
+    /**
+     * API base URL
+     */
+    apiBaseURL: string;
+    /**
+     * API key
+     */
+    apiKey: string;
+    /**
+     * Maximum number of tokens (0 means no limit)
+     */
+    apiMaxTokens: number;
+    /**
+     * The model name called by the API
+     */
+    apiModel: TOpenAIModel;
+    /**
+     * API request proxy address
+     */
+    apiProxy: string;
+    /**
+     * API request timeout (unit: seconds)
+     */
+    apiTimeout: number;
+}
+
+/**
+ * The model name called by the API
+ */
+export type TOpenAIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5-turbo-16k";
+
+/**
+ * SiYuan API related configuration
+ */
+export interface IAPI {
+    /**
+     * API Token
+     */
+    token: string;
+}
+
+/**
+ * SiYuan bazaar related configuration
+ */
+export interface IBazaar {
+    /**
+     * Whether to disable all plug-ins
+     */
+    petalDisabled: any;
+    /**
+     * Whether to trust (enable) the resources for the bazaar
+     */
+    trust: any;
+}
+
+/**
  * User interface language
  * Same as {@link IAppearance.lang}
  */
@@ -129,5 +195,21 @@ export type TLang = "en_US" | "es_ES" | "fr_FR" | "zh_CHT" | "zh_CN";
  * Log level
  */
 export type TLogLevel = "off" | "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+
+/**
+ * SiYuan tag dock related configuration
+ */
+export interface ITag {
+    /**
+     * Tag sorting scheme
+     * - `0`: Name alphabetically ascending
+     * - `1`: Name alphabetically descending
+     * - `4`: Name natural ascending
+     * - `5`: Name natural descending
+     * - `7`: Reference count ascending
+     * - `8`: Reference count descending
+     */
+    sort: number;
+}
 
 //#endregion content

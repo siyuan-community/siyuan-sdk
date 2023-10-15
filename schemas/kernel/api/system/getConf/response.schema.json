@@ -95,10 +95,16 @@
                 "account": {
                     "$ref": "#/$defs/account"
                 },
-                "ai": {},
-                "api": {},
+                "ai": {
+                    "$ref": "#/$defs/ai"
+                },
+                "api": {
+                    "$ref": "#/$defs/api"
+                },
                 "appearance": {},
-                "bazaar": {},
+                "bazaar": {
+                    "$ref": "#/$defs/bazaar"
+                },
                 "cloudRegion": {
                     "type": "integer",
                     "description": "Cloud Service Provider Region\n- `0`: Chinese mainland\n- `1`: North America",
@@ -158,7 +164,9 @@
                 "stat": {},
                 "sync": {},
                 "system": {},
-                "tag": {},
+                "tag": {
+                    "$ref": "#/$defs/tag"
+                },
                 "uiLayout": {},
                 "userData": {
                     "type": "string",
@@ -184,6 +192,147 @@
                 "displayVIP": {
                     "type": "boolean",
                     "description": "Display the VIP icon"
+                }
+            }
+        },
+        "ai": {
+            "title": "IAi",
+            "type": "object",
+            "description": "Artificial Intelligence (AI) related configuration",
+            "additionalProperties": false,
+            "required": [
+                "openAI"
+            ],
+            "properties": {
+                "openAI": {
+                    "$ref": "#/$defs/openAI"
+                }
+            }
+        },
+        "openAI": {
+            "title": "IOpenAI",
+            "description": "Open AI related configuration",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "apiBaseURL",
+                "apiKey",
+                "apiMaxTokens",
+                "apiModel",
+                "apiProxy",
+                "apiTimeout"
+            ],
+            "properties": {
+                "apiBaseURL": {
+                    "type": "string",
+                    "description": "API base URL",
+                    "format": "uri",
+                    "examples": [
+                        "https://api.openai.com/v1"
+                    ],
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "apiKey": {
+                    "type": "string",
+                    "description": "API key",
+                    "examples": [
+                        "sk-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL"
+                    ]
+                },
+                "apiTimeout": {
+                    "type": "integer",
+                    "description": "API request timeout (unit: seconds)",
+                    "minimum": 0
+                },
+                "apiProxy": {
+                    "type": "string",
+                    "description": "API request proxy address",
+                    "examples": [
+                        "http://127.0.0.1:1080",
+                        "socks://127.0.0.1:1080",
+                        "socks5://127.0.0.1:1080"
+                    ]
+                },
+                "apiModel": {
+                    "title": "TOpenAIModel",
+                    "type": "string",
+                    "description": "The model name called by the API",
+                    "enum": [
+                        "gpt-4",
+                        "gpt-4-32k",
+                        "gpt-3.5-turbo",
+                        "gpt-3.5-turbo-16k"
+                    ]
+                },
+                "apiMaxTokens": {
+                    "type": "integer",
+                    "description": "Maximum number of tokens (0 means no limit)",
+                    "minimum": 0
+                }
+            }
+        },
+        "api": {
+            "title": "IApi",
+            "type": "object",
+            "description": "SiYuan API related configuration",
+            "additionalProperties": false,
+            "required": [
+                "token"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "API Token",
+                    "examples": [
+                        "",
+                        "0123456789abcdef"
+                    ]
+                }
+            }
+        },
+        "bazaar": {
+            "title": "IBazaar",
+            "type": "object",
+            "description": "SiYuan bazaar related configuration",
+            "additionalProperties": false,
+            "required": [
+                "petalDisabled",
+                "trust"
+            ],
+            "properties": {
+                "petalDisabled": {
+                    "petalDisabled": "boolean",
+                    "description": "Whether to disable all plug-ins"
+                },
+                "trust": {
+                    "petalDisabled": "boolean",
+                    "description": "Whether to trust (enable) the resources for the bazaar"
+                }
+            }
+        },
+        "tag": {
+            "title": "ITag",
+            "type": "object",
+            "description": "SiYuan tag dock related configuration",
+            "additionalProperties": false,
+            "required": [
+                "sort"
+            ],
+            "properties": {
+                "sort": {
+                    "type": "integer",
+                    "description": "Tag sorting scheme\n- `0`: Name alphabetically ascending\n- `1`: Name alphabetically descending\n- `4`: Name natural ascending\n- `5`: Name natural descending\n- `7`: Reference count ascending\n- `8`: Reference count descending",
+                    "default": 4,
+                    "enum": [
+                        0,
+                        1,
+                        4,
+                        5,
+                        7,
+                        8
+                    ]
                 }
             }
         }

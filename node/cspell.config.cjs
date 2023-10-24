@@ -10,6 +10,7 @@ module.exports = {
     words: [
         "Alphanum",
         "Fuction",
+        "IAPI",
         "backlink",
         "blockquote",
         "cobertura",
@@ -28,6 +29,7 @@ module.exports = {
         "iife",
         "instanceof",
         "katex",
+        "keymap",
         "lcov",
         "nodelib",
         "ofetch",

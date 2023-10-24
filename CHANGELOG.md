@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.3 / 2023-10-24
+
+- [v0.3.2 ... v0.3.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.2...v0.3.3)
 - 自定义常量联合类型定义名 | Custom constant union type definition name
 - 添加 API `/api/system/getConf` | Add API `/api/system/getConf`
 - 完善 API `/api/system/getConf` | Perfect API `/api/system/getConf`

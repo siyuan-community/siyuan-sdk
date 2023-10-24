@@ -1,7 +1,11 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
     "name": "@siyuan-community/siyuan-sdk",
-    "version": "0.3.2",
+    "version": "0.3.3",
+    "packageManager": "pnpm@8.9.2",
+    "engines": {
+        "node": "20.x"
+    },
     "description": "A simple and easy to use SDK for SiYuan.",
     "keywords": [
         "api",
@@ -60,11 +64,11 @@
         "LICENSE"
     ],
     "scripts": {
-        "dev": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/dev.ts",
+        "dev": "node --import=./scripts/ts-node-register.js ./scripts/dev.ts",
         "test": "vitest",
         "test:ui": "vitest --ui",
         "test:once": "vitest run",
-        "prebuild": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/prebuild.ts",
+        "prebuild": "node --import=./scripts/ts-node-register.js ./scripts/prebuild.ts",
         "build": "vite build",
         "publish:npm": "npm run prebuild && npm run build && npm publish",
         "format": "eslint --fix .",

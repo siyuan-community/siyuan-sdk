@@ -17,8 +17,7 @@
 
 //#region content
 /* directories */
-export * as getLocalStorage from "./getLocalStorage";
-export * as getRecentDocs from "./getRecentDocs";
 
 /* files */
+export * from "./response";
 //#endregion content

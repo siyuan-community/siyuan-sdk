@@ -178,11 +178,11 @@ export interface IBazaar {
     /**
      * Whether to disable all plug-ins
      */
-    petalDisabled: any;
+    petalDisabled: boolean;
     /**
      * Whether to trust (enable) the resources for the bazaar
      */
-    trust: any;
+    trust: boolean;
 }
 
 /**

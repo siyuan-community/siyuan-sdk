@@ -3,6 +3,7 @@
 - 自定义常量联合类型定义名 | Custom constant union type definition name
 - 添加 API `/api/system/getConf` | Add API `/api/system/getConf`
 - 完善 API `/api/system/getConf` | Perfect API `/api/system/getConf`
+- 添加 API `/api/storage/getLocalStorage` | Add API `/api/storage/getLocalStorage`
 
 ## v0.3.2 / 2023-09-19
 

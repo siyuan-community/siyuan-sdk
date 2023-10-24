@@ -160,6 +160,7 @@ export class Client {
             setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
         },
         storage: {
+            getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" },
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
         },
         system: {
@@ -225,9 +226,17 @@ export class Client {
         options: FetchOptions,
         type: Extract<ClientType, "fetch">,
     ): void;
+    public _updateOptions<T extends Extract<ClientType, "fetch">>(
+        options: FetchOptions,
+        type?: T,
+    ): void;
     public _updateOptions(
         options: AxiosOptions,
         type: Extract<ClientType, "xhr">,
+    ): void;
+    public _updateOptions<T extends Extract<ClientType, "xhr">>(
+        options: AxiosOptions,
+        type?: T,
     ): void;
     public _updateOptions(
         options: Options,
@@ -1159,6 +1168,19 @@ export class Client {
             payload,
             config,
         ) as kernel.api.snippet.setSnippet.IResponse;
+        return response;
+    }
+
+    /* 查询最近打开的文档 */
+    public async getLocalStorage(
+        config?: TempOptions,
+    ): Promise<kernel.api.storage.getLocalStorage.IResponse> {
+        const response = await this._request(
+            Client.api.storage.getLocalStorage.pathname,
+            Client.api.storage.getLocalStorage.method,
+            undefined,
+            config,
+        ) as kernel.api.storage.getLocalStorage.IResponse;
         return response;
     }
 

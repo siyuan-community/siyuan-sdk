@@ -236,7 +236,6 @@
                     description: 'API base URL',
                     format: 'uri',
                     examples: ['https://api.openai.com/v1'],
-                    'qt-uri-protocols': ['https'],
                 },
                 apiKey: {
                     // API 密钥
@@ -296,12 +295,12 @@
             properties: {
                 petalDisabled: {
                     // 是否禁用所有插件
-                    petalDisabled: 'boolean',
+                    type: 'boolean',
                     description: 'Whether to disable all plug-ins',
                 },
                 trust: {
                     // 是否信任(启用)集市资源
-                    petalDisabled: 'boolean',
+                    type: 'boolean',
                     description: 'Whether to trust (enable) the resources for the bazaar',
                 },
             },

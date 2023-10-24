@@ -229,9 +229,6 @@
                     "format": "uri",
                     "examples": [
                         "https://api.openai.com/v1"
-                    ],
-                    "qt-uri-protocols": [
-                        "https"
                     ]
                 },
                 "apiKey": {
@@ -303,11 +300,11 @@
             ],
             "properties": {
                 "petalDisabled": {
-                    "petalDisabled": "boolean",
+                    "type": "boolean",
                     "description": "Whether to disable all plug-ins"
                 },
                 "trust": {
-                    "petalDisabled": "boolean",
+                    "type": "boolean",
                     "description": "Whether to trust (enable) the resources for the bazaar"
                 }
             }

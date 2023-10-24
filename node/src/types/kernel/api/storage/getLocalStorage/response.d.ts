@@ -16,9 +16,19 @@
  */
 
 //#region content
-/* directories */
-export * as getLocalStorage from "./getLocalStorage";
-export * as getRecentDocs from "./getRecentDocs";
+/**
+ * Get persisted locally stored content
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: { [key: string]: any };
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* files */
 //#endregion content

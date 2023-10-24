@@ -162,6 +162,7 @@ export class Client {
         storage: {
             getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" },
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
+            setLocalStorage: { pathname: "/api/storage/setLocalStorage", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -1171,7 +1172,7 @@ export class Client {
         return response;
     }
 
-    /* 查询最近打开的文档 */
+    /* 获取所有本地存储的数据 */
     public async getLocalStorage(
         config?: TempOptions,
     ): Promise<kernel.api.storage.getLocalStorage.IResponse> {
@@ -1194,6 +1195,20 @@ export class Client {
             undefined,
             config,
         ) as kernel.api.storage.getRecentDocs.IResponse;
+        return response;
+    }
+
+    /* 持久化本地存储 */
+    public async setLocalStorage(
+        payload: kernel.api.storage.setLocalStorage.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.storage.setLocalStorage.IResponse> {
+        const response = await this._request(
+            Client.api.storage.setLocalStorage.pathname,
+            Client.api.storage.setLocalStorage.method,
+            payload,
+            config,
+        ) as kernel.api.storage.setLocalStorage.IResponse;
         return response;
     }
 

@@ -1,35 +1,30 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/getLocalStorage/response.schema.json",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/setLocalStorage/payload.schema.json",
     "$comment": "v2.10.12",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
-            "title": "response body",
-            "description": "Get persisted locally stored content",
+            "title": "payload body",
+            "description": "Persist local storage data",
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "code",
-                "msg",
-                "data"
+                "val"
             ],
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "description": "status code"
-                },
-                "msg": {
+                "app": {
                     "type": "string",
-                    "description": "status message"
+                    "description": "block ID",
+                    "pattern": "^[0-9a-z]{4}$"
                 },
-                "data": {
-                    "$ref": "#/$defs/data"
+                "val": {
+                    "$ref": "#/$defs/val"
                 }
             }
         },
-        "data": {
-            "title": "IData",
+        "val": {
+            "title": "IVal",
             "description": "Local storage key-value pairs",
             "type": "object",
             "additionalProperties": true,

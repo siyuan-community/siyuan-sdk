@@ -16,10 +16,15 @@
  */
 
 //#region content
-/* directories */
-export * as getLocalStorage from "./getLocalStorage";
-export * as getRecentDocs from "./getRecentDocs";
-export * as setLocalStorage from "./setLocalStorage";
+/**
+ * Persist local storage data
+ */
+export interface IPayload {
+    /**
+     * block ID
+     */
+    app?: string;
+    val:  { [key: string]: any };
+}
 
-/* files */
 //#endregion content

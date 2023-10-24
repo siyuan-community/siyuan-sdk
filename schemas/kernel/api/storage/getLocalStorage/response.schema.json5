@@ -34,7 +34,7 @@
         },
         data: {
             title: 'IData',
-            description: 'local storage key-value pairs',
+            description: 'Local storage key-value pairs',
 
             type: 'object',
             additionalProperties: true,

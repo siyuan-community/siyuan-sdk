@@ -163,6 +163,7 @@ export class Client {
             getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" },
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
             setLocalStorage: { pathname: "/api/storage/setLocalStorage", method: "POST" },
+            setLocalStorageVal: { pathname: "/api/storage/setLocalStorageVal", method: "POST" },
         },
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
@@ -1209,6 +1210,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.storage.setLocalStorage.IResponse;
+        return response;
+    }
+
+    /* 持久化一项本地存储 */
+    public async setLocalStorageVal(
+        payload: kernel.api.storage.setLocalStorageVal.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.storage.setLocalStorageVal.IResponse> {
+        const response = await this._request(
+            Client.api.storage.setLocalStorageVal.pathname,
+            Client.api.storage.setLocalStorageVal.method,
+            payload,
+            config,
+        ) as kernel.api.storage.setLocalStorageVal.IResponse;
         return response;
     }
 

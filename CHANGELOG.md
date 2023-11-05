@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 添加 API `/api/storage/setLocalStorageVal` | Add API `/api/storage/setLocalStorageVal`
+
 ## v0.3.3 / 2023-10-24
 
 - [v0.3.2 ... v0.3.3](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.2...v0.3.3)

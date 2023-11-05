@@ -38,12 +38,15 @@ describe(pathname, async () => {
     const validate_response = schema_response.constructValidateFuction();
 
     const response = await client.client.getLocalStorage();
+    const key = "test-setLocalStorage";
+    const val = globalThis.crypto.randomUUID();
+    response.data[key] = val;
 
     testKernelAPI<setLocalStorage.IPayload, setLocalStorage.IResponse>({
         name: "main",
         payload: {
             data: {
-                app: "0123",
+                app: "01234",
                 val: response.data,
             },
             validate: validate_payload,

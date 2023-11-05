@@ -16,7 +16,7 @@
                 "app": {
                     "type": "string",
                     "description": "block ID",
-                    "pattern": "^[0-9a-z]{4}$"
+                    "pattern": "^[0-9a-z]{5}$"
                 },
                 "val": {
                     "$ref": "#/$defs/val"

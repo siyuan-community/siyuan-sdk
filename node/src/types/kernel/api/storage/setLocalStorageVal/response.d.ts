@@ -16,11 +16,19 @@
  */
 
 //#region content
-/* directories */
-export * as getLocalStorage from "./getLocalStorage";
-export * as getRecentDocs from "./getRecentDocs";
-export * as setLocalStorage from "./setLocalStorage";
-export * as setLocalStorageVal from "./setLocalStorageVal";
+/**
+ * Persist a piece of local storage data
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: null;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* files */
 //#endregion content

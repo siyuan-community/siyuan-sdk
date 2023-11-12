@@ -111,7 +111,6 @@ describe(pathname, async () => {
                 responseEncoding: "base64",
             },
             after: (response, payload) => {
-                console.log(response.data.body)
                 test("test response.data.body", async () => {
                     expect.soft(
                         response.data.bodyEncoding,

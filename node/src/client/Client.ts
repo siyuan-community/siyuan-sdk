@@ -22,6 +22,10 @@ export interface IBaseOptions {
     token?: string,
 }
 
+export interface IBlob extends Blob {
+    contentType: string | null;
+}
+
 /* 扩展设置选项 */
 export type ExtendOptions = ofetch.FetchOptions | axios.AxiosRequestConfig;
 
@@ -652,7 +656,7 @@ export class Client {
         payload: kernel.api.file.getFile.IPayload,
         responseType: Extract<ResponseType, "blob">,
         config?: TempOptions,
-    ): Promise<Blob>;
+    ): Promise<IBlob>;
     public async getFile(
         payload: kernel.api.file.getFile.IPayload,
         responseType: Extract<ResponseType, "document">,
@@ -679,7 +683,7 @@ export class Client {
         config?: TempOptions,
     ): Promise<
         ArrayBuffer
-        | Blob
+        | IBlob
         | Document
         | Object
         | ReadableStream
@@ -1354,6 +1358,13 @@ export class Client {
                             onResponse: async (context) => {
                                 switch (context.response.status) {
                                     case axios.HttpStatusCode.Ok:
+                                        switch (responseType) {
+                                            case "blob":
+                                                (context.response._data as IBlob).contentType = context.response.headers.get("content-type");
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                         break;
 
                                     case axios.HttpStatusCode.Accepted:
@@ -1401,6 +1412,14 @@ export class Client {
                                 return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
                             }
                             else {
+                                switch (responseType) {
+                                    case "blob":
+                                        // @ts-ignore
+                                        (response.data as IBlob).contentType = response.headers.getContentType() as string;
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 return response.data;
                             }
 

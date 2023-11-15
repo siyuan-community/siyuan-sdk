@@ -120,6 +120,7 @@ export class Client {
             getDoc: { pathname: "/api/filetree/getDoc", method: "POST" },
             getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
             getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" },
+            getIDsByHPath: { pathname: "/api/filetree/getIDsByHPath", method: "POST" },
             listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
             moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" },
             removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
@@ -839,6 +840,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.filetree.getHPathByPath.IResponse;
+        return response;
+    }
+
+    /* 根据人类可读路径获取文档 ID 列表 */
+    public async getIDsByHPath(
+        payload: kernel.api.filetree.getIDsByHPath.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.filetree.getIDsByHPath.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.getIDsByHPath.pathname,
+            Client.api.filetree.getIDsByHPath.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.getIDsByHPath.IResponse;
         return response;
     }
 

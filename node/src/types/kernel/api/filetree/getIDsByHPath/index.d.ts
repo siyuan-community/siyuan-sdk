@@ -17,16 +17,8 @@
 
 //#region content
 /* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as getDoc from "./getDoc";
-export * as getHPathByID from "./getHPathByID";
-export * as getHPathByPath from "./getHPathByPath";
-export * as getIDsByHPath from "./getIDsByHPath";
-export * as listDocsByPath from "./listDocsByPath";
-export * as moveDocs from "./moveDocs";
-export * as removeDoc from "./removeDoc";
-export * as renameDoc from "./renameDoc";
-export * as searchDocs from "./searchDocs";
 
 /* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

@@ -57,7 +57,7 @@ export interface ISnippet {
     /**
      * snippet memo
      */
-    memo: string;
+    memo?: string;
     /**
      * snippet name
      */

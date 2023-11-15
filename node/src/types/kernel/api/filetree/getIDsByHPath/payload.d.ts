@@ -16,17 +16,19 @@
  */
 
 //#region content
-/* directories */
-export * as createDocWithMd from "./createDocWithMd";
-export * as getDoc from "./getDoc";
-export * as getHPathByID from "./getHPathByID";
-export * as getHPathByPath from "./getHPathByPath";
-export * as getIDsByHPath from "./getIDsByHPath";
-export * as listDocsByPath from "./listDocsByPath";
-export * as moveDocs from "./moveDocs";
-export * as removeDoc from "./removeDoc";
-export * as renameDoc from "./renameDoc";
-export * as searchDocs from "./searchDocs";
+/**
+ * Get document block ID list from human readable path
+ */
+export interface IPayload {
+    /**
+     * notebook ID
+     */
+    notebook: string;
+    /**
+     * Document path, which needs to start with / and separate levels with /
+     * path here corresponds to the database hpath field
+     */
+    path: string;
+}
 
-/* files */
 //#endregion content

@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/getSnippet/response.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v2.10.15",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -53,7 +53,6 @@
             "required": [
                 "id",
                 "name",
-                "memo",
                 "type",
                 "enabled",
                 "content"

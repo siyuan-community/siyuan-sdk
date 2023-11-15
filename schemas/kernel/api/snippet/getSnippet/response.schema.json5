@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/snippet/getSnippet/response.schema.json5
  * 获取代码片段列表
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/snippet.go#L58-L94
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.15/kernel/api/snippet.go#L58-L94
  * @pathname: /api/snippet/getSnippet
- * @version: 2.9.7
+ * @version: 2.10.15
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/getSnippet/response.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v2.10.15',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -55,7 +55,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'name', 'memo', 'type', 'enabled', 'content'],
+            required: ['id', 'name', 'type', 'enabled', 'content'],
             properties: {
                 id: {
                     // 代码片段 ID

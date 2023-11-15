@@ -81,12 +81,12 @@ describe.concurrent(pathname, async () => {
                         expect(s).not.toBeUndefined();
                         if (s) {
                             if (s.id !== "") {
-                                expect.soft(s.id).toEqual(snippet.id);
+                                expect.soft(s.id, "snippet.id").toEqual(snippet.id);
                             }
-                            expect.soft(s.name).toEqual(snippet.name);
-                            expect.soft(s.type).toEqual(snippet.type);
-                            expect.soft(s.enabled).toEqual(snippet.enabled);
-                            expect.soft(s.content).toEqual(snippet.content);
+                            expect.soft(s.name, "snippet.name").toEqual(snippet.name);
+                            expect.soft(s.type, "snippet.type").toEqual(snippet.type);
+                            expect.soft(s.enabled, "snippet.enabled").toEqual(snippet.enabled);
+                            expect.soft(s.content, "snippet.content").toEqual(snippet.content);
                         }
                     }
                 });

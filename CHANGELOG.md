@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.4 / 2023-11-15
+
+- [v0.3.3 ... v0.3.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.3...v0.3.3)
 - 添加 API `/api/storage/setLocalStorageVal` | Add API `/api/storage/setLocalStorageVal`
 - 为 API `/api/file/getFile` 的 `blob` 响应结果添加 `content-type` | Add `content-type` to the `blob` response result of API `/api/file/getFile`
 - [#1](https://github.com/siyuan-community/siyuan-sdk/issues/1) 添加 API `/api/filetree/getIDsByHPath` | Add API `/api/filetree/getIDsByHPath`

@@ -17,8 +17,8 @@
 
 //#region content
 /* directories */
-export * as channels from "./channels";
 export * as getChannelInfo from "./getChannelInfo";
+export * as getChannels from "./getChannels";
 export * as postMessage from "./postMessage";
 
 /* files */

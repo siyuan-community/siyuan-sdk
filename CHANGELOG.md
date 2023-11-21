@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+- 删除 API `/api/broadcast/channels` | Delete API `/api/broadcast/channels`
+- 添加 API `/api/broadcast/getChannels` | Delete API `/api/broadcast/getChannels`
+
 ## v0.3.4 / 2023-11-15
 
 - [v0.3.3 ... v0.3.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.3...v0.3.3)

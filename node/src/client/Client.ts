@@ -97,8 +97,8 @@ export class Client {
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
         },
         broadcast: {
-            channels: { pathname: "/api/broadcast/channels", method: "GET" },
             getChannelInfo: { pathname: "/api/broadcast/getChannelInfo", method: "POST" },
+            getChannels: { pathname: "/api/broadcast/getChannels", method: "POST" },
             postMessage: { pathname: "/api/broadcast/postMessage", method: "POST" },
         },
         convert: {
@@ -564,19 +564,6 @@ export class Client {
         return response;
     }
 
-    /* 获取所有广播频道信息 */
-    public async channels(
-        config?: TempOptions,
-    ): Promise<kernel.api.broadcast.channels.IResponse> {
-        const response = await this._request(
-            Client.api.broadcast.channels.pathname,
-            Client.api.broadcast.channels.method,
-            undefined,
-            config,
-        ) as kernel.api.broadcast.channels.IResponse;
-        return response;
-    }
-
     /* 获取指定广播频道的信息 */
     public async getChannelInfo(
         payload: kernel.api.broadcast.getChannelInfo.IPayload,
@@ -588,6 +575,19 @@ export class Client {
             payload,
             config,
         ) as kernel.api.broadcast.getChannelInfo.IResponse;
+        return response;
+    }
+
+    /* 获取所有广播频道信息 */
+    public async getChannels(
+        config?: TempOptions,
+    ): Promise<kernel.api.broadcast.getChannels.IResponse> {
+        const response = await this._request(
+            Client.api.broadcast.getChannels.pathname,
+            Client.api.broadcast.getChannels.method,
+            undefined,
+            config,
+        ) as kernel.api.broadcast.getChannels.IResponse;
         return response;
     }
 

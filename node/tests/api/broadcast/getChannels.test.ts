@@ -23,18 +23,18 @@ import client from "~/tests/utils/client";
 import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import channels from "@/types/kernel/api/broadcast/channels";
+import getChannels from "@/types/kernel/api/broadcast/getChannels";
 
-const pathname = client.Client.api.broadcast.channels.pathname;
+const pathname = client.Client.api.broadcast.getChannels.pathname;
 
 describe(pathname, async () => {
     const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
     await schema_response.loadSchemaFile();
     const validate_response = schema_response.constructValidateFuction();
 
-    testKernelAPI<never, channels.IResponse>({
+    testKernelAPI<never, getChannels.IResponse>({
         name: "main",
-        request: () => client.client.channels(),
+        request: () => client.client.getChannels(),
         response: {
             validate: validate_response,
         },

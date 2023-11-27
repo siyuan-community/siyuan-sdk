@@ -423,7 +423,12 @@ export interface ICookie {
      *
      * Cookie Secure flag
      */
-    Secure:   boolean;
+    Secure: boolean;
+    /**
+     * {@link https://pkg.go.dev/net/http#Cookie.Unparsed}
+     *
+     * Raw text of unparsed attribute-value pairs
+     */
     Unparsed: string[] | null;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Value}

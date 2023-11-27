@@ -94,18 +94,14 @@
                     "description": "{@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.IsWebsocket}\n\nIsWebsocket returns true if the request headers indicate that a websocket handshake is being initiated by the client."
                 },
                 "Params": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "description": "{@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Params}\n\nParams is a Param-slice, as returned by the router.\n\nThe slice is ordered, the first URL parameter is also the first slice value.\n\nIt is therefore safe to read values by the index.",
-                    "oneOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/$defs/Param"
-                            }
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "items": {
+                        "$ref": "#/$defs/Param"
+                    }
                 },
                 "RawData": {
                     "type": "string",
@@ -233,18 +229,14 @@
                     ]
                 },
                 "TransferEncoding": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "description": "{@link https://pkg.go.dev/net/http#Request.TransferEncoding}\n\nTransferEncoding lists the transfer encodings from outermost to innermost. An empty list denotes the \"identity\" encoding.\n\nTransferEncoding can usually be ignored; chunked encoding is automatically added and removed as necessary when sending and receiving requests.",
-                    "oneOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "URL": {
                     "description": "{@link https://pkg.go.dev/net/http#Request.URL}\n\nURL specifies either the URI being requested (for server requests) or the URL to access (for client requests).\n\nFor server requests, the URL is parsed from the URI supplied on the Request-Line as stored in RequestURI.  For most requests, fields other than Path and RawQuery will be empty. (See RFC 7230, Section 5.3)\n\nFor client requests, the URL's Host specifies the server to connect to, while the Request's Host field optionally specifies the Host header value to send in the HTTP request.",
@@ -433,18 +425,14 @@
                     "description": "{@link https://pkg.go.dev/net/http#Cookie.Raw}\n\nRaw text of this cookie"
                 },
                 "Unparsed": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array",
-                            "description": "{@link https://pkg.go.dev/net/http#Cookie.Unparsed}\n\nRaw text of unparsed attribute-value pairs",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    ]
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "{@link https://pkg.go.dev/net/http#Cookie.Unparsed}\n\nRaw text of unparsed attribute-value pairs",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

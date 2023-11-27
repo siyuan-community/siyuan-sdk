@@ -24,7 +24,10 @@
                     "description": "status message"
                 },
                 "data": {
-                    "type": "array",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "description": "document info list",
                     "items": {
                         "$ref": "#/$defs/datum"

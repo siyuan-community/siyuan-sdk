@@ -27,7 +27,7 @@ export interface IResponse {
     /**
      * document info list
      */
-    data: IDocInfo[];
+    data: IDocInfo[] | null;
     /**
      * status message
      */

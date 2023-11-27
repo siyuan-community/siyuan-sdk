@@ -1,7 +1,7 @@
 /**
  * schemas/kernel/api/network/echo/response.schema.json5
  * 回显请求内容
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.11.0/kernel/api/network.go#L37-L102
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.11.0/kernel/api/network.go#L51-L151
  * @pathname: /api/network/echo
  * @version: 2.11.0
  */
@@ -124,6 +124,7 @@ IsWebsocket returns true if the request headers indicate that a websocket handsh
                 },
                 Params: {
                     // 路由参数
+                    type: ['array', 'null'],
                     description: '\
 {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Params}\
 \n\n\
@@ -133,17 +134,9 @@ The slice is ordered, the first URL parameter is also the first slice value.\
 \n\n\
 It is therefore safe to read values by the index.\
 ',
-                    oneOf: [
-                        {
-                            type: 'array',
-                            items: {
-                                $ref: '#/$defs/Param',
-                            },
-                        },
-                        {
-                            type: 'null',
-                        },
-                    ],
+                    items: {
+                        $ref: '#/$defs/Param',
+                    },
                 },
                 RawData: {
                     // 使用 base64 编码的原始请求体内容
@@ -407,6 +400,7 @@ Few HTTP clients, servers, or proxies support HTTP trailers.\
                 },
                 TransferEncoding: {
                     // 从最外层到最内层的传输编码
+                    type: ['array', 'null'],
                     description: '\
 {@link https://pkg.go.dev/net/http#Request.TransferEncoding}\
 \n\n\
@@ -414,17 +408,9 @@ TransferEncoding lists the transfer encodings from outermost to innermost. An em
 \n\n\
 TransferEncoding can usually be ignored; chunked encoding is automatically added and removed as necessary when sending and receiving requests.\
 ',
-                    oneOf: [
-                        {
-                            type: 'array',
-                            items: {
-                                type: 'string',
-                            },
-                        },
-                        {
-                            type: 'null',
-                        },
-                    ],
+                    items: {
+                        type: 'string',
+                    },
                 },
                 URL: {
                     // 请求 URL
@@ -796,22 +782,15 @@ Raw text of this cookie\
                 },
                 Unparsed: {
                     // Cookie 未解析的属性值对的原始文本
-                    oneOf: [
-                        {
-                            type: 'null',
-                        },
-                        {
-                            type: 'array',
-                            description: '\
+                    type: ['array', 'null'],
+                    description: '\
 {@link https://pkg.go.dev/net/http#Cookie.Unparsed}\
 \n\n\
 Raw text of unparsed attribute-value pairs\
 ',
-                            items: {
-                                type: 'string',
-                            },
-                        },
-                    ],
+                    items: {
+                        type: 'string',
+                    },
                 },
             },
         },

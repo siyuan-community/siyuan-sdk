@@ -17,8 +17,8 @@
 
 //#region content
 /* directories */
-export * as echo from "./echo";
-export * as forwardProxy from "./forwardProxy";
 
 /* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

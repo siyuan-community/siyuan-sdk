@@ -20,7 +20,6 @@ import {
     test,
     expect,
 } from "vitest";
-import CONSTANTS from "~/tests/constants";
 
 import client from "~/tests/utils/client";
 
@@ -28,24 +27,27 @@ const pathname = client.Client.ws.broadcast.pathname;
 
 describe(pathname, async () => {
 
+    const channel = Date.now().toString(36);
     const message = new Date().toString();
 
     test("test channel push and listen message", async () => {
         const ws = client.client.broadcast({
-            channel: CONSTANTS.BROADCAST_CHANNEL_NAME,
+            channel,
         });
         await expect.soft(
             new Promise((resolve, rejects) => {
                 const listener = (e: WebSocketEventMap["message"]) => {
-                    client.broadcast.removeEventListener("message", listener);
+                    ws.removeEventListener("message", listener);
                     resolve(e.data);
                 }
 
-                client.broadcast.addEventListener("message", listener);
-
+                ws.addEventListener("message", listener);
                 ws.addEventListener("error", rejects);
                 ws.addEventListener("open", () => {
-                    ws.send(message);
+                    client.client.postMessage({
+                        channel,
+                        message,
+                    });
                 });
             }),
             "listen message",

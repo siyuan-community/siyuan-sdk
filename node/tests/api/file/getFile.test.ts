@@ -117,6 +117,25 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
         {
+            name: "json-out-workspace",
+            path: "/..//none-existent", // 不存在的文件
+            responseType: "json",
+            type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
+            catch: (error) => {
+                test("KernelError: 403", async () => {
+                    expect(
+                        error,
+                        "error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "error's code",
+                    ).toEqual(403);
+                });
+            },
+            debug: false,
+        },
+        {
             name: "json-non-existent",
             path: "/none-existent", // 不存在的文件
             responseType: "json",

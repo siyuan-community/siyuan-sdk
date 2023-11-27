@@ -70,7 +70,7 @@ export interface IConf {
      */
     lang:     TLang;
     langs:    any;
-    localIPS: any;
+    localIPs: any;
     /**
      * Log level
      */

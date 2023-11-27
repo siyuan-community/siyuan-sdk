@@ -16,9 +16,29 @@
  */
 
 //#region content
-/* directories */
-export * as echo from "./echo";
-export * as forwardProxy from "./forwardProxy";
+/**
+ * Forward proxy
+ */
+export interface IPayload {
+    /**
+     * Request method
+     */
+    method?: string;
 
-/* files */
+    /**
+     * URL query parameters
+     */
+    query?: URLSearchParams;
+
+    /**
+     * Request headers
+     */
+    headers?: HeadersInit;
+
+    /**
+     * Request body
+     */
+    body?: BodyInit;
+}
+
 //#endregion content

@@ -2,6 +2,7 @@
 
 - 删除 API `/api/broadcast/channels` | Delete API `/api/broadcast/channels`
 - 添加 API `/api/broadcast/getChannels` | Delete API `/api/broadcast/getChannels`
+- 添加 API `/api/network/echo` | Delete API `/api/network/echo`
 
 ## v0.3.4 / 2023-11-15
 

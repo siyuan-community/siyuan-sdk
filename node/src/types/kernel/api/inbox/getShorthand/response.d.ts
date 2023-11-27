@@ -42,7 +42,7 @@ export interface IData {
     /**
      * shorthand object ID
      */
-    oID: string;
+    oId: string;
     /**
      * shorthand article content
      */

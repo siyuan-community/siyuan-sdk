@@ -17,6 +17,8 @@
 
 import {
     describe,
+    test,
+    expect,
 } from "vitest";
 
 import client from "~/tests/utils/client";
@@ -24,11 +26,16 @@ import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
 import readDir from "@/types/kernel/api/file/readDir";
+import { KernelError } from "~/src";
 
 const pathname = client.Client.api.file.readDir.pathname;
 
 interface ICase {
     path: string,
+    catch?: (
+        error: unknown,
+        payload: readDir.IPayload,
+    ) => void,
     debug: boolean,
 }
 
@@ -49,16 +56,6 @@ describe.concurrent(pathname, async () => {
         { path: "./.", debug: false },
         { path: "././", debug: false },
 
-        /* 工作空间上级目录 */
-        { path: "..", debug: false },
-        { path: "../", debug: false },
-        { path: "/..", debug: false },
-        { path: "/../", debug: false },
-        { path: "./..", debug: false },
-        { path: "./../", debug: false },
-        { path: "./../.", debug: false },
-        { path: "./.././", debug: false },
-
         /* 工作空间/data 目录 */
         { path: "data", debug: false },
         { path: "data/", debug: false },
@@ -68,6 +65,76 @@ describe.concurrent(pathname, async () => {
         { path: "./data/", debug: false },
         { path: "./data/.", debug: false },
         { path: "./data/./", debug: false },
+
+        /* 工作空间外目录 */
+        ...[
+            { path: "..", debug: false },
+            { path: "../", debug: false },
+            { path: "/..", debug: false },
+            { path: "/../", debug: false },
+            { path: "./..", debug: false },
+            { path: "./../", debug: false },
+            { path: "./../.", debug: false },
+            { path: "./.././", debug: false },
+        ].map((item: ICase) => {
+            item.catch = (error) => {
+                test("KernelError: 403", () => {
+                    expect(
+                        error,
+                        "test error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "test error's code",
+                    ).toEqual(403);
+                });
+            };
+            return item;
+        }),
+
+        /* 不存在目录 */
+        ...[
+            { path: "123", debug: false },
+            { path: "456", debug: false },
+            { path: "789", debug: false },
+        ].map((item: ICase) => {
+            item.catch = (error) => {
+                test("KernelError: 404", () => {
+                    expect(
+                        error,
+                        "test error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "test error's code",
+                    ).toEqual(404);
+                });
+            };
+            return item;
+        }),
+
+        /* 文件 */
+        ...[
+            { path: "conf/appearance/langs/en_US.json", debug: false },
+            { path: "conf/appearance/langs/es_ES.json", debug: false },
+            { path: "conf/appearance/langs/fr_FR.json", debug: false },
+            { path: "conf/appearance/langs/zh_CN.json", debug: false },
+            { path: "conf/appearance/langs/zh_CHT.json", debug: false },
+        ].map((item: ICase) => {
+            item.catch = (error) => {
+                test("KernelError: 405", () => {
+                    expect(
+                        error,
+                        "test error's type",
+                    ).toBeInstanceOf(KernelError);
+                    expect(
+                        (error as KernelError).code,
+                        "test error's code",
+                    ).toEqual(405);
+                });
+            };
+            return item;
+        }),
     ];
     cases.forEach(item => {
         testKernelAPI<readDir.IPayload, readDir.IResponse>({
@@ -79,6 +146,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
             },
             request: (payload) => client.client.readDir(payload!),
+            catch: item.catch,
             response: {
                 validate: validate_response,
             },

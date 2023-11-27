@@ -135,6 +135,7 @@ export class Client {
             getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" },
         },
         network: {
+            echo: { pathname: "/api/network/echo", method: "POST" },
             forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" },
         },
         notebook: {
@@ -181,6 +182,22 @@ export class Client {
             renderSprig: { pathname: "/api/template/renderSprig", method: "POST" },
         },
     } as const;
+
+    public static headers2record(headers: Headers): Record<string, string> {
+        const record: Record<string, string> = {};
+        headers.forEach((value, key) => {
+            record[key] = value;
+        });
+        return record;
+    }
+
+    public static entries2record(entries: IterableIterator<[string, string]> | Array<[string, string]>): Record<string, string> {
+        const record: Record<string, string> = {};
+        for (const [key, value] of entries) {
+            record[key] = value;
+        }
+        return record;
+    }
 
     protected _type: ClientType = "xhr";
 
@@ -302,7 +319,7 @@ export class Client {
     /* 👇 WebSocket 👇 */
     /* 消息广播 */
     public broadcast(
-        params: kernel.ws.broadcast.IParams,
+        params: kernel.ws.broadcast.IParams | URLSearchParams,
         protocols?: string | string[],
         config?: IBaseOptions,
     ): WebSocket {
@@ -310,7 +327,7 @@ export class Client {
         const token = config?.token ?? this._token;
 
         const searchParams = new URLSearchParams(params);
-        searchParams.set("token", token);
+        token && searchParams.set("token", token);
 
         const url = new URL(baseURL);
         url.protocol = url.protocol.replace(/^http/, "ws");
@@ -966,6 +983,66 @@ export class Client {
             payload,
             config,
         ) as kernel.api.inbox.getShorthand.IResponse;
+        return response;
+    }
+
+    /* 回显请求内容 */
+    public async echo(
+        payload?: kernel.api.network.echo.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.network.echo.IResponse> {
+        if (payload) {
+            config ??= {
+                type: this._type,
+            };
+            switch (config?.type) {
+                case "fetch": {
+                    const options: FetchOptions = {};
+                    if (payload.headers) {
+                        options.headers = payload.headers;
+                    }
+                    if (payload.query) {
+                        options.query = Client.entries2record(payload.query.entries());
+                    }
+                    if (config.options) {
+                        Object.assign(options, config.options);
+                    }
+                    else {
+                        config.options = options;
+                    }
+                    break;
+                }
+                case "xhr": {
+                    const options: AxiosOptions = {};
+                    if (payload.headers) {
+                        options.headers = (Array.isArray(payload.headers)
+                            ? Client.entries2record(payload.headers)
+                            : (payload.headers instanceof Headers
+                                ? Client.headers2record(payload.headers)
+                                : payload.headers
+                            )
+                        );
+                    }
+                    if (payload.query) {
+                        options.params = payload.query;
+                    }
+                    if (config.options) {
+                        Object.assign(options, config.options);
+                    }
+                    else {
+                        config.options = options;
+                    }
+                    break;
+                }
+            }
+        }
+
+        const response = await this._request(
+            Client.api.network.echo.pathname,
+            payload?.method ?? Client.api.network.echo.method,
+            payload?.body,
+            config,
+        ) as kernel.api.network.echo.IResponse;
         return response;
     }
 

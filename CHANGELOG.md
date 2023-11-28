@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.5 / 2023-11-28
+
+- [v0.3.4 ... v0.3.5](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.4...v0.3.5)
 - 删除 API `/api/broadcast/channels` | Delete API `/api/broadcast/channels`
 - 添加 API `/api/broadcast/getChannels` | Delete API `/api/broadcast/getChannels`
 - 添加 API `/api/network/echo` | Delete API `/api/network/echo`
@@ -7,7 +10,7 @@
 
 ## v0.3.4 / 2023-11-15
 
-- [v0.3.3 ... v0.3.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.3...v0.3.3)
+- [v0.3.3 ... v0.3.4](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.3...v0.3.4)
 - 添加 API `/api/storage/setLocalStorageVal` | Add API `/api/storage/setLocalStorageVal`
 - 为 API `/api/file/getFile` 的 `blob` 响应结果添加 `content-type` | Add `content-type` to the `blob` response result of API `/api/file/getFile`
 - [#1](https://github.com/siyuan-community/siyuan-sdk/issues/1) 添加 API `/api/filetree/getIDsByHPath` | Add API `/api/filetree/getIDsByHPath`

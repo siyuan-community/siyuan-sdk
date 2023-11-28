@@ -297,7 +297,7 @@ export interface IRequest {
     /**
      * {@link https://pkg.go.dev/net/http#Request.Trailer}
      *
-     * Trailer specifies additional headers that are sent after the requestbody.
+     * Trailer specifies additional headers that are sent after the request body.
      *
      * For server requests, the Trailer map initially contains only the tailer keys, with nil
      * values. (The client declares which trailers it will later send.)  While the handler is
@@ -305,11 +305,11 @@ export interface IRequest {
      * Trailer can be read again and will contain non-nil values, if they were sent by the
      * client.
      *
-     * For client requests, Trailer must be initialized to a map containig the trailer keys to
+     * For client requests, Trailer must be initialized to a map containing the trailer keys to
      * later send. The values may be nil or their final values. The ContentLength must be 0 or
      * -1, to send a chunked request.
      *
-     * After the HTTP request is sent the map values can be updated whilethe request body is
+     * After the HTTP request is sent the map values can be updated while the request body is
      * read. Once the body returns EOF, the caller must not mutate Trailer.
      *
      * Few HTTP clients, servers, or proxies support HTTP trailers.

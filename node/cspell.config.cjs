@@ -8,9 +8,17 @@ module.exports = {
     language: "en",
     // words - list of words to be always considered correct
     words: [
+        "ALPN",
+        "Alives",
         "Alphanum",
         "Fuction",
         "IAPI",
+        "ITLS",
+        "IURL",
+        "OCSP",
+        "Proto",
+        "Punycode",
+        "Referer",
         "backlink",
         "blockquote",
         "cobertura",
@@ -25,6 +33,7 @@ module.exports = {
         "formdata",
         "hpath",
         "hpaths",
+        "idna",
         "iframe",
         "iife",
         "instanceof",
@@ -38,6 +47,7 @@ module.exports = {
         "quicktype",
         "siyuan",
         "succ",
+        "userinfo",
     ],
     ignoreRegExpList: [
         String.raw`\d{14}-[0-9a-z]{7}`,

@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 调整 API `/api/inbox/getShorthand` | Adjust API `/api/inbox/getShorthand`
+
 ## v0.3.5 / 2023-11-28
 
 - [v0.3.4 ... v0.3.5](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.4...v0.3.5)

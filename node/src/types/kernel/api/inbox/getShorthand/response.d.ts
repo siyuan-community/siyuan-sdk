@@ -44,7 +44,7 @@ export interface IData {
      */
     oId: string;
     /**
-     * shorthand article content
+     * shorthand article content (HTML)
      */
     shorthandContent: string;
     /**
@@ -55,6 +55,10 @@ export interface IData {
      * shorthand source type
      */
     shorthandFrom: number;
+    /**
+     * shorthand article content (Markdown)
+     */
+    shorthandMd: string;
     /**
      * shorthand article title
      */

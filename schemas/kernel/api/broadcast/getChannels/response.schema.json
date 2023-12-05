@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/broadcast/channels/response.schema.json",
-    "$comment": "v2.10.2",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/broadcast/getChannels/response.schema.json",
+    "$comment": "v2.11.0",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {

@@ -47,5 +47,6 @@ describe(pathname, async () => {
         response: {
             validate: validate_response,
         },
+        debug: false,
     });
 });

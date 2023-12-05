@@ -38,7 +38,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['oId', 'hCreated', 'shorthandURL', 'shorthandFrom', 'shorthandTitle', 'shorthandDesc', 'shorthandContent'],
+            required: ['oId', 'hCreated', 'shorthandURL', 'shorthandFrom', 'shorthandTitle', 'shorthandDesc', 'shorthandMd', 'shorthandContent'],
             properties: {
                 oId: {
                     // 速记对象标识
@@ -75,10 +75,15 @@
                     type: 'string',
                     description: 'shorthand article description',
                 },
-                shorthandContent: {
-                    // 速记文章内容
+                shorthandMd: {
+                    // 速记文章内容 (Markdown)
                     type: 'string',
-                    description: 'shorthand article content',
+                    description: 'shorthand article content (Markdown)',
+                },
+                shorthandContent: {
+                    // 速记文章内容 (HTML)
+                    type: 'string',
+                    description: 'shorthand article content (HTML)',
                 },
             },
         },

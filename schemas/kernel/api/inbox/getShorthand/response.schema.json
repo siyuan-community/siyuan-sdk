@@ -40,6 +40,7 @@
                 "shorthandFrom",
                 "shorthandTitle",
                 "shorthandDesc",
+                "shorthandMd",
                 "shorthandContent"
             ],
             "properties": {
@@ -76,9 +77,13 @@
                     "type": "string",
                     "description": "shorthand article description"
                 },
+                "shorthandMd": {
+                    "type": "string",
+                    "description": "shorthand article content (Markdown)"
+                },
                 "shorthandContent": {
                     "type": "string",
-                    "description": "shorthand article content"
+                    "description": "shorthand article content (HTML)"
                 }
             }
         }

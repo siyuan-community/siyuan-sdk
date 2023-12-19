@@ -1,29 +1,27 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/setLocalStorageVal/payload.schema.json",
-    "$comment": "v2.10.13",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/createDailyNote/payload.schema.json",
+    "$comment": "v2.11.3",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "payload body",
-            "description": "Persist a piece of local storage data",
+            "description": "Create daily note document",
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "val"
+                "notebook"
             ],
             "properties": {
                 "app": {
                     "type": "string",
-                    "description": "App ID",
+                    "description": "block ID",
                     "pattern": "^[0-9a-z]{5}$"
                 },
-                "key": {
+                "notebook": {
                     "type": "string",
-                    "description": "The key of the key-value pair"
-                },
-                "val": {
-                    "description": "The value of the key-value pair"
+                    "description": "notebook ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 }
             }
         }

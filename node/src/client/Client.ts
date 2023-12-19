@@ -116,6 +116,7 @@ export class Client {
             renameFile: { pathname: "/api/file/renameFile", method: "POST" },
         },
         filetree: {
+            createDailyNote: { pathname: "/api/filetree/createDailyNote", method: "POST" },
             createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
             getDoc: { pathname: "/api/filetree/getDoc", method: "POST" },
             getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
@@ -801,6 +802,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.file.renameFile.IResponse;
+        return response;
+    }
+
+    /* 创建今天的每日笔记 (Daily Note) */
+    public async createDailyNote(
+        payload: kernel.api.filetree.createDailyNote.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.filetree.createDailyNote.IResponse> {
+        const response = await this._request(
+            Client.api.filetree.createDailyNote.pathname,
+            Client.api.filetree.createDailyNote.method,
+            payload,
+            config,
+        ) as kernel.api.filetree.createDailyNote.IResponse;
         return response;
     }
 

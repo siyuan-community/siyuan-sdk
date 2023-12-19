@@ -17,21 +17,17 @@
 
 //#region content
 /**
- * Persist a piece of local storage data
+ * Create daily note document
  */
 export interface IPayload {
     /**
-     * App ID
+     * block ID
      */
     app?: string;
     /**
-     * The key of the key-value pair
+     * notebook ID
      */
-    key?: string;
-    /**
-     * The value of the key-value pair
-     */
-    val: any;
+    notebook: string;
 }
 
 //#endregion content

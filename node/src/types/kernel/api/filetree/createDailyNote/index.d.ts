@@ -16,22 +16,9 @@
  */
 
 //#region content
-/**
- * Persist a piece of local storage data
- */
-export interface IPayload {
-    /**
-     * App ID
-     */
-    app?: string;
-    /**
-     * The key of the key-value pair
-     */
-    key?: string;
-    /**
-     * The value of the key-value pair
-     */
-    val: any;
-}
+/* directories */
 
+/* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

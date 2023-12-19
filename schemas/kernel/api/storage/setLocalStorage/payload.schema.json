@@ -15,7 +15,7 @@
             "properties": {
                 "app": {
                     "type": "string",
-                    "description": "block ID",
+                    "description": "App ID",
                     "pattern": "^[0-9a-z]{5}$"
                 },
                 "val": {

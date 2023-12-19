@@ -16,22 +16,26 @@
  */
 
 //#region content
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
+
 /**
- * Persist a piece of local storage data
+ * Response information
  */
-export interface IPayload {
+export interface IData {
     /**
-     * App ID
+     * The block ID of the document block where Today's Daily Note is located
      */
-    app?: string;
-    /**
-     * The key of the key-value pair
-     */
-    key?: string;
-    /**
-     * The value of the key-value pair
-     */
-    val: any;
+    id: string;
 }
 
 //#endregion content

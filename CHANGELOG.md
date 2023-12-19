@@ -2,13 +2,14 @@
 
 - 调整 API `/api/inbox/getShorthand` | Adjust API `/api/inbox/getShorthand`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
+- 添加 API `/api/filetree/createDailyNote` | Add API `/api/filetree/createDailyNote`
 
 ## v0.3.5 / 2023-11-28
 
 - [v0.3.4 ... v0.3.5](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.4...v0.3.5)
 - 删除 API `/api/broadcast/channels` | Delete API `/api/broadcast/channels`
-- 添加 API `/api/broadcast/getChannels` | Delete API `/api/broadcast/getChannels`
-- 添加 API `/api/network/echo` | Delete API `/api/network/echo`
+- 添加 API `/api/broadcast/getChannels` | Add API `/api/broadcast/getChannels`
+- 添加 API `/api/network/echo` | Add API `/api/network/echo`
 - 调整 API `/api/storage/getRecentDocs` 的 JSON Schema | Adjust the JSON Schema of API `/api/storage/getRecentDocs`
 
 ## v0.3.4 / 2023-11-15

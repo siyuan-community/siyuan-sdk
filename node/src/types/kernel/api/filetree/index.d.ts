@@ -17,6 +17,7 @@
 
 //#region content
 /* directories */
+export * as createDailyNote from "./createDailyNote";
 export * as createDocWithMd from "./createDocWithMd";
 export * as getDoc from "./getDoc";
 export * as getHPathByID from "./getHPathByID";

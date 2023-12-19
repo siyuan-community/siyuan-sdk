@@ -21,7 +21,7 @@
  */
 export interface IPayload {
     /**
-     * block ID
+     * App ID
      */
     app?: string;
     val:  { [key: string]: any };

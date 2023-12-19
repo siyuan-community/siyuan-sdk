@@ -123,10 +123,29 @@
                     ],
                 },
                 langs: {
-                    // TODO
+                    // 支持的语言列表
+                    type: 'array',
+                    description: 'List of supported languages',
+                    items: {
+                        $ref: '#/$defs/lang',
+                    },
                 },
                 localIPs: {
-                    // TODO
+                    // 内核所在设备 IP 列表
+                    type: 'array',
+                    description: 'A list of the IP addresses of the devices on which the kernel resides',
+                    items: {
+                        type: 'string',
+                        format: 'ip',
+                        description: 'IP addresses (IPv4 & IPv6)',
+                        examples: [
+                            '127.0.0.1', //
+                            '192.168.1.1', //
+                            '10.0.0.1', //
+                            '[::1]', //
+                            '[fe80::8cc:2a8:23fc:daf3]', //
+                        ],
+                    },
                 },
                 logLevel: {
                     // 日志级别
@@ -306,6 +325,29 @@
                     // 是否信任(启用)集市资源
                     type: 'boolean',
                     description: 'Whether to trust (enable) the resources for the bazaar',
+                },
+            },
+        },
+        lang: {
+            title: 'ILang',
+            type: 'object',
+
+            description: 'Supported language',
+            additionalProperties: false,
+            required: ['label', 'name'],
+            properties: {
+                label: {
+                    // 语言名称
+                    type: 'string',
+                    description: 'Language name',
+                    examples: ['简体中文', '繁体中文', 'English'],
+                },
+                name: {
+                    // 语言标识
+                    type: 'string',
+                    description: 'Language identifier',
+                    pattern: '^[a-z]{2}_[A-Z]{2,}$',
+                    examples: ['zh_CN', 'zh_CHT', 'en_US'],
                 },
             },
         },

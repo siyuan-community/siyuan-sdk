@@ -68,9 +68,15 @@ export interface IConf {
      * User interface language
      * Same as {@link IAppearance.lang}
      */
-    lang:     TLang;
-    langs:    any;
-    localIPs: any;
+    lang: TLang;
+    /**
+     * List of supported languages
+     */
+    langs: ILang[];
+    /**
+     * A list of the IP addresses of the devices on which the kernel resides
+     */
+    localIPs: string[];
     /**
      * Log level
      */
@@ -191,6 +197,20 @@ export interface IBazaar {
  * Same as {@link IAppearance.lang}
  */
 export type TLang = "en_US" | "es_ES" | "fr_FR" | "zh_CHT" | "zh_CN";
+
+/**
+ * Supported language
+ */
+export interface ILang {
+    /**
+     * Language name
+     */
+    label: string;
+    /**
+     * Language identifier
+     */
+    name: string;
+}
 
 /**
  * Log level

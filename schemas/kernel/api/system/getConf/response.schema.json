@@ -132,8 +132,29 @@
                         "zh_CN"
                     ]
                 },
-                "langs": {},
-                "localIPs": {},
+                "langs": {
+                    "type": "array",
+                    "description": "List of supported languages",
+                    "items": {
+                        "$ref": "#/$defs/lang"
+                    }
+                },
+                "localIPs": {
+                    "type": "array",
+                    "description": "A list of the IP addresses of the devices on which the kernel resides",
+                    "items": {
+                        "type": "string",
+                        "format": "ip",
+                        "description": "IP addresses (IPv4 & IPv6)",
+                        "examples": [
+                            "127.0.0.1",
+                            "192.168.1.1",
+                            "10.0.0.1",
+                            "[::1]",
+                            "[fe80::8cc:2a8:23fc:daf3]"
+                        ]
+                    }
+                },
                 "logLevel": {
                     "title": "TLogLevel",
                     "type": "string",
@@ -310,6 +331,37 @@
                 "trust": {
                     "type": "boolean",
                     "description": "Whether to trust (enable) the resources for the bazaar"
+                }
+            }
+        },
+        "lang": {
+            "title": "ILang",
+            "type": "object",
+            "description": "Supported language",
+            "additionalProperties": false,
+            "required": [
+                "label",
+                "name"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string",
+                    "description": "Language name",
+                    "examples": [
+                        "简体中文",
+                        "繁体中文",
+                        "English"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Language identifier",
+                    "pattern": "^[a-z]{2}_[A-Z]{2,}$",
+                    "examples": [
+                        "zh_CN",
+                        "zh_CHT",
+                        "en_US"
+                    ]
                 }
             }
         },

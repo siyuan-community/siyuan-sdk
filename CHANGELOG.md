@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 调整 API `/api/inbox/getShorthand` | Adjust API `/api/inbox/getShorthand`
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 
 ## v0.3.5 / 2023-11-28
 

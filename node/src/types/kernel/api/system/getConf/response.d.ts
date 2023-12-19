@@ -89,6 +89,7 @@ export interface IConf {
      * Whether to display the changelog for this release version
      */
     showChangelog: boolean;
+    snippet:       ISnippet;
     stat:          any;
     sync:          any;
     system:        any;
@@ -195,6 +196,20 @@ export type TLang = "en_US" | "es_ES" | "fr_FR" | "zh_CHT" | "zh_CN";
  * Log level
  */
 export type TLogLevel = "off" | "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+
+/**
+ * SiYuan code snippets related configuration
+ */
+export interface ISnippet {
+    /**
+     * Whether to enable CSS code snippets
+     */
+    enabledCSS: boolean;
+    /**
+     * Whether to enable JavaScript code snippets
+     */
+    enabledJS: boolean;
+}
 
 /**
  * SiYuan tag dock related configuration

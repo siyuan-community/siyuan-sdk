@@ -75,6 +75,7 @@
                 "repo",
                 "search",
                 "showChangelog",
+                "snippet",
                 "stat",
                 "sync",
                 "system",
@@ -160,6 +161,9 @@
                 "showChangelog": {
                     "type": "boolean",
                     "description": "Whether to display the changelog for this release version"
+                },
+                "snippet": {
+                    "$ref": "#/$defs/snippet"
                 },
                 "stat": {},
                 "sync": {},
@@ -306,6 +310,26 @@
                 "trust": {
                     "type": "boolean",
                     "description": "Whether to trust (enable) the resources for the bazaar"
+                }
+            }
+        },
+        "snippet": {
+            "title": "ISnippet",
+            "type": "object",
+            "description": "SiYuan code snippets related configuration",
+            "additionalProperties": false,
+            "required": [
+                "enabledCSS",
+                "enabledJS"
+            ],
+            "properties": {
+                "enabledCSS": {
+                    "type": "boolean",
+                    "description": "Whether to enable CSS code snippets"
+                },
+                "enabledJS": {
+                    "type": "boolean",
+                    "description": "Whether to enable JavaScript code snippets"
                 }
             }
         },

@@ -136,7 +136,6 @@
                     description: 'A list of the IP addresses of the devices on which the kernel resides',
                     items: {
                         type: 'string',
-                        format: 'ip',
                         description: 'IP addresses (IPv4 & IPv6)',
                         examples: [
                             '127.0.0.1', //

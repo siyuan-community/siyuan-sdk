@@ -71,8 +71,8 @@ interface ITestKernelAPIOptions<P, R> {
  * @param payload: 请求体对象
  * @param validate: ajv 校验函数
  */
-export function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
-    describe(options.name, async () => {
+export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
+    describe.sequential(options.name, async () => {
         try {
             /* 测试请求体 */
             if (options.payload) {

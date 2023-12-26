@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/inbox/getShorthand/payload.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v2.11.1",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {

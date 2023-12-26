@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/inbox/getShorthand/response.schema.json5
  * 获得一则收集箱的速记内容
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/index.go#L51-L68
+ * REF: https://github.com/siyuan-note/siyuan/blob/v2.11.1/kernel/api/index.go#L51-L68
  * @pathname: /api/inbox/getShorthand
- * @version: 2.9.7
+ * @version: 2.11.1
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/inbox/getShorthand/response.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v2.11.1',
     $ref: '#/$defs/root',
     $defs: {
         root: {

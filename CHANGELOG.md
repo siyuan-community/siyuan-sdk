@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.6 / 2023-12-26
+
+- [v0.3.5 ... v0.3.6](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.5...v0.3.6)
 - 调整 API `/api/inbox/getShorthand` | Adjust API `/api/inbox/getShorthand`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 添加 API `/api/filetree/createDailyNote` | Add API `/api/filetree/createDailyNote`

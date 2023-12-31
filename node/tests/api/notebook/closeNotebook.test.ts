@@ -58,9 +58,10 @@ describe(pathname, async () => {
             validate: validate_response,
             test: async (_response, payload) => {
                 test("test the status of notebook", async () => {
-                    await expect(client.client.getNotebookConf({
+                    const response = await client.client.getNotebookConf({
                         notebook: payload!.notebook,
-                    })).rejects.toThrowError(/502|fetch failed/);
+                    });
+                    expect(response.data.conf.closed).toBeTruthy();
 
                     /* 删除测试用的笔记本 */
                     await client.client.removeNotebook({

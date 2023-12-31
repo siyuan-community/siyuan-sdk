@@ -26,6 +26,7 @@ import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
 
 import removeNotebook from "@/types/kernel/api/notebook/removeNotebook";
+import { KernelError } from "~/src";
 
 const pathname = client.Client.api.notebook.removeNotebook.pathname;
 
@@ -61,7 +62,7 @@ describe(pathname, async () => {
                 test("test the result of removing a notebook", async () => {
                     await expect(client.client.getNotebookConf({
                         notebook: payload!.notebook,
-                    })).rejects.toThrowError(/502|fetch failed/);
+                    })).rejects.toThrowError(KernelError);
                 });
             },
         },

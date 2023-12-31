@@ -61,7 +61,7 @@ describe(pathname, async () => {
                     const response = await client.client.getNotebookConf({
                         notebook: payload!.notebook,
                     });
-                    expect(response.data.conf.closed).toBeFalsy;
+                    expect(response.data.conf.closed).toBeFalsy();
 
                     /* 删除新建的笔记本 */
                     await client.client.removeNotebook({

@@ -23,7 +23,7 @@
                     // Web 页面应用的 ID
                     // globalThis.siyuan.ws.app.appId
                     type: 'string',
-                    description: 'block ID',
+                    description: 'App ID',
                     pattern: '^[0-9a-z]{5}$',
                 },
                 notebook: {

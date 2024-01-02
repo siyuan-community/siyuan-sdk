@@ -57,9 +57,13 @@ export default defineConfig({
             "**/tests/**/*.test.js",
             "**/tests/**/*.test.ts",
         ],
+        api: 1204,
         testTimeout: 60_000,
-        // threads: false,
-        singleThread: true,
+        poolOptions: {
+            threads: {
+                singleThread: true,
+            },
+        },
         coverage: {
             // provider: "v8",
             provider: "istanbul",

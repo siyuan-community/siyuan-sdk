@@ -79,7 +79,7 @@ describe.concurrent(pathname, async () => {
                             path: "/temp/convert/pandoc/test/rename-file/test.html",
                         }, "json"),
                         `original path: /temp/convert/pandoc/test/rename-file/test.html`,
-                    ).rejects.toContain({ code: 404 });
+                    ).rejects.toMatchObject({ code: 404 });
 
                     /* 测试重命名后文件是否存在 */
                     await expect(
@@ -125,7 +125,7 @@ describe.concurrent(pathname, async () => {
                             path: "/temp/convert/pandoc/test/rename-dir/",
                         }),
                         `original path: /temp/convert/pandoc/test/rename-dir/`,
-                    ).rejects.toContain({ code: 404 });
+                    ).rejects.toMatchObject({ code: 404 });
 
                     /* 测试重命名后目录是否存在 */
                     await expect(
@@ -133,7 +133,7 @@ describe.concurrent(pathname, async () => {
                             path: "/temp/convert/pandoc/test/rename-dir-new/",
                         }),
                         `new path: /temp/convert/pandoc/test/rename-dir-new/`,
-                    ).resolves.toContain({ code: 0 });
+                    ).resolves.toMatchObject({ code: 0 });
                 });
             },
             debug: false,

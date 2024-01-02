@@ -94,7 +94,7 @@ describe.concurrent(pathname, async () => {
             request: (payload) => client.client.putFile(payload!),
             response: {
                 validate: validate_response,
-                test: async () => { 
+                test: async () => {
                     test("test the result of put file", async () => {
                         if (item.payload.isDir) {
                             /* 测试目录是否存在 */
@@ -103,14 +103,17 @@ describe.concurrent(pathname, async () => {
                                     path: item.payload.path,
                                 }),
                                 `dir path: ${item.payload.path}`,
-                            ).resolves.toContain({ code: 0 });
+                            ).resolves.toMatchObject({ code: 0 });
                         }
                         else {
                             /* 测试文件是否存在 */
                             await expect(
-                                client.client.getFile({
-                                    path: item.payload.path,
-                                }),
+                                client.client.getFile(
+                                    {
+                                        path: item.payload.path,
+                                    },
+                                    "text",
+                                ),
                                 `file path: ${item.payload.path}`,
                             ).resolves.toEqual(constants.TEST_FILE_CONTENT);
                         }

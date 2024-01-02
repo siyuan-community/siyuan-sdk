@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 优化测试用例以兼容 Vitest `v1.x.x` | Optimize test cases to be compatible with Vitest `v1.x.x`
+
 ## v0.3.6 / 2023-12-26
 
 - [v0.3.5 ... v0.3.6](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.5...v0.3.6)

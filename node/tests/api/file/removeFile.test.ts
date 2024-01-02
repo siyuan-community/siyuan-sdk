@@ -27,6 +27,7 @@ import { testKernelAPI } from "~/tests/utils/test";
 import constants from "~/tests/constants";
 
 import removeFile from "@/types/kernel/api/file/removeFile";
+import { sleep } from "~/tests/utils/time";
 
 const pathname = client.Client.api.file.removeFile.pathname;
 
@@ -63,7 +64,7 @@ describe.concurrent(pathname, async () => {
                 test("test the result of removing file", async () => {
                     await expect(client.client.getFile({
                         path: "/temp/convert/test/remove-file/test.html",
-                    }, "json")).rejects.toContain({ code: 404 });
+                    }, "json")).rejects.toMatchObject({ code: 404 });
                 });
             },
             debug: false,
@@ -84,7 +85,7 @@ describe.concurrent(pathname, async () => {
                 test("test the result of removing directory", async () => {
                     await expect(client.client.readDir({
                         path: "/temp/convert/test/remove-dir/",
-                    })).rejects.toContain({ code: 404 });
+                    })).rejects.toMatchObject({ code: 404 });
                 });
             },
             debug: false,

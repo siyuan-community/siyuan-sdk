@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 优化测试用例以兼容 Vitest `v1.x.x` | Optimize test cases to be compatible with Vitest `v1.x.x`
+- 完善 API `/api/notebook/lsNotebooks` | Perfect API `/api/notebook/lsNotebooks`
 
 ## v0.3.6 / 2023-12-26
 

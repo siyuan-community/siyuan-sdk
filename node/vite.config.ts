@@ -53,17 +53,18 @@ export default defineConfig({
         },
     },
     test: {
+        dir: "tests",
         include: [
-            "**/tests/**/*.test.js",
-            "**/tests/**/*.test.ts",
+            "**/*.{test,spec}.?(c|m)[jt]s?(x)",
         ],
-        api: 1204,
+        // api: 1204,
         testTimeout: 60_000,
-        poolOptions: {
-            threads: {
-                singleThread: true,
-            },
-        },
+        fileParallelism: false,
+        // poolOptions: {
+        //     threads: {
+        //         singleThread: true,
+        //     },
+        // },
         coverage: {
             // provider: "v8",
             provider: "istanbul",

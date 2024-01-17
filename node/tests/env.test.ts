@@ -30,4 +30,3 @@ describe("Environment Variable Test", async () => {
         expect(process.env.VITE_SIYUAN_TOKEN).not.toBeUndefined();
     });
 });
-

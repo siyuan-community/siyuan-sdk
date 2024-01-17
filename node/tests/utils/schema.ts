@@ -50,7 +50,9 @@ export class SchemaJSON {
 
     constructor(
         public filepath: string,
-        options?: Options,
+        options: Options = {
+            allowUnionTypes: true,
+        },
     ) {
         this._ajv = addFormats(new Ajv2020(options));
     }

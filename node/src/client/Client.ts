@@ -153,6 +153,9 @@ export class Client {
             pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
             pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
         },
+        outline: {
+            getDocOutline: { pathname: "/api/outline/getDocOutline", method: "POST" },
+        },
         query: {
             sql: { pathname: "/api/query/sql", method: "POST" },
         },
@@ -1211,6 +1214,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.notification.pushMsg.IResponse;
+        return response;
+    }
+
+    /* 获取文档大纲 */
+    public async getDocOutline(
+        payload: kernel.api.outline.getDocOutline.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.outline.getDocOutline.IResponse> {
+        const response = await this._request(
+            Client.api.outline.getDocOutline.pathname,
+            Client.api.outline.getDocOutline.method,
+            payload,
+            config,
+        ) as kernel.api.outline.getDocOutline.IResponse;
         return response;
     }
 

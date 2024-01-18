@@ -3,6 +3,7 @@
 - 优化测试用例以兼容 Vitest `v1.x.x` | Optimize test cases to be compatible with Vitest `v1.x.x`
 - 完善 API `/api/notebook/lsNotebooks` | Perfect API `/api/notebook/lsNotebooks`
 - 调整 Vitest 配置 | Adjust Vitest configuration
+- [#2](https://github.com/siyuan-community/siyuan-sdk/issues/2) 添加 API `/api/outline/getDocOutline` | Add API `/api/outline/getDocOutline`
 
 ## v0.3.6 / 2023-12-26
 

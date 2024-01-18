@@ -81,11 +81,11 @@
     "devDependencies": {
         "@ltd/j-toml": "^1.38.0",
         "@nodelib/fs.walk": "^2.0.0",
-        "@types/node": "^20.11.3",
+        "@types/node": "^20.11.5",
         "@typescript-eslint/eslint-plugin": "^6.19.0",
         "@typescript-eslint/parser": "^6.19.0",
-        "@vitest/coverage-istanbul": "^1.2.0",
-        "@vitest/ui": "^1.2.0",
+        "@vitest/coverage-istanbul": "^1.2.1",
+        "@vitest/ui": "^1.2.1",
         "ajv": "^8.12.0",
         "ajv-formats": "^2.1.1",
         "chokidar": "^3.5.3",
@@ -100,7 +100,7 @@
         "vite": "^5.0.11",
         "vite-plugin-dts": "^3.7.1",
         "vite-plugin-static-copy": "^1.0.0",
-        "vitest": "^1.2.0",
+        "vitest": "^1.2.1",
         "ws": "^8.16.0"
     },
     "dependencies": {

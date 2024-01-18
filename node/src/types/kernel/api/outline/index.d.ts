@@ -17,27 +17,7 @@
 
 //#region content
 /* directories */
-export * as asset from "./asset";
-export * as attr from "./attr";
-export * as block from "./block";
-export * as broadcast from "./broadcast";
-export * as convert from "./convert";
-export * as export from "./export";
-export * as file from "./file";
-export * as filetree from "./filetree";
-export * as history from "./history";
-export * as inbox from "./inbox";
-export * as network from "./network";
-export * as notebook from "./notebook";
-export * as notification from "./notification";
-export * as outline from "./outline";
-export * as query from "./query";
-export * as repo from "./repo";
-export * as search from "./search";
-export * as snippet from "./snippet";
-export * as storage from "./storage";
-export * as system from "./system";
-export * as template from "./template";
+export * as getDocOutline from "./getDocOutline";
 
 /* files */
 //#endregion content

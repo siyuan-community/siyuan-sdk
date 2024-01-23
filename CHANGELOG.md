@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.7 / 2024-01-24
+
+- [v0.3.6 ... v0.3.7](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.6...v0.3.7)
 - 优化测试用例以兼容 Vitest `v1.x.x` | Optimize test cases to be compatible with Vitest `v1.x.x`
 - 完善 API `/api/notebook/lsNotebooks` | Perfect API `/api/notebook/lsNotebooks`
 - 调整 Vitest 配置 | Adjust Vitest configuration

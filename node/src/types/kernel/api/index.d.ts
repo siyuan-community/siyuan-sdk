@@ -35,6 +35,7 @@ export * as query from "./query";
 export * as repo from "./repo";
 export * as search from "./search";
 export * as snippet from "./snippet";
+export * as sqlite from "./sqlite";
 export * as storage from "./storage";
 export * as system from "./system";
 export * as template from "./template";

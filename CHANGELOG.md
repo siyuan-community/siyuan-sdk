@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- [#3](https://github.com/siyuan-community/siyuan-sdk/issues/3) 添加 API `/api/sqlite/flushTransaction` | Add API `/api/sqlite/flushTransaction`
+
 ## v0.3.7 / 2024-01-24
 
 - [v0.3.6 ... v0.3.7](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.6...v0.3.7)

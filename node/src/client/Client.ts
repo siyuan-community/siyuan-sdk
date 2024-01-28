@@ -169,6 +169,9 @@ export class Client {
             getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
             setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
         },
+        sqlite: {
+            flushTransaction: { pathname: "/api/sqlite/flushTransaction", method: "POST" },
+        },
         storage: {
             getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" },
             getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
@@ -1298,6 +1301,18 @@ export class Client {
             payload,
             config,
         ) as kernel.api.snippet.setSnippet.IResponse;
+        return response;
+    }
+
+    /* 等待业务数据持久化完成 */
+    public async flushTransaction(
+        config?: TempOptions,
+    ): Promise<kernel.api.sqlite.flushTransaction.IResponse> {
+        const response = await this._request(
+            Client.api.sqlite.flushTransaction.pathname,
+            Client.api.sqlite.flushTransaction.method,
+            config,
+        ) as kernel.api.sqlite.flushTransaction.IResponse;
         return response;
     }
 

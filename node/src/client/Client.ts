@@ -182,6 +182,7 @@ export class Client {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
             currentTime: { pathname: "/api/system/currentTime", method: "POST" },
             getConf: { pathname: "/api/system/getConf", method: "POST" },
+            logoutAuth: { pathname: "/api/system/logoutAuth", method: "POST" },
             version: { pathname: "/api/system/version", method: "POST" },
         },
         template: {
@@ -1383,6 +1384,20 @@ export class Client {
         return response;
     }
 
+    /* 获得内核 Unix 时间戳 (单位: ms) */
+    public async currentTime(
+        config?: TempOptions,
+    ): Promise<kernel.api.system.currentTime.IResponse> {
+        const response = await this._request(
+            Client.api.system.currentTime.pathname,
+            Client.api.system.currentTime.method,
+            undefined,
+            config,
+        ) as kernel.api.system.currentTime.IResponse;
+        return response;
+    }
+
+
     /* 获得配置 */
     public async getConf(
         config?: TempOptions,
@@ -1396,16 +1411,16 @@ export class Client {
         return response;
     }
 
-    /* 获得内核 Unix 时间戳 (单位: ms) */
-    public async currentTime(
+    /* 注销登录状态 */
+    public async logoutAuth(
         config?: TempOptions,
-    ): Promise<kernel.api.system.currentTime.IResponse> {
+    ): Promise<kernel.api.system.logoutAuth.IResponse> {
         const response = await this._request(
-            Client.api.system.currentTime.pathname,
-            Client.api.system.currentTime.method,
+            Client.api.system.logoutAuth.pathname,
+            Client.api.system.logoutAuth.method,
             undefined,
             config,
-        ) as kernel.api.system.currentTime.IResponse;
+        ) as kernel.api.system.logoutAuth.IResponse;
         return response;
     }
 

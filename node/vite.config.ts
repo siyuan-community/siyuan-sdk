@@ -57,7 +57,7 @@ export default defineConfig({
         include: [
             "**/*.{test,spec}.?(c|m)[jt]s?(x)",
         ],
-        // api: 1204,
+        api: 1204,
         testTimeout: 60_000,
         fileParallelism: false,
         // poolOptions: {

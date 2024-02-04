@@ -81,9 +81,9 @@
     "devDependencies": {
         "@ltd/j-toml": "^1.38.0",
         "@nodelib/fs.walk": "^2.0.0",
-        "@types/node": "^20.11.9",
-        "@typescript-eslint/eslint-plugin": "^6.19.1",
-        "@typescript-eslint/parser": "^6.19.1",
+        "@types/node": "^20.11.16",
+        "@typescript-eslint/eslint-plugin": "^6.20.0",
+        "@typescript-eslint/parser": "^6.20.0",
         "@vitest/coverage-istanbul": "^1.2.2",
         "@vitest/ui": "^1.2.2",
         "ajv": "^8.12.0",

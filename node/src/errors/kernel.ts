@@ -20,11 +20,15 @@ import * as axios from "axios";
 
 export class KernelError extends Error {
     public readonly code: number;
+    public readonly msg: string;
+    public readonly data: any;
     constructor(
         public readonly body: IResponse,
         public readonly response?: axios.AxiosResponse | Response,
     ) {
         super(body.msg);
         this.code = body.code;
+        this.msg = body.msg;
+        this.data = body.data;
     }
 }

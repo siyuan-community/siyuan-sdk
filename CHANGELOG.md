@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - [#3](https://github.com/siyuan-community/siyuan-sdk/issues/3) 添加 API `/api/sqlite/flushTransaction` | Add API `/api/sqlite/flushTransaction`
+- 添加 API `/api/system/logoutAuth` | Add API `/api/system/logoutAuth`
 
 ## v0.3.7 / 2024-01-24
 

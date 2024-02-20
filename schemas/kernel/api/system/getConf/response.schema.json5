@@ -290,6 +290,17 @@
                     description: 'Maximum number of tokens (0 means no limit)',
                     minimum: 0,
                 },
+                apiProvider: {
+                    // API 供应商
+                    type: 'string',
+                    description: 'API Provider',
+                    enum: ['OpenAI', 'Azure'],
+                },
+                apiUserAgent: {
+                    // API 请求附加的用户代理字段
+                    type: 'string',
+                    description: 'API request additional user agent field',
+                },
             },
         },
         api: {

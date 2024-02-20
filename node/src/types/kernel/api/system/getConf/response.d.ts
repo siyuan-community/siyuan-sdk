@@ -154,6 +154,10 @@ export interface IOpenAI {
      */
     apiModel: TOpenAIModel;
     /**
+     * API Provider
+     */
+    apiProvider?: APIProvider;
+    /**
      * API request proxy address
      */
     apiProxy: string;
@@ -161,12 +165,21 @@ export interface IOpenAI {
      * API request timeout (unit: seconds)
      */
     apiTimeout: number;
+    /**
+     * API request additional user agent field
+     */
+    apiUserAgent?: string;
 }
 
 /**
  * The model name called by the API
  */
 export type TOpenAIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5-turbo-16k";
+
+/**
+ * API Provider
+ */
+export type APIProvider = "OpenAI" | "Azure";
 
 /**
  * SiYuan API related configuration

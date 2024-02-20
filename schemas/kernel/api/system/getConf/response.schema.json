@@ -291,6 +291,18 @@
                     "type": "integer",
                     "description": "Maximum number of tokens (0 means no limit)",
                     "minimum": 0
+                },
+                "apiProvider": {
+                    "type": "string",
+                    "description": "API Provider",
+                    "enum": [
+                        "OpenAI",
+                        "Azure"
+                    ]
+                },
+                "apiUserAgent": {
+                    "type": "string",
+                    "description": "API request additional user agent field"
                 }
             }
         },

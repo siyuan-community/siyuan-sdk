@@ -3,6 +3,7 @@
 - [#3](https://github.com/siyuan-community/siyuan-sdk/issues/3) 添加 API `/api/sqlite/flushTransaction` | Add API `/api/sqlite/flushTransaction`
 - 添加 API `/api/system/logoutAuth` | Add API `/api/system/logoutAuth`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
+- 完善 API `/api/system/getConf` | Perfect API `/api/system/getConf`
 
 ## v0.3.7 / 2024-01-24
 

@@ -102,7 +102,9 @@
                 "api": {
                     "$ref": "#/$defs/api"
                 },
-                "appearance": {},
+                "appearance": {
+                    "$ref": "#/$defs/appearance"
+                },
                 "bazaar": {
                     "$ref": "#/$defs/bazaar"
                 },
@@ -322,6 +324,123 @@
                         "",
                         "0123456789abcdef"
                     ]
+                }
+            }
+        },
+        "appearance": {
+            "title": "IAppearance",
+            "type": "object",
+            "description": "SiYuan appearance related configuration",
+            "additionalProperties": false,
+            "required": [
+                "closeButtonBehavior",
+                "codeBlockThemeDark",
+                "codeBlockThemeLight",
+                "darkThemes",
+                "hideStatusBar",
+                "icon",
+                "iconVer",
+                "icons",
+                "lang",
+                "lightThemes",
+                "mode",
+                "modeOS",
+                "themeDark",
+                "themeJS",
+                "themeLight",
+                "themeVer"
+            ],
+            "properties": {
+                "closeButtonBehavior": {
+                    "type": "integer",
+                    "description": "Close button behavior\n- `0`: Exit application\n- `1`: Minimize to pallets",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "codeBlockThemeDark": {
+                    "type": "string",
+                    "description": "Dark code block theme"
+                },
+                "codeBlockThemeLight": {
+                    "type": "string",
+                    "description": "Light code block theme"
+                },
+                "darkThemes": {
+                    "type": "array",
+                    "description": "List of installed dark themes",
+                    "items": {
+                        "type": "string",
+                        "description": "Dark theme name"
+                    }
+                },
+                "hideStatusBar": {
+                    "type": "boolean",
+                    "description": "Whether to hide status bar"
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "The name of the icon currently in use"
+                },
+                "iconVer": {
+                    "type": "string",
+                    "description": "The version number of the icon currently in use"
+                },
+                "icons": {
+                    "type": "array",
+                    "description": "List of installed icon names",
+                    "items": {
+                        "type": "string",
+                        "description": "Icon name"
+                    }
+                },
+                "lang": {
+                    "type": "string",
+                    "description": "The language used by the current user",
+                    "enum": [
+                        "en_US",
+                        "es_ES",
+                        "fr_FR",
+                        "zh_CHT",
+                        "zh_CN"
+                    ]
+                },
+                "lightThemes": {
+                    "type": "array",
+                    "description": "List of installed light themes",
+                    "items": {
+                        "type": "string",
+                        "description": "Light theme name"
+                    }
+                },
+                "mode": {
+                    "type": "integer",
+                    "description": "The current theme mode\n- `0`: Light theme\n- `1`: Dark theme",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "modeOS": {
+                    "type": "boolean",
+                    "description": "Whether the theme mode follows the system theme"
+                },
+                "themeDark": {
+                    "type": "string",
+                    "description": "The name of the dark theme currently in use"
+                },
+                "themeJS": {
+                    "type": "boolean",
+                    "description": "Whether the current theme has enabled theme JavaScript"
+                },
+                "themeLight": {
+                    "type": "string",
+                    "description": "The name of the light theme currently in use"
+                },
+                "themeVer": {
+                    "type": "string",
+                    "description": "The version number of the theme currently in use"
                 }
             }
         },

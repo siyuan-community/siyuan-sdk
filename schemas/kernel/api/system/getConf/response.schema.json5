@@ -79,7 +79,8 @@
                     $ref: '#/$defs/api',
                 },
                 appearance: {
-                    // TODO
+                    // 外观相关配置
+                    $ref: '#/$defs/appearance',
                 },
                 bazaar: {
                     // 思源集市相关配置
@@ -315,6 +316,123 @@
                     type: 'string',
                     description: 'API Token',
                     examples: ['', '0123456789abcdef'],
+                },
+            },
+        },
+        appearance: {
+            title: 'IAppearance',
+            type: 'object',
+
+            description: 'SiYuan appearance related configuration',
+            additionalProperties: false,
+            required: ['closeButtonBehavior', 'codeBlockThemeDark', 'codeBlockThemeLight', 'darkThemes', 'hideStatusBar', 'icon', 'iconVer', 'icons', 'lang', 'lightThemes', 'mode', 'modeOS', 'themeDark', 'themeJS', 'themeLight', 'themeVer'],
+            properties: {
+                closeButtonBehavior: {
+                    // 关闭按钮行为
+                    type: 'integer',
+                    description: 'Close button behavior\n- `0`: Exit application\n- `1`: Minimize to pallets',
+                    enum: [
+                        0, // 退出应用
+                        1, // 最小化到托盘
+                    ],
+                },
+                codeBlockThemeDark: {
+                    // 暗色代码块主题
+                    type: 'string',
+                    description: 'Dark code block theme',
+                },
+                codeBlockThemeLight: {
+                    // 亮色代码块主题
+                    type: 'string',
+                    description: 'Light code block theme',
+                },
+                darkThemes: {
+                    // 已安装的暗色主题名称列表
+                    type: 'array',
+                    description: 'List of installed dark themes',
+                    items: {
+                        type: 'string',
+                        description: 'Dark theme name',
+                    },
+                },
+                hideStatusBar: {
+                    // 是否隐藏状态栏
+                    type: 'boolean',
+                    description: 'Whether to hide status bar',
+                },
+                icon: {
+                    // 当前使用的图标名称
+                    type: 'string',
+                    description: 'The name of the icon currently in use',
+                },
+                iconVer: {
+                    // 当前使用的图标的版本号
+                    type: 'string',
+                    description: 'The version number of the icon currently in use',
+                },
+                icons: {
+                    // 已安装的图标名称列表
+                    type: 'array',
+                    description: 'List of installed icon names',
+                    items: {
+                        type: 'string',
+                        description: 'Icon name',
+                    },
+                },
+                lang: {
+                    // 当前用户界面所使用的语言
+                    type: 'string',
+                    description: 'The language used by the current user',
+                    enum: [
+                        'en_US', // 英文
+                        'es_ES', // 西班牙文
+                        'fr_FR', // 法文
+                        'zh_CHT', // 繁体中文
+                        'zh_CN', // 简体中文
+                    ],
+                },
+                lightThemes: {
+                    // 已安装的亮色主题名称列表
+                    type: 'array',
+                    description: 'List of installed light themes',
+                    items: {
+                        type: 'string',
+                        description: 'Light theme name',
+                    },
+                },
+                mode: {
+                    // 当前使用的主题模式
+                    type: 'integer',
+                    description: 'The current theme mode\n- `0`: Light theme\n- `1`: Dark theme',
+                    enum: [
+                        0, // 亮色主题
+                        1, // 暗色主题
+                    ],
+                },
+                modeOS: {
+                    // 主题模式是否跟随系统主题
+                    type: 'boolean',
+                    description: 'Whether the theme mode follows the system theme',
+                },
+                themeDark: {
+                    // 当前使用的暗色主题名称
+                    type: 'string',
+                    description: 'The name of the dark theme currently in use',
+                },
+                themeJS: {
+                    // 当前主题是否启用了主题 JavaScript
+                    type: 'boolean',
+                    description: 'Whether the current theme has enabled theme JavaScript',
+                },
+                themeLight: {
+                    // 当前使用的亮色主题名称
+                    type: 'string',
+                    description: 'The name of the light theme currently in use',
+                },
+                themeVer: {
+                    // 当前使用的主题的版本号
+                    type: 'string',
+                    description: 'The version number of the theme currently in use',
                 },
             },
         },

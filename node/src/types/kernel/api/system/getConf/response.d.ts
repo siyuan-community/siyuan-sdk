@@ -50,7 +50,7 @@ export interface IConf {
     account:        IAccount;
     ai:             IAI;
     api:            IAPI;
-    appearance:     any;
+    appearance:     IAppearance;
     bazaar:         IBazaar;
     /**
      * Cloud Service Provider Region
@@ -192,6 +192,88 @@ export interface IAPI {
 }
 
 /**
+ * SiYuan appearance related configuration
+ */
+export interface IAppearance {
+    /**
+     * Close button behavior
+     * - `0`: Exit application
+     * - `1`: Minimize to pallets
+     */
+    closeButtonBehavior: number;
+    /**
+     * Dark code block theme
+     */
+    codeBlockThemeDark: string;
+    /**
+     * Light code block theme
+     */
+    codeBlockThemeLight: string;
+    /**
+     * List of installed dark themes
+     */
+    darkThemes: string[];
+    /**
+     * Whether to hide status bar
+     */
+    hideStatusBar: boolean;
+    /**
+     * The name of the icon currently in use
+     */
+    icon: string;
+    /**
+     * List of installed icon names
+     */
+    icons: string[];
+    /**
+     * The version number of the icon currently in use
+     */
+    iconVer: string;
+    /**
+     * The language used by the current user
+     */
+    lang: TLang;
+    /**
+     * List of installed light themes
+     */
+    lightThemes: string[];
+    /**
+     * The current theme mode
+     * - `0`: Light theme
+     * - `1`: Dark theme
+     */
+    mode: number;
+    /**
+     * Whether the theme mode follows the system theme
+     */
+    modeOS: boolean;
+    /**
+     * The name of the dark theme currently in use
+     */
+    themeDark: string;
+    /**
+     * Whether the current theme has enabled theme JavaScript
+     */
+    themeJS: boolean;
+    /**
+     * The name of the light theme currently in use
+     */
+    themeLight: string;
+    /**
+     * The version number of the theme currently in use
+     */
+    themeVer: string;
+}
+
+/**
+ * The language used by the current user
+ *
+ * User interface language
+ * Same as {@link IAppearance.lang}
+ */
+export type TLang = "en_US" | "es_ES" | "fr_FR" | "zh_CHT" | "zh_CN";
+
+/**
  * SiYuan bazaar related configuration
  */
 export interface IBazaar {
@@ -204,12 +286,6 @@ export interface IBazaar {
      */
     trust: boolean;
 }
-
-/**
- * User interface language
- * Same as {@link IAppearance.lang}
- */
-export type TLang = "en_US" | "es_ES" | "fr_FR" | "zh_CHT" | "zh_CN";
 
 /**
  * Supported language

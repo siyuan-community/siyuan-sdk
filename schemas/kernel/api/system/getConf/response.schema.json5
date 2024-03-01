@@ -67,23 +67,23 @@
                     enum: ['', '*******'],
                 },
                 account: {
-                    // 账户相关配置
+                    // 账户相关设置项
                     $ref: '#/$defs/account',
                 },
                 ai: {
-                    // AI 相关配置
+                    // AI 相关设置项
                     $ref: '#/$defs/ai',
                 },
                 api: {
-                    // 思源 API 相关配置
+                    // 思源 API 相关设置项
                     $ref: '#/$defs/api',
                 },
                 appearance: {
-                    // 外观相关配置
+                    // 外观相关设置项
                     $ref: '#/$defs/appearance',
                 },
                 bazaar: {
-                    // 思源集市相关配置
+                    // 思源集市相关设置项
                     $ref: '#/$defs/bazaar',
                 },
                 cloudRegion: {
@@ -93,11 +93,12 @@
                     enum: [0, 1],
                 },
                 editor: {
-                    // 编辑器相关配置
+                    // 编辑器相关设置项
                     $ref: '#/$defs/editor',
                 },
                 export: {
-                    // TODO
+                    // 导出相关设置项
+                    $ref: '#/$defs/export',
                 },
                 fileTree: {
                     // TODO
@@ -185,7 +186,7 @@
                     description: 'Whether to display the changelog for this release version',
                 },
                 snippet: {
-                    // 代码片段相关配置
+                    // 代码片段相关设置项
                     $ref: '#/$defs/snippet',
                 },
                 stat: {
@@ -198,7 +199,7 @@
                     // TODO
                 },
                 tag: {
-                    // 思源标签面板相关配置
+                    // 思源标签面板相关设置项
                     $ref: '#/$defs/tag',
                 },
                 uiLayout: {
@@ -636,6 +637,117 @@
                     // 虚拟引用关键字包含列表 (关键字之间使用 , 符号分隔)
                     type: 'string',
                     description: 'Virtual reference keyword inclusion list (separated by commas `,`)',
+                },
+            },
+        },
+        export: {
+            title: 'IExport',
+            type: 'object',
+
+            description: 'SiYuan export related configuration',
+            additionalProperties: false,
+            required: ['paragraphBeginningSpace', 'addTitle', 'blockRefMode', 'blockEmbedMode', 'blockRefTextLeft', 'blockRefTextRight', 'tagOpenMarker', 'tagCloseMarker', 'fileAnnotationRefMode', 'pandocBin', 'markdownYFM', 'pdfFooter', 'docxTemplate', 'pdfWatermarkStr', 'pdfWatermarkDesc', 'imageWatermarkStr', 'imageWatermarkDesc'],
+            properties: {
+                paragraphBeginningSpace: {
+                    // 段落开头是否空两格 (段首插入两个全宽空格 `U+3000`)
+                    type: 'boolean',
+                    description: 'Whether the beginning of the paragraph is empty two spaces.\nInsert two full-width spaces `U+3000` at the beginning of the paragraph.',
+                },
+                addTitle: {
+                    // 添加文章标题 (将文章标题作为第一级标题插入文档首部)
+                    type: 'boolean',
+                    description: 'Add article title (insert the article title as a first-level title at the beginning of the document)',
+                },
+                blockRefMode: {
+                    // 内容块引用导出模式
+                    type: 'integer',
+                    description: 'Content block reference export mode\n- `0`: Original text (deprecated)\n- `1`: Quotation block (deprecated)\n- `2`: Anchor text block link\n- `3`: Anchor text only\n- `4`: Footnote\n- `5`: Anchor hash\n',
+                    enum: [
+                        0, // 原始文本 (已废弃)
+                        1, // 引述块 (已废弃)
+                        2, // 锚文本块链接
+                        3, // 仅锚文本
+                        4, // 脚注
+                        5, // 锚点哈希
+                    ],
+                },
+                blockEmbedMode: {
+                    // 嵌入块导出模式
+                    type: 'integer',
+                    description: 'Embedded block export mode\n- `0`: Original block content\n- `1`: Quotation block',
+                    enum: [
+                        0, // 原始块内容
+                        1, // 引述块
+                    ],
+                },
+                blockRefTextLeft: {
+                    // 导出时块引用锚文本左侧符号
+                    type: 'string',
+                    description: 'The symbol on the left side of the block reference anchor text during export',
+                },
+                blockRefTextRight: {
+                    // 导出时块引用锚文本右侧符号
+                    type: 'string',
+                    description: 'The symbol on the right side of the block reference anchor text during export',
+                },
+                tagOpenMarker: {
+                    // 标签开始标记符号
+                    type: 'string',
+                    description: 'Tag start marker symbol',
+                },
+                tagCloseMarker: {
+                    // 标签闭合标记符号
+                    type: 'string',
+                    description: 'Tag close marker symbol',
+                },
+                fileAnnotationRefMode: {
+                    // 文件标注引用导出模式
+                    type: 'integer',
+                    description: 'File annotation reference export mode\n- `0`: File name - page number - anchor text\n- `1`: Anchor text only',
+                    enum: [
+                        0, // 文件名 - 页码 - 锚文本
+                        1, // 仅锚文本
+                    ],
+                },
+                pandocBin: {
+                    // Pandoc 可执行文件路径
+                    type: 'string',
+                    description: 'Pandoc executable file path',
+                },
+                markdownYFM: {
+                    // Markdown 导出时是否添加 YAML Front Matter
+                    type: 'boolean',
+                    description: 'Whether to add YAML Front Matter when exporting to Markdown',
+                },
+                pdfFooter: {
+                    // 自定义 PDF 导出时的页脚内容
+                    type: 'string',
+                    description: 'Custom footer content when exporting to PDF',
+                },
+                docxTemplate: {
+                    // Docx 导出时所使用的模板文件路径
+                    type: 'string',
+                    description: 'The path of the template file used when exporting to Docx',
+                },
+                pdfWatermarkStr: {
+                    // 导出 PDF 时所使用的水印文本或水印文件路径
+                    type: 'string',
+                    description: 'The watermark text or watermark file path used when exporting to PDF',
+                },
+                pdfWatermarkDesc: {
+                    // 自定义导出 PDF 时水印的位置、大小和样式等
+                    type: 'string',
+                    description: 'Custom watermark position, size, style, etc. when exporting to PDF',
+                },
+                imageWatermarkStr: {
+                    // 导出图片时所使用的水印文本或水印文件路径
+                    type: 'string',
+                    description: 'The watermark text or watermark file path used when exporting to an image',
+                },
+                imageWatermarkDesc: {
+                    // 自定义导出图片时水印的位置、大小和样式等
+                    type: 'string',
+                    description: 'Custom watermark position, size, style, etc. when exporting to an image',
                 },
             },
         },

@@ -119,7 +119,9 @@
                 "editor": {
                     "$ref": "#/$defs/editor"
                 },
-                "export": {},
+                "export": {
+                    "$ref": "#/$defs/export"
+                },
                 "fileTree": {},
                 "flashcard": {},
                 "graph": {},
@@ -645,6 +647,117 @@
                 "virtualBlockRefInclude": {
                     "type": "string",
                     "description": "Virtual reference keyword inclusion list (separated by commas `,`)"
+                }
+            }
+        },
+        "export": {
+            "title": "IExport",
+            "type": "object",
+            "description": "SiYuan export related configuration",
+            "additionalProperties": false,
+            "required": [
+                "paragraphBeginningSpace",
+                "addTitle",
+                "blockRefMode",
+                "blockEmbedMode",
+                "blockRefTextLeft",
+                "blockRefTextRight",
+                "tagOpenMarker",
+                "tagCloseMarker",
+                "fileAnnotationRefMode",
+                "pandocBin",
+                "markdownYFM",
+                "pdfFooter",
+                "docxTemplate",
+                "pdfWatermarkStr",
+                "pdfWatermarkDesc",
+                "imageWatermarkStr",
+                "imageWatermarkDesc"
+            ],
+            "properties": {
+                "paragraphBeginningSpace": {
+                    "type": "boolean",
+                    "description": "Whether the beginning of the paragraph is empty two spaces.\nInsert two full-width spaces `U+3000` at the beginning of the paragraph."
+                },
+                "addTitle": {
+                    "type": "boolean",
+                    "description": "Add article title (insert the article title as a first-level title at the beginning of the document)"
+                },
+                "blockRefMode": {
+                    "type": "integer",
+                    "description": "Content block reference export mode\n- `0`: Original text (deprecated)\n- `1`: Quotation block (deprecated)\n- `2`: Anchor text block link\n- `3`: Anchor text only\n- `4`: Footnote\n- `5`: Anchor hash\n",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ]
+                },
+                "blockEmbedMode": {
+                    "type": "integer",
+                    "description": "Embedded block export mode\n- `0`: Original block content\n- `1`: Quotation block",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "blockRefTextLeft": {
+                    "type": "string",
+                    "description": "The symbol on the left side of the block reference anchor text during export"
+                },
+                "blockRefTextRight": {
+                    "type": "string",
+                    "description": "The symbol on the right side of the block reference anchor text during export"
+                },
+                "tagOpenMarker": {
+                    "type": "string",
+                    "description": "Tag start marker symbol"
+                },
+                "tagCloseMarker": {
+                    "type": "string",
+                    "description": "Tag close marker symbol"
+                },
+                "fileAnnotationRefMode": {
+                    "type": "integer",
+                    "description": "File annotation reference export mode\n- `0`: File name - page number - anchor text\n- `1`: Anchor text only",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "pandocBin": {
+                    "type": "string",
+                    "description": "Pandoc executable file path"
+                },
+                "markdownYFM": {
+                    "type": "boolean",
+                    "description": "Whether to add YAML Front Matter when exporting to Markdown"
+                },
+                "pdfFooter": {
+                    "type": "string",
+                    "description": "Custom footer content when exporting to PDF"
+                },
+                "docxTemplate": {
+                    "type": "string",
+                    "description": "The path of the template file used when exporting to Docx"
+                },
+                "pdfWatermarkStr": {
+                    "type": "string",
+                    "description": "The watermark text or watermark file path used when exporting to PDF"
+                },
+                "pdfWatermarkDesc": {
+                    "type": "string",
+                    "description": "Custom watermark position, size, style, etc. when exporting to PDF"
+                },
+                "imageWatermarkStr": {
+                    "type": "string",
+                    "description": "The watermark text or watermark file path used when exporting to an image"
+                },
+                "imageWatermarkDesc": {
+                    "type": "string",
+                    "description": "Custom watermark position, size, style, etc. when exporting to an image"
                 }
             }
         },

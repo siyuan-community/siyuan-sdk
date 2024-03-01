@@ -59,7 +59,7 @@ export interface IConf {
      */
     cloudRegion: number;
     editor:      IEditor;
-    export:      any;
+    export:      IExport;
     fileTree:    any;
     flashcard:   any;
     graph:       any;
@@ -420,6 +420,92 @@ export interface IEditor {
      * Virtual reference keyword inclusion list (separated by commas `,`)
      */
     virtualBlockRefInclude: string;
+}
+
+/**
+ * SiYuan export related configuration
+ */
+export interface IExport {
+    /**
+     * Add article title (insert the article title as a first-level title at the beginning of
+     * the document)
+     */
+    addTitle: boolean;
+    /**
+     * Embedded block export mode
+     * - `0`: Original block content
+     * - `1`: Quotation block
+     */
+    blockEmbedMode: number;
+    /**
+     * Content block reference export mode
+     * - `0`: Original text (deprecated)
+     * - `1`: Quotation block (deprecated)
+     * - `2`: Anchor text block link
+     * - `3`: Anchor text only
+     * - `4`: Footnote
+     * - `5`: Anchor hash
+     */
+    blockRefMode: number;
+    /**
+     * The symbol on the left side of the block reference anchor text during export
+     */
+    blockRefTextLeft: string;
+    /**
+     * The symbol on the right side of the block reference anchor text during export
+     */
+    blockRefTextRight: string;
+    /**
+     * The path of the template file used when exporting to Docx
+     */
+    docxTemplate: string;
+    /**
+     * File annotation reference export mode
+     * - `0`: File name - page number - anchor text
+     * - `1`: Anchor text only
+     */
+    fileAnnotationRefMode: number;
+    /**
+     * Custom watermark position, size, style, etc. when exporting to an image
+     */
+    imageWatermarkDesc: string;
+    /**
+     * The watermark text or watermark file path used when exporting to an image
+     */
+    imageWatermarkStr: string;
+    /**
+     * Whether to add YAML Front Matter when exporting to Markdown
+     */
+    markdownYFM: boolean;
+    /**
+     * Pandoc executable file path
+     */
+    pandocBin: string;
+    /**
+     * Whether the beginning of the paragraph is empty two spaces.
+     * Insert two full-width spaces `U+3000` at the beginning of the paragraph.
+     */
+    paragraphBeginningSpace: boolean;
+    /**
+     * Custom footer content when exporting to PDF
+     */
+    pdfFooter: string;
+    /**
+     * Custom watermark position, size, style, etc. when exporting to PDF
+     */
+    pdfWatermarkDesc: string;
+    /**
+     * The watermark text or watermark file path used when exporting to PDF
+     */
+    pdfWatermarkStr: string;
+    /**
+     * Tag close marker symbol
+     */
+    tagCloseMarker: string;
+    /**
+     * Tag start marker symbol
+     */
+    tagOpenMarker: string;
 }
 
 /**

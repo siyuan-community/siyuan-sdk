@@ -89,7 +89,7 @@ export interface IConf {
      * Whether it is running in read-only mode
      */
     readonly: boolean;
-    repo:     any;
+    repo:     IRepo;
     search:   any;
     /**
      * Whether to display the changelog for this release version
@@ -526,6 +526,21 @@ export interface ILang {
  * Log level
  */
 export type TLogLevel = "off" | "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+
+/**
+ * Snapshot repository related configuration
+ */
+export interface IRepo {
+    /**
+     * Snapshot encryption key (base64 encoded 256-bit key)
+     */
+    key: string;
+    /**
+     * Synchronous index timing, if it exceeds this time, the user is prompted that the index
+     * performance is degraded (unit: milliseconds)
+     */
+    syncIndexTiming: number;
+}
 
 /**
  * SiYuan code snippets related configuration

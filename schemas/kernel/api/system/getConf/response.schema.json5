@@ -175,7 +175,8 @@
                     description: 'Whether it is running in read-only mode',
                 },
                 repo: {
-                    // TODO
+                    // 快照仓库相关设置项
+                    $ref: '#/$defs/repo',
                 },
                 search: {
                     // TODO
@@ -771,6 +772,27 @@
                     description: 'Language identifier',
                     pattern: '^[a-z]{2}_[A-Z]{2,}$',
                     examples: ['zh_CN', 'zh_CHT', 'en_US'],
+                },
+            },
+        },
+        repo: {
+            title: 'IRepo',
+            type: 'object',
+
+            description: 'Snapshot repository related configuration',
+            additionalProperties: false,
+            required: ['key', 'syncIndexTiming'],
+            properties: {
+                key: {
+                    // 快照加密密钥 (base64 编码的 256 位密钥)
+                    type: 'string',
+                    description: 'Snapshot encryption key (base64 encoded 256-bit key)',
+                    pattern: '^[A-Za-z0-9+/]{43}=$',
+                },
+                syncIndexTiming: {
+                    // 同步索引计时，超过该时间则提示用户索引性能下降 (单位: 毫秒)
+                    type: 'integer',
+                    description: 'Synchronous index timing, if it exceeds this time, the user is prompted that the index performance is degraded (unit: milliseconds)',
                 },
             },
         },

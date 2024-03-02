@@ -182,7 +182,9 @@
                     "type": "boolean",
                     "description": "Whether it is running in read-only mode"
                 },
-                "repo": {},
+                "repo": {
+                    "$ref": "#/$defs/repo"
+                },
                 "search": {},
                 "showChangelog": {
                     "type": "boolean",
@@ -789,6 +791,27 @@
                         "zh_CHT",
                         "en_US"
                     ]
+                }
+            }
+        },
+        "repo": {
+            "title": "IRepo",
+            "type": "object",
+            "description": "Snapshot repository related configuration",
+            "additionalProperties": false,
+            "required": [
+                "key",
+                "syncIndexTiming"
+            ],
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "Snapshot encryption key (base64 encoded 256-bit key)",
+                    "pattern": "^[A-Za-z0-9+/]{43}=$"
+                },
+                "syncIndexTiming": {
+                    "type": "integer",
+                    "description": "Synchronous index timing, if it exceeds this time, the user is prompted that the index performance is degraded (unit: milliseconds)"
                 }
             }
         },

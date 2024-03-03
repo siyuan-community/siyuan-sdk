@@ -96,7 +96,7 @@ export interface IConf {
      */
     showChangelog: boolean;
     snippet:       ISnippet;
-    stat:          any;
+    stat:          IStat;
     sync:          any;
     system:        any;
     tag:           ITag;
@@ -554,6 +554,44 @@ export interface ISnippet {
      * Whether to enable JavaScript code snippets
      */
     enabledJS: boolean;
+}
+
+/**
+ * SiYuan workspace content statistics
+ */
+export interface IStat {
+    /**
+     * Asset file size (unit: bytes)
+     */
+    assetsSize: number;
+    /**
+     * Number of content blocks
+     */
+    blockCount: number;
+    /**
+     * Size of resource files after chunk encryption (unit: bytes)
+     */
+    cAssetsSize: number;
+    /**
+     * Number of content blocks after chunk encryption
+     */
+    cBlockCount: number;
+    /**
+     * Size of the data directory after chunk encryption (unit: bytes)
+     */
+    cDataSize: number;
+    /**
+     * Number of content block trees after chunk encryption (number of documents)
+     */
+    cTreeCount: number;
+    /**
+     * Data directory size (unit: bytes)
+     */
+    dataSize: number;
+    /**
+     * Number of content block trees (number of documents)
+     */
+    treeCount: number;
 }
 
 /**

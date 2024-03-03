@@ -191,7 +191,8 @@
                     $ref: '#/$defs/snippet',
                 },
                 stat: {
-                    // TODO
+                    // 工作空间内容统计
+                    $ref: '#/$defs/stat',
                 },
                 sync: {
                     // TODO
@@ -813,6 +814,56 @@
                     // 是否启用 JavaScript 代码片段
                     type: 'boolean',
                     description: 'Whether to enable JavaScript code snippets',
+                },
+            },
+        },
+        stat: {
+            title: 'IStat',
+            type: 'object',
+
+            description: 'SiYuan workspace content statistics',
+            additionalProperties: false,
+            required: ['assetsSize', 'blockCount', 'cAssetsSize', 'cBlockCount', 'cDataSize', 'cTreeCount', 'dataSize', 'treeCount'],
+            properties: {
+                assetsSize: {
+                    // 资源文件大小 (单位: 字节)
+                    type: 'integer',
+                    description: 'Asset file size (unit: bytes)',
+                },
+                blockCount: {
+                    // 内容块数量
+                    type: 'integer',
+                    description: 'Number of content blocks',
+                },
+                cAssetsSize: {
+                    // 分块加密后的资源文件大小 (单位: 字节)
+                    type: 'integer',
+                    description: 'Size of resource files after chunk encryption (unit: bytes)',
+                },
+                cBlockCount: {
+                    // 分块加密后的内容块数量
+                    type: 'integer',
+                    description: 'Number of content blocks after chunk encryption',
+                },
+                cDataSize: {
+                    // 分块加密后的数据目录大小 (单位: 字节)
+                    type: 'integer',
+                    description: 'Size of the data directory after chunk encryption (unit: bytes)',
+                },
+                cTreeCount: {
+                    // 分块加密后的内容块树数量 (文档数量)
+                    type: 'integer',
+                    description: 'Number of content block trees after chunk encryption (number of documents)',
+                },
+                dataSize: {
+                    // 数据目录大小 (单位: 字节)
+                    type: 'integer',
+                    description: 'Data directory size (unit: bytes)',
+                },
+                treeCount: {
+                    // 内容块树数量 (文档数量)
+                    type: 'integer',
+                    description: 'Number of content block trees (number of documents)',
                 },
             },
         },

@@ -156,7 +156,7 @@ export interface IOpenAI {
     /**
      * API Provider
      */
-    apiProvider?: APIProvider;
+    apiProvider: APIProvider;
     /**
      * API request proxy address
      */
@@ -168,7 +168,11 @@ export interface IOpenAI {
     /**
      * API request additional user agent field
      */
-    apiUserAgent?: string;
+    apiUserAgent: string;
+    /**
+     * API version number
+     */
+    apiVersion: string;
 }
 
 /**

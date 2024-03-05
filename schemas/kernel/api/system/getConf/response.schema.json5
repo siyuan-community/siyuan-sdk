@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.11.3/kernel/api/system.go#L206-L225
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.2/kernel/api/system.go#L206-L225
  * @pathname: /api/system/getConf
- * @version: 2.11.3
+ * @version: 3.0.2
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
-    $comment: 'v2.11.3',
+    $comment: 'v3.0.2',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -255,7 +255,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['apiBaseURL', 'apiKey', 'apiMaxTokens', 'apiModel', 'apiProxy', 'apiTimeout'],
+            required: ['apiBaseURL', 'apiKey', 'apiMaxTokens', 'apiModel', 'apiProvider', 'apiProxy', 'apiTimeout', 'apiUserAgent', 'apiVersion'],
             properties: {
                 apiBaseURL: {
                     // API 基础 URL 地址
@@ -270,17 +270,11 @@
                     description: 'API key',
                     examples: ['sk-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL'],
                 },
-                apiTimeout: {
-                    // API 请求超时时间 (单位: 秒)
+                apiMaxTokens: {
+                    // 最大 Token 数 (0 表示无限制)
                     type: 'integer',
-                    description: 'API request timeout (unit: seconds)',
+                    description: 'Maximum number of tokens (0 means no limit)',
                     minimum: 0,
-                },
-                apiProxy: {
-                    // API 请求代理地址
-                    type: 'string',
-                    description: 'API request proxy address',
-                    examples: ['http://127.0.0.1:1080', 'socks://127.0.0.1:1080', 'socks5://127.0.0.1:1080'],
                 },
                 apiModel: {
                     // API 所调用的模型名称
@@ -289,22 +283,33 @@
                     description: 'The model name called by the API',
                     enum: ['gpt-4', 'gpt-4-32k', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k'],
                 },
-                apiMaxTokens: {
-                    // 最大 Token 数 (0 表示无限制)
-                    type: 'integer',
-                    description: 'Maximum number of tokens (0 means no limit)',
-                    minimum: 0,
-                },
                 apiProvider: {
                     // API 供应商
                     type: 'string',
                     description: 'API Provider',
                     enum: ['OpenAI', 'Azure'],
                 },
+                apiProxy: {
+                    // API 请求代理地址
+                    type: 'string',
+                    description: 'API request proxy address',
+                    examples: ['http://127.0.0.1:1080', 'socks://127.0.0.1:1080', 'socks5://127.0.0.1:1080'],
+                },
+                apiTimeout: {
+                    // API 请求超时时间 (单位: 秒)
+                    type: 'integer',
+                    description: 'API request timeout (unit: seconds)',
+                    minimum: 0,
+                },
                 apiUserAgent: {
                     // API 请求附加的用户代理字段
                     type: 'string',
                     description: 'API request additional user agent field',
+                },
+                apiVersion: {
+                    // API 版本号
+                    type: 'string',
+                    description: 'API version number',
                 },
             },
         },

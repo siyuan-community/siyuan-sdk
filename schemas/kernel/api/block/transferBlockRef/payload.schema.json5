@@ -2,14 +2,14 @@
  * schemas/kernel/api/block/transferBlockRef/payload.schema.json5
  * 转移块引用
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#transfer-block-ref
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block.go#L32-L64
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.2/kernel/api/block.go#L47-L88
  * @pathname: /api/block/transferBlockRef
- * @version: 2.9.3
+ * @version: 3.0.2
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/transferBlockRef/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.0.2',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -31,6 +31,12 @@
                     type: 'string',
                     description: 'Target block ID',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                reloadUI: {
+                    // 是否刷新 UI
+                    type: 'boolean',
+                    description: 'Whether to refresh the UI',
+                    default: true,
                 },
                 refIDs: {
                     // 仅转移指定块的块引用目标

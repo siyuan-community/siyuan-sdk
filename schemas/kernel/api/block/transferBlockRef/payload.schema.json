@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/transferBlockRef/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.0.2",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -23,6 +23,11 @@
                     "type": "string",
                     "description": "Target block ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "reloadUI": {
+                    "type": "boolean",
+                    "description": "Whether to refresh the UI",
+                    "default": true
                 },
                 "refIDs": {
                     "oneOf": [

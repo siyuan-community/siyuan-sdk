@@ -26,6 +26,10 @@ export interface IPayload {
     fromID:  string;
     refIDs?: string[] | null;
     /**
+     * Whether to refresh the UI
+     */
+    reloadUI?: boolean;
+    /**
      * Target block ID
      */
     toID: string;

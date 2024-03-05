@@ -4,6 +4,7 @@
 - 添加 API `/api/system/logoutAuth` | Add API `/api/system/logoutAuth`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 完善 API `/api/system/getConf` | Perfect API `/api/system/getConf`
+- 调整 API `/api/block/transferBlockRef` | Adjust API `/api/block/transferBlockRef`
 
 ## v0.3.7 / 2024-01-24
 

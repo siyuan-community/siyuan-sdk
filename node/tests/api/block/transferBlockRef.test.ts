@@ -98,6 +98,7 @@ describe.concurrent(pathname, async () => {
                 fromID: context.block,
                 toID: context.document,
                 refIDs: null,
+                reloadUI: false,
             },
             debug: false,
         });

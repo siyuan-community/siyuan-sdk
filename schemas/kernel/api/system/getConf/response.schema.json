@@ -197,7 +197,9 @@
                     "$ref": "#/$defs/stat"
                 },
                 "sync": {},
-                "system": {},
+                "system": {
+                    "$ref": "#/$defs/system"
+                },
                 "tag": {
                     "$ref": "#/$defs/tag"
                 },
@@ -891,6 +893,166 @@
                 "treeCount": {
                     "type": "integer",
                     "description": "Number of content block trees (number of documents)"
+                }
+            }
+        },
+        "system": {
+            "title": "ISystem",
+            "type": "object",
+            "description": "System related information",
+            "additionalProperties": false,
+            "required": [
+                "appDir",
+                "autoLaunch",
+                "confDir",
+                "container",
+                "dataDir",
+                "disableGoogleAnalytics",
+                "downloadInstallPkg",
+                "homeDir",
+                "id",
+                "isInsider",
+                "isMicrosoftStore",
+                "kernelVersion",
+                "lockScreenMode",
+                "name",
+                "networkProxy",
+                "networkServe",
+                "os",
+                "osPlatform",
+                "uploadErrLog",
+                "workspaceDir"
+            ],
+            "properties": {
+                "appDir": {
+                    "type": "string",
+                    "description": "The absolute path of the `resources` directory under the SiYuan installation directory"
+                },
+                "autoLaunch": {
+                    "type": "boolean",
+                    "description": "Boot automatically"
+                },
+                "confDir": {
+                    "type": "string",
+                    "description": "The absolute path of the `conf` directory of the current workspace"
+                },
+                "container": {
+                    "type": "string",
+                    "description": "Kernel operating environment\n- `docker`: Docker container\n- `android`: Android device\n- `ios`: iOS device\n- `std`: Desktop Electron environment",
+                    "enum": [
+                        "docker",
+                        "android",
+                        "ios",
+                        "std"
+                    ]
+                },
+                "dataDir": {
+                    "type": "string",
+                    "description": "The absolute path of the `data` directory of the current workspace"
+                },
+                "disableGoogleAnalytics": {
+                    "type": "boolean",
+                    "description": "Whether to disable Google Analytics"
+                },
+                "downloadInstallPkg": {
+                    "type": "boolean",
+                    "description": "Whether to automatically download the installation package for the new version"
+                },
+                "homeDir": {
+                    "type": "string",
+                    "description": "The absolute path of the user's home directory for the current operating system user"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The UUID of the current session",
+                    "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+                },
+                "isInsider": {
+                    "type": "boolean",
+                    "description": "Whether the current version is an internal test version"
+                },
+                "isMicrosoftStore": {
+                    "type": "boolean",
+                    "description": "Whether the current version is a Microsoft Store version"
+                },
+                "kernelVersion": {
+                    "type": "string",
+                    "description": "Kernel version number",
+                    "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                },
+                "lockScreenMode": {
+                    "type": "integer",
+                    "description": "Lock screen mode\n- `0`: Manual\n- `1`: Manual + Follow the operating system",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the current device"
+                },
+                "networkProxy": {
+                    "$ref": "#/$defs/networkProxy"
+                },
+                "networkServe": {
+                    "type": "boolean",
+                    "description": "Whether to enable network serve (whether to allow connections from other devices)"
+                },
+                "os": {
+                    "type": "string",
+                    "description": "The operating system name determined at compile time (obtained using the command `go tool dist list`)\n- `android`: Android\n- `darwin`: macOS\n- `ios`: iOS\n- `linux`: Linux\n- `windows`: Windows",
+                    "enum": [
+                        "android",
+                        "darwin",
+                        "ios",
+                        "linux",
+                        "windows"
+                    ]
+                },
+                "osPlatform": {
+                    "type": "string",
+                    "description": "Operating system platform name"
+                },
+                "uploadErrLog": {
+                    "type": "boolean",
+                    "description": "Whether to upload error logs"
+                },
+                "workspaceDir": {
+                    "type": "string",
+                    "description": "The absolute path of the workspace directory"
+                }
+            }
+        },
+        "networkProxy": {
+            "title": "INetworkProxy",
+            "type": "object",
+            "description": "SiYuan Network proxy configuration",
+            "additionalProperties": false,
+            "required": [
+                "host",
+                "port",
+                "scheme"
+            ],
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "description": "Host name or host address"
+                },
+                "port": {
+                    "type": "string",
+                    "description": "Proxy server port number",
+                    "pattern": "^\\d+$"
+                },
+                "scheme": {
+                    "type": "string",
+                    "description": "The protocol used by the proxy server\n- Empty String: Use the system proxy settings\n- `http`: HTTP\n- `https`: HTTPS\n- `socks5`: SOCKS5",
+                    "enum": [
+                        "",
+                        "http",
+                        "https",
+                        "socks5"
+                    ]
                 }
             }
         },

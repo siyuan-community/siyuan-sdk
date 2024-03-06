@@ -198,7 +198,8 @@
                     // TODO
                 },
                 system: {
-                    // TODO
+                    // 系统相关信息
+                    $ref: '#/$defs/system',
                 },
                 tag: {
                     // 思源标签面板相关设置项
@@ -869,6 +870,166 @@
                     // 内容块树数量 (文档数量)
                     type: 'integer',
                     description: 'Number of content block trees (number of documents)',
+                },
+            },
+        },
+        system: {
+            title: 'ISystem',
+            type: 'object',
+
+            description: 'System related information',
+            additionalProperties: false,
+            required: ['appDir', 'autoLaunch', 'confDir', 'container', 'dataDir', 'disableGoogleAnalytics', 'downloadInstallPkg', 'homeDir', 'id', 'isInsider', 'isMicrosoftStore', 'kernelVersion', 'lockScreenMode', 'name', 'networkProxy', 'networkServe', 'os', 'osPlatform', 'uploadErrLog', 'workspaceDir'],
+            properties: {
+                appDir: {
+                    // 思源安装目录下的 `resources` 目录的绝对路径
+                    type: 'string',
+                    description: 'The absolute path of the `resources` directory under the SiYuan installation directory',
+                },
+                autoLaunch: {
+                    // 开机自启动
+                    type: 'boolean',
+                    description: 'Boot automatically',
+                },
+                confDir: {
+                    // 当前工作空间 `conf` 目录的绝对路径
+                    type: 'string',
+                    description: 'The absolute path of the `conf` directory of the current workspace',
+                },
+                container: {
+                    // 内核运行环境
+                    type: 'string',
+                    description: 'Kernel operating environment\n- `docker`: Docker container\n- `android`: Android device\n- `ios`: iOS device\n- `std`: Desktop Electron environment',
+                    enum: [
+                        'docker', // Docker 容器
+                        'android', // Android 设备
+                        'ios', // iOS 设备
+                        'std', // 桌面端 Electron 环境
+                    ],
+                },
+                dataDir: {
+                    // 当前工作空间 `data` 目录的绝对路径
+                    type: 'string',
+                    description: 'The absolute path of the `data` directory of the current workspace',
+                },
+                disableGoogleAnalytics: {
+                    // 是否禁用 Google Analytics
+                    type: 'boolean',
+                    description: 'Whether to disable Google Analytics',
+                },
+                downloadInstallPkg: {
+                    // 是否自动下载新版本的安装包
+                    type: 'boolean',
+                    description: 'Whether to automatically download the installation package for the new version',
+                },
+                homeDir: {
+                    // 当前操作系统用户的用户主目录的绝对路径
+                    type: 'string',
+                    description: "The absolute path of the user's home directory for the current operating system user",
+                },
+                id: {
+                    // 当前会话的 UUID
+                    type: 'string',
+                    description: 'The UUID of the current session',
+                    pattern: '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$',
+                },
+                isInsider: {
+                    // 当前版本是否是内部测试版
+                    type: 'boolean',
+                    description: 'Whether the current version is an internal test version',
+                },
+                isMicrosoftStore: {
+                    // 当前版本是否为微软商店版
+                    type: 'boolean',
+                    description: 'Whether the current version is a Microsoft Store version',
+                },
+                kernelVersion: {
+                    // 内核版本号
+                    type: 'string',
+                    description: 'Kernel version number',
+                    pattern: '^\\d+\\.\\d+\\.\\d+$',
+                },
+                lockScreenMode: {
+                    // 锁屏模式
+                    type: 'integer',
+                    description: 'Lock screen mode\n- `0`: Manual\n- `1`: Manual + Follow the operating system',
+                    enum: [
+                        0, // 手动
+                        1, // 手动 + 跟随操作系统
+                    ],
+                },
+                name: {
+                    // 当前设备名称
+                    type: 'string',
+                    description: 'The name of the current device',
+                },
+                networkProxy: {
+                    // 网络代理配置
+                    $ref: '#/$defs/networkProxy',
+                },
+                networkServe: {
+                    // 是否开启网络伺服 (是否允许来自其他设备的连接)
+                    type: 'boolean',
+                    description: 'Whether to enable network serve (whether to allow connections from other devices)',
+                },
+                os: {
+                    // 编译时确定的操作系统名称 (使用命令 `go tool dist list` 获取)
+                    type: 'string',
+                    description: 'The operating system name determined at compile time (obtained using the command `go tool dist list`)\n- `android`: Android\n- `darwin`: macOS\n- `ios`: iOS\n- `linux`: Linux\n- `windows`: Windows',
+                    enum: [
+                        'android', // Android
+                        'darwin', // macOS
+                        'ios', // iOS
+                        'linux', // Linux
+                        'windows', // Windows
+                    ],
+                },
+                osPlatform: {
+                    // 操作系统平台名称
+                    type: 'string',
+                    description: 'Operating system platform name',
+                },
+                uploadErrLog: {
+                    // 是否上传错误日志
+                    type: 'boolean',
+                    description: 'Whether to upload error logs',
+                },
+                workspaceDir: {
+                    // 工作空间目录的绝对路径
+                    type: 'string',
+                    description: 'The absolute path of the workspace directory',
+                },
+            },
+        },
+        networkProxy: {
+            title: 'INetworkProxy',
+            type: 'object',
+
+            description: 'SiYuan Network proxy configuration',
+            additionalProperties: false,
+            required: ['host', 'port', 'scheme'],
+            properties: {
+                host: {
+                    // 主机名或主机地址
+                    type: 'string',
+                    description: 'Host name or host address',
+                },
+                port: {
+                    // 代理服务端口号
+                    type: 'string',
+                    description: 'Proxy server port number',
+                    pattern: '^\\d+$',
+                },
+                scheme: {
+                    // 代理服务所使用的协议
+                    type: 'string',
+                    description: 'The protocol used by the proxy server\n- Empty String: Use the system proxy settings\n- `http`: HTTP\n- `https`: HTTPS\n- `socks5`: SOCKS5',
+                    enum: [
+                        '', // 使用系统代理设置
+                        'http', // HTTP
+                        'https', // HTTPS
+                        'socks5', // SOCKS5
+                    ],
                 },
             },
         },

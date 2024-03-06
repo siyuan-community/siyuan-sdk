@@ -98,7 +98,7 @@ export interface IConf {
     snippet:       ISnippet;
     stat:          IStat;
     sync:          any;
-    system:        any;
+    system:        ISystem;
     tag:           ITag;
     uiLayout:      any;
     /**
@@ -597,6 +597,152 @@ export interface IStat {
      */
     treeCount: number;
 }
+
+/**
+ * System related information
+ */
+export interface ISystem {
+    /**
+     * The absolute path of the `resources` directory under the SiYuan installation directory
+     */
+    appDir: string;
+    /**
+     * Boot automatically
+     */
+    autoLaunch: boolean;
+    /**
+     * The absolute path of the `conf` directory of the current workspace
+     */
+    confDir: string;
+    /**
+     * Kernel operating environment
+     * - `docker`: Docker container
+     * - `android`: Android device
+     * - `ios`: iOS device
+     * - `std`: Desktop Electron environment
+     */
+    container: Container;
+    /**
+     * The absolute path of the `data` directory of the current workspace
+     */
+    dataDir: string;
+    /**
+     * Whether to disable Google Analytics
+     */
+    disableGoogleAnalytics: boolean;
+    /**
+     * Whether to automatically download the installation package for the new version
+     */
+    downloadInstallPkg: boolean;
+    /**
+     * The absolute path of the user's home directory for the current operating system user
+     */
+    homeDir: string;
+    /**
+     * The UUID of the current session
+     */
+    id: string;
+    /**
+     * Whether the current version is an internal test version
+     */
+    isInsider: boolean;
+    /**
+     * Whether the current version is a Microsoft Store version
+     */
+    isMicrosoftStore: boolean;
+    /**
+     * Kernel version number
+     */
+    kernelVersion: string;
+    /**
+     * Lock screen mode
+     * - `0`: Manual
+     * - `1`: Manual + Follow the operating system
+     */
+    lockScreenMode: number;
+    /**
+     * The name of the current device
+     */
+    name:         string;
+    networkProxy: INetworkProxy;
+    /**
+     * Whether to enable network serve (whether to allow connections from other devices)
+     */
+    networkServe: boolean;
+    /**
+     * The operating system name determined at compile time (obtained using the command `go tool
+     * dist list`)
+     * - `android`: Android
+     * - `darwin`: macOS
+     * - `ios`: iOS
+     * - `linux`: Linux
+     * - `windows`: Windows
+     */
+    os: OS;
+    /**
+     * Operating system platform name
+     */
+    osPlatform: string;
+    /**
+     * Whether to upload error logs
+     */
+    uploadErrLog: boolean;
+    /**
+     * The absolute path of the workspace directory
+     */
+    workspaceDir: string;
+}
+
+/**
+ * Kernel operating environment
+ * - `docker`: Docker container
+ * - `android`: Android device
+ * - `ios`: iOS device
+ * - `std`: Desktop Electron environment
+ */
+export type Container = "docker" | "android" | "ios" | "std";
+
+/**
+ * SiYuan Network proxy configuration
+ */
+export interface INetworkProxy {
+    /**
+     * Host name or host address
+     */
+    host: string;
+    /**
+     * Proxy server port number
+     */
+    port: string;
+    /**
+     * The protocol used by the proxy server
+     * - Empty String: Use the system proxy settings
+     * - `http`: HTTP
+     * - `https`: HTTPS
+     * - `socks5`: SOCKS5
+     */
+    scheme: Scheme;
+}
+
+/**
+ * The protocol used by the proxy server
+ * - Empty String: Use the system proxy settings
+ * - `http`: HTTP
+ * - `https`: HTTPS
+ * - `socks5`: SOCKS5
+ */
+export type Scheme = "" | "http" | "https" | "socks5";
+
+/**
+ * The operating system name determined at compile time (obtained using the command `go tool
+ * dist list`)
+ * - `android`: Android
+ * - `darwin`: macOS
+ * - `ios`: iOS
+ * - `linux`: Linux
+ * - `windows`: Windows
+ */
+export type OS = "android" | "darwin" | "ios" | "linux" | "windows";
 
 /**
  * SiYuan tag dock related configuration

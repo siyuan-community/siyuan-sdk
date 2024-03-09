@@ -195,7 +195,8 @@
                     $ref: '#/$defs/stat',
                 },
                 sync: {
-                    // TODO
+                    // 同步相关设置项
+                    $ref: '#/$defs/sync',
                 },
                 system: {
                     // 系统相关信息
@@ -870,6 +871,164 @@
                     // 内容块树数量 (文档数量)
                     type: 'integer',
                     description: 'Number of content block trees (number of documents)',
+                },
+            },
+        },
+        sync: {
+            title: 'ISync',
+            type: 'object',
+
+            description: 'SiYuan synchronization related configuration',
+            additionalProperties: false,
+            required: ['cloudName', 'enabled', 'generateConflictDoc', 'mode', 'perception', 'provider', 's3', 'stat', 'synced', 'webdav'],
+            properties: {
+                cloudName: {
+                    // 云工作空间名称
+                    type: 'string',
+                    description: 'Cloud workspace name',
+                },
+                enabled: {
+                    // 是否启用同步功能
+                    type: 'boolean',
+                    description: 'Whether to enable synchronization',
+                },
+                generateConflictDoc: {
+                    // 同步出现冲突时是否创建冲突文档
+                    type: 'boolean',
+                    description: 'Whether to create a conflict document when a conflict occurs during synchronization',
+                },
+                mode: {
+                    // 同步模式
+                    type: 'integer',
+                    description: 'Synchronization mode\n- `0`: Not set\n- `1`: Automatic synchronization\n- `2`: Manual synchronization\n- `3`: Completely manual synchronization',
+                    enum: [
+                        0, // 未设置
+                        1, // 自动同步
+                        2, // 手动同步
+                        3, // 完全手动同步
+                    ],
+                },
+                perception: {
+                    // 是否启用同步感知功能
+                    type: 'boolean',
+                    description: 'Whether to enable synchronization perception',
+                },
+                provider: {
+                    // 云端存储服务提供者
+                    type: 'integer',
+                    description: 'Cloud storage service provider\n- `0`: SiYuan official cloud storage service\n- `1`: Object storage service compatible with S3 protocol\n- `2`: Network storage service using WebDAV protocol',
+                    enum: [
+                        0, // 思源官方提供的云端存储服务
+                        1, // 兼容 S3 协议的对象存储服务
+                        2, // 使用 WebDAV 协议的网络存储服务
+                    ],
+                },
+                s3: {
+                    // TODO: S3 兼容对象存储相关设置项
+                    $ref: '#/$defs/s3',
+                },
+                stat: {
+                    // 最近一次同步的提示信息
+                    type: 'string',
+                    description: 'The prompt information of the last synchronization',
+                },
+                synced: {
+                    // 最近一次同步的时间 (Unix 时间戳)
+                    type: 'integer',
+                    description: 'The time of the last synchronization (Unix timestamp)',
+                    examples: [1700000000000],
+                },
+                webdav: {
+                    // WebDAV 相关设置项
+                    $ref: '#/$defs/webdav',
+                },
+            },
+        },
+        s3: {
+            title: 'IS3',
+            type: 'object',
+
+            description: 'S3 compatible object storage related configuration',
+            additionalProperties: false,
+            required: ['accessKey', 'bucket', 'endpoint', 'pathStyle', 'region', 'secretKey', 'skipTlsVerify', 'timeout'],
+            properties: {
+                accessKey: {
+                    // 访问密钥
+                    type: 'string',
+                    description: 'Access key',
+                },
+                bucket: {
+                    // 存储桶名
+                    type: 'string',
+                    description: 'Bucket name',
+                },
+                endpoint: {
+                    // 服务端点地址
+                    type: 'string',
+                    description: 'Service endpoint address',
+                    format: 'uri',
+                },
+                pathStyle: {
+                    // 是否使用路径风格的 URL
+                    type: 'boolean',
+                    description: 'Whether to use path-style URLs',
+                },
+                region: {
+                    // 存储区域
+                    type: 'string',
+                    description: 'Storage region',
+                },
+                secretKey: {
+                    // 安全密钥
+                    type: 'string',
+                    description: 'Security key',
+                },
+                skipTlsVerify: {
+                    // 是否跳过 TLS 验证
+                    type: 'boolean',
+                    description: 'Whether to skip TLS verification',
+                },
+                timeout: {
+                    // 超时时间 (单位: 秒)
+                    type: 'integer',
+                    description: 'Timeout (unit: seconds)',
+                },
+            },
+        },
+        webdav: {
+            title: 'IWebDAV',
+            type: 'object',
+
+            description: 'WebDAV related configuration',
+            additionalProperties: false,
+            required: ['endpoint', 'username', 'password', 'skipTlsVerify', 'timeout'],
+            properties: {
+                endpoint: {
+                    // 服务端点
+                    type: 'string',
+                    description: 'Service endpoint',
+                    format: 'uri',
+                    examples: ['https://webdav.example.com/siyuan/'],
+                },
+                password: {
+                    // 密码
+                    type: 'string',
+                    description: 'Password',
+                },
+                skipTlsVerify: {
+                    // 是否跳过 TLS 验证
+                    type: 'boolean',
+                    description: 'Whether to skip TLS verification',
+                },
+                timeout: {
+                    // 超时时间 (单位: 秒)
+                    type: 'integer',
+                    description: 'Timeout (unit: seconds)',
+                },
+                username: {
+                    // 用户名
+                    type: 'string',
+                    description: 'Username',
                 },
             },
         },

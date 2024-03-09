@@ -97,7 +97,7 @@ export interface IConf {
     showChangelog: boolean;
     snippet:       ISnippet;
     stat:          IStat;
-    sync:          any;
+    sync:          ISync;
     system:        ISystem;
     tag:           ITag;
     uiLayout:      any;
@@ -596,6 +596,117 @@ export interface IStat {
      * Number of content block trees (number of documents)
      */
     treeCount: number;
+}
+
+/**
+ * SiYuan synchronization related configuration
+ */
+export interface ISync {
+    /**
+     * Cloud workspace name
+     */
+    cloudName: string;
+    /**
+     * Whether to enable synchronization
+     */
+    enabled: boolean;
+    /**
+     * Whether to create a conflict document when a conflict occurs during synchronization
+     */
+    generateConflictDoc: boolean;
+    /**
+     * Synchronization mode
+     * - `0`: Not set
+     * - `1`: Automatic synchronization
+     * - `2`: Manual synchronization
+     * - `3`: Completely manual synchronization
+     */
+    mode: number;
+    /**
+     * Whether to enable synchronization perception
+     */
+    perception: boolean;
+    /**
+     * Cloud storage service provider
+     * - `0`: SiYuan official cloud storage service
+     * - `1`: Object storage service compatible with S3 protocol
+     * - `2`: Network storage service using WebDAV protocol
+     */
+    provider: number;
+    s3:       Is3;
+    /**
+     * The prompt information of the last synchronization
+     */
+    stat: string;
+    /**
+     * The time of the last synchronization (Unix timestamp)
+     */
+    synced: number;
+    webdav: IWebDAV;
+}
+
+/**
+ * S3 compatible object storage related configuration
+ */
+export interface Is3 {
+    /**
+     * Access key
+     */
+    accessKey: string;
+    /**
+     * Bucket name
+     */
+    bucket: string;
+    /**
+     * Service endpoint address
+     */
+    endpoint: string;
+    /**
+     * Whether to use path-style URLs
+     */
+    pathStyle: boolean;
+    /**
+     * Storage region
+     */
+    region: string;
+    /**
+     * Security key
+     */
+    secretKey: string;
+    /**
+     * Whether to skip TLS verification
+     */
+    skipTlsVerify: boolean;
+    /**
+     * Timeout (unit: seconds)
+     */
+    timeout: number;
+}
+
+/**
+ * WebDAV related configuration
+ */
+export interface IWebDAV {
+    /**
+     * Service endpoint
+     */
+    endpoint: string;
+    /**
+     * Password
+     */
+    password: string;
+    /**
+     * Whether to skip TLS verification
+     */
+    skipTlsVerify: boolean;
+    /**
+     * Timeout (unit: seconds)
+     */
+    timeout: number;
+    /**
+     * Username
+     */
+    username: string;
 }
 
 /**

@@ -196,7 +196,9 @@
                 "stat": {
                     "$ref": "#/$defs/stat"
                 },
-                "sync": {},
+                "sync": {
+                    "$ref": "#/$defs/sync"
+                },
                 "system": {
                     "$ref": "#/$defs/system"
                 },
@@ -893,6 +895,168 @@
                 "treeCount": {
                     "type": "integer",
                     "description": "Number of content block trees (number of documents)"
+                }
+            }
+        },
+        "sync": {
+            "title": "ISync",
+            "type": "object",
+            "description": "SiYuan synchronization related configuration",
+            "additionalProperties": false,
+            "required": [
+                "cloudName",
+                "enabled",
+                "generateConflictDoc",
+                "mode",
+                "perception",
+                "provider",
+                "s3",
+                "stat",
+                "synced",
+                "webdav"
+            ],
+            "properties": {
+                "cloudName": {
+                    "type": "string",
+                    "description": "Cloud workspace name"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether to enable synchronization"
+                },
+                "generateConflictDoc": {
+                    "type": "boolean",
+                    "description": "Whether to create a conflict document when a conflict occurs during synchronization"
+                },
+                "mode": {
+                    "type": "integer",
+                    "description": "Synchronization mode\n- `0`: Not set\n- `1`: Automatic synchronization\n- `2`: Manual synchronization\n- `3`: Completely manual synchronization",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ]
+                },
+                "perception": {
+                    "type": "boolean",
+                    "description": "Whether to enable synchronization perception"
+                },
+                "provider": {
+                    "type": "integer",
+                    "description": "Cloud storage service provider\n- `0`: SiYuan official cloud storage service\n- `1`: Object storage service compatible with S3 protocol\n- `2`: Network storage service using WebDAV protocol",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ]
+                },
+                "s3": {
+                    "$ref": "#/$defs/s3"
+                },
+                "stat": {
+                    "type": "string",
+                    "description": "The prompt information of the last synchronization"
+                },
+                "synced": {
+                    "type": "integer",
+                    "description": "The time of the last synchronization (Unix timestamp)",
+                    "examples": [
+                        1700000000000
+                    ]
+                },
+                "webdav": {
+                    "$ref": "#/$defs/webdav"
+                }
+            }
+        },
+        "s3": {
+            "title": "IS3",
+            "type": "object",
+            "description": "S3 compatible object storage related configuration",
+            "additionalProperties": false,
+            "required": [
+                "accessKey",
+                "bucket",
+                "endpoint",
+                "pathStyle",
+                "region",
+                "secretKey",
+                "skipTlsVerify",
+                "timeout"
+            ],
+            "properties": {
+                "accessKey": {
+                    "type": "string",
+                    "description": "Access key"
+                },
+                "bucket": {
+                    "type": "string",
+                    "description": "Bucket name"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "Service endpoint address",
+                    "format": "uri"
+                },
+                "pathStyle": {
+                    "type": "boolean",
+                    "description": "Whether to use path-style URLs"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Storage region"
+                },
+                "secretKey": {
+                    "type": "string",
+                    "description": "Security key"
+                },
+                "skipTlsVerify": {
+                    "type": "boolean",
+                    "description": "Whether to skip TLS verification"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "Timeout (unit: seconds)"
+                }
+            }
+        },
+        "webdav": {
+            "title": "IWebDAV",
+            "type": "object",
+            "description": "WebDAV related configuration",
+            "additionalProperties": false,
+            "required": [
+                "endpoint",
+                "username",
+                "password",
+                "skipTlsVerify",
+                "timeout"
+            ],
+            "properties": {
+                "endpoint": {
+                    "type": "string",
+                    "description": "Service endpoint",
+                    "format": "uri",
+                    "examples": [
+                        "https://webdav.example.com/siyuan/"
+                    ]
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Password"
+                },
+                "skipTlsVerify": {
+                    "type": "boolean",
+                    "description": "Whether to skip TLS verification"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "Timeout (unit: seconds)"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Username"
                 }
             }
         },

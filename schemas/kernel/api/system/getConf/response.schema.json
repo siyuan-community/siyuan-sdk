@@ -122,10 +122,19 @@
                 "export": {
                     "$ref": "#/$defs/export"
                 },
-                "fileTree": {},
+                "fileTree": {
+                    "$ref": "#/$defs/export"
+                },
                 "flashcard": {},
                 "graph": {},
                 "keymap": {},
+                "langs": {
+                    "type": "array",
+                    "description": "List of supported languages",
+                    "items": {
+                        "$ref": "#/$defs/lang"
+                    }
+                },
                 "lang": {
                     "title": "TLang",
                     "type": "string",
@@ -137,13 +146,6 @@
                         "zh_CHT",
                         "zh_CN"
                     ]
-                },
-                "langs": {
-                    "type": "array",
-                    "description": "List of supported languages",
-                    "items": {
-                        "$ref": "#/$defs/lang"
-                    }
                 },
                 "localIPs": {
                     "type": "array",
@@ -773,6 +775,90 @@
                 "imageWatermarkDesc": {
                     "type": "string",
                     "description": "Custom watermark position, size, style, etc. when exporting to an image"
+                }
+            }
+        },
+        "fileTree": {
+            "title": "IFileTree",
+            "type": "object",
+            "description": "Document tree related configuration",
+            "additionalProperties": false,
+            "required": [
+                "allowCreateDeeper",
+                "alwaysSelectOpenedFile",
+                "closeTabsOnStart",
+                "docCreateSavePath",
+                "maxListCount",
+                "maxOpenTabCount",
+                "openFilesUseCurrentTab",
+                "refCreateSavePath",
+                "removeDocWithoutConfirm",
+                "sort",
+                "useSingleLineSave"
+            ],
+            "properties": {
+                "allowCreateDeeper": {
+                    "type": "boolean",
+                    "description": "Whether to allow the creation of sub-documents deeper than 7 levels"
+                },
+                "alwaysSelectOpenedFile": {
+                    "type": "boolean",
+                    "description": "Whether to automatically locate the currently open document in the document tree"
+                },
+                "closeTabsOnStart": {
+                    "type": "boolean",
+                    "description": "Whether to close all tabs when starting"
+                },
+                "docCreateSavePath": {
+                    "type": "string",
+                    "description": "The storage path of the new document"
+                },
+                "maxListCount": {
+                    "type": "integer",
+                    "description": "The maximum number of documents listed"
+                },
+                "maxOpenTabCount": {
+                    "type": "integer",
+                    "description": "The maximum number of open tabs"
+                },
+                "openFilesUseCurrentTab": {
+                    "type": "boolean",
+                    "description": "Whether to open the file in the current tab"
+                },
+                "refCreateSavePath": {
+                    "type": "string",
+                    "description": "The storage path of the new document created using block references"
+                },
+                "removeDocWithoutConfirm": {
+                    "type": "boolean",
+                    "description": "Close the secondary confirmation when deleting a document"
+                },
+                "sort": {
+                    "type": "integer",
+                    "description": "Document sorting method\n- `0`: File name ascending\n- `1`: File name descending\n- `2`: File update time ascending\n- `3`: File update time descending\n- `4`: File name natural number ascending\n- `5`: File name natural number descending\n- `6`: Custom sorting\n- `7`: Reference count ascending\n- `8`: Reference count descending\n- `9`: File creation time ascending\n- `10`: File creation time descending\n- `11`: File size ascending\n- `12`: File size descending\n- `13`: Sub-document count ascending\n- `14`: Sub-document count descending\n- `15`: Use document tree sorting rules\n- `256`: Unspecified sorting rules, according to the notebook priority over the document tree to obtain sorting rules",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        256
+                    ]
+                },
+                "useSingleLineSave": {
+                    "type": "boolean",
+                    "description": "Whether to save the content of the .sy file as a single-line JSON object"
                 }
             }
         },

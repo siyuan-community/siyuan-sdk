@@ -60,7 +60,7 @@ export interface IConf {
     cloudRegion: number;
     editor:      IEditor;
     export:      IExport;
-    fileTree:    any;
+    fileTree:    IExport;
     flashcard:   any;
     graph:       any;
     keymap:      any;

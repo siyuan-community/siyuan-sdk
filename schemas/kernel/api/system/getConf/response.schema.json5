@@ -101,7 +101,8 @@
                     $ref: '#/$defs/export',
                 },
                 fileTree: {
-                    // TODO
+                    // 文档树相关设置项
+                    $ref: '#/$defs/export',
                 },
                 flashcard: {
                     // TODO
@@ -111,6 +112,14 @@
                 },
                 keymap: {
                     // TODO
+                },
+                langs: {
+                    // 支持的语言列表
+                    type: 'array',
+                    description: 'List of supported languages',
+                    items: {
+                        $ref: '#/$defs/lang',
+                    },
                 },
                 lang: {
                     // 界面语言
@@ -124,14 +133,6 @@
                         'zh_CHT', // 繁体中文
                         'zh_CN', // 简体中文
                     ],
-                },
-                langs: {
-                    // 支持的语言列表
-                    type: 'array',
-                    description: 'List of supported languages',
-                    items: {
-                        $ref: '#/$defs/lang',
-                    },
                 },
                 localIPs: {
                     // 内核所在设备 IP 列表
@@ -760,6 +761,90 @@
                 },
             },
         },
+        fileTree: {
+            title: 'IFileTree',
+            type: 'object',
+
+            description: 'Document tree related configuration',
+            additionalProperties: false,
+            required: ['allowCreateDeeper', 'alwaysSelectOpenedFile', 'closeTabsOnStart', 'docCreateSavePath', 'maxListCount', 'maxOpenTabCount', 'openFilesUseCurrentTab', 'refCreateSavePath', 'removeDocWithoutConfirm', 'sort', 'useSingleLineSave'],
+            properties: {
+                allowCreateDeeper: {
+                    // 是否允许创建超过 7 层深度的子文档
+                    type: 'boolean',
+                    description: 'Whether to allow the creation of sub-documents deeper than 7 levels',
+                },
+                alwaysSelectOpenedFile: {
+                    // 是否在文档树中自动定位当前打开的文档
+                    type: 'boolean',
+                    description: 'Whether to automatically locate the currently open document in the document tree',
+                },
+                closeTabsOnStart: {
+                    // 是否在启动时关闭所有页签
+                    type: 'boolean',
+                    description: 'Whether to close all tabs when starting',
+                },
+                docCreateSavePath: {
+                    // 新建文档的存储路径
+                    type: 'string',
+                    description: 'The storage path of the new document',
+                },
+                maxListCount: {
+                    // 文档的最大列出数量
+                    type: 'integer',
+                    description: 'The maximum number of documents listed',
+                },
+                maxOpenTabCount: {
+                    // 最大打开页签数量
+                    type: 'integer',
+                    description: 'The maximum number of open tabs',
+                },
+                openFilesUseCurrentTab: {
+                    // 是否在当前页签打开文件
+                    type: 'boolean',
+                    description: 'Whether to open the file in the current tab',
+                },
+                refCreateSavePath: {
+                    // 使用块引用新建文档的存储路径
+                    type: 'string',
+                    description: 'The storage path of the new document created using block references',
+                },
+                removeDocWithoutConfirm: {
+                    // 关闭删除文档时的二次确认
+                    type: 'boolean',
+                    description: 'Close the secondary confirmation when deleting a document',
+                },
+                sort: {
+                    // 文档排序方式
+                    type: 'integer',
+                    description: 'Document sorting method\n- `0`: File name ascending\n- `1`: File name descending\n- `2`: File update time ascending\n- `3`: File update time descending\n- `4`: File name natural number ascending\n- `5`: File name natural number descending\n- `6`: Custom sorting\n- `7`: Reference count ascending\n- `8`: Reference count descending\n- `9`: File creation time ascending\n- `10`: File creation time descending\n- `11`: File size ascending\n- `12`: File size descending\n- `13`: Sub-document count ascending\n- `14`: Sub-document count descending\n- `15`: Use document tree sorting rules\n- `256`: Unspecified sorting rules, according to the notebook priority over the document tree to obtain sorting rules',
+                    enum: [
+                        0, // 文件名字母升序
+                        1, // 文件名字母降序
+                        2, // 文件更新时间升序
+                        3, // 文件更新时间降序
+                        4, // 文件名自然数升序
+                        5, // 文件名自然数降序
+                        6, // 自定义排序
+                        7, // 引用数升序
+                        8, // 引用数降序
+                        9, // 文件创建时间升序
+                        10, // 文件创建时间降序
+                        11, // 文件大小升序
+                        12, // 文件大小降序
+                        13, // 子文档数升序
+                        14, // 子文档数降序
+                        15, // 使用文档树排序规则
+                        256, // 未指定排序规则，按照笔记本优先于文档树获取排序规则
+                    ],
+                },
+                useSingleLineSave: {
+                    // 是否将 .sy 文件的内容保存为单行的 JSON 对象
+                    type: 'boolean',
+                    description: 'Whether to save the content of the .sy file as a single-line JSON object',
+                },
+            },
+        },
         lang: {
             title: 'ILang',
             type: 'object',
@@ -924,7 +1009,7 @@
                     ],
                 },
                 s3: {
-                    // TODO: S3 兼容对象存储相关设置项
+                    // S3 兼容对象存储相关设置项
                     $ref: '#/$defs/s3',
                 },
                 stat: {

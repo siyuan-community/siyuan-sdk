@@ -61,7 +61,7 @@ export interface IConf {
     editor:      IEditor;
     export:      IExport;
     fileTree:    IExport;
-    flashcard:   any;
+    flashcard:   IFlashCard;
     graph:       any;
     keymap:      any;
     /**
@@ -510,6 +510,59 @@ export interface IExport {
      * Tag start marker symbol
      */
     tagOpenMarker: string;
+}
+
+/**
+ * Flashcard related configuration
+ */
+export interface IFlashCard {
+    /**
+     * Whether to enable deck card making
+     */
+    deck: boolean;
+    /**
+     * Whether to enable heading block card making
+     */
+    heading: boolean;
+    /**
+     * Whether to enable list block card making
+     */
+    list: boolean;
+    /**
+     * Whether to enable mark element card making
+     */
+    mark: boolean;
+    /**
+     * Maximum interval days
+     */
+    maximumInterval: number;
+    /**
+     * New card limit
+     */
+    newCardLimit: number;
+    /**
+     * FSRS request retention parameter
+     */
+    requestRetention: number;
+    /**
+     * Review card limit
+     */
+    reviewCardLimit: number;
+    /**
+     * Review mode
+     * - `0`: New and old mixed
+     * - `1`: New card priority
+     * - `2`: Old card priority
+     */
+    reviewMode: number;
+    /**
+     * Whether to enable super block card making
+     */
+    superBlock: boolean;
+    /**
+     * FSRS weight parameter list
+     */
+    weights: string;
 }
 
 /**

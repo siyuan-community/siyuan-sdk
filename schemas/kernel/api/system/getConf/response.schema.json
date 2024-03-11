@@ -125,7 +125,9 @@
                 "fileTree": {
                     "$ref": "#/$defs/export"
                 },
-                "flashcard": {},
+                "flashcard": {
+                    "$ref": "#/$defs/flashcard"
+                },
                 "graph": {},
                 "keymap": {},
                 "langs": {
@@ -859,6 +861,76 @@
                 "useSingleLineSave": {
                     "type": "boolean",
                     "description": "Whether to save the content of the .sy file as a single-line JSON object"
+                }
+            }
+        },
+        "flashcard": {
+            "title": "IFlashCard",
+            "type": "object",
+            "description": "Flashcard related configuration",
+            "additionalProperties": false,
+            "required": [
+                "deck",
+                "heading",
+                "list",
+                "mark",
+                "maximumInterval",
+                "newCardLimit",
+                "requestRetention",
+                "reviewCardLimit",
+                "reviewMode",
+                "superBlock",
+                "weights"
+            ],
+            "properties": {
+                "deck": {
+                    "type": "boolean",
+                    "description": "Whether to enable deck card making"
+                },
+                "heading": {
+                    "type": "boolean",
+                    "description": "Whether to enable heading block card making"
+                },
+                "list": {
+                    "type": "boolean",
+                    "description": "Whether to enable list block card making"
+                },
+                "mark": {
+                    "type": "boolean",
+                    "description": "Whether to enable mark element card making"
+                },
+                "maximumInterval": {
+                    "type": "integer",
+                    "description": "Maximum interval days"
+                },
+                "newCardLimit": {
+                    "type": "integer",
+                    "description": "New card limit"
+                },
+                "requestRetention": {
+                    "type": "number",
+                    "description": "FSRS request retention parameter"
+                },
+                "reviewCardLimit": {
+                    "type": "integer",
+                    "description": "Review card limit"
+                },
+                "reviewMode": {
+                    "type": "integer",
+                    "description": "Review mode\n- `0`: New and old mixed\n- `1`: New card priority\n- `2`: Old card priority",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ]
+                },
+                "superBlock": {
+                    "type": "boolean",
+                    "description": "Whether to enable super block card making"
+                },
+                "weights": {
+                    "type": "string",
+                    "description": "FSRS weight parameter list"
                 }
             }
         },

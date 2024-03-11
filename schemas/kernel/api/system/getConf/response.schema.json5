@@ -105,7 +105,8 @@
                     $ref: '#/$defs/export',
                 },
                 flashcard: {
-                    // TODO
+                    // 闪卡相关设置项
+                    $ref: '#/$defs/flashcard',
                 },
                 graph: {
                     // TODO
@@ -842,6 +843,76 @@
                     // 是否将 .sy 文件的内容保存为单行的 JSON 对象
                     type: 'boolean',
                     description: 'Whether to save the content of the .sy file as a single-line JSON object',
+                },
+            },
+        },
+        flashcard: {
+            title: 'IFlashCard',
+            type: 'object',
+
+            description: 'Flashcard related configuration',
+            additionalProperties: false,
+            required: ['deck', 'heading', 'list', 'mark', 'maximumInterval', 'newCardLimit', 'requestRetention', 'reviewCardLimit', 'reviewMode', 'superBlock', 'weights'],
+            properties: {
+                deck: {
+                    // 是否启用卡包制卡
+                    type: 'boolean',
+                    description: 'Whether to enable deck card making',
+                },
+                heading: {
+                    // 是否启用标题块制卡
+                    type: 'boolean',
+                    description: 'Whether to enable heading block card making',
+                },
+                list: {
+                    // 是否启用列表块制卡
+                    type: 'boolean',
+                    description: 'Whether to enable list block card making',
+                },
+                mark: {
+                    // 是否启用标记元素制卡
+                    type: 'boolean',
+                    description: 'Whether to enable mark element card making',
+                },
+                maximumInterval: {
+                    // 最大间隔天数
+                    type: 'integer',
+                    description: 'Maximum interval days',
+                },
+                newCardLimit: {
+                    // 新卡上限
+                    type: 'integer',
+                    description: 'New card limit',
+                },
+                requestRetention: {
+                    // FSRS 请求保留参数
+                    type: 'number',
+                    description: 'FSRS request retention parameter',
+                },
+                reviewCardLimit: {
+                    // 复习卡上限
+                    type: 'integer',
+                    description: 'Review card limit',
+                },
+                reviewMode: {
+                    // 复习模式
+                    type: 'integer',
+                    description: 'Review mode\n- `0`: New and old mixed\n- `1`: New card priority\n- `2`: Old card priority',
+                    enum: [
+                        0, // 新旧混合
+                        1, // 新卡优先
+                        2, // 旧卡优先
+                    ],
+                },
+                superBlock: {
+                    // 是否启用超级块制卡
+                    type: 'boolean',
+                    description: 'Whether to enable super block card making',
+                },
+                weights: {
+                    // FSRS 权重参数列表
+                    type: 'string',
+                    description: 'FSRS weight parameter list',
                 },
             },
         },

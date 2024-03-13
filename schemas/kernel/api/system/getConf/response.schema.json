@@ -128,7 +128,9 @@
                 "flashcard": {
                     "$ref": "#/$defs/flashcard"
                 },
-                "graph": {},
+                "graph": {
+                    "$ref": "#/$defs/graph"
+                },
                 "keymap": {},
                 "langs": {
                     "type": "array",
@@ -931,6 +933,190 @@
                 "weights": {
                     "type": "string",
                     "description": "FSRS weight parameter list"
+                }
+            }
+        },
+        "graph": {
+            "title": "IGraph",
+            "type": "object",
+            "description": "SiYuan graph related configuration",
+            "additionalProperties": false,
+            "required": [
+                "global",
+                "local",
+                "maxBlocks"
+            ],
+            "properties": {
+                "global": {
+                    "$ref": "#/$defs/global"
+                },
+                "local": {
+                    "$ref": "#/$defs/local"
+                },
+                "maxBlocks": {
+                    "type": "integer",
+                    "description": "Maximum number of content blocks displayed"
+                }
+            }
+        },
+        "global": {
+            "title": "IGraphGlobal",
+            "type": "object",
+            "description": "Global graph configuration",
+            "additionalProperties": false,
+            "required": [
+                "d3",
+                "dailyNote",
+                "minRefs",
+                "type"
+            ],
+            "properties": {
+                "d3": {
+                    "$ref": "#/$defs/d3"
+                },
+                "dailyNote": {
+                    "type": "boolean",
+                    "description": "Whether to display nodes in daily notes"
+                },
+                "minRefs": {
+                    "type": "integer",
+                    "description": "The minimum number of references to the displayed node"
+                },
+                "type": {
+                    "$ref": "#/$defs/type"
+                }
+            }
+        },
+        "local": {
+            "title": "IGraphLocal",
+            "type": "object",
+            "description": "Local graph configuration",
+            "additionalProperties": false,
+            "required": [
+                "d3",
+                "dailyNote",
+                "type"
+            ],
+            "properties": {
+                "d3": {
+                    "$ref": "#/$defs/d3"
+                },
+                "dailyNote": {
+                    "type": "boolean",
+                    "description": "Whether to display nodes in daily notes"
+                },
+                "type": {
+                    "$ref": "#/$defs/type"
+                }
+            }
+        },
+        "d3": {
+            "title": "IGraphD3",
+            "type": "object",
+            "description": "d3.js graph configuration",
+            "additionalProperties": false,
+            "required": [
+                "arrow",
+                "centerStrength",
+                "collideRadius",
+                "collideStrength",
+                "lineOpacity",
+                "linkDistance",
+                "linkWidth",
+                "nodeSize"
+            ],
+            "properties": {
+                "arrow": {
+                    "type": "boolean",
+                    "description": "Whether to display the arrow"
+                },
+                "centerStrength": {
+                    "type": "number",
+                    "description": "Central gravity intensity"
+                },
+                "collideRadius": {
+                    "type": "number",
+                    "description": "Repulsion radius"
+                },
+                "collideStrength": {
+                    "type": "number",
+                    "description": "Repulsion intensity"
+                },
+                "lineOpacity": {
+                    "type": "number",
+                    "description": "Line opacity"
+                },
+                "linkDistance": {
+                    "type": "integer",
+                    "description": "Link distance"
+                },
+                "linkWidth": {
+                    "type": "number",
+                    "description": "Line width"
+                },
+                "nodeSize": {
+                    "type": "number",
+                    "description": "Node size"
+                }
+            }
+        },
+        "type": {
+            "title": "IGraphType",
+            "type": "object",
+            "description": "SiYuan node type filter",
+            "additionalProperties": false,
+            "required": [
+                "blockquote",
+                "code",
+                "heading",
+                "list",
+                "listItem",
+                "math",
+                "paragraph",
+                "super",
+                "table",
+                "tag"
+            ],
+            "properties": {
+                "blockquote": {
+                    "type": "boolean",
+                    "description": "Display quote block"
+                },
+                "code": {
+                    "type": "boolean",
+                    "description": "Display code block"
+                },
+                "heading": {
+                    "type": "boolean",
+                    "description": "Display heading block"
+                },
+                "list": {
+                    "type": "boolean",
+                    "description": "Display list block"
+                },
+                "listItem": {
+                    "type": "boolean",
+                    "description": "Display list item"
+                },
+                "math": {
+                    "type": "boolean",
+                    "description": "Display formula block"
+                },
+                "paragraph": {
+                    "type": "boolean",
+                    "description": "Display paragraph block"
+                },
+                "super": {
+                    "type": "boolean",
+                    "description": "Display super block"
+                },
+                "table": {
+                    "type": "boolean",
+                    "description": "Display table block"
+                },
+                "tag": {
+                    "type": "boolean",
+                    "description": "Display tag"
                 }
             }
         },

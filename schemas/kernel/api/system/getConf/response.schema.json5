@@ -109,7 +109,8 @@
                     $ref: '#/$defs/flashcard',
                 },
                 graph: {
-                    // TODO
+                    // 图谱相关设置项
+                    $ref: '#/$defs/graph',
                 },
                 keymap: {
                     // TODO
@@ -913,6 +914,190 @@
                     // FSRS 权重参数列表
                     type: 'string',
                     description: 'FSRS weight parameter list',
+                },
+            },
+        },
+        graph: {
+            title: 'IGraph',
+            type: 'object',
+
+            description: 'SiYuan graph related configuration',
+            additionalProperties: false,
+            required: ['global', 'local', 'maxBlocks'],
+            properties: {
+                global: {
+                    // 全局图谱配置
+                    $ref: '#/$defs/global',
+                },
+                local: {
+                    // 当前文档图谱配置
+                    $ref: '#/$defs/local',
+                },
+                maxBlocks: {
+                    // 内容块最大显示数
+                    type: 'integer',
+                    description: 'Maximum number of content blocks displayed',
+                },
+            },
+        },
+        global: {
+            title: 'IGraphGlobal',
+            type: 'object',
+
+            description: 'Global graph configuration',
+            additionalProperties: false,
+            required: ['d3', 'dailyNote', 'minRefs', 'type'],
+            properties: {
+                d3: {
+                    // d3.js 关系图谱配置
+                    $ref: '#/$defs/d3',
+                },
+                dailyNote: {
+                    // 是否展示每日笔记中的节点
+                    type: 'boolean',
+                    description: 'Whether to display nodes in daily notes',
+                },
+                minRefs: {
+                    // 所展示节点的最小引用次数
+                    type: 'integer',
+                    description: 'The minimum number of references to the displayed node',
+                },
+                type: {
+                    // 节点类型过滤
+                    $ref: '#/$defs/type',
+                },
+            },
+        },
+        local: {
+            title: 'IGraphLocal',
+            type: 'object',
+
+            description: 'Local graph configuration',
+            additionalProperties: false,
+            required: ['d3', 'dailyNote', 'type'],
+            properties: {
+                d3: {
+                    // d3.js 关系图谱配置
+                    $ref: '#/$defs/d3',
+                },
+                dailyNote: {
+                    // 是否展示每日笔记中的节点
+                    type: 'boolean',
+                    description: 'Whether to display nodes in daily notes',
+                },
+                type: {
+                    // 节点类型过滤
+                    $ref: '#/$defs/type',
+                },
+            },
+        },
+        d3: {
+            title: 'IGraphD3',
+            type: 'object',
+
+            description: 'd3.js graph configuration',
+            additionalProperties: false,
+            required: ['arrow', 'centerStrength', 'collideRadius', 'collideStrength', 'lineOpacity', 'linkDistance', 'linkWidth', 'nodeSize'],
+            properties: {
+                arrow: {
+                    // 是否显示箭头
+                    type: 'boolean',
+                    description: 'Whether to display the arrow',
+                },
+                centerStrength: {
+                    // 中心引力强度
+                    type: 'number',
+                    description: 'Central gravity intensity',
+                },
+                collideRadius: {
+                    // 斥力半径
+                    type: 'number',
+                    description: 'Repulsion radius',
+                },
+                collideStrength: {
+                    // 斥力强度
+                    type: 'number',
+                    description: 'Repulsion intensity',
+                },
+                lineOpacity: {
+                    // 连线透明度
+                    type: 'number',
+                    description: 'Line opacity',
+                },
+                linkDistance: {
+                    // 链接距离
+                    type: 'integer',
+                    description: 'Link distance',
+                },
+                linkWidth: {
+                    // 连线宽度
+                    type: 'number',
+                    description: 'Line width',
+                },
+                nodeSize: {
+                    // 节点大小
+                    type: 'number',
+                    description: 'Node size',
+                },
+            },
+        },
+        type: {
+            title: 'IGraphType',
+            type: 'object',
+
+            description: 'SiYuan node type filter',
+            additionalProperties: false,
+            required: ['blockquote', 'code', 'heading', 'list', 'listItem', 'math', 'paragraph', 'super', 'table', 'tag'],
+            properties: {
+                blockquote: {
+                    // 显示引述块
+                    type: 'boolean',
+                    description: 'Display quote block',
+                },
+                code: {
+                    // 显示代码块
+                    type: 'boolean',
+                    description: 'Display code block',
+                },
+                heading: {
+                    // 显示标题块
+                    type: 'boolean',
+                    description: 'Display heading block',
+                },
+                list: {
+                    // 显示列表块
+                    type: 'boolean',
+                    description: 'Display list block',
+                },
+                listItem: {
+                    // 显示列表项
+                    type: 'boolean',
+                    description: 'Display list item',
+                },
+                math: {
+                    // 显示公式块
+                    type: 'boolean',
+                    description: 'Display formula block',
+                },
+                paragraph: {
+                    // 显示段落块
+                    type: 'boolean',
+                    description: 'Display paragraph block',
+                },
+                super: {
+                    // 显示超级块
+                    type: 'boolean',
+                    description: 'Display super block',
+                },
+                table: {
+                    // 显示表格块
+                    type: 'boolean',
+                    description: 'Display table block',
+                },
+                tag: {
+                    // 显示标签
+                    type: 'boolean',
+                    description: 'Display tag',
                 },
             },
         },

@@ -62,7 +62,7 @@ export interface IConf {
     export:      IExport;
     fileTree:    IExport;
     flashcard:   IFlashCard;
-    graph:       any;
+    graph:       IGraph;
     keymap:      any;
     /**
      * User interface language
@@ -563,6 +563,130 @@ export interface IFlashCard {
      * FSRS weight parameter list
      */
     weights: string;
+}
+
+/**
+ * SiYuan graph related configuration
+ */
+export interface IGraph {
+    global: IGraphGlobal;
+    local:  IGraphLocal;
+    /**
+     * Maximum number of content blocks displayed
+     */
+    maxBlocks: number;
+}
+
+/**
+ * Global graph configuration
+ */
+export interface IGraphGlobal {
+    d3: IGraphD3;
+    /**
+     * Whether to display nodes in daily notes
+     */
+    dailyNote: boolean;
+    /**
+     * The minimum number of references to the displayed node
+     */
+    minRefs: number;
+    type:    IGraphType;
+}
+
+/**
+ * d3.js graph configuration
+ */
+export interface IGraphD3 {
+    /**
+     * Whether to display the arrow
+     */
+    arrow: boolean;
+    /**
+     * Central gravity intensity
+     */
+    centerStrength: number;
+    /**
+     * Repulsion radius
+     */
+    collideRadius: number;
+    /**
+     * Repulsion intensity
+     */
+    collideStrength: number;
+    /**
+     * Line opacity
+     */
+    lineOpacity: number;
+    /**
+     * Link distance
+     */
+    linkDistance: number;
+    /**
+     * Line width
+     */
+    linkWidth: number;
+    /**
+     * Node size
+     */
+    nodeSize: number;
+}
+
+/**
+ * SiYuan node type filter
+ */
+export interface IGraphType {
+    /**
+     * Display quote block
+     */
+    blockquote: boolean;
+    /**
+     * Display code block
+     */
+    code: boolean;
+    /**
+     * Display heading block
+     */
+    heading: boolean;
+    /**
+     * Display list block
+     */
+    list: boolean;
+    /**
+     * Display list item
+     */
+    listItem: boolean;
+    /**
+     * Display formula block
+     */
+    math: boolean;
+    /**
+     * Display paragraph block
+     */
+    paragraph: boolean;
+    /**
+     * Display super block
+     */
+    super: boolean;
+    /**
+     * Display table block
+     */
+    table: boolean;
+    /**
+     * Display tag
+     */
+    tag: boolean;
+}
+
+/**
+ * Local graph configuration
+ */
+export interface IGraphLocal {
+    d3: IGraphD3;
+    /**
+     * Whether to display nodes in daily notes
+     */
+    dailyNote: boolean;
+    type:      IGraphType;
 }
 
 /**

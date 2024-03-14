@@ -211,7 +211,9 @@
                 "tag": {
                     "$ref": "#/$defs/tag"
                 },
-                "uiLayout": {},
+                "uiLayout": {
+                    "$ref": "#/$defs/uiLayout"
+                },
                 "userData": {
                     "type": "string",
                     "description": "Community user data (Encrypted)",
@@ -249,11 +251,11 @@
             ],
             "properties": {
                 "openAI": {
-                    "$ref": "#/$defs/openAI"
+                    "$ref": "#/$defs/ai_openAI"
                 }
             }
         },
-        "openAI": {
+        "ai_openAI": {
             "title": "IOpenAI",
             "description": "Open AI related configuration",
             "type": "object",
@@ -948,10 +950,10 @@
             ],
             "properties": {
                 "global": {
-                    "$ref": "#/$defs/global"
+                    "$ref": "#/$defs/graph_global"
                 },
                 "local": {
-                    "$ref": "#/$defs/local"
+                    "$ref": "#/$defs/graph_local"
                 },
                 "maxBlocks": {
                     "type": "integer",
@@ -959,7 +961,7 @@
                 }
             }
         },
-        "global": {
+        "graph_global": {
             "title": "IGraphGlobal",
             "type": "object",
             "description": "Global graph configuration",
@@ -972,7 +974,7 @@
             ],
             "properties": {
                 "d3": {
-                    "$ref": "#/$defs/d3"
+                    "$ref": "#/$defs/graph_d3"
                 },
                 "dailyNote": {
                     "type": "boolean",
@@ -983,11 +985,11 @@
                     "description": "The minimum number of references to the displayed node"
                 },
                 "type": {
-                    "$ref": "#/$defs/type"
+                    "$ref": "#/$defs/graph_type"
                 }
             }
         },
-        "local": {
+        "graph_local": {
             "title": "IGraphLocal",
             "type": "object",
             "description": "Local graph configuration",
@@ -999,18 +1001,18 @@
             ],
             "properties": {
                 "d3": {
-                    "$ref": "#/$defs/d3"
+                    "$ref": "#/$defs/graph_d3"
                 },
                 "dailyNote": {
                     "type": "boolean",
                     "description": "Whether to display nodes in daily notes"
                 },
                 "type": {
-                    "$ref": "#/$defs/type"
+                    "$ref": "#/$defs/graph_type"
                 }
             }
         },
-        "d3": {
+        "graph_d3": {
             "title": "IGraphD3",
             "type": "object",
             "description": "d3.js graph configuration",
@@ -1060,7 +1062,7 @@
                 }
             }
         },
-        "type": {
+        "graph_type": {
             "title": "IGraphType",
             "type": "object",
             "description": "SiYuan node type filter",
@@ -1296,7 +1298,7 @@
                     ]
                 },
                 "s3": {
-                    "$ref": "#/$defs/s3"
+                    "$ref": "#/$defs/sync_s3"
                 },
                 "stat": {
                     "type": "string",
@@ -1310,12 +1312,12 @@
                     ]
                 },
                 "webdav": {
-                    "$ref": "#/$defs/webdav"
+                    "$ref": "#/$defs/sync_webdav"
                 }
             }
         },
-        "s3": {
-            "title": "IS3",
+        "sync_s3": {
+            "title": "ISyncS3",
             "type": "object",
             "description": "S3 compatible object storage related configuration",
             "additionalProperties": false,
@@ -1365,8 +1367,8 @@
                 }
             }
         },
-        "webdav": {
-            "title": "IWebDAV",
+        "sync_webdav": {
+            "title": "ISyncWebDAV",
             "type": "object",
             "description": "WebDAV related configuration",
             "additionalProperties": false,
@@ -1501,7 +1503,7 @@
                     "description": "The name of the current device"
                 },
                 "networkProxy": {
-                    "$ref": "#/$defs/networkProxy"
+                    "$ref": "#/$defs/system_networkProxy"
                 },
                 "networkServe": {
                     "type": "boolean",
@@ -1532,7 +1534,7 @@
                 }
             }
         },
-        "networkProxy": {
+        "system_networkProxy": {
             "title": "INetworkProxy",
             "type": "object",
             "description": "SiYuan Network proxy configuration",
@@ -1585,6 +1587,298 @@
                         7,
                         8
                     ]
+                }
+            }
+        },
+        "uiLayout": {
+            "title": "IiLayout",
+            "type": "object",
+            "description": "SiYuan UI layout related configuration",
+            "additionalProperties": false,
+            "required": [
+                "bottom",
+                "hideDock",
+                "layout",
+                "left",
+                "right"
+            ],
+            "properties": {
+                "bottom": {
+                    "$ref": "#/$defs/uiLayout_dock"
+                },
+                "hideDock": {
+                    "type": "boolean",
+                    "description": "Whether to hide the sidebar"
+                },
+                "layout": {
+                    "$ref": "#/$defs/uiLayout_layout"
+                },
+                "left": {
+                    "$ref": "#/$defs/uiLayout_dock"
+                },
+                "right": {
+                    "$ref": "#/$defs/uiLayout_dock"
+                }
+            }
+        },
+        "uiLayout_layout": {
+            "title": "IUiLayoutLayout",
+            "type": "object",
+            "description": "SiYuan panel layout",
+            "additionalProperties": false,
+            "required": [
+                "children",
+                "direction",
+                "instance",
+                "type"
+            ],
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "description": "Internal elements",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/$defs/uiLayout_layout"
+                            },
+                            {
+                                "$ref": "#/$defs/uiLayout_wnd"
+                            }
+                        ]
+                    }
+                },
+                "direction": {
+                    "type": "string",
+                    "description": "Panel content layout direction\n- `tb`: Top and bottom layout\n- `lr`: Left and right layout",
+                    "enum": [
+                        "tb",
+                        "lr"
+                    ]
+                },
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "enum": [
+                        "Layout"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Layout type\n- `normal`: Normal panel\n- `center`: Center panel\n- `top`: Top panel\n- `bottom`: Bottom panel\n- `left`: Left panel\n- `right`: Right panel",
+                    "enum": [
+                        "normal",
+                        "center",
+                        "top",
+                        "bottom",
+                        "left",
+                        "right"
+                    ]
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Panel size",
+                    "examples": [
+                        "auto",
+                        "128px"
+                    ]
+                },
+                "resize": {
+                    "type": "string",
+                    "description": "The direction in which the size can be adjusted\n- `tb`: Can adjust the size up and down\n- `lr`: Can adjust the size left and right",
+                    "enum": [
+                        "tb",
+                        "lr"
+                    ]
+                }
+            }
+        },
+        "uiLayout_wnd": {
+            "title": "IUiLayoutWnd",
+            "type": "object",
+            "description": "SiYuan window layout",
+            "additionalProperties": false,
+            "required": [
+                "children",
+                "instance"
+            ],
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "description": "Internal elements",
+                    "items": {
+                        "$ref": "#/$defs/uiLayout_tab"
+                    }
+                },
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "enum": [
+                        "Wnd"
+                    ]
+                },
+                "height": {
+                    "type": "string",
+                    "description": "Panel height",
+                    "examples": [
+                        "128px"
+                    ]
+                },
+                "width": {
+                    "type": "integer",
+                    "description": "Panel width",
+                    "examples": [
+                        "128px"
+                    ]
+                },
+                "resize": {
+                    "type": "string",
+                    "description": "The direction in which the size can be adjusted\n- `tb`: Can adjust the size up and down\n- `lr`: Can adjust the size left and right",
+                    "enum": [
+                        "tb",
+                        "lr"
+                    ]
+                }
+            }
+        },
+        "uiLayout_tab": {
+            "title": "IUiLayoutTab",
+            "type": "object",
+            "description": "SiYuan tab",
+            "additionalProperties": false,
+            "required": [
+                "children",
+                "docIcon",
+                "instance",
+                "pin",
+                "title"
+            ],
+            "properties": {
+                "children": {
+                    "description": "Tab data object",
+                    "oneOf": [
+                        {},
+                        {
+                            "type": "object"
+                        }
+                    ]
+                },
+                "docIcon": {
+                    "type": "string",
+                    "description": "Tab icon",
+                    "examples": [
+                        "1f4a1",
+                        "folder/icon.png",
+                        "iconCode"
+                    ]
+                },
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "enum": [
+                        "Tab"
+                    ]
+                },
+                "pin": {
+                    "type": "boolean",
+                    "description": "Whether the tab is pinned"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Tab title"
+                }
+            }
+        },
+        "uiLayout_dock": {
+            "title": "IUiLayoutDock",
+            "type": "object",
+            "description": "SiYuan dock related configuration",
+            "additionalProperties": false,
+            "required": [
+                "data",
+                "pin"
+            ],
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "description": "Dock area list",
+                    "items": {
+                        "type": "array",
+                        "description": "Dock panel list",
+                        "items": {
+                            "$ref": "#/$defs/uiLayout_dock_panel"
+                        }
+                    }
+                },
+                "pin": {
+                    "type": "boolean",
+                    "description": "Whether to pin the dock"
+                }
+            }
+        },
+        "uiLayout_dock_panel": {
+            "title": "IUiLayoutDockPanel",
+            "type": "object",
+            "description": "SiYuan dock panel data",
+            "additionalProperties": false,
+            "required": [
+                "hotkey",
+                "hotkeyLangId",
+                "icon",
+                "show",
+                "size",
+                "title",
+                "type"
+            ],
+            "properties": {
+                "hotkey": {
+                    "type": "string",
+                    "description": "Panel hotkey",
+                    "examples": [
+                        "⌥2"
+                    ]
+                },
+                "hotkeyLangId": {
+                    "type": "string",
+                    "description": "Hotkey description ID"
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "Panel icon ID"
+                },
+                "show": {
+                    "type": "boolean",
+                    "description": "Whether to display the panel"
+                },
+                "size": {
+                    "$ref": "#/$defs/uiLayout_dock_panel_size"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Panel title"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Panel type"
+                }
+            }
+        },
+        "uiLayout_dock_panel_size": {
+            "title": "IUiLayoutDockPanelSize",
+            "type": "object",
+            "description": "SiYuan dock panel size",
+            "additionalProperties": false,
+            "required": [
+                "height",
+                "width"
+            ],
+            "properties": {
+                "height": {
+                    "type": "integer",
+                    "description": "Panel height (unit: px)"
+                },
+                "width": {
+                    "type": "integer",
+                    "description": "Panel width (unit: px)"
                 }
             }
         }

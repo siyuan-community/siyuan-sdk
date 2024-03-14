@@ -100,7 +100,7 @@ export interface IConf {
     sync:          ISync;
     system:        ISystem;
     tag:           ITag;
-    uiLayout:      any;
+    uiLayout:      IiLayout;
     /**
      * Community user data (Encrypted)
      */
@@ -810,7 +810,7 @@ export interface ISync {
      * - `2`: Network storage service using WebDAV protocol
      */
     provider: number;
-    s3:       Is3;
+    s3:       ISyncS3;
     /**
      * The prompt information of the last synchronization
      */
@@ -819,13 +819,13 @@ export interface ISync {
      * The time of the last synchronization (Unix timestamp)
      */
     synced: number;
-    webdav: IWebDAV;
+    webdav: ISyncWebDAV;
 }
 
 /**
  * S3 compatible object storage related configuration
  */
-export interface Is3 {
+export interface ISyncS3 {
     /**
      * Access key
      */
@@ -863,7 +863,7 @@ export interface Is3 {
 /**
  * WebDAV related configuration
  */
-export interface IWebDAV {
+export interface ISyncWebDAV {
     /**
      * Service endpoint
      */
@@ -1047,5 +1047,273 @@ export interface ITag {
      */
     sort: number;
 }
+
+/**
+ * SiYuan UI layout related configuration
+ */
+export interface IiLayout {
+    bottom: IUILayoutDock;
+    /**
+     * Whether to hide the sidebar
+     */
+    hideDock: boolean;
+    layout:   IUILayoutLayout;
+    left:     IUILayoutDock;
+    right:    IUILayoutDock;
+}
+
+/**
+ * SiYuan dock related configuration
+ */
+export interface IUILayoutDock {
+    /**
+     * Dock area list
+     */
+    data: Array<IUILayoutDockPanel[]>;
+    /**
+     * Whether to pin the dock
+     */
+    pin: boolean;
+}
+
+/**
+ * Dock panel list
+ *
+ * SiYuan dock panel data
+ */
+export interface IUILayoutDockPanel {
+    /**
+     * Panel hotkey
+     */
+    hotkey: string;
+    /**
+     * Hotkey description ID
+     */
+    hotkeyLangId: string;
+    /**
+     * Panel icon ID
+     */
+    icon: string;
+    /**
+     * Whether to display the panel
+     */
+    show: boolean;
+    size: IUILayoutDockPanelSize;
+    /**
+     * Panel title
+     */
+    title: string;
+    /**
+     * Panel type
+     */
+    type: string;
+}
+
+/**
+ * SiYuan dock panel size
+ */
+export interface IUILayoutDockPanelSize {
+    /**
+     * Panel height (unit: px)
+     */
+    height: number;
+    /**
+     * Panel width (unit: px)
+     */
+    width: number;
+}
+
+/**
+ * SiYuan panel layout
+ */
+export interface IUILayoutLayout {
+    /**
+     * Internal elements
+     */
+    children: LayoutChild[];
+    /**
+     * Panel content layout direction
+     * - `tb`: Top and bottom layout
+     * - `lr`: Left and right layout
+     */
+    direction: Direction;
+    /**
+     * Object name
+     */
+    instance: LayoutInstance;
+    /**
+     * The direction in which the size can be adjusted
+     * - `tb`: Can adjust the size up and down
+     * - `lr`: Can adjust the size left and right
+     */
+    resize?: Direction;
+    /**
+     * Panel size
+     */
+    size?: string;
+    /**
+     * Layout type
+     * - `normal`: Normal panel
+     * - `center`: Center panel
+     * - `top`: Top panel
+     * - `bottom`: Bottom panel
+     * - `left`: Left panel
+     * - `right`: Right panel
+     */
+    type: Type;
+}
+
+/**
+ * SiYuan panel layout
+ *
+ * SiYuan window layout
+ */
+export interface LayoutChild {
+    /**
+     * Internal elements
+     */
+    children: ChildChild[];
+    /**
+     * Panel content layout direction
+     * - `tb`: Top and bottom layout
+     * - `lr`: Left and right layout
+     */
+    direction?: Direction;
+    /**
+     * Object name
+     */
+    instance: FluffyInstance;
+    /**
+     * The direction in which the size can be adjusted
+     * - `tb`: Can adjust the size up and down
+     * - `lr`: Can adjust the size left and right
+     */
+    resize?: Direction;
+    /**
+     * Panel size
+     */
+    size?: string;
+    /**
+     * Layout type
+     * - `normal`: Normal panel
+     * - `center`: Center panel
+     * - `top`: Top panel
+     * - `bottom`: Bottom panel
+     * - `left`: Left panel
+     * - `right`: Right panel
+     */
+    type?: Type;
+    /**
+     * Panel height
+     */
+    height?: string;
+    /**
+     * Panel width
+     */
+    width?: number;
+}
+
+/**
+ * SiYuan panel layout
+ *
+ * SiYuan window layout
+ *
+ * SiYuan tab
+ */
+export interface ChildChild {
+    /**
+     * Internal elements
+     *
+     * Tab data object
+     */
+    children: any;
+    /**
+     * Panel content layout direction
+     * - `tb`: Top and bottom layout
+     * - `lr`: Left and right layout
+     */
+    direction?: Direction;
+    /**
+     * Object name
+     */
+    instance: PurpleInstance;
+    /**
+     * The direction in which the size can be adjusted
+     * - `tb`: Can adjust the size up and down
+     * - `lr`: Can adjust the size left and right
+     */
+    resize?: Direction;
+    /**
+     * Panel size
+     */
+    size?: string;
+    /**
+     * Layout type
+     * - `normal`: Normal panel
+     * - `center`: Center panel
+     * - `top`: Top panel
+     * - `bottom`: Bottom panel
+     * - `left`: Left panel
+     * - `right`: Right panel
+     */
+    type?: Type;
+    /**
+     * Panel height
+     */
+    height?: string;
+    /**
+     * Panel width
+     */
+    width?: number;
+    /**
+     * Tab icon
+     */
+    docIcon?: string;
+    /**
+     * Whether the tab is pinned
+     */
+    pin?: boolean;
+    /**
+     * Tab title
+     */
+    title?: string;
+}
+
+/**
+ * Panel content layout direction
+ * - `tb`: Top and bottom layout
+ * - `lr`: Left and right layout
+ *
+ * The direction in which the size can be adjusted
+ * - `tb`: Can adjust the size up and down
+ * - `lr`: Can adjust the size left and right
+ */
+export type Direction = "tb" | "lr";
+
+/**
+ * Object name
+ */
+export type PurpleInstance = "Layout" | "Wnd" | "Tab";
+
+/**
+ * Layout type
+ * - `normal`: Normal panel
+ * - `center`: Center panel
+ * - `top`: Top panel
+ * - `bottom`: Bottom panel
+ * - `left`: Left panel
+ * - `right`: Right panel
+ */
+export type Type = "normal" | "center" | "top" | "bottom" | "left" | "right";
+
+/**
+ * Object name
+ */
+export type FluffyInstance = "Layout" | "Wnd";
+
+/**
+ * Object name
+ */
+export type LayoutInstance = "Layout";
 
 //#endregion content

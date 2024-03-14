@@ -210,7 +210,8 @@
                     $ref: '#/$defs/tag',
                 },
                 uiLayout: {
-                    // TODO
+                    // 思源界面布局相关配置项
+                    $ref: '#/$defs/uiLayout',
                 },
                 userData: {
                     // 社区用户信息
@@ -249,11 +250,11 @@
             required: ['openAI'],
             properties: {
                 openAI: {
-                    $ref: '#/$defs/openAI',
+                    $ref: '#/$defs/ai_openAI',
                 },
             },
         },
-        openAI: {
+        ai_openAI: {
             // Open AI 的 API 配置项
             title: 'IOpenAI',
             description: 'Open AI related configuration',
@@ -927,11 +928,11 @@
             properties: {
                 global: {
                     // 全局图谱配置
-                    $ref: '#/$defs/global',
+                    $ref: '#/$defs/graph_global',
                 },
                 local: {
                     // 当前文档图谱配置
-                    $ref: '#/$defs/local',
+                    $ref: '#/$defs/graph_local',
                 },
                 maxBlocks: {
                     // 内容块最大显示数
@@ -940,7 +941,7 @@
                 },
             },
         },
-        global: {
+        graph_global: {
             title: 'IGraphGlobal',
             type: 'object',
 
@@ -950,7 +951,7 @@
             properties: {
                 d3: {
                     // d3.js 关系图谱配置
-                    $ref: '#/$defs/d3',
+                    $ref: '#/$defs/graph_d3',
                 },
                 dailyNote: {
                     // 是否展示每日笔记中的节点
@@ -964,11 +965,11 @@
                 },
                 type: {
                     // 节点类型过滤
-                    $ref: '#/$defs/type',
+                    $ref: '#/$defs/graph_type',
                 },
             },
         },
-        local: {
+        graph_local: {
             title: 'IGraphLocal',
             type: 'object',
 
@@ -978,7 +979,7 @@
             properties: {
                 d3: {
                     // d3.js 关系图谱配置
-                    $ref: '#/$defs/d3',
+                    $ref: '#/$defs/graph_d3',
                 },
                 dailyNote: {
                     // 是否展示每日笔记中的节点
@@ -987,11 +988,11 @@
                 },
                 type: {
                     // 节点类型过滤
-                    $ref: '#/$defs/type',
+                    $ref: '#/$defs/graph_type',
                 },
             },
         },
-        d3: {
+        graph_d3: {
             title: 'IGraphD3',
             type: 'object',
 
@@ -1041,7 +1042,7 @@
                 },
             },
         },
-        type: {
+        graph_type: {
             title: 'IGraphType',
             type: 'object',
 
@@ -1266,7 +1267,7 @@
                 },
                 s3: {
                     // S3 兼容对象存储相关设置项
-                    $ref: '#/$defs/s3',
+                    $ref: '#/$defs/sync_s3',
                 },
                 stat: {
                     // 最近一次同步的提示信息
@@ -1281,12 +1282,12 @@
                 },
                 webdav: {
                     // WebDAV 相关设置项
-                    $ref: '#/$defs/webdav',
+                    $ref: '#/$defs/sync_webdav',
                 },
             },
         },
-        s3: {
-            title: 'IS3',
+        sync_s3: {
+            title: 'ISyncS3',
             type: 'object',
 
             description: 'S3 compatible object storage related configuration',
@@ -1336,8 +1337,8 @@
                 },
             },
         },
-        webdav: {
-            title: 'IWebDAV',
+        sync_webdav: {
+            title: 'ISyncWebDAV',
             type: 'object',
 
             description: 'WebDAV related configuration',
@@ -1465,7 +1466,7 @@
                 },
                 networkProxy: {
                     // 网络代理配置
-                    $ref: '#/$defs/networkProxy',
+                    $ref: '#/$defs/system_networkProxy',
                 },
                 networkServe: {
                     // 是否开启网络伺服 (是否允许来自其他设备的连接)
@@ -1501,7 +1502,7 @@
                 },
             },
         },
-        networkProxy: {
+        system_networkProxy: {
             title: 'INetworkProxy',
             type: 'object',
 
@@ -1553,6 +1554,300 @@
                         7, // 引用数升序
                         8, // 引用数降序
                     ],
+                },
+            },
+        },
+        uiLayout: {
+            title: 'IiLayout',
+            type: 'object',
+
+            description: 'SiYuan UI layout related configuration',
+            additionalProperties: false,
+            required: ['bottom', 'hideDock', 'layout', 'left', 'right'],
+            properties: {
+                bottom: {
+                    // 底部停靠栏
+                    $ref: '#/$defs/uiLayout_dock',
+                },
+                hideDock: {
+                    // 是否隐藏侧边栏
+                    type: 'boolean',
+                    description: 'Whether to hide the sidebar',
+                },
+                layout: {
+                    // 编辑器布局
+                    $ref: '#/$defs/uiLayout_layout',
+                },
+                left: {
+                    // 左侧停靠栏
+                    $ref: '#/$defs/uiLayout_dock',
+                },
+                right: {
+                    // 右侧停靠栏
+                    $ref: '#/$defs/uiLayout_dock',
+                },
+            },
+        },
+        uiLayout_layout: {
+            title: 'IUiLayoutLayout',
+            type: 'object',
+
+            description: 'SiYuan panel layout',
+            additionalProperties: false,
+            required: ['children', 'direction', 'instance', 'type'],
+            properties: {
+                children: {
+                    // 内部元素
+                    type: 'array',
+                    description: 'Internal elements',
+                    items: {
+                        oneOf: [
+                            {
+                                // 嵌套布局
+                                $ref: '#/$defs/uiLayout_layout',
+                            },
+                            {
+                                // 窗口元素
+                                $ref: '#/$defs/uiLayout_wnd',
+                            },
+                        ],
+                    },
+                },
+                direction: {
+                    // 面板内容布局方向
+                    type: 'string',
+                    description: 'Panel content layout direction\n- `tb`: Top and bottom layout\n- `lr`: Left and right layout',
+                    enum: [
+                        'tb', // 上下布局
+                        'lr', // 左右布局
+                    ],
+                },
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    enum: ['Layout'],
+                },
+                type: {
+                    // 布局类型
+                    type: 'string',
+                    description: 'Layout type\n- `normal`: Normal panel\n- `center`: Center panel\n- `top`: Top panel\n- `bottom`: Bottom panel\n- `left`: Left panel\n- `right`: Right panel',
+                    enum: [
+                        'normal', // 普通面板
+                        'center', // 中央面板
+                        'top', // 顶部面板
+                        'bottom', // 底部面板
+                        'left', // 左部面板
+                        'right', // 右部面板
+                    ],
+                },
+                size: {
+                    // 面板尺寸
+                    type: 'string',
+                    description: 'Panel size',
+                    examples: [
+                        'auto', // 自动调整尺寸
+                        '128px', // 固定尺寸
+                    ],
+                },
+                resize: {
+                    // 尺寸可调整的方向
+                    type: 'string',
+                    description: 'The direction in which the size can be adjusted\n- `tb`: Can adjust the size up and down\n- `lr`: Can adjust the size left and right',
+                    enum: [
+                        'tb', // 可上下调整尺寸
+                        'lr', // 可左右调整尺寸
+                    ],
+                },
+            },
+        },
+        uiLayout_wnd: {
+            title: 'IUiLayoutWnd',
+            type: 'object',
+
+            description: 'SiYuan window layout',
+            additionalProperties: false,
+            required: ['children', 'instance'],
+            properties: {
+                children: {
+                    // 内部元素
+                    type: 'array',
+                    description: 'Internal elements',
+                    items: {
+                        // 页签元素
+                        $ref: '#/$defs/uiLayout_tab',
+                    },
+                },
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    enum: ['Wnd'],
+                },
+                height: {
+                    // 窗口高度
+                    type: 'string',
+                    description: 'Panel height',
+                    examples: ['128px'],
+                },
+                width: {
+                    // 窗口宽度
+                    type: 'integer',
+                    description: 'Panel width',
+                    examples: ['128px'],
+                },
+                resize: {
+                    // 尺寸可调整的方向
+                    type: 'string',
+                    description: 'The direction in which the size can be adjusted\n- `tb`: Can adjust the size up and down\n- `lr`: Can adjust the size left and right',
+                    enum: [
+                        'tb', // 可上下调整尺寸
+                        'lr', // 可左右调整尺寸
+                    ],
+                },
+            },
+        },
+        uiLayout_tab: {
+            title: 'IUiLayoutTab',
+            type: 'object',
+
+            description: 'SiYuan tab',
+            additionalProperties: false,
+            required: ['children', 'docIcon', 'instance', 'pin', 'title'],
+            properties: {
+                children: {
+                    // 页签数据对象
+                    description: 'Tab data object',
+                    oneOf: [
+                        {
+                            // TODO: 文档页签
+                        },
+                        {
+                            // 自定义页签
+                            type: 'object',
+                        },
+                    ],
+                },
+                docIcon: {
+                    // 页签图标
+                    type: 'string',
+                    description: 'Tab icon',
+                    examples: [
+                        '1f4a1', // Emoji 字符代码
+                        'folder/icon.png', // 页签图标路径
+                        'iconCode', // 图标引用 ID
+                    ],
+                },
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    enum: ['Tab'],
+                },
+                pin: {
+                    // 该页签是否被钉住
+                    type: 'boolean',
+                    description: 'Whether the tab is pinned',
+                },
+                title: {
+                    // 页签标题
+                    type: 'string',
+                    description: 'Tab title',
+                },
+            },
+        },
+        uiLayout_dock: {
+            title: 'IUiLayoutDock',
+            type: 'object',
+
+            description: 'SiYuan dock related configuration',
+            additionalProperties: false,
+            required: ['data', 'pin'],
+            properties: {
+                data: {
+                    // 停靠栏区域列表
+                    type: 'array',
+                    description: 'Dock area list',
+                    items: {
+                        // 停靠栏面板列表
+                        type: 'array',
+                        description: 'Dock panel list',
+                        items: {
+                            $ref: '#/$defs/uiLayout_dock_panel',
+                        },
+                    },
+                },
+                pin: {
+                    // 是否钉住该停靠栏
+                    type: 'boolean',
+                    description: 'Whether to pin the dock',
+                },
+            },
+        },
+        uiLayout_dock_panel: {
+            title: 'IUiLayoutDockPanel',
+            type: 'object',
+
+            description: 'SiYuan dock panel data',
+            additionalProperties: false,
+            required: ['hotkey', 'hotkeyLangId', 'icon', 'show', 'size', 'title', 'type'],
+            properties: {
+                hotkey: {
+                    // 面板快捷键
+                    type: 'string',
+                    description: 'Panel hotkey',
+                    examples: [
+                        '⌥2', // Option + 2 / Alt + 2
+                    ],
+                },
+                hotkeyLangId: {
+                    // 快捷键描述 ID
+                    type: 'string',
+                    description: 'Hotkey description ID',
+                },
+                icon: {
+                    // 面板图标 ID
+                    type: 'string',
+                    description: 'Panel icon ID',
+                },
+                show: {
+                    // 是否显示该面板
+                    type: 'boolean',
+                    description: 'Whether to display the panel',
+                },
+                size: {
+                    // 面板尺寸
+                    $ref: '#/$defs/uiLayout_dock_panel_size',
+                },
+                title: {
+                    // 面板标题
+                    type: 'string',
+                    description: 'Panel title',
+                },
+                type: {
+                    // 面板类型
+                    type: 'string',
+                    description: 'Panel type',
+                },
+            },
+        },
+        uiLayout_dock_panel_size: {
+            title: 'IUiLayoutDockPanelSize',
+            type: 'object',
+
+            description: 'SiYuan dock panel size',
+            additionalProperties: false,
+            required: ['height', 'width'],
+            properties: {
+                height: {
+                    // 面板高度 (单位: px)
+                    type: 'integer',
+                    description: 'Panel height (unit: px)',
+                },
+                width: {
+                    // 面板宽度 (单位: px)
+                    type: 'integer',
+                    description: 'Panel width (unit: px)',
                 },
             },
         },

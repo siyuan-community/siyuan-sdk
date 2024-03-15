@@ -1130,7 +1130,7 @@ export interface IUILayoutLayout {
     /**
      * Internal elements
      */
-    children: LayoutChild[];
+    children: IUILayoutLayoutChild[];
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
@@ -1168,11 +1168,11 @@ export interface IUILayoutLayout {
  *
  * SiYuan window layout
  */
-export interface LayoutChild {
+export interface IUILayoutLayoutChild {
     /**
      * Internal elements
      */
-    children: ChildChild[];
+    children: ChildElement[];
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
@@ -1182,7 +1182,7 @@ export interface LayoutChild {
     /**
      * Object name
      */
-    instance: FluffyInstance;
+    instance: IUILayoutLayoutChildInstance;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
@@ -1213,6 +1213,8 @@ export interface LayoutChild {
     width?: number;
 }
 
+export type Children = ChildElement[] | IUILayoutTabContent;
+
 /**
  * SiYuan panel layout
  *
@@ -1220,13 +1222,13 @@ export interface LayoutChild {
  *
  * SiYuan tab
  */
-export interface ChildChild {
+export interface ChildElement {
     /**
      * Internal elements
      *
-     * Tab data object
+     * Tab content
      */
-    children: any;
+    children: Children;
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
@@ -1236,7 +1238,7 @@ export interface ChildChild {
     /**
      * Object name
      */
-    instance: PurpleInstance;
+    instance: ChildInstance;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
@@ -1280,6 +1282,69 @@ export interface ChildChild {
 }
 
 /**
+ * Tab content
+ *
+ * SiYuan editor tab
+ *
+ * SiYuan asset file tab
+ *
+ * SiYuan custom tab
+ */
+export interface IUILayoutTabContent {
+    /**
+     * (Editor) Actions to be performed after the tab is loaded
+     */
+    action?: string;
+    /**
+     * (Editor) Block ID
+     */
+    blockId?: string;
+    /**
+     * Object name
+     */
+    instance: IUILayoutTabContentInstance;
+    /**
+     * (Editor) Editor mode
+     * - `wysiwyg`: WYSIWYG mode
+     * - `preview`: Export preview mode
+     */
+    mode?: Mode;
+    /**
+     * (Editor) Notebook ID
+     */
+    notebookId?: string;
+    /**
+     * (Editor) Document block ID
+     */
+    rootId?: string;
+    /**
+     * (Asset) PDF file page number
+     */
+    page?: number;
+    /**
+     * (Asset) Asset reference path
+     */
+    path?: string;
+    /**
+     * (Custom) Data of the custom tab
+     */
+    customModelData?: any;
+    /**
+     * (Custom) Type of the custom tab
+     */
+    customModelType?: string;
+}
+
+export type IUILayoutTabContentInstance = "Editor" | "Asset" | "Custom";
+
+/**
+ * (Editor) Editor mode
+ * - `wysiwyg`: WYSIWYG mode
+ * - `preview`: Export preview mode
+ */
+export type Mode = "wysiwyg" | "preview";
+
+/**
  * Panel content layout direction
  * - `tb`: Top and bottom layout
  * - `lr`: Left and right layout
@@ -1290,10 +1355,7 @@ export interface ChildChild {
  */
 export type Direction = "tb" | "lr";
 
-/**
- * Object name
- */
-export type PurpleInstance = "Layout" | "Wnd" | "Tab";
+export type ChildInstance = "Layout" | "Wnd" | "Tab";
 
 /**
  * Layout type
@@ -1306,14 +1368,8 @@ export type PurpleInstance = "Layout" | "Wnd" | "Tab";
  */
 export type Type = "normal" | "center" | "top" | "bottom" | "left" | "right";
 
-/**
- * Object name
- */
-export type FluffyInstance = "Layout" | "Wnd";
+export type IUILayoutLayoutChildInstance = "Layout" | "Wnd";
 
-/**
- * Object name
- */
 export type LayoutInstance = "Layout";
 
 //#endregion content

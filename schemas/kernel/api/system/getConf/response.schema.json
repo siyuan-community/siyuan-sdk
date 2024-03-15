@@ -1635,8 +1635,10 @@
             "properties": {
                 "children": {
                     "type": "array",
+                    "title": "IUiLayoutLayoutChildren",
                     "description": "Internal elements",
                     "items": {
+                        "title": "IUiLayoutLayoutChild",
                         "oneOf": [
                             {
                                 "$ref": "#/$defs/uiLayout_layout"
@@ -1658,9 +1660,7 @@
                 "instance": {
                     "type": "string",
                     "description": "Object name",
-                    "enum": [
-                        "Layout"
-                    ]
+                    "const": "Layout"
                 },
                 "type": {
                     "type": "string",
@@ -1712,9 +1712,7 @@
                 "instance": {
                     "type": "string",
                     "description": "Object name",
-                    "enum": [
-                        "Wnd"
-                    ]
+                    "const": "Wnd"
                 },
                 "height": {
                     "type": "string",
@@ -1754,11 +1752,17 @@
             ],
             "properties": {
                 "children": {
-                    "description": "Tab data object",
+                    "title": "IUiLayoutTabContent",
+                    "description": "Tab content",
                     "oneOf": [
-                        {},
                         {
-                            "type": "object"
+                            "$ref": "#/$defs/uiLayout_tab_editor"
+                        },
+                        {
+                            "$ref": "#/$defs/uiLayout_tab_asset"
+                        },
+                        {
+                            "$ref": "#/$defs/uiLayout_tab_custom"
                         }
                     ]
                 },
@@ -1774,9 +1778,7 @@
                 "instance": {
                     "type": "string",
                     "description": "Object name",
-                    "enum": [
-                        "Tab"
-                    ]
+                    "const": "Tab"
                 },
                 "pin": {
                     "type": "boolean",
@@ -1785,6 +1787,110 @@
                 "title": {
                     "type": "string",
                     "description": "Tab title"
+                }
+            }
+        },
+        "uiLayout_tab_editor": {
+            "title": "IUiLayoutTabEditor",
+            "type": "object",
+            "description": "SiYuan editor tab",
+            "additionalProperties": false,
+            "required": [
+                "action",
+                "blockId",
+                "instance",
+                "mode",
+                "notebookId",
+                "rootId"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "(Editor) Actions to be performed after the tab is loaded",
+                    "examples": [
+                        "cb-get-scroll"
+                    ]
+                },
+                "blockId": {
+                    "type": "string",
+                    "description": "(Editor) Block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "const": "Editor"
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "(Editor) Editor mode\n- `wysiwyg`: WYSIWYG mode\n- `preview`: Export preview mode",
+                    "enum": [
+                        "wysiwyg",
+                        "preview"
+                    ]
+                },
+                "notebookId": {
+                    "type": "string",
+                    "description": "(Editor) Notebook ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "rootId": {
+                    "type": "string",
+                    "description": "(Editor) Document block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                }
+            }
+        },
+        "uiLayout_tab_asset": {
+            "title": "IUiLayoutTabAsset",
+            "type": "object",
+            "description": "SiYuan asset file tab",
+            "additionalProperties": false,
+            "required": [
+                "instance",
+                "path"
+            ],
+            "properties": {
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "const": "Asset"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "(Asset) Asset reference path",
+                    "examples": [
+                        "assets/filename-20210604092205-djd749a.png"
+                    ]
+                },
+                "page": {
+                    "type": "integer",
+                    "description": "(Asset) PDF file page number"
+                }
+            }
+        },
+        "uiLayout_tab_custom": {
+            "title": "IUiLayoutTabCustom",
+            "type": "object",
+            "description": "SiYuan custom tab",
+            "additionalProperties": false,
+            "required": [
+                "customModelData",
+                "customModelType",
+                "instance"
+            ],
+            "properties": {
+                "customModelData": {
+                    "description": "(Custom) Data of the custom tab"
+                },
+                "customModelType": {
+                    "type": "string",
+                    "description": "(Custom) Type of the custom tab"
+                },
+                "instance": {
+                    "type": "string",
+                    "description": "Object name",
+                    "const": "Custom"
                 }
             }
         },

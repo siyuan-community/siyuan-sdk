@@ -1599,8 +1599,10 @@
                 children: {
                     // 内部元素
                     type: 'array',
+                    title: 'IUiLayoutLayoutChildren',
                     description: 'Internal elements',
                     items: {
+                        title: 'IUiLayoutLayoutChild',
                         oneOf: [
                             {
                                 // 嵌套布局
@@ -1626,7 +1628,7 @@
                     // 对象名称
                     type: 'string',
                     description: 'Object name',
-                    enum: ['Layout'],
+                    const: 'Layout',
                 },
                 type: {
                     // 布局类型
@@ -1682,7 +1684,7 @@
                     // 对象名称
                     type: 'string',
                     description: 'Object name',
-                    enum: ['Wnd'],
+                    const: 'Wnd',
                 },
                 height: {
                     // 窗口高度
@@ -1716,15 +1718,21 @@
             required: ['children', 'docIcon', 'instance', 'pin', 'title'],
             properties: {
                 children: {
-                    // 页签数据对象
-                    description: 'Tab data object',
+                    // 页签内容
+                    title: 'IUiLayoutTabContent',
+                    description: 'Tab content',
                     oneOf: [
                         {
-                            // TODO: 文档页签
+                            // 编辑器
+                            $ref: '#/$defs/uiLayout_tab_editor',
                         },
                         {
-                            // 自定义页签
-                            type: 'object',
+                            // 资源文件
+                            $ref: '#/$defs/uiLayout_tab_asset',
+                        },
+                        {
+                            // 自定义
+                            $ref: '#/$defs/uiLayout_tab_custom',
                         },
                     ],
                 },
@@ -1742,7 +1750,7 @@
                     // 对象名称
                     type: 'string',
                     description: 'Object name',
-                    enum: ['Tab'],
+                    const: 'Tab',
                 },
                 pin: {
                     // 该页签是否被钉住
@@ -1753,6 +1761,109 @@
                     // 页签标题
                     type: 'string',
                     description: 'Tab title',
+                },
+            },
+        },
+        uiLayout_tab_editor: {
+            title: 'IUiLayoutTabEditor',
+            type: 'object',
+
+            description: 'SiYuan editor tab',
+            additionalProperties: false,
+            required: ['action', 'blockId', 'instance', 'mode', 'notebookId', 'rootId'],
+            properties: {
+                action: {
+                    // 页签加载完成后需要执行的动作
+                    type: 'string',
+                    description: '(Editor) Actions to be performed after the tab is loaded',
+                    examples: [
+                        'cb-get-scroll', // 滚动到文档指定位置
+                    ],
+                },
+                blockId: {
+                    // 块 ID
+                    type: 'string',
+                    description: '(Editor) Block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    const: 'Editor',
+                },
+                mode: {
+                    // 编辑器模式
+                    type: 'string',
+                    description: '(Editor) Editor mode\n- `wysiwyg`: WYSIWYG mode\n- `preview`: Export preview mode',
+                    enum: [
+                        'wysiwyg', // 所见即所得模式
+                        'preview', // 导出预览模式
+                    ],
+                },
+                notebookId: {
+                    // 文档所在笔记本 ID
+                    type: 'string',
+                    description: '(Editor) Notebook ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                rootId: {
+                    // 文档块 ID
+                    type: 'string',
+                    description: '(Editor) Document block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+            },
+        },
+        uiLayout_tab_asset: {
+            title: 'IUiLayoutTabAsset',
+            type: 'object',
+
+            description: 'SiYuan asset file tab',
+            additionalProperties: false,
+            required: ['instance', 'path'],
+            properties: {
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    const: 'Asset',
+                },
+                path: {
+                    // 资源文件引用路径
+                    type: 'string',
+                    description: '(Asset) Asset reference path',
+                    examples: ['assets/filename-20210604092205-djd749a.png'],
+                },
+                page: {
+                    // PDF 文件页码
+                    type: 'integer',
+                    description: '(Asset) PDF file page number',
+                },
+            },
+        },
+        uiLayout_tab_custom: {
+            title: 'IUiLayoutTabCustom',
+            type: 'object',
+
+            description: 'SiYuan custom tab',
+            additionalProperties: false,
+            required: ['customModelData', 'customModelType', 'instance'],
+            properties: {
+                customModelData: {
+                    // 自定义页签的数据
+                    description: '(Custom) Data of the custom tab',
+                },
+                customModelType: {
+                    // 自定义页签的类型
+                    type: 'string',
+                    description: '(Custom) Type of the custom tab',
+                },
+                instance: {
+                    // 对象名称
+                    type: 'string',
+                    description: 'Object name',
+                    const: 'Custom',
                 },
             },
         },

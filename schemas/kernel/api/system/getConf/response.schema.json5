@@ -113,7 +113,7 @@
                     $ref: '#/$defs/graph',
                 },
                 keymap: {
-                    // TODO
+                    // TODO: 快捷键
                 },
                 langs: {
                     // 支持的语言列表
@@ -182,7 +182,7 @@
                     $ref: '#/$defs/repo',
                 },
                 search: {
-                    // TODO
+                    // TODO: 搜索相关设置项
                 },
                 showChangelog: {
                     // 是否显示本版本更新日志

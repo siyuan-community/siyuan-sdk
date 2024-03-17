@@ -90,7 +90,7 @@ export interface IConf {
      */
     readonly: boolean;
     repo:     IRepo;
-    search:   any;
+    search:   ISearch;
     /**
      * Whether to display the changelog for this release version
      */
@@ -721,6 +721,128 @@ export interface IRepo {
      * performance is degraded (unit: milliseconds)
      */
     syncIndexTiming: number;
+}
+
+/**
+ * SiYuan search related configuration
+ */
+export interface ISearch {
+    /**
+     * Whether to search in block aliases
+     */
+    alias: boolean;
+    /**
+     * Extract backlink mention keywords from block aliases
+     */
+    backlinkMentionAlias: boolean;
+    /**
+     * Extract backlink mention keywords from block reference anchor text
+     */
+    backlinkMentionAnchor: boolean;
+    /**
+     * Extract backlink mention keywords from document names
+     */
+    backlinkMentionDoc: boolean;
+    /**
+     * Maximum number of backlink mention keywords
+     */
+    backlinkMentionKeywordsLimit: number;
+    /**
+     * Extract backlink mention keywords from block names
+     */
+    backlinkMentionName: boolean;
+    /**
+     * Whether to search quote blocks
+     */
+    blockquote: boolean;
+    /**
+     * Whether to distinguish between uppercase and lowercase letters when searching
+     */
+    caseSensitive: boolean;
+    /**
+     * Whether to search code blocks
+     */
+    codeBlock: boolean;
+    /**
+     * Whether to search database blocks
+     */
+    databaseBlock: boolean;
+    /**
+     * Whether to search document blocks
+     */
+    document: boolean;
+    /**
+     * Whether to search embedded blocks
+     */
+    embedBlock: boolean;
+    /**
+     * Whether to search heading blocks
+     */
+    heading: boolean;
+    /**
+     * Whether to search HTML blocks
+     */
+    htmlBlock: boolean;
+    /**
+     * Whether to search block attributes
+     */
+    ial: boolean;
+    /**
+     * Whether to search resource file paths
+     */
+    indexAssetPath: boolean;
+    /**
+     * Number of search results displayed
+     */
+    limit: number;
+    /**
+     * Whether to search list blocks
+     */
+    list: boolean;
+    /**
+     * Whether to search list items
+     */
+    listItem: boolean;
+    /**
+     * Whether to search formula blocks
+     */
+    mathBlock: boolean;
+    /**
+     * Whether to search block notes
+     */
+    memo: boolean;
+    /**
+     * Whether to search block names
+     */
+    name: boolean;
+    /**
+     * Whether to search paragraph blocks
+     */
+    paragraph: boolean;
+    /**
+     * Whether to search super blocks
+     */
+    superBlock: boolean;
+    /**
+     * Whether to search table blocks
+     */
+    table: boolean;
+    /**
+     * Whether to get virtual reference keywords from block aliases
+     */
+    virtualRefAlias: boolean;
+    /**
+     * Whether to get virtual reference keywords from block reference anchor text
+     */
+    virtualRefAnchor: boolean;
+    /**
+     * Whether to get virtual reference keywords from document names
+     */
+    virtualRefDoc: boolean;
+    /**
+     * Whether to get virtual reference keywords from block names
+     */
+    virtualRefName: boolean;
 }
 
 /**

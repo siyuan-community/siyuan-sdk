@@ -182,7 +182,8 @@
                     $ref: '#/$defs/repo',
                 },
                 search: {
-                    // TODO: 搜索相关设置项
+                    // 搜索相关设置项
+                    $ref: '#/$defs/search',
                 },
                 showChangelog: {
                     // 是否显示本版本更新日志
@@ -1143,6 +1144,161 @@
                     // 同步索引计时，超过该时间则提示用户索引性能下降 (单位: 毫秒)
                     type: 'integer',
                     description: 'Synchronous index timing, if it exceeds this time, the user is prompted that the index performance is degraded (unit: milliseconds)',
+                },
+            },
+        },
+        search: {
+            title: 'ISearch',
+            type: 'object',
+
+            description: 'SiYuan search related configuration',
+            additionalProperties: false,
+            required: ['alias', 'backlinkMentionAlias', 'backlinkMentionAnchor', 'backlinkMentionDoc', 'backlinkMentionKeywordsLimit', 'backlinkMentionName', 'blockquote', 'caseSensitive', 'codeBlock', 'databaseBlock', 'document', 'embedBlock', 'heading', 'htmlBlock', 'ial', 'indexAssetPath', 'limit', 'list', 'listItem', 'mathBlock', 'memo', 'name', 'paragraph', 'superBlock', 'table', 'virtualRefAlias', 'virtualRefAnchor', 'virtualRefDoc', 'virtualRefName'],
+            properties: {
+                alias: {
+                    // 是否在块别名中搜索
+                    type: 'boolean',
+                    description: 'Whether to search in block aliases',
+                },
+                backlinkMentionAlias: {
+                    // 从块别名中提取反向链接提及关键字
+                    type: 'boolean',
+                    description: 'Extract backlink mention keywords from block aliases',
+                },
+                backlinkMentionAnchor: {
+                    // 从块引用锚文本中提取反向链接提及关键字
+                    type: 'boolean',
+                    description: 'Extract backlink mention keywords from block reference anchor text',
+                },
+                backlinkMentionDoc: {
+                    // 从文档名中提取反向链接提及关键字
+                    type: 'boolean',
+                    description: 'Extract backlink mention keywords from document names',
+                },
+                backlinkMentionKeywordsLimit: {
+                    // 反向链接提及关键字数量上限
+                    type: 'integer',
+                    description: 'Maximum number of backlink mention keywords',
+                },
+                backlinkMentionName: {
+                    // 从块命名中提取反向链接提及关键字
+                    type: 'boolean',
+                    description: 'Extract backlink mention keywords from block names',
+                },
+                blockquote: {
+                    // 是否搜索引述块
+                    type: 'boolean',
+                    description: 'Whether to search quote blocks',
+                },
+                caseSensitive: {
+                    // 搜索时是否区分大小写字母
+                    type: 'boolean',
+                    description: 'Whether to distinguish between uppercase and lowercase letters when searching',
+                },
+                codeBlock: {
+                    // 是否搜索代码块
+                    type: 'boolean',
+                    description: 'Whether to search code blocks',
+                },
+                databaseBlock: {
+                    // 是否搜索数据库块
+                    type: 'boolean',
+                    description: 'Whether to search database blocks',
+                },
+                document: {
+                    // 是否搜索文档块
+                    type: 'boolean',
+                    description: 'Whether to search document blocks',
+                },
+                embedBlock: {
+                    // 是否搜索嵌入块
+                    type: 'boolean',
+                    description: 'Whether to search embedded blocks',
+                },
+                heading: {
+                    // 是否搜索标题块
+                    type: 'boolean',
+                    description: 'Whether to search heading blocks',
+                },
+                htmlBlock: {
+                    // 是否搜索 HTML 块
+                    type: 'boolean',
+                    description: 'Whether to search HTML blocks',
+                },
+                ial: {
+                    // 是否搜索块属性
+                    type: 'boolean',
+                    description: 'Whether to search block attributes',
+                },
+                indexAssetPath: {
+                    // 是否搜索资源文件路径
+                    type: 'boolean',
+                    description: 'Whether to search resource file paths',
+                },
+                limit: {
+                    // 搜索结果显示数
+                    type: 'integer',
+                    description: 'Number of search results displayed',
+                },
+                list: {
+                    // 是否搜索列表块
+                    type: 'boolean',
+                    description: 'Whether to search list blocks',
+                },
+                listItem: {
+                    // 是否搜索列表项
+                    type: 'boolean',
+                    description: 'Whether to search list items',
+                },
+                mathBlock: {
+                    // 是否搜索公式块
+                    type: 'boolean',
+                    description: 'Whether to search formula blocks',
+                },
+                memo: {
+                    // 是否搜索块备注
+                    type: 'boolean',
+                    description: 'Whether to search block notes',
+                },
+                name: {
+                    // 是否搜索块命名
+                    type: 'boolean',
+                    description: 'Whether to search block names',
+                },
+                paragraph: {
+                    // 是否搜索段落块
+                    type: 'boolean',
+                    description: 'Whether to search paragraph blocks',
+                },
+                superBlock: {
+                    // 是否搜索超级块
+                    type: 'boolean',
+                    description: 'Whether to search super blocks',
+                },
+                table: {
+                    // 是否搜索表格块
+                    type: 'boolean',
+                    description: 'Whether to search table blocks',
+                },
+                virtualRefAlias: {
+                    // 是否从块别名中获取虚拟引用关键字
+                    type: 'boolean',
+                    description: 'Whether to get virtual reference keywords from block aliases',
+                },
+                virtualRefAnchor: {
+                    // 是否从块引用锚文本中获取虚拟引用关键字
+                    type: 'boolean',
+                    description: 'Whether to get virtual reference keywords from block reference anchor text',
+                },
+                virtualRefDoc: {
+                    // 是否从文档名中获取虚拟引用关键字
+                    type: 'boolean',
+                    description: 'Whether to get virtual reference keywords from document names',
+                },
+                virtualRefName: {
+                    // 是否从块命名中获取虚拟引用关键字
+                    type: 'boolean',
+                    description: 'Whether to get virtual reference keywords from block names',
                 },
             },
         },

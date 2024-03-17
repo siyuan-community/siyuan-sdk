@@ -191,7 +191,9 @@
                 "repo": {
                     "$ref": "#/$defs/repo"
                 },
-                "search": {},
+                "search": {
+                    "$ref": "#/$defs/search"
+                },
                 "showChangelog": {
                     "type": "boolean",
                     "description": "Whether to display the changelog for this release version"
@@ -1171,6 +1173,161 @@
                 "syncIndexTiming": {
                     "type": "integer",
                     "description": "Synchronous index timing, if it exceeds this time, the user is prompted that the index performance is degraded (unit: milliseconds)"
+                }
+            }
+        },
+        "search": {
+            "title": "ISearch",
+            "type": "object",
+            "description": "SiYuan search related configuration",
+            "additionalProperties": false,
+            "required": [
+                "alias",
+                "backlinkMentionAlias",
+                "backlinkMentionAnchor",
+                "backlinkMentionDoc",
+                "backlinkMentionKeywordsLimit",
+                "backlinkMentionName",
+                "blockquote",
+                "caseSensitive",
+                "codeBlock",
+                "databaseBlock",
+                "document",
+                "embedBlock",
+                "heading",
+                "htmlBlock",
+                "ial",
+                "indexAssetPath",
+                "limit",
+                "list",
+                "listItem",
+                "mathBlock",
+                "memo",
+                "name",
+                "paragraph",
+                "superBlock",
+                "table",
+                "virtualRefAlias",
+                "virtualRefAnchor",
+                "virtualRefDoc",
+                "virtualRefName"
+            ],
+            "properties": {
+                "alias": {
+                    "type": "boolean",
+                    "description": "Whether to search in block aliases"
+                },
+                "backlinkMentionAlias": {
+                    "type": "boolean",
+                    "description": "Extract backlink mention keywords from block aliases"
+                },
+                "backlinkMentionAnchor": {
+                    "type": "boolean",
+                    "description": "Extract backlink mention keywords from block reference anchor text"
+                },
+                "backlinkMentionDoc": {
+                    "type": "boolean",
+                    "description": "Extract backlink mention keywords from document names"
+                },
+                "backlinkMentionKeywordsLimit": {
+                    "type": "integer",
+                    "description": "Maximum number of backlink mention keywords"
+                },
+                "backlinkMentionName": {
+                    "type": "boolean",
+                    "description": "Extract backlink mention keywords from block names"
+                },
+                "blockquote": {
+                    "type": "boolean",
+                    "description": "Whether to search quote blocks"
+                },
+                "caseSensitive": {
+                    "type": "boolean",
+                    "description": "Whether to distinguish between uppercase and lowercase letters when searching"
+                },
+                "codeBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search code blocks"
+                },
+                "databaseBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search database blocks"
+                },
+                "document": {
+                    "type": "boolean",
+                    "description": "Whether to search document blocks"
+                },
+                "embedBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search embedded blocks"
+                },
+                "heading": {
+                    "type": "boolean",
+                    "description": "Whether to search heading blocks"
+                },
+                "htmlBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search HTML blocks"
+                },
+                "ial": {
+                    "type": "boolean",
+                    "description": "Whether to search block attributes"
+                },
+                "indexAssetPath": {
+                    "type": "boolean",
+                    "description": "Whether to search resource file paths"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Number of search results displayed"
+                },
+                "list": {
+                    "type": "boolean",
+                    "description": "Whether to search list blocks"
+                },
+                "listItem": {
+                    "type": "boolean",
+                    "description": "Whether to search list items"
+                },
+                "mathBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search formula blocks"
+                },
+                "memo": {
+                    "type": "boolean",
+                    "description": "Whether to search block notes"
+                },
+                "name": {
+                    "type": "boolean",
+                    "description": "Whether to search block names"
+                },
+                "paragraph": {
+                    "type": "boolean",
+                    "description": "Whether to search paragraph blocks"
+                },
+                "superBlock": {
+                    "type": "boolean",
+                    "description": "Whether to search super blocks"
+                },
+                "table": {
+                    "type": "boolean",
+                    "description": "Whether to search table blocks"
+                },
+                "virtualRefAlias": {
+                    "type": "boolean",
+                    "description": "Whether to get virtual reference keywords from block aliases"
+                },
+                "virtualRefAnchor": {
+                    "type": "boolean",
+                    "description": "Whether to get virtual reference keywords from block reference anchor text"
+                },
+                "virtualRefDoc": {
+                    "type": "boolean",
+                    "description": "Whether to get virtual reference keywords from document names"
+                },
+                "virtualRefName": {
+                    "type": "boolean",
+                    "description": "Whether to get virtual reference keywords from block names"
                 }
             }
         },

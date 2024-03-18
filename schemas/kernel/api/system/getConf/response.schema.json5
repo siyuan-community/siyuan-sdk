@@ -113,7 +113,8 @@
                     $ref: '#/$defs/graph',
                 },
                 keymap: {
-                    // TODO: 快捷键
+                    // 快捷键设置项
+                    $ref: '#/$defs/keymap',
                 },
                 langs: {
                     // 支持的语言列表
@@ -1100,6 +1101,102 @@
                     // 显示标签
                     type: 'boolean',
                     description: 'Display tag',
+                },
+            },
+        },
+        keymap: {
+            title: 'IKeymap',
+            type: 'object',
+
+            description: 'SiYuan keymap related configuration',
+            additionalProperties: false,
+            required: ['editor', 'general', 'plugin'],
+            properties: {
+                editor: {
+                    // 编辑器快捷键
+                    $ref: '#/$defs/keymap_editor',
+                },
+                general: {
+                    // 全局快捷键
+                    $ref: '#/$defs/keys',
+                },
+                plugin: {
+                    // 插件快捷键
+                    $ref: '#/$defs/keymap_plugin',
+                },
+            },
+        },
+        keymap_editor: {
+            title: 'IKeymapEditor',
+            type: 'object',
+
+            description: 'SiYuan editor shortcut keys',
+            additionalProperties: false,
+            required: ['general', 'heading', 'insert', 'list', 'table'],
+            properties: {
+                general: {
+                    $ref: '#/$defs/keys',
+                },
+                heading: {
+                    $ref: '#/$defs/keys',
+                },
+                insert: {
+                    $ref: '#/$defs/keys',
+                },
+                list: {
+                    $ref: '#/$defs/keys',
+                },
+                table: {
+                    $ref: '#/$defs/keys',
+                },
+            },
+        },
+        keymap_plugin: {
+            title: 'IKeys',
+            type: 'object',
+
+            description: 'SiYuan plugin shortcut keys',
+            propertyNames: {
+                type: 'string',
+                description: 'SiYuan plugin name',
+                minLength: 1,
+            },
+            additionalProperties: {
+                $ref: '#/$defs/keys',
+            },
+        },
+        keys: {
+            title: 'IKeys',
+            type: 'object',
+
+            description: 'SiYuan shortcut keys',
+            // REF: https://opis.io/json-schema/2.x/object.html#propertynames
+            propertyNames: {
+                type: 'string',
+                minLength: 1,
+            },
+            // REF: https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties
+            additionalProperties: {
+                $ref: '#/$defs/key',
+            },
+        },
+        key: {
+            title: 'IKey',
+            type: 'object',
+
+            description: 'SiYuan shortcut key',
+            additionalProperties: false,
+            required: ['custom', 'default'],
+            properties: {
+                custom: {
+                    // 自定义快捷键
+                    type: 'string',
+                    description: 'Custom shortcut key',
+                },
+                default: {
+                    // 默认快捷键
+                    type: 'string',
+                    description: 'Default shortcut key',
                 },
             },
         },

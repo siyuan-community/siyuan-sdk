@@ -131,7 +131,9 @@
                 "graph": {
                     "$ref": "#/$defs/graph"
                 },
-                "keymap": {},
+                "keymap": {
+                    "$ref": "#/$defs/keymap"
+                },
                 "langs": {
                     "type": "array",
                     "description": "List of supported languages",
@@ -1121,6 +1123,103 @@
                 "tag": {
                     "type": "boolean",
                     "description": "Display tag"
+                }
+            }
+        },
+        "keymap": {
+            "title": "IKeymap",
+            "type": "object",
+            "description": "SiYuan keymap related configuration",
+            "additionalProperties": false,
+            "required": [
+                "editor",
+                "general",
+                "plugin"
+            ],
+            "properties": {
+                "editor": {
+                    "$ref": "#/$defs/keymap_editor"
+                },
+                "general": {
+                    "$ref": "#/$defs/keys"
+                },
+                "plugin": {
+                    "$ref": "#/$defs/keymap_plugin"
+                }
+            }
+        },
+        "keymap_editor": {
+            "title": "IKeymapEditor",
+            "type": "object",
+            "description": "SiYuan editor shortcut keys",
+            "additionalProperties": false,
+            "required": [
+                "general",
+                "heading",
+                "insert",
+                "list",
+                "table"
+            ],
+            "properties": {
+                "general": {
+                    "$ref": "#/$defs/keys"
+                },
+                "heading": {
+                    "$ref": "#/$defs/keys"
+                },
+                "insert": {
+                    "$ref": "#/$defs/keys"
+                },
+                "list": {
+                    "$ref": "#/$defs/keys"
+                },
+                "table": {
+                    "$ref": "#/$defs/keys"
+                }
+            }
+        },
+        "keymap_plugin": {
+            "title": "IKeys",
+            "type": "object",
+            "description": "SiYuan plugin shortcut keys",
+            "propertyNames": {
+                "type": "string",
+                "description": "SiYuan plugin name",
+                "minLength": 1
+            },
+            "additionalProperties": {
+                "$ref": "#/$defs/keys"
+            }
+        },
+        "keys": {
+            "title": "IKeys",
+            "type": "object",
+            "description": "SiYuan shortcut keys",
+            "propertyNames": {
+                "type": "string",
+                "minLength": 1
+            },
+            "additionalProperties": {
+                "$ref": "#/$defs/key"
+            }
+        },
+        "key": {
+            "title": "IKey",
+            "type": "object",
+            "description": "SiYuan shortcut key",
+            "additionalProperties": false,
+            "required": [
+                "custom",
+                "default"
+            ],
+            "properties": {
+                "custom": {
+                    "type": "string",
+                    "description": "Custom shortcut key"
+                },
+                "default": {
+                    "type": "string",
+                    "description": "Default shortcut key"
                 }
             }
         },

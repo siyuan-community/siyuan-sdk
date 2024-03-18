@@ -63,7 +63,7 @@ export interface IConf {
     fileTree:    IExport;
     flashcard:   IFlashCard;
     graph:       IGraph;
-    keymap:      any;
+    keymap:      IKeymap;
     /**
      * User interface language
      * Same as {@link IAppearance.lang}
@@ -687,6 +687,40 @@ export interface IGraphLocal {
      */
     dailyNote: boolean;
     type:      IGraphType;
+}
+
+/**
+ * SiYuan keymap related configuration
+ */
+export interface IKeymap {
+    editor:  IKeymapEditor;
+    general: { [key: string]: IKey };
+    plugin:  { [key: string]: { [key: string]: IKey } };
+}
+
+/**
+ * SiYuan editor shortcut keys
+ */
+export interface IKeymapEditor {
+    general: { [key: string]: IKey };
+    heading: { [key: string]: IKey };
+    insert:  { [key: string]: IKey };
+    list:    { [key: string]: IKey };
+    table:   { [key: string]: IKey };
+}
+
+/**
+ * SiYuan shortcut key
+ */
+export interface IKey {
+    /**
+     * Custom shortcut key
+     */
+    custom: string;
+    /**
+     * Default shortcut key
+     */
+    default: string;
 }
 
 /**

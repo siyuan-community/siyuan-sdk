@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getDocInfo/response.schema.json",
-    "$comment": "v",
+    "$comment": "v3.0.4",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -34,6 +34,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "attrViews",
                 "ial",
                 "icon",
                 "id",
@@ -44,6 +45,13 @@
                 "subFileCount"
             ],
             "properties": {
+                "attrViews": {
+                    "type": "array",
+                    "description": "Attribute view reference list",
+                    "items": {
+                        "$ref": "#/$defs/attrView"
+                    }
+                },
                 "id": {
                     "type": "string",
                     "description": "block ID",
@@ -83,6 +91,45 @@
                     "$ref": "#/$defs/ial"
                 }
             }
+        },
+        "attrView": {
+            "title": "IAttrView",
+            "description": "Attribute view",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Attribute view ID"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Attribute view name"
+                }
+            },
+            "oneOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "const": ""
+                        },
+                        "name": {
+                            "const": "Untitled"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "id": {
+                            "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                        }
+                    }
+                }
+            ]
         },
         "ial": {
             "title": "IAL",

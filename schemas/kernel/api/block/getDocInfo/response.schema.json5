@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/block/getDocInfo/response.schema.json5
  * 获取文档信息
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.9/kernel/api/block.go#L212-L229
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.4/kernel/api/block.go#L236-L253
  * @pathname: /api/block/getDocInfo
- * @version: 2.9.9
+ * @version: 3.0.4
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getDocInfo/response.schema.json5',
-    $comment: 'v',
+    $comment: 'v3.0.4',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -38,8 +38,16 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['ial', 'icon', 'id', 'name', 'refCount', 'refIDs', 'rootID', 'subFileCount'],
+            required: ['attrViews', 'ial', 'icon', 'id', 'name', 'refCount', 'refIDs', 'rootID', 'subFileCount'],
             properties: {
+                attrViews: {
+                    // 属性视图引用列表
+                    type: 'array',
+                    description: 'Attribute view reference list',
+                    items: {
+                        $ref: '#/$defs/attrView',
+                    },
+                },
                 id: {
                     // 块 ID
                     type: 'string',
@@ -87,6 +95,45 @@
                     $ref: '#/$defs/ial',
                 },
             },
+        },
+        attrView: {
+            title: 'IAttrView',
+            description: 'Attribute view',
+
+            type: 'object',
+            additionalProperties: false,
+            required: ['id', 'name'],
+            properties: {
+                id: {
+                    // 属性视图 ID
+                    type: 'string',
+                    description: 'Attribute view ID',
+                },
+                name: {
+                    // 属性视图名称
+                    type: 'string',
+                    description: 'Attribute view name',
+                },
+            },
+            oneOf: [
+                {
+                    properties: {
+                        id: {
+                            const: '',
+                        },
+                        name: {
+                            const: 'Untitled',
+                        },
+                    },
+                },
+                {
+                    properties: {
+                        id: {
+                            pattern: '^\\d{14}-[0-9a-z]{7}$',
+                        },
+                    },
+                },
+            ],
         },
         ial: {
             // 文档块的内联属性表

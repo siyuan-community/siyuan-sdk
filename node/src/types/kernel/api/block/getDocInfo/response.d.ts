@@ -35,7 +35,11 @@ export interface IResponse {
  * document information
  */
 export interface IData {
-    ial: Ial;
+    /**
+     * Attribute view reference list
+     */
+    attrViews: IAttrView[];
+    ial:       Ial;
     /**
      * document icon
      */
@@ -65,6 +69,22 @@ export interface IData {
      */
     subFileCount: number;
 }
+
+/**
+ * Attribute view
+ */
+export interface IAttrView {
+    /**
+     * Attribute view ID
+     */
+    id: string;
+    /**
+     * Attribute view name
+     */
+    name: ID;
+}
+
+export type ID = "Untitled";
 
 /**
  * Inline Attribute List (IAL) of document block

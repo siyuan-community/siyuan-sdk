@@ -87,14 +87,14 @@ describe.concurrent(pathname, async () => {
             payload: {
                 id: context.document,
             },
-            debug: false,
+            debug: true,
         },
         {
             name: "id: block",
             payload: {
                 id: context.block,
             },
-            debug: false,
+            debug: true,
         },
     ];
     cases.forEach(item => {

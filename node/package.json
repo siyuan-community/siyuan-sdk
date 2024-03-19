@@ -1,8 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
     "name": "@siyuan-community/siyuan-sdk",
-    "version": "0.3.7",
-    "packageManager": "pnpm@8.14.2",
+    "version": "0.3.8",
+    "packageManager": "pnpm@8.15.4",
     "engines": {
         "node": "21"
     },

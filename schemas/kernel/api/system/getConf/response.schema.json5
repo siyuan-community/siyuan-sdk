@@ -1118,7 +1118,7 @@
                 },
                 general: {
                     // 全局快捷键
-                    $ref: '#/$defs/keys',
+                    $ref: '#/$defs/keymap_general',
                 },
                 plugin: {
                     // 插件快捷键
@@ -1135,19 +1135,525 @@
             required: ['general', 'heading', 'insert', 'list', 'table'],
             properties: {
                 general: {
-                    $ref: '#/$defs/keys',
+                    // 通用
+                    $ref: '#/$defs/keymap_editor_general',
                 },
                 heading: {
-                    $ref: '#/$defs/keys',
+                    // 标题
+                    $ref: '#/$defs/keymap_editor_heading',
                 },
                 insert: {
-                    $ref: '#/$defs/keys',
+                    // 插入元素
+                    $ref: '#/$defs/keymap_editor_insert',
                 },
                 list: {
-                    $ref: '#/$defs/keys',
+                    // 列表
+                    $ref: '#/$defs/keymap_editor_list',
                 },
                 table: {
-                    $ref: '#/$defs/keys',
+                    // 表格
+                    $ref: '#/$defs/keymap_editor_table',
+                },
+            },
+        },
+        keymap_editor_general: {
+            title: 'IKeymapEditorGeneral',
+            type: 'object',
+
+            description: 'SiYuan editor general shortcut keys',
+            additionalProperties: false,
+            required: ['ai', 'alignCenter', 'alignLeft', 'alignRight', 'attr', 'backlinks', 'collapse', 'copyBlockEmbed', 'copyBlockRef', 'copyHPath', 'copyID', 'copyPlainText', 'copyProtocol', 'copyProtocolInMd', 'copyText', 'duplicate', 'exitFocus', 'expand', 'expandDown', 'expandUp', 'fullscreen', 'graphView', 'hLayout', 'insertAfter', 'insertBefore', 'insertBottom', 'insertRight', 'jumpToParentNext', 'moveToDown', 'moveToUp', 'netAssets2LocalAssets', 'netImg2LocalAsset', 'newContentFile', 'newNameFile', 'newNameSettingFile', 'openBy', 'optimizeTypography', 'outline', 'preview', 'quickMakeCard', 'redo', 'refPopover', 'refTab', 'refresh', 'rename', 'showInFolder', 'spaceRepetition', 'switchReadonly', 'undo', 'vLayout', 'wysiwyg'],
+            properties: {
+                ai: {
+                    $ref: '#/$defs/key',
+                },
+                alignCenter: {
+                    $ref: '#/$defs/key',
+                },
+                alignLeft: {
+                    $ref: '#/$defs/key',
+                },
+                alignRight: {
+                    $ref: '#/$defs/key',
+                },
+                attr: {
+                    $ref: '#/$defs/key',
+                },
+                backlinks: {
+                    $ref: '#/$defs/key',
+                },
+                collapse: {
+                    $ref: '#/$defs/key',
+                },
+                copyBlockEmbed: {
+                    $ref: '#/$defs/key',
+                },
+                copyBlockRef: {
+                    $ref: '#/$defs/key',
+                },
+                copyHPath: {
+                    $ref: '#/$defs/key',
+                },
+                copyID: {
+                    $ref: '#/$defs/key',
+                },
+                copyPlainText: {
+                    $ref: '#/$defs/key',
+                },
+                copyProtocol: {
+                    $ref: '#/$defs/key',
+                },
+                copyProtocolInMd: {
+                    $ref: '#/$defs/key',
+                },
+                copyText: {
+                    $ref: '#/$defs/key',
+                },
+                duplicate: {
+                    $ref: '#/$defs/key',
+                },
+                exitFocus: {
+                    $ref: '#/$defs/key',
+                },
+                expand: {
+                    $ref: '#/$defs/key',
+                },
+                expandDown: {
+                    $ref: '#/$defs/key',
+                },
+                expandUp: {
+                    $ref: '#/$defs/key',
+                },
+                fullscreen: {
+                    $ref: '#/$defs/key',
+                },
+                graphView: {
+                    $ref: '#/$defs/key',
+                },
+                hLayout: {
+                    $ref: '#/$defs/key',
+                },
+                insertAfter: {
+                    $ref: '#/$defs/key',
+                },
+                insertBefore: {
+                    $ref: '#/$defs/key',
+                },
+                insertBottom: {
+                    $ref: '#/$defs/key',
+                },
+                insertRight: {
+                    $ref: '#/$defs/key',
+                },
+                jumpToParentNext: {
+                    $ref: '#/$defs/key',
+                },
+                moveToDown: {
+                    $ref: '#/$defs/key',
+                },
+                moveToUp: {
+                    $ref: '#/$defs/key',
+                },
+                netAssets2LocalAssets: {
+                    $ref: '#/$defs/key',
+                },
+                netImg2LocalAsset: {
+                    $ref: '#/$defs/key',
+                },
+                newContentFile: {
+                    $ref: '#/$defs/key',
+                },
+                newNameFile: {
+                    $ref: '#/$defs/key',
+                },
+                newNameSettingFile: {
+                    $ref: '#/$defs/key',
+                },
+                openBy: {
+                    $ref: '#/$defs/key',
+                },
+                optimizeTypography: {
+                    $ref: '#/$defs/key',
+                },
+                outline: {
+                    $ref: '#/$defs/key',
+                },
+                preview: {
+                    $ref: '#/$defs/key',
+                },
+                quickMakeCard: {
+                    $ref: '#/$defs/key',
+                },
+                redo: {
+                    $ref: '#/$defs/key',
+                },
+                refPopover: {
+                    $ref: '#/$defs/key',
+                },
+                refTab: {
+                    $ref: '#/$defs/key',
+                },
+                refresh: {
+                    $ref: '#/$defs/key',
+                },
+                rename: {
+                    $ref: '#/$defs/key',
+                },
+                showInFolder: {
+                    $ref: '#/$defs/key',
+                },
+                spaceRepetition: {
+                    $ref: '#/$defs/key',
+                },
+                switchReadonly: {
+                    $ref: '#/$defs/key',
+                },
+                undo: {
+                    $ref: '#/$defs/key',
+                },
+                vLayout: {
+                    $ref: '#/$defs/key',
+                },
+                wysiwyg: {
+                    $ref: '#/$defs/key',
+                },
+            },
+        },
+        keymap_editor_heading: {
+            title: 'IKeymapEditorHeading',
+            type: 'object',
+
+            description: 'SiYuan editor heading shortcut keys',
+            additionalProperties: false,
+            required: ['heading1', 'heading2', 'heading3', 'heading4', 'heading5', 'heading6', 'paragraph'],
+            properties: {
+                heading1: {
+                    $ref: '#/$defs/key',
+                },
+                heading2: {
+                    $ref: '#/$defs/key',
+                },
+                heading3: {
+                    $ref: '#/$defs/key',
+                },
+                heading4: {
+                    $ref: '#/$defs/key',
+                },
+                heading5: {
+                    $ref: '#/$defs/key',
+                },
+                heading6: {
+                    $ref: '#/$defs/key',
+                },
+                paragraph: {
+                    $ref: '#/$defs/key',
+                },
+            },
+        },
+        keymap_editor_insert: {
+            title: 'IKeymapEditorInsert',
+            type: 'object',
+
+            description: 'SiYuan editor insert shortcut keys',
+            additionalProperties: false,
+            required: ['appearance', 'bold', 'check', 'clearInline', 'code', 'inline-code', 'inline-math', 'italic', 'kbd', 'lastUsed', 'link', 'mark', 'memo', 'ref', 'strike', 'sub', 'sup', 'table', 'tag', 'underline'],
+            properties: {
+                appearance: {
+                    $ref: '#/$defs/key',
+                },
+                bold: {
+                    $ref: '#/$defs/key',
+                },
+                check: {
+                    $ref: '#/$defs/key',
+                },
+                clearInline: {
+                    $ref: '#/$defs/key',
+                },
+                code: {
+                    $ref: '#/$defs/key',
+                },
+                'inline-code': {
+                    $ref: '#/$defs/key',
+                },
+                'inline-math': {
+                    $ref: '#/$defs/key',
+                },
+                italic: {
+                    $ref: '#/$defs/key',
+                },
+                kbd: {
+                    $ref: '#/$defs/key',
+                },
+                lastUsed: {
+                    $ref: '#/$defs/key',
+                },
+                link: {
+                    $ref: '#/$defs/key',
+                },
+                mark: {
+                    $ref: '#/$defs/key',
+                },
+                memo: {
+                    $ref: '#/$defs/key',
+                },
+                ref: {
+                    $ref: '#/$defs/key',
+                },
+                strike: {
+                    $ref: '#/$defs/key',
+                },
+                sub: {
+                    $ref: '#/$defs/key',
+                },
+                sup: {
+                    $ref: '#/$defs/key',
+                },
+                table: {
+                    $ref: '#/$defs/key',
+                },
+                tag: {
+                    $ref: '#/$defs/key',
+                },
+                underline: {
+                    $ref: '#/$defs/key',
+                },
+            },
+        },
+        keymap_editor_list: {
+            title: 'IKeymapEditorList',
+            type: 'object',
+
+            description: 'SiYuan editor list shortcut keys',
+            additionalProperties: false,
+            required: ['checkToggle', 'indent', 'outdent'],
+            properties: {
+                checkToggle: {
+                    $ref: '#/$defs/key',
+                },
+                indent: {
+                    $ref: '#/$defs/key',
+                },
+                outdent: {
+                    $ref: '#/$defs/key',
+                },
+            },
+        },
+        keymap_editor_table: {
+            title: 'IKeymapEditorTable',
+            type: 'object',
+
+            description: 'SiYuan editor table shortcut keys',
+            additionalProperties: false,
+            required: ['delete-column', 'delete-row', 'insertColumnLeft', 'insertColumnRight', 'insertRowAbove', 'insertRowBelow', 'moveToDown', 'moveToLeft', 'moveToRight', 'moveToUp'],
+            properties: {
+                'delete-column': {
+                    $ref: '#/$defs/key',
+                },
+                'delete-row': {
+                    $ref: '#/$defs/key',
+                },
+                insertColumnLeft: {
+                    $ref: '#/$defs/key',
+                },
+                insertColumnRight: {
+                    $ref: '#/$defs/key',
+                },
+                insertRowAbove: {
+                    $ref: '#/$defs/key',
+                },
+                insertRowBelow: {
+                    $ref: '#/$defs/key',
+                },
+                moveToDown: {
+                    $ref: '#/$defs/key',
+                },
+                moveToLeft: {
+                    $ref: '#/$defs/key',
+                },
+                moveToRight: {
+                    $ref: '#/$defs/key',
+                },
+                moveToUp: {
+                    $ref: '#/$defs/key',
+                },
+            },
+        },
+        keymap_general: {
+            title: 'IKeymapGeneral',
+            type: 'object',
+
+            description: 'SiYuan general shortcut keys',
+            additionalProperties: false,
+            required: ['addToDatabase', 'backlinks', 'bookmark', 'closeAll', 'closeLeft', 'closeOthers', 'closeRight', 'closeTab', 'closeUnmodified', 'commandPanel', 'config', 'dailyNote', 'dataHistory', 'editReadonly', 'enter', 'enterBack', 'fileTree', 'globalGraph', 'globalSearch', 'goBack', 'goForward', 'goToEditTabNext', 'goToEditTabPrev', 'goToTab1', 'goToTab2', 'goToTab3', 'goToTab4', 'goToTab5', 'goToTab6', 'goToTab7', 'goToTab8', 'goToTab9', 'goToTabNext', 'goToTabPrev', 'graphView', 'inbox', 'lockScreen', 'mainMenu', 'move', 'newFile', 'outline', 'recentDocs', 'replace', 'riffCard', 'search', 'selectOpen1', 'splitLR', 'splitMoveB', 'splitMoveR', 'splitTB', 'stickSearch', 'syncNow', 'tabToWindow', 'tag', 'toggleDock', 'toggleWin'],
+            properties: {
+                addToDatabase: {
+                    $ref: '#/$defs/key',
+                },
+                backlinks: {
+                    $ref: '#/$defs/key',
+                },
+                bookmark: {
+                    $ref: '#/$defs/key',
+                },
+                closeAll: {
+                    $ref: '#/$defs/key',
+                },
+                closeLeft: {
+                    $ref: '#/$defs/key',
+                },
+                closeOthers: {
+                    $ref: '#/$defs/key',
+                },
+                closeRight: {
+                    $ref: '#/$defs/key',
+                },
+                closeTab: {
+                    $ref: '#/$defs/key',
+                },
+                closeUnmodified: {
+                    $ref: '#/$defs/key',
+                },
+                commandPanel: {
+                    $ref: '#/$defs/key',
+                },
+                config: {
+                    $ref: '#/$defs/key',
+                },
+                dailyNote: {
+                    $ref: '#/$defs/key',
+                },
+                dataHistory: {
+                    $ref: '#/$defs/key',
+                },
+                editReadonly: {
+                    $ref: '#/$defs/key',
+                },
+                enter: {
+                    $ref: '#/$defs/key',
+                },
+                enterBack: {
+                    $ref: '#/$defs/key',
+                },
+                fileTree: {
+                    $ref: '#/$defs/key',
+                },
+                globalGraph: {
+                    $ref: '#/$defs/key',
+                },
+                globalSearch: {
+                    $ref: '#/$defs/key',
+                },
+                goBack: {
+                    $ref: '#/$defs/key',
+                },
+                goForward: {
+                    $ref: '#/$defs/key',
+                },
+                goToEditTabNext: {
+                    $ref: '#/$defs/key',
+                },
+                goToEditTabPrev: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab1: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab2: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab3: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab4: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab5: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab6: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab7: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab8: {
+                    $ref: '#/$defs/key',
+                },
+                goToTab9: {
+                    $ref: '#/$defs/key',
+                },
+                goToTabNext: {
+                    $ref: '#/$defs/key',
+                },
+                goToTabPrev: {
+                    $ref: '#/$defs/key',
+                },
+                graphView: {
+                    $ref: '#/$defs/key',
+                },
+                inbox: {
+                    $ref: '#/$defs/key',
+                },
+                lockScreen: {
+                    $ref: '#/$defs/key',
+                },
+                mainMenu: {
+                    $ref: '#/$defs/key',
+                },
+                move: {
+                    $ref: '#/$defs/key',
+                },
+                newFile: {
+                    $ref: '#/$defs/key',
+                },
+                outline: {
+                    $ref: '#/$defs/key',
+                },
+                recentDocs: {
+                    $ref: '#/$defs/key',
+                },
+                replace: {
+                    $ref: '#/$defs/key',
+                },
+                riffCard: {
+                    $ref: '#/$defs/key',
+                },
+                search: {
+                    $ref: '#/$defs/key',
+                },
+                selectOpen1: {
+                    $ref: '#/$defs/key',
+                },
+                splitLR: {
+                    $ref: '#/$defs/key',
+                },
+                splitMoveB: {
+                    $ref: '#/$defs/key',
+                },
+                splitMoveR: {
+                    $ref: '#/$defs/key',
+                },
+                splitTB: {
+                    $ref: '#/$defs/key',
+                },
+                stickSearch: {
+                    $ref: '#/$defs/key',
+                },
+                syncNow: {
+                    $ref: '#/$defs/key',
+                },
+                tabToWindow: {
+                    $ref: '#/$defs/key',
+                },
+                tag: {
+                    $ref: '#/$defs/key',
+                },
+                toggleDock: {
+                    $ref: '#/$defs/key',
+                },
+                toggleWin: {
+                    $ref: '#/$defs/key',
                 },
             },
         },

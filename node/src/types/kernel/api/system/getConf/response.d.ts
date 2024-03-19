@@ -694,7 +694,7 @@ export interface IGraphLocal {
  */
 export interface IKeymap {
     editor:  IKeymapEditor;
-    general: { [key: string]: IKey };
+    general: IKeymapGeneral;
     plugin:  { [key: string]: { [key: string]: IKey } };
 }
 
@@ -702,11 +702,68 @@ export interface IKeymap {
  * SiYuan editor shortcut keys
  */
 export interface IKeymapEditor {
-    general: { [key: string]: IKey };
-    heading: { [key: string]: IKey };
-    insert:  { [key: string]: IKey };
-    list:    { [key: string]: IKey };
-    table:   { [key: string]: IKey };
+    general: IKeymapEditorGeneral;
+    heading: IKeymapEditorHeading;
+    insert:  IKeymapEditorInsert;
+    list:    IKeymapEditorList;
+    table:   IKeymapEditorTable;
+}
+
+/**
+ * SiYuan editor general shortcut keys
+ */
+export interface IKeymapEditorGeneral {
+    ai:                    IKey;
+    alignCenter:           IKey;
+    alignLeft:             IKey;
+    alignRight:            IKey;
+    attr:                  IKey;
+    backlinks:             IKey;
+    collapse:              IKey;
+    copyBlockEmbed:        IKey;
+    copyBlockRef:          IKey;
+    copyHPath:             IKey;
+    copyID:                IKey;
+    copyPlainText:         IKey;
+    copyProtocol:          IKey;
+    copyProtocolInMd:      IKey;
+    copyText:              IKey;
+    duplicate:             IKey;
+    exitFocus:             IKey;
+    expand:                IKey;
+    expandDown:            IKey;
+    expandUp:              IKey;
+    fullscreen:            IKey;
+    graphView:             IKey;
+    hLayout:               IKey;
+    insertAfter:           IKey;
+    insertBefore:          IKey;
+    insertBottom:          IKey;
+    insertRight:           IKey;
+    jumpToParentNext:      IKey;
+    moveToDown:            IKey;
+    moveToUp:              IKey;
+    netAssets2LocalAssets: IKey;
+    netImg2LocalAsset:     IKey;
+    newContentFile:        IKey;
+    newNameFile:           IKey;
+    newNameSettingFile:    IKey;
+    openBy:                IKey;
+    optimizeTypography:    IKey;
+    outline:               IKey;
+    preview:               IKey;
+    quickMakeCard:         IKey;
+    redo:                  IKey;
+    refPopover:            IKey;
+    refresh:               IKey;
+    refTab:                IKey;
+    rename:                IKey;
+    showInFolder:          IKey;
+    spaceRepetition:       IKey;
+    switchReadonly:        IKey;
+    undo:                  IKey;
+    vLayout:               IKey;
+    wysiwyg:               IKey;
 }
 
 /**
@@ -721,6 +778,132 @@ export interface IKey {
      * Default shortcut key
      */
     default: string;
+}
+
+/**
+ * SiYuan editor heading shortcut keys
+ */
+export interface IKeymapEditorHeading {
+    heading1:  IKey;
+    heading2:  IKey;
+    heading3:  IKey;
+    heading4:  IKey;
+    heading5:  IKey;
+    heading6:  IKey;
+    paragraph: IKey;
+}
+
+/**
+ * SiYuan editor insert shortcut keys
+ */
+export interface IKeymapEditorInsert {
+    appearance:    IKey;
+    bold:          IKey;
+    check:         IKey;
+    clearInline:   IKey;
+    code:          IKey;
+    "inline-code": IKey;
+    "inline-math": IKey;
+    italic:        IKey;
+    kbd:           IKey;
+    lastUsed:      IKey;
+    link:          IKey;
+    mark:          IKey;
+    memo:          IKey;
+    ref:           IKey;
+    strike:        IKey;
+    sub:           IKey;
+    sup:           IKey;
+    table:         IKey;
+    tag:           IKey;
+    underline:     IKey;
+}
+
+/**
+ * SiYuan editor list shortcut keys
+ */
+export interface IKeymapEditorList {
+    checkToggle: IKey;
+    indent:      IKey;
+    outdent:     IKey;
+}
+
+/**
+ * SiYuan editor table shortcut keys
+ */
+export interface IKeymapEditorTable {
+    "delete-column":   IKey;
+    "delete-row":      IKey;
+    insertColumnLeft:  IKey;
+    insertColumnRight: IKey;
+    insertRowAbove:    IKey;
+    insertRowBelow:    IKey;
+    moveToDown:        IKey;
+    moveToLeft:        IKey;
+    moveToRight:       IKey;
+    moveToUp:          IKey;
+}
+
+/**
+ * SiYuan general shortcut keys
+ */
+export interface IKeymapGeneral {
+    addToDatabase:   IKey;
+    backlinks:       IKey;
+    bookmark:        IKey;
+    closeAll:        IKey;
+    closeLeft:       IKey;
+    closeOthers:     IKey;
+    closeRight:      IKey;
+    closeTab:        IKey;
+    closeUnmodified: IKey;
+    commandPanel:    IKey;
+    config:          IKey;
+    dailyNote:       IKey;
+    dataHistory:     IKey;
+    editReadonly:    IKey;
+    enter:           IKey;
+    enterBack:       IKey;
+    fileTree:        IKey;
+    globalGraph:     IKey;
+    globalSearch:    IKey;
+    goBack:          IKey;
+    goForward:       IKey;
+    goToEditTabNext: IKey;
+    goToEditTabPrev: IKey;
+    goToTab1:        IKey;
+    goToTab2:        IKey;
+    goToTab3:        IKey;
+    goToTab4:        IKey;
+    goToTab5:        IKey;
+    goToTab6:        IKey;
+    goToTab7:        IKey;
+    goToTab8:        IKey;
+    goToTab9:        IKey;
+    goToTabNext:     IKey;
+    goToTabPrev:     IKey;
+    graphView:       IKey;
+    inbox:           IKey;
+    lockScreen:      IKey;
+    mainMenu:        IKey;
+    move:            IKey;
+    newFile:         IKey;
+    outline:         IKey;
+    recentDocs:      IKey;
+    replace:         IKey;
+    riffCard:        IKey;
+    search:          IKey;
+    selectOpen1:     IKey;
+    splitLR:         IKey;
+    splitMoveB:      IKey;
+    splitMoveR:      IKey;
+    splitTB:         IKey;
+    stickSearch:     IKey;
+    syncNow:         IKey;
+    tabToWindow:     IKey;
+    tag:             IKey;
+    toggleDock:      IKey;
+    toggleWin:       IKey;
 }
 
 /**

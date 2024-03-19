@@ -16,6 +16,9 @@
  */
 
 //#region content
+/**
+ * Get the full configuration of the workspace
+ */
 export interface IResponse {
     /**
      * status code
@@ -60,7 +63,7 @@ export interface IConf {
     cloudRegion: number;
     editor:      IEditor;
     export:      IExport;
-    fileTree:    IExport;
+    fileTree:    IFileTree;
     flashcard:   IFlashCard;
     graph:       IGraph;
     keymap:      IKeymap;
@@ -510,6 +513,74 @@ export interface IExport {
      * Tag start marker symbol
      */
     tagOpenMarker: string;
+}
+
+/**
+ * Document tree related configuration
+ */
+export interface IFileTree {
+    /**
+     * Whether to allow the creation of sub-documents deeper than 7 levels
+     */
+    allowCreateDeeper: boolean;
+    /**
+     * Whether to automatically locate the currently open document in the document tree
+     */
+    alwaysSelectOpenedFile: boolean;
+    /**
+     * Whether to close all tabs when starting
+     */
+    closeTabsOnStart: boolean;
+    /**
+     * The storage path of the new document
+     */
+    docCreateSavePath: string;
+    /**
+     * The maximum number of documents listed
+     */
+    maxListCount: number;
+    /**
+     * The maximum number of open tabs
+     */
+    maxOpenTabCount: number;
+    /**
+     * Whether to open the file in the current tab
+     */
+    openFilesUseCurrentTab: boolean;
+    /**
+     * The storage path of the new document created using block references
+     */
+    refCreateSavePath: string;
+    /**
+     * Close the secondary confirmation when deleting a document
+     */
+    removeDocWithoutConfirm: boolean;
+    /**
+     * Document sorting method
+     * - `0`: File name ascending
+     * - `1`: File name descending
+     * - `2`: File update time ascending
+     * - `3`: File update time descending
+     * - `4`: File name natural number ascending
+     * - `5`: File name natural number descending
+     * - `6`: Custom sorting
+     * - `7`: Reference count ascending
+     * - `8`: Reference count descending
+     * - `9`: File creation time ascending
+     * - `10`: File creation time descending
+     * - `11`: File size ascending
+     * - `12`: File size descending
+     * - `13`: Sub-document count ascending
+     * - `14`: Sub-document count descending
+     * - `15`: Use document tree sorting rules
+     * - `256`: Unspecified sorting rules, according to the notebook priority over the document
+     * tree to obtain sorting rules
+     */
+    sort: number;
+    /**
+     * Whether to save the content of the .sy file as a single-line JSON object
+     */
+    useSingleLineSave: boolean;
 }
 
 /**
@@ -1455,11 +1526,11 @@ export interface IUILayoutDockPanelSize {
     /**
      * Panel height (unit: px)
      */
-    height: number;
+    height: number | null;
     /**
      * Panel width (unit: px)
      */
-    width: number;
+    width: number | null;
 }
 
 /**
@@ -1475,7 +1546,7 @@ export interface IUILayoutLayout {
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction: Direction;
+    direction?: Direction;
     /**
      * Object name
      */
@@ -1499,7 +1570,7 @@ export interface IUILayoutLayout {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type: Type;
+    type?: Type;
 }
 
 /**
@@ -1549,7 +1620,7 @@ export interface IUILayoutLayoutChild {
     /**
      * Panel width
      */
-    width?: number;
+    width?: string;
 }
 
 export type Children = ChildElement[] | IUILayoutTabContent;
@@ -1605,7 +1676,11 @@ export interface ChildElement {
     /**
      * Panel width
      */
-    width?: number;
+    width?: string;
+    /**
+     * Whether the tab is active
+     */
+    active?: boolean;
     /**
      * Tab icon
      */

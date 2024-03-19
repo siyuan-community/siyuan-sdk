@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json",
-    "$comment": "v3.0.2",
+    "$comment": "v3.0.4",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "",
+            "description": "Get the full configuration of the workspace",
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -123,7 +123,7 @@
                     "$ref": "#/$defs/export"
                 },
                 "fileTree": {
-                    "$ref": "#/$defs/export"
+                    "$ref": "#/$defs/fileTree"
                 },
                 "flashcard": {
                     "$ref": "#/$defs/flashcard"
@@ -2197,8 +2197,8 @@
                     "description": "Cloud storage service provider\n- `0`: SiYuan official cloud storage service\n- `1`: Object storage service compatible with S3 protocol\n- `2`: Network storage service using WebDAV protocol",
                     "enum": [
                         0,
-                        1,
-                        2
+                        2,
+                        3
                     ]
                 },
                 "s3": {
@@ -2246,8 +2246,7 @@
                 },
                 "endpoint": {
                     "type": "string",
-                    "description": "Service endpoint address",
-                    "format": "uri"
+                    "description": "Service endpoint address"
                 },
                 "pathStyle": {
                     "type": "boolean",
@@ -2532,9 +2531,7 @@
             "additionalProperties": false,
             "required": [
                 "children",
-                "direction",
-                "instance",
-                "type"
+                "instance"
             ],
             "properties": {
                 "children": {
@@ -2626,7 +2623,7 @@
                     ]
                 },
                 "width": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "Panel width",
                     "examples": [
                         "128px"
@@ -2648,6 +2645,7 @@
             "description": "SiYuan tab",
             "additionalProperties": false,
             "required": [
+                "active",
                 "children",
                 "docIcon",
                 "instance",
@@ -2655,6 +2653,10 @@
                 "title"
             ],
             "properties": {
+                "active": {
+                    "type": "boolean",
+                    "description": "Whether the tab is active"
+                },
                 "children": {
                     "title": "IUiLayoutTabContent",
                     "description": "Tab content",
@@ -2883,11 +2885,17 @@
             ],
             "properties": {
                 "height": {
-                    "type": "integer",
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
                     "description": "Panel height (unit: px)"
                 },
                 "width": {
-                    "type": "integer",
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
                     "description": "Panel width (unit: px)"
                 }
             }

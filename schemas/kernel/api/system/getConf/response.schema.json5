@@ -1,19 +1,19 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.2/kernel/api/system.go#L206-L225
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.4/kernel/api/system.go#L206-L225
  * @pathname: /api/system/getConf
- * @version: 3.0.2
+ * @version: 3.0.4
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
-    $comment: 'v3.0.2',
+    $comment: 'v3.0.4',
     $ref: '#/$defs/root',
     $defs: {
         root: {
             title: 'response body',
-            description: '',
+            description: 'Get the full configuration of the workspace',
 
             type: 'object',
             additionalProperties: false,
@@ -102,7 +102,7 @@
                 },
                 fileTree: {
                     // 文档树相关设置项
-                    $ref: '#/$defs/export',
+                    $ref: '#/$defs/fileTree',
                 },
                 flashcard: {
                     // 闪卡相关设置项
@@ -2020,8 +2020,8 @@
                     description: 'Cloud storage service provider\n- `0`: SiYuan official cloud storage service\n- `1`: Object storage service compatible with S3 protocol\n- `2`: Network storage service using WebDAV protocol',
                     enum: [
                         0, // 思源官方提供的云端存储服务
-                        1, // 兼容 S3 协议的对象存储服务
-                        2, // 使用 WebDAV 协议的网络存储服务
+                        2, // 兼容 S3 协议的对象存储服务
+                        3, // 使用 WebDAV 协议的网络存储服务
                     ],
                 },
                 s3: {
@@ -2067,7 +2067,6 @@
                     // 服务端点地址
                     type: 'string',
                     description: 'Service endpoint address',
-                    format: 'uri',
                 },
                 pathStyle: {
                     // 是否使用路径风格的 URL
@@ -2353,7 +2352,7 @@
 
             description: 'SiYuan panel layout',
             additionalProperties: false,
-            required: ['children', 'direction', 'instance', 'type'],
+            required: ['children', 'instance'],
             properties: {
                 children: {
                     // 内部元素
@@ -2453,7 +2452,7 @@
                 },
                 width: {
                     // 窗口宽度
-                    type: 'integer',
+                    type: 'string',
                     description: 'Panel width',
                     examples: ['128px'],
                 },
@@ -2474,8 +2473,13 @@
 
             description: 'SiYuan tab',
             additionalProperties: false,
-            required: ['children', 'docIcon', 'instance', 'pin', 'title'],
+            required: ['active', 'children', 'docIcon', 'instance', 'pin', 'title'],
             properties: {
+                active: {
+                    // 该页签是否激活
+                    type: 'boolean',
+                    description: 'Whether the tab is active',
+                },
                 children: {
                     // 页签内容
                     title: 'IUiLayoutTabContent',
@@ -2711,12 +2715,12 @@
             properties: {
                 height: {
                     // 面板高度 (单位: px)
-                    type: 'integer',
+                    type: ['integer', 'null'],
                     description: 'Panel height (unit: px)',
                 },
                 width: {
                     // 面板宽度 (单位: px)
-                    type: 'integer',
+                    type: ['integer', 'null'],
                     description: 'Panel width (unit: px)',
                 },
             },

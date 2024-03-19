@@ -94,8 +94,8 @@ describe.concurrent(pathname, async () => {
                 expect.soft(file.bookmark, "file.bookmark").toEqual("");
                 expect.soft(file.id, "file.id").toEqual(context.document);
                 expect.soft(file.count, "file.count").toEqual(0);
-                expect.soft(file.size, "file.size").toEqual(370);
-                expect.soft(file.hSize, "file.hSize").toEqual("370 B");
+                expect.soft(file.size, "file.size").toEqual(387);
+                expect.soft(file.hSize, "file.hSize").toEqual("387 B");
                 expect.soft(file.subFileCount, "file.subFileCount").toEqual(0);
                 expect.soft(file.newFlashcardCount, "file.newFlashcardCount").toEqual(0);
                 expect.soft(file.dueFlashcardCount, "file.dueFlashcardCount").toEqual(0);

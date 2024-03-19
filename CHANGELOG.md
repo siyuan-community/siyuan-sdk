@@ -5,6 +5,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 完善 API `/api/system/getConf` | Perfect API `/api/system/getConf`
 - 调整 API `/api/block/transferBlockRef` | Adjust API `/api/block/transferBlockRef`
+- 调整 API `/api/filetree/listDocsByPath` 的测试用例 | Adjust the test cases of API `/api/filetree/listDocsByPath`
 
 ## v0.3.7 / 2024-01-24
 

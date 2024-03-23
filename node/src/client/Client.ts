@@ -84,6 +84,7 @@ export class Client {
         block: {
             appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
             deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
+            foldBlock: { pathname: "/api/block/foldBlock", method: "POST" },
             getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
             getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" },
             getBlockInfo: { pathname: "/api/block/getBlockInfo", method: "POST" },
@@ -432,6 +433,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.deleteBlock.IResponse;
+        return response;
+    }
+
+    /* 折叠块 */
+    public async foldBlock(
+        payload: kernel.api.block.foldBlock.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.block.foldBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.foldBlock.pathname,
+            Client.api.block.foldBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.foldBlock.IResponse;
         return response;
     }
 

@@ -49,9 +49,9 @@ export interface IConf {
     /**
      * Access authorization code
      */
-    accessAuthCode: AccessAuthCode;
+    accessAuthCode: TAccessAuthCode;
     account:        IAccount;
-    ai:             IAI;
+    ai:             Iai;
     api:            IAPI;
     appearance:     IAppearance;
     bazaar:         IBazaar;
@@ -103,7 +103,7 @@ export interface IConf {
     sync:          ISync;
     system:        ISystem;
     tag:           ITag;
-    uiLayout:      IiLayout;
+    uiLayout:      IUILayout;
     /**
      * Community user data (Encrypted)
      */
@@ -113,7 +113,7 @@ export interface IConf {
 /**
  * Access authorization code
  */
-export type AccessAuthCode = "" | "*******";
+export type TAccessAuthCode = "" | "*******";
 
 /**
  * Account configuration
@@ -132,7 +132,7 @@ export interface IAccount {
 /**
  * Artificial Intelligence (AI) related configuration
  */
-export interface IAI {
+export interface Iai {
     openAI: IOpenAI;
 }
 
@@ -149,21 +149,29 @@ export interface IOpenAI {
      */
     apiKey: string;
     /**
+     * The maximum number of contexts passed when requesting the API
+     */
+    apiMaxContexts: number;
+    /**
      * Maximum number of tokens (0 means no limit)
      */
     apiMaxTokens: number;
     /**
      * The model name called by the API
      */
-    apiModel: TOpenAIModel;
+    apiModel: TOpenAIAPIModel;
     /**
      * API Provider
      */
-    apiProvider: APIProvider;
+    apiProvider: TOpenAAPIProvider;
     /**
      * API request proxy address
      */
     apiProxy: string;
+    /**
+     * Parameter `temperature` that controls the randomness of the generated text
+     */
+    apiTemperature: number;
     /**
      * API request timeout (unit: seconds)
      */
@@ -181,12 +189,12 @@ export interface IOpenAI {
 /**
  * The model name called by the API
  */
-export type TOpenAIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5-turbo-16k";
+export type TOpenAIAPIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5-turbo-16k";
 
 /**
  * API Provider
  */
-export type APIProvider = "OpenAI" | "Azure";
+export type TOpenAAPIProvider = "OpenAI" | "Azure";
 
 /**
  * SiYuan API related configuration
@@ -1020,6 +1028,10 @@ export interface ISearch {
      */
     alias: boolean;
     /**
+     * Whether to search in audio blocks
+     */
+    audioBlock: boolean;
+    /**
      * Extract backlink mention keywords from block aliases
      */
     backlinkMentionAlias: boolean;
@@ -1076,6 +1088,10 @@ export interface ISearch {
      */
     ial: boolean;
     /**
+     * Whether to search in iframe blocks
+     */
+    iframeBlock: boolean;
+    /**
      * Whether to search resource file paths
      */
     indexAssetPath: boolean;
@@ -1116,6 +1132,10 @@ export interface ISearch {
      */
     table: boolean;
     /**
+     * Whether to search in video blocks
+     */
+    videoBlock: boolean;
+    /**
      * Whether to get virtual reference keywords from block aliases
      */
     virtualRefAlias: boolean;
@@ -1131,6 +1151,10 @@ export interface ISearch {
      * Whether to get virtual reference keywords from block names
      */
     virtualRefName: boolean;
+    /**
+     * Whether to search in widget blocks
+     */
+    widgetBlock: boolean;
 }
 
 /**
@@ -1216,8 +1240,8 @@ export interface ISync {
     /**
      * Cloud storage service provider
      * - `0`: SiYuan official cloud storage service
-     * - `1`: Object storage service compatible with S3 protocol
-     * - `2`: Network storage service using WebDAV protocol
+     * - `2`: Object storage service compatible with S3 protocol
+     * - `3`: Network storage service using WebDAV protocol
      */
     provider: number;
     s3:       ISyncS3;
@@ -1319,7 +1343,7 @@ export interface ISystem {
      * - `ios`: iOS device
      * - `std`: Desktop Electron environment
      */
-    container: Container;
+    container: TSystemContainer;
     /**
      * The absolute path of the `data` directory of the current workspace
      */
@@ -1376,7 +1400,7 @@ export interface ISystem {
      * - `linux`: Linux
      * - `windows`: Windows
      */
-    os: OS;
+    os: TSystemOS;
     /**
      * Operating system platform name
      */
@@ -1398,7 +1422,7 @@ export interface ISystem {
  * - `ios`: iOS device
  * - `std`: Desktop Electron environment
  */
-export type Container = "docker" | "android" | "ios" | "std";
+export type TSystemContainer = "docker" | "android" | "ios" | "std";
 
 /**
  * SiYuan Network proxy configuration
@@ -1419,7 +1443,7 @@ export interface INetworkProxy {
      * - `https`: HTTPS
      * - `socks5`: SOCKS5
      */
-    scheme: Scheme;
+    scheme: TSystemNetworkProxyScheme;
 }
 
 /**
@@ -1429,7 +1453,7 @@ export interface INetworkProxy {
  * - `https`: HTTPS
  * - `socks5`: SOCKS5
  */
-export type Scheme = "" | "http" | "https" | "socks5";
+export type TSystemNetworkProxyScheme = "" | "http" | "https" | "socks5";
 
 /**
  * The operating system name determined at compile time (obtained using the command `go tool
@@ -1440,7 +1464,7 @@ export type Scheme = "" | "http" | "https" | "socks5";
  * - `linux`: Linux
  * - `windows`: Windows
  */
-export type OS = "android" | "darwin" | "ios" | "linux" | "windows";
+export type TSystemOS = "android" | "darwin" | "ios" | "linux" | "windows";
 
 /**
  * SiYuan tag dock related configuration
@@ -1461,7 +1485,7 @@ export interface ITag {
 /**
  * SiYuan UI layout related configuration
  */
-export interface IiLayout {
+export interface IUILayout {
     bottom: IUILayoutDock;
     /**
      * Whether to hide the sidebar
@@ -1479,7 +1503,7 @@ export interface IUILayoutDock {
     /**
      * Dock area list
      */
-    data: Array<IUILayoutDockPanel[]>;
+    data: Array<IUILayoutDockTab[]>;
     /**
      * Whether to pin the dock
      */
@@ -1487,48 +1511,46 @@ export interface IUILayoutDock {
 }
 
 /**
- * Dock panel list
- *
- * SiYuan dock panel data
+ * SiYuan dock tab data
  */
-export interface IUILayoutDockPanel {
+export interface IUILayoutDockTab {
     /**
-     * Panel hotkey
+     * Dock tab hotkey
      */
     hotkey: string;
     /**
      * Hotkey description ID
      */
-    hotkeyLangId: string;
+    hotkeyLangId?: string;
     /**
-     * Panel icon ID
+     * Tab icon ID
      */
     icon: string;
     /**
-     * Whether to display the panel
+     * Whether to display the tab
      */
     show: boolean;
     size: IUILayoutDockPanelSize;
     /**
-     * Panel title
+     * Tab title
      */
     title: string;
     /**
-     * Panel type
+     * Tab type
      */
     type: string;
 }
 
 /**
- * SiYuan dock panel size
+ * SiYuan dock tab size
  */
 export interface IUILayoutDockPanelSize {
     /**
-     * Panel height (unit: px)
+     * Tab height (unit: px)
      */
     height: number | null;
     /**
-     * Panel width (unit: px)
+     * Tab width (unit: px)
      */
     width: number | null;
 }
@@ -1546,17 +1568,17 @@ export interface IUILayoutLayout {
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: Direction;
+    direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: LayoutInstance;
+    instance: TUILayoutInstanceLayout;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: Direction;
+    resize?: TUILayoutDirection;
     /**
      * Panel size
      */
@@ -1570,7 +1592,7 @@ export interface IUILayoutLayout {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: Type;
+    type?: TUILayoutType;
 }
 
 /**
@@ -1588,17 +1610,17 @@ export interface IUILayoutLayoutChild {
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: Direction;
+    direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: IUILayoutLayoutChildInstance;
+    instance: TUILayout;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: Direction;
+    resize?: TUILayoutDirection;
     /**
      * Panel size
      */
@@ -1612,7 +1634,7 @@ export interface IUILayoutLayoutChild {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: Type;
+    type?: TUILayoutType;
     /**
      * Panel height
      */
@@ -1644,17 +1666,17 @@ export interface ChildElement {
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: Direction;
+    direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: ChildInstance;
+    instance: TUILayoutInstance;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: Direction;
+    resize?: TUILayoutDirection;
     /**
      * Panel size
      */
@@ -1668,7 +1690,7 @@ export interface ChildElement {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: Type;
+    type?: TUILayoutType;
     /**
      * Panel height
      */
@@ -1685,6 +1707,14 @@ export interface ChildElement {
      * Tab icon
      */
     docIcon?: string;
+    /**
+     * Icon reference ID
+     */
+    icon?: string;
+    /**
+     * Localization field key name
+     */
+    lang?: string;
     /**
      * Whether the tab is pinned
      */
@@ -1703,6 +1733,20 @@ export interface ChildElement {
  * SiYuan asset file tab
  *
  * SiYuan custom tab
+ *
+ * SiYuan back link tab
+ *
+ * SiYuan bookmark tab
+ *
+ * SiYuan filetree tab
+ *
+ * SiYuan graph tab
+ *
+ * SiYuan outline tab
+ *
+ * SiYuan tag tab
+ *
+ * SiYuan search tab
  */
 export interface IUILayoutTabContent {
     /**
@@ -1711,24 +1755,34 @@ export interface IUILayoutTabContent {
     action?: string;
     /**
      * (Editor) Block ID
+     *
+     * (Backlink) Block ID
+     *
+     * (Graph) Block ID
+     *
+     * (Outline) Block ID
      */
     blockId?: string;
     /**
      * Object name
      */
-    instance: IUILayoutTabContentInstance;
+    instance: TUILayoutTabContentInstance;
     /**
      * (Editor) Editor mode
      * - `wysiwyg`: WYSIWYG mode
      * - `preview`: Export preview mode
      */
-    mode?: Mode;
+    mode?: TUILayoutTabEditorMode;
     /**
      * (Editor) Notebook ID
      */
     notebookId?: string;
     /**
      * (Editor) Document block ID
+     *
+     * (Backlink) Document block ID
+     *
+     * (Graph) Document block ID
      */
     rootId?: string;
     /**
@@ -1747,16 +1801,329 @@ export interface IUILayoutTabContent {
      * (Custom) Type of the custom tab
      */
     customModelType?: string;
+    /**
+     * (Backlink) Tab type
+     * - `pin`: Pinned backlink panel
+     * - `local`: The backlink panel of the current editor
+     *
+     * (Graph) Tab type
+     * - `pin`: Pinned graph
+     * - `local`: Graph of the current editor
+     * - `global`: Global graph
+     *
+     * (Outline) Tab type
+     * - `pin`: Pinned outline panel
+     * - `local`: The outline panel of the current editor
+     */
+    type?: TuiLayoutTabType;
+    /**
+     * (Outline) Whether the associated editor is in preview mode
+     */
+    isPreview?: boolean;
+    config?:    IUILayoutTabSearchConfig;
 }
 
-export type IUILayoutTabContentInstance = "Editor" | "Asset" | "Custom";
+/**
+ * SiYuan search tab configuration
+ */
+export interface IUILayoutTabSearchConfig {
+    /**
+     * Grouping strategy
+     * - `0`: No grouping
+     * - `1`: Group by document
+     */
+    group:      number;
+    hasReplace: any;
+    /**
+     * Readable path list
+     */
+    hPath: string;
+    /**
+     * Search in the specified paths
+     */
+    idPath: string[];
+    /**
+     * Search content
+     */
+    k: string;
+    /**
+     * Search scheme
+     * - `0`: Keyword (default)
+     * - `1`: Query syntax
+     * - `2`: SQL
+     * - `3`: Regular expression
+     * @default 0
+     */
+    method: number;
+    /**
+     * Custom name of the query condition group
+     */
+    name?: string;
+    /**
+     * Current page number
+     */
+    page: number;
+    /**
+     * Replace content
+     */
+    r: string;
+    /**
+     * Whether to clear the search box after removing the currently used query condition group
+     */
+    removed?:     boolean;
+    replaceTypes: IUILayoutTabSearchConfigReplaceTypes;
+    /**
+     * Search result sorting scheme
+     * - `0`: Block type (default)
+     * - `1`: Ascending by creation time
+     * - `2`: Descending by creation time
+     * - `3`: Ascending by update time
+     * - `4`: Descending by update time
+     * - `5`: By content order (only valid when grouping by document)
+     * - `6`: Ascending by relevance
+     * - `7`: Descending by relevance
+     * @default 0
+     */
+    sort:  number;
+    types: IUILayoutTabSearchConfigTypes;
+}
+
+/**
+ * Replace type filtering
+ */
+export interface IUILayoutTabSearchConfigReplaceTypes {
+    /**
+     * Replace hyperlinks
+     * @default false
+     */
+    aHref?: boolean;
+    /**
+     * Replace hyperlink anchor text
+     * @default true
+     */
+    aText?: boolean;
+    /**
+     * Replace hyperlink title
+     * @default true
+     */
+    aTitle?: boolean;
+    /**
+     * Replace inline code
+     * @default false
+     */
+    code?: boolean;
+    /**
+     * Replace code blocks
+     * @default false
+     */
+    codeBlock?: boolean;
+    /**
+     * Replace document title
+     * @default true
+     */
+    docTitle?: boolean;
+    /**
+     * Replace italic elements
+     * @default true
+     */
+    em?: boolean;
+    /**
+     * Replace HTML blocks
+     * @default false
+     */
+    htmlBlock?: boolean;
+    /**
+     * Replace image addresses
+     * @default false
+     */
+    imgSrc?: boolean;
+    /**
+     * Replace image anchor text
+     * @default true
+     */
+    imgText?: boolean;
+    /**
+     * Replace image titles
+     * @default true
+     */
+    imgTitle?: boolean;
+    /**
+     * Replace inline formulas
+     * @default false
+     */
+    inlineMath?: boolean;
+    /**
+     * Replace inline memos
+     * @default true
+     */
+    inlineMemo?: boolean;
+    /**
+     * Replace kdb elements
+     * @default true
+     */
+    kbd?: boolean;
+    /**
+     * Replace mark elements
+     * @default true
+     */
+    mark?: boolean;
+    /**
+     * Replace formula blocks
+     * @default false
+     */
+    mathBlock?: boolean;
+    /**
+     * Replace delete elements
+     * @default true
+     */
+    s?: boolean;
+    /**
+     * Replace bold elements
+     * @default true
+     */
+    strong?: boolean;
+    /**
+     * Replace subscript elements
+     * @default true
+     */
+    sub?: boolean;
+    /**
+     * Replace superscript elements
+     * @default true
+     */
+    sup?: boolean;
+    /**
+     * Replace tag elements
+     * @default true
+     */
+    tag?: boolean;
+    /**
+     * Replace rich text elements
+     * @default true
+     */
+    text?: boolean;
+    /**
+     * Replace underline elements
+     * @default true
+     */
+    u?: boolean;
+}
+
+/**
+ * Search type filtering
+ */
+export interface IUILayoutTabSearchConfigTypes {
+    /**
+     * Search results contain audio blocks
+     * @default false
+     */
+    audioBlock: boolean;
+    /**
+     * Search results contain blockquote blocks
+     * @default false
+     */
+    blockquote: boolean;
+    /**
+     * Search results contain code blocks
+     * @default false
+     */
+    codeBlock: boolean;
+    /**
+     * Search results contain database blocks
+     * @default false
+     */
+    databaseBlock: boolean;
+    /**
+     * Search results contain document blocks
+     * @default false
+     */
+    document: boolean;
+    /**
+     * Search results contain embed blocks
+     * @default false
+     */
+    embedBlock: boolean;
+    /**
+     * Search results contain heading blocks
+     * @default false
+     */
+    heading: boolean;
+    /**
+     * Search results contain html blocks
+     * @default false
+     */
+    htmlBlock: boolean;
+    /**
+     * Search results contain iframe blocks
+     * @default false
+     */
+    iFrameBlock: boolean;
+    /**
+     * Search results contain list blocks
+     * @default false
+     */
+    list: boolean;
+    /**
+     * Search results contain list item blocks
+     * @default false
+     */
+    listItem: boolean;
+    /**
+     * Search results contain math blocks
+     * @default false
+     */
+    mathBlock: boolean;
+    /**
+     * Search results contain paragraph blocks
+     * @default false
+     */
+    paragraph: boolean;
+    /**
+     * Search results contain super blocks
+     * @default false
+     */
+    superBlock: boolean;
+    /**
+     * Search results contain table blocks
+     * @default false
+     */
+    table: boolean;
+    /**
+     * Search results contain video blocks
+     * @default false
+     */
+    videoBlock: boolean;
+    /**
+     * Search results contain widget blocks
+     * @default false
+     */
+    widgetBlock: boolean;
+}
+
+export type TUILayoutTabContentInstance = "Editor" | "Asset" | "Custom" | "Backlink" | "Bookmark" | "Files" | "Graph" | "Outline" | "Tag" | "Search";
 
 /**
  * (Editor) Editor mode
  * - `wysiwyg`: WYSIWYG mode
  * - `preview`: Export preview mode
  */
-export type Mode = "wysiwyg" | "preview";
+export type TUILayoutTabEditorMode = "wysiwyg" | "preview";
+
+/**
+ * (Backlink) Tab type
+ * - `pin`: Pinned backlink panel
+ * - `local`: The backlink panel of the current editor
+ *
+ * (Graph) Tab type
+ * - `pin`: Pinned graph
+ * - `local`: Graph of the current editor
+ * - `global`: Global graph
+ *
+ * (Outline) Tab type
+ * - `pin`: Pinned outline panel
+ * - `local`: The outline panel of the current editor
+ */
+export type TuiLayoutTabType = "pin" | "local" | "global";
 
 /**
  * Panel content layout direction
@@ -1767,9 +2134,9 @@ export type Mode = "wysiwyg" | "preview";
  * - `tb`: Can adjust the size up and down
  * - `lr`: Can adjust the size left and right
  */
-export type Direction = "tb" | "lr";
+export type TUILayoutDirection = "tb" | "lr";
 
-export type ChildInstance = "Layout" | "Wnd" | "Tab";
+export type TUILayoutInstance = "Layout" | "Wnd" | "Tab";
 
 /**
  * Layout type
@@ -1780,10 +2147,10 @@ export type ChildInstance = "Layout" | "Wnd" | "Tab";
  * - `left`: Left panel
  * - `right`: Right panel
  */
-export type Type = "normal" | "center" | "top" | "bottom" | "left" | "right";
+export type TUILayoutType = "normal" | "center" | "top" | "bottom" | "left" | "right";
 
-export type IUILayoutLayoutChildInstance = "Layout" | "Wnd";
+export type TUILayout = "Layout" | "Wnd";
 
-export type LayoutInstance = "Layout";
+export type TUILayoutInstanceLayout = "Layout";
 
 //#endregion content

@@ -17,7 +17,7 @@
 
 //#region content
 /**
- * Fold a block
+ * Unfold a block
  */
 export interface IResponse {
     /**

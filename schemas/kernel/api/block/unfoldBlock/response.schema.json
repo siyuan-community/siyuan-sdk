@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/foldBlock/response.schema.json",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/unfoldBlock/response.schema.json",
     "$comment": "v3.0.4",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "Fold a block",
+            "description": "Unfold a block",
             "type": "object",
             "additionalProperties": false,
             "required": [

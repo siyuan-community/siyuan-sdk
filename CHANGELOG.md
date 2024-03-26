@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/block/foldBlock` | Add API `/api/block/foldBlock`
+- 添加 API `/api/block/unfoldBlock` | Add API `/api/block/unfoldBlock`
 
 ## v0.3.8 / 2024-03-19
 

@@ -17,18 +17,13 @@
 
 //#region content
 /**
- * Fold a block
+ * Unfold a block
  */
-export interface IResponse {
+export interface IPayload {
     /**
-     * status code
+     * ID of the block to be unfolded
      */
-    code: number;
-    data: null;
-    /**
-     * status message
-     */
-    msg: string;
+    id: string;
 }
 
 //#endregion content

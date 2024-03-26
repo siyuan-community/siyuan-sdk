@@ -16,19 +16,9 @@
  */
 
 //#region content
-/**
- * Fold a block
- */
-export interface IResponse {
-    /**
-     * status code
-     */
-    code: number;
-    data: null;
-    /**
-     * status message
-     */
-    msg: string;
-}
+/* directories */
 
+/* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

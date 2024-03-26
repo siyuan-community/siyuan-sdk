@@ -30,6 +30,7 @@ export * as insertBlock from "./insertBlock";
 export * as moveBlock from "./moveBlock";
 export * as prependBlock from "./prependBlock";
 export * as transferBlockRef from "./transferBlockRef";
+export * as unfoldBlock from "./unfoldBlock";
 export * as updateBlock from "./updateBlock";
 
 /* files */

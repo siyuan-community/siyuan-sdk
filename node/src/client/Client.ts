@@ -95,6 +95,7 @@ export class Client {
             moveBlock: { pathname: "/api/block/moveBlock", method: "POST" },
             prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
             transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" },
+            unfoldBlock: { pathname: "/api/block/unfoldBlock", method: "POST" },
             updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
         },
         broadcast: {
@@ -587,6 +588,20 @@ export class Client {
             payload,
             config,
         ) as kernel.api.block.transferBlockRef.IResponse;
+        return response;
+    }
+
+    /* 展开块 */
+    public async unfoldBlock(
+        payload: kernel.api.block.unfoldBlock.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.block.unfoldBlock.IResponse> {
+        const response = await this._request(
+            Client.api.block.unfoldBlock.pathname,
+            Client.api.block.unfoldBlock.method,
+            payload,
+            config,
+        ) as kernel.api.block.unfoldBlock.IResponse;
         return response;
     }
 

@@ -4,6 +4,7 @@
 - 添加 API `/api/block/unfoldBlock` | Add API `/api/block/unfoldBlock`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/search/fullTextSearchBlock` | Adjust API `/api/search/fullTextSearchBlock`
+- 调整 API `/api/block/getDocInfo` | Adjust API `/api/block/getDocInfo`
 
 ## v0.3.8 / 2024-03-19
 

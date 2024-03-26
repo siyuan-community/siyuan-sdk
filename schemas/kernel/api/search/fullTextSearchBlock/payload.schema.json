@@ -64,7 +64,7 @@
                     "items": {
                         "type": "string",
                         "description": "Document path",
-                        "pattern": "^(\\d{14}-[0-9a-z]{7})(/\\d{14}-[0-9a-z]{7})*(?:\\.sy)?$",
+                        "pattern": "^(\\d{14}-[0-9a-z]{7})((/\\d{14}-[0-9a-z]{7})+(?:\\.sy)?)?$",
                         "examples": [
                             "20210808180117-czj9bvb",
                             "20210808180117-czj9bvb/20200812220555-lj3enxa",
@@ -91,14 +91,39 @@
             "additionalProperties": false,
             "required": [],
             "properties": {
+                "blockquote": {
+                    "type": "boolean",
+                    "description": "Search results contain blockquote blocks\n@default false",
+                    "default": false
+                },
+                "codeBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain code blocks\n@default false",
+                    "default": false
+                },
+                "databaseBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain database blocks\n@default false",
+                    "default": false
+                },
                 "document": {
                     "type": "boolean",
                     "description": "Search results contain document blocks\n@default false",
                     "default": false
                 },
+                "embedBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain embed blocks\n@default false",
+                    "default": false
+                },
                 "heading": {
                     "type": "boolean",
                     "description": "Search results contain heading blocks\n@default false",
+                    "default": false
+                },
+                "htmlBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain html blocks\n@default false",
                     "default": false
                 },
                 "list": {
@@ -111,29 +136,9 @@
                     "description": "Search results contain list item blocks\n@default false",
                     "default": false
                 },
-                "codeBlock": {
-                    "type": "boolean",
-                    "description": "Search results contain codeBlock blocks\n@default false",
-                    "default": false
-                },
                 "mathBlock": {
                     "type": "boolean",
-                    "description": "Search results contain mathBlock blocks\n@default false",
-                    "default": false
-                },
-                "table": {
-                    "type": "boolean",
-                    "description": "Search results contain table blocks\n@default false",
-                    "default": false
-                },
-                "blockquote": {
-                    "type": "boolean",
-                    "description": "Search results contain blockquote blocks\n@default false",
-                    "default": false
-                },
-                "superBlock": {
-                    "type": "boolean",
-                    "description": "Search results contain superBlock blocks\n@default false",
+                    "description": "Search results contain math blocks\n@default false",
                     "default": false
                 },
                 "paragraph": {
@@ -141,14 +146,14 @@
                     "description": "Search results contain paragraph blocks\n@default false",
                     "default": false
                 },
-                "htmlBlock": {
+                "superBlock": {
                     "type": "boolean",
-                    "description": "Search results contain htmlBlock blocks\n@default false",
+                    "description": "Search results contain super blocks\n@default false",
                     "default": false
                 },
-                "embedBlock": {
+                "table": {
                     "type": "boolean",
-                    "description": "Search results contain embedBlock blocks\n@default false",
+                    "description": "Search results contain table blocks\n@default false",
                     "default": false
                 }
             }

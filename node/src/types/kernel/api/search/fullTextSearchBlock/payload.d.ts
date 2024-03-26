@@ -88,17 +88,22 @@ export interface ITypes {
      */
     blockquote?: boolean;
     /**
-     * Search results contain codeBlock blocks
+     * Search results contain code blocks
      * @default false
      */
     codeBlock?: boolean;
+    /**
+     * Search results contain database blocks
+     * @default false
+     */
+    databaseBlock?: boolean;
     /**
      * Search results contain document blocks
      * @default false
      */
     document?: boolean;
     /**
-     * Search results contain embedBlock blocks
+     * Search results contain embed blocks
      * @default false
      */
     embedBlock?: boolean;
@@ -108,7 +113,7 @@ export interface ITypes {
      */
     heading?: boolean;
     /**
-     * Search results contain htmlBlock blocks
+     * Search results contain html blocks
      * @default false
      */
     htmlBlock?: boolean;
@@ -123,7 +128,7 @@ export interface ITypes {
      */
     listItem?: boolean;
     /**
-     * Search results contain mathBlock blocks
+     * Search results contain math blocks
      * @default false
      */
     mathBlock?: boolean;
@@ -133,7 +138,7 @@ export interface ITypes {
      */
     paragraph?: boolean;
     /**
-     * Search results contain superBlock blocks
+     * Search results contain super blocks
      * @default false
      */
     superBlock?: boolean;

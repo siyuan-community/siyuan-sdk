@@ -78,7 +78,7 @@
                     items: {
                         type: 'string',
                         description: 'Document path',
-                        pattern: '^(\\d{14}-[0-9a-z]{7})(/\\d{14}-[0-9a-z]{7})*(?:\\.sy)?$',
+                        pattern: '^(\\d{14}-[0-9a-z]{7})((/\\d{14}-[0-9a-z]{7})+(?:\\.sy)?)?$',
                         examples: [
                             '20210808180117-czj9bvb', // 笔记本
                             '20210808180117-czj9bvb/20200812220555-lj3enxa', // 包含下级文档
@@ -109,76 +109,69 @@
             additionalProperties: false,
             required: [],
             properties: {
+                blockquote: {
+                    type: 'boolean',
+                    description: 'Search results contain blockquote blocks\n@default false',
+                    default: false,
+                },
+                codeBlock: {
+                    type: 'boolean',
+                    description: 'Search results contain code blocks\n@default false',
+                    default: false,
+                },
+                databaseBlock: {
+                    type: 'boolean',
+                    description: 'Search results contain database blocks\n@default false',
+                    default: false,
+                },
                 document: {
-                    // 文档块
                     type: 'boolean',
                     description: 'Search results contain document blocks\n@default false',
                     default: false,
                 },
+                embedBlock: {
+                    type: 'boolean',
+                    description: 'Search results contain embed blocks\n@default false',
+                    default: false,
+                },
                 heading: {
-                    // 标题块
                     type: 'boolean',
                     description: 'Search results contain heading blocks\n@default false',
                     default: false,
                 },
+                htmlBlock: {
+                    type: 'boolean',
+                    description: 'Search results contain html blocks\n@default false',
+                    default: false,
+                },
                 list: {
-                    // 列表块
                     type: 'boolean',
                     description: 'Search results contain list blocks\n@default false',
                     default: false,
                 },
                 listItem: {
-                    // 列表项
                     type: 'boolean',
                     description: 'Search results contain list item blocks\n@default false',
                     default: false,
                 },
-                codeBlock: {
-                    // 代码块
-                    type: 'boolean',
-                    description: 'Search results contain codeBlock blocks\n@default false',
-                    default: false,
-                },
                 mathBlock: {
-                    // 数学公式块
                     type: 'boolean',
-                    description: 'Search results contain mathBlock blocks\n@default false',
-                    default: false,
-                },
-                table: {
-                    // 表格块
-                    type: 'boolean',
-                    description: 'Search results contain table blocks\n@default false',
-                    default: false,
-                },
-                blockquote: {
-                    // 引述块
-                    type: 'boolean',
-                    description: 'Search results contain blockquote blocks\n@default false',
-                    default: false,
-                },
-                superBlock: {
-                    // 超级块
-                    type: 'boolean',
-                    description: 'Search results contain superBlock blocks\n@default false',
+                    description: 'Search results contain math blocks\n@default false',
                     default: false,
                 },
                 paragraph: {
-                    // 段落块
                     type: 'boolean',
                     description: 'Search results contain paragraph blocks\n@default false',
                     default: false,
                 },
-                htmlBlock: {
-                    // HTML 块
+                superBlock: {
                     type: 'boolean',
-                    description: 'Search results contain htmlBlock blocks\n@default false',
+                    description: 'Search results contain super blocks\n@default false',
                     default: false,
                 },
-                embedBlock: {
-                    // 嵌入块
+                table: {
                     type: 'boolean',
-                    description: 'Search results contain embedBlock blocks\n@default false',
+                    description: 'Search results contain table blocks\n@default false',
                     default: false,
                 },
             },

@@ -3,6 +3,7 @@
 - 添加 API `/api/block/foldBlock` | Add API `/api/block/foldBlock`
 - 添加 API `/api/block/unfoldBlock` | Add API `/api/block/unfoldBlock`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
+- 调整 API `/api/search/fullTextSearchBlock` | Adjust API `/api/search/fullTextSearchBlock`
 
 ## v0.3.8 / 2024-03-19
 

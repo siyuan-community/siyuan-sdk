@@ -16,13 +16,19 @@
  */
 
 //#region content
-/* directories */
-export * as bootProgress from "./bootProgress";
-export * as currentTime from "./currentTime";
-export * as exit from "./exit";
-export * as getConf from "./getConf";
-export * as logoutAuth from "./logoutAuth";
-export * as version from "./version";
+/**
+ * Exit the kernel
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: any;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* files */
 //#endregion content

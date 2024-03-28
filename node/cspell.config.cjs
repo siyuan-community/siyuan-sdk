@@ -8,6 +8,7 @@ module.exports = {
     language: "en",
     // words - list of words to be always considered correct
     words: [
+        "AIAPI",
         "ALPN",
         "Alives",
         "Alphanum",
@@ -52,6 +53,7 @@ module.exports = {
         "quicktype",
         "siyuan",
         "succ",
+        "título",
         "userinfo",
         "webdav",
     ],

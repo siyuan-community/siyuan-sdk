@@ -183,6 +183,7 @@ export class Client {
         system: {
             bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
             currentTime: { pathname: "/api/system/currentTime", method: "POST" },
+            exit: { pathname: "/api/system/exit", method: "POST" },
             getConf: { pathname: "/api/system/getConf", method: "POST" },
             logoutAuth: { pathname: "/api/system/logoutAuth", method: "POST" },
             version: { pathname: "/api/system/version", method: "POST" },
@@ -1427,6 +1428,19 @@ export class Client {
         return response;
     }
 
+    /* 退出内核 */
+    public async exit(
+        payload: kernel.api.system.exit.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.system.exit.IResponse> {
+        const response = await this._request(
+            Client.api.system.exit.pathname,
+            Client.api.system.exit.method,
+            payload,
+            config,
+        ) as kernel.api.system.exit.IResponse;
+        return response;
+    }
 
     /* 获得配置 */
     public async getConf(

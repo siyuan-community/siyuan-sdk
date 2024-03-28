@@ -5,6 +5,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/search/fullTextSearchBlock` | Adjust API `/api/search/fullTextSearchBlock`
 - 调整 API `/api/block/getDocInfo` | Adjust API `/api/block/getDocInfo`
+- 添加 API `/api/system/exit` | Add API `/api/system/exit`
 
 ## v0.3.8 / 2024-03-19
 

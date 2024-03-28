@@ -301,7 +301,7 @@
                 apiProvider: {
                     // API 供应商
                     type: 'string',
-                    title: 'TOpenAApiProvider',
+                    title: 'TOpenAIApiProvider',
                     description: 'API Provider',
                     enum: ['OpenAI', 'Azure'],
                 },

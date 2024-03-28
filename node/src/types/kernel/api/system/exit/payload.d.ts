@@ -16,13 +16,18 @@
  */
 
 //#region content
-/* directories */
-export * as bootProgress from "./bootProgress";
-export * as currentTime from "./currentTime";
-export * as exit from "./exit";
-export * as getConf from "./getConf";
-export * as logoutAuth from "./logoutAuth";
-export * as version from "./version";
+/**
+ * Exit the kernel
+ */
+export interface IPayload {
+    /**
+     * Whether to automatically install the new version of the installation package
+     */
+    execInstallPkg?: number;
+    /**
+     * Whether to force quit the kernel
+     */
+    force?: boolean;
+}
 
-/* files */
 //#endregion content

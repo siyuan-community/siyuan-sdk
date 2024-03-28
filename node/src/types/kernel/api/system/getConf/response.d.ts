@@ -163,7 +163,7 @@ export interface IOpenAI {
     /**
      * API Provider
      */
-    apiProvider: TOpenAAPIProvider;
+    apiProvider: TOpenAIAPIProvider;
     /**
      * API request proxy address
      */
@@ -194,7 +194,7 @@ export type TOpenAIAPIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5
 /**
  * API Provider
  */
-export type TOpenAAPIProvider = "OpenAI" | "Azure";
+export type TOpenAIAPIProvider = "OpenAI" | "Azure";
 
 /**
  * SiYuan API related configuration

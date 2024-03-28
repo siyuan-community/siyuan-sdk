@@ -317,7 +317,7 @@
                 },
                 "apiProvider": {
                     "type": "string",
-                    "title": "TOpenAApiProvider",
+                    "title": "TOpenAIApiProvider",
                     "description": "API Provider",
                     "enum": [
                         "OpenAI",

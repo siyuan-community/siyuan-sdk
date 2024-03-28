@@ -17,12 +17,8 @@
 
 //#region content
 /* directories */
-export * as bootProgress from "./bootProgress";
-export * as currentTime from "./currentTime";
-export * as exit from "./exit";
-export * as getConf from "./getConf";
-export * as logoutAuth from "./logoutAuth";
-export * as version from "./version";
 
 /* files */
+export * from "./payload";
+export * from "./response";
 //#endregion content

@@ -7,6 +7,7 @@
 - 调整 API `/api/block/getDocInfo` | Adjust API `/api/block/getDocInfo`
 - 添加 API `/api/system/exit` | Add API `/api/system/exit`
 - 实现兼容 `Fetch` 接口的 `forwardProxy` 调用方案 | Implement a `forwardProxy` calling scheme compatible with the `Fetch` interface
+- 优化 `$fetch` 中 HTTP 请求头格式转换方案 | Optimize the HTTP request header format conversion scheme in `$fetch`
 
 ## v0.3.8 / 2024-03-19
 

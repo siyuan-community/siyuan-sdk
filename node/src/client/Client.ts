@@ -207,6 +207,22 @@ export class Client implements IFetch {
         return record;
     }
 
+    public static headers2records(headers: Headers): Record<string, string>[] {
+        const records: Record<string, string>[] = [];
+        headers.forEach((value, key) => {
+            records.push({ [key]: value });
+        });
+        return records;
+    }
+
+    public static headers2entries(headers: { [key: string]: string[] }): Array<[string, string]> {
+        const entries: Array<[string, string]> = [];
+        Object.entries(headers).forEach(([key, values]) => {
+            values.forEach(value => entries.push([key, value]));
+        });
+        return entries;
+    }
+
     public static entries2record(entries: IterableIterator<[string, string]> | Array<[string, string]>): Record<string, string> {
         const record: Record<string, string> = {};
         for (const [key, value] of entries) {
@@ -347,7 +363,7 @@ export class Client implements IFetch {
         const response = await this.forwardProxy({
             url: request.url,
             method: request.method as kernel.api.network.forwardProxy.TRequestMethod,
-            headers: [Client.headers2record(request.headers)],
+            headers: Client.headers2records(request.headers),
             payload: base64.fromUint8Array(new Uint8Array(await request.arrayBuffer())),
             timeout: constants.REQUEST_TIMEOUT,
             contentType: "application/json",
@@ -358,11 +374,7 @@ export class Client implements IFetch {
         return new Response(base64.toUint8Array(response.data.body), {
             status: response.data.status,
             statusText: response.msg,
-            headers: new Headers(Object
-                .entries(response.data.headers)
-                .filter(([_, values]) => values.length)
-                .map(([key, values]) => [key, values.at(-1)] as [string, string])
-            ),
+            headers: new Headers(Client.headers2entries(response.data.headers)),
         });
     }
 

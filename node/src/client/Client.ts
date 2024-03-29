@@ -68,7 +68,11 @@ export interface TempAxiosOptions {
 }
 export type TempOptions = TempFetchOptions | TempAxiosOptions;
 
-export class Client {
+export interface IFetch {
+    $fetch: typeof fetch;
+}
+
+export class Client implements IFetch {
     public static readonly ws = {
         broadcast: { pathname: "/ws/broadcast" },
     } as const;
@@ -330,6 +334,9 @@ export class Client {
 
     /**
      * 兼容 fetch 接口的 forwardProxy 调用方案
+     * @param input {@link fetch} 的第一个参数
+     * @param init {@link fetch} 的第二个参数
+     * @returns {} {@link fetch} 的返回值
      */
     public async $fetch(
         input: URL | RequestInfo,

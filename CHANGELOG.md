@@ -6,6 +6,7 @@
 - 调整 API `/api/search/fullTextSearchBlock` | Adjust API `/api/search/fullTextSearchBlock`
 - 调整 API `/api/block/getDocInfo` | Adjust API `/api/block/getDocInfo`
 - 添加 API `/api/system/exit` | Add API `/api/system/exit`
+- 实现兼容 `Fetch` 接口的 `forwardProxy` 调用方案 | Implement a `forwardProxy` calling scheme compatible with the `Fetch` interface
 
 ## v0.3.8 / 2024-03-19
 

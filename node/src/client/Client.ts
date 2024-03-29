@@ -1,5 +1,6 @@
 import * as axios from "axios";
 import * as ofetch from "ofetch";
+import * as base64 from "js-base64";
 import Websocket from "isomorphic-ws";
 
 import { kernel } from "@/types";
@@ -325,6 +326,37 @@ export class Client {
                 break;
         }
         this._baseURL = options.baseURL ?? this._baseURL;
+    }
+
+    /**
+     * 兼容 fetch 接口的 forwardProxy 调用方案
+     */
+    public async $fetch(
+        input: URL | RequestInfo,
+        init?: RequestInit,
+    ): Promise<Response> {
+        // REF: https://developer.mozilla.org/zh-CN/docs/Web/API/Request/Request
+        const request = new Request(input, init);
+        const response = await this.forwardProxy({
+            url: request.url,
+            method: request.method as kernel.api.network.forwardProxy.TRequestMethod,
+            headers: [Client.headers2record(request.headers)],
+            payload: base64.fromUint8Array(new Uint8Array(await request.arrayBuffer())),
+            timeout: constants.REQUEST_TIMEOUT,
+            contentType: "application/json",
+            payloadEncoding: "base64",
+            responseEncoding: "base64",
+        });
+        // REF: https://developer.mozilla.org/zh-CN/docs/Web/API/Response/Response
+        return new Response(base64.toUint8Array(response.data.body), {
+            status: response.data.status,
+            statusText: response.msg,
+            headers: new Headers(Object
+                .entries(response.data.headers)
+                .filter(([_, values]) => values.length)
+                .map(([key, values]) => [key, values.at(-1)] as [string, string])
+            ),
+        });
     }
 
     /* 👇 WebSocket 👇 */

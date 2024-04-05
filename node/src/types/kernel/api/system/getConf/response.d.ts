@@ -2017,7 +2017,7 @@ export interface IUILayoutTabSearchConfigTypes {
      * Search results contain audio blocks
      * @default false
      */
-    audioBlock: boolean;
+    audioBlock?: boolean;
     /**
      * Search results contain blockquote blocks
      * @default false
@@ -2057,7 +2057,7 @@ export interface IUILayoutTabSearchConfigTypes {
      * Search results contain iframe blocks
      * @default false
      */
-    iFrameBlock: boolean;
+    iframeBlock?: boolean;
     /**
      * Search results contain list blocks
      * @default false
@@ -2092,12 +2092,12 @@ export interface IUILayoutTabSearchConfigTypes {
      * Search results contain video blocks
      * @default false
      */
-    videoBlock: boolean;
+    videoBlock?: boolean;
     /**
      * Search results contain widget blocks
      * @default false
      */
-    widgetBlock: boolean;
+    widgetBlock?: boolean;
 }
 
 export type TUILayoutTabContentInstance = "Editor" | "Asset" | "Custom" | "Backlink" | "Bookmark" | "Files" | "Graph" | "Outline" | "Tag" | "Search";

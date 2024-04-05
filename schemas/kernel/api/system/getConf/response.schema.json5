@@ -1,9 +1,9 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.5/kernel/api/system.go#L206-L225
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.7/kernel/api/system.go#L206-L225
  * @pathname: /api/system/getConf
- * @version: 3.0.5
+ * @version: 3.0.7
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
@@ -2617,7 +2617,7 @@
 
             description: 'SiYuan editor tab',
             additionalProperties: false,
-            required: ['action', 'blockId', 'instance', 'mode', 'notebookId', 'rootId'],
+            required: ['blockId', 'instance', 'mode', 'notebookId', 'rootId'],
             properties: {
                 action: {
                     // 页签加载完成后需要执行的动作
@@ -3163,7 +3163,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['audioBlock', 'blockquote', 'codeBlock', 'databaseBlock', 'document', 'embedBlock', 'heading', 'htmlBlock', 'iFrameBlock', 'list', 'listItem', 'mathBlock', 'paragraph', 'superBlock', 'table', 'videoBlock', 'widgetBlock'],
+            required: ['blockquote', 'codeBlock', 'databaseBlock', 'document', 'embedBlock', 'heading', 'htmlBlock', 'list', 'listItem', 'mathBlock', 'paragraph', 'superBlock', 'table'],
             properties: {
                 audioBlock: {
                     type: 'boolean',
@@ -3205,7 +3205,7 @@
                     description: 'Search results contain html blocks\n@default false',
                     default: false,
                 },
-                iFrameBlock: {
+                iframeBlock: {
                     type: 'boolean',
                     description: 'Search results contain iframe blocks\n@default false',
                     default: false,

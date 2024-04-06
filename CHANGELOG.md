@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.9 / 2024-04-06
+
+- [v0.3.8 ... v0.3.9](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.8...v0.3.9)
 - 添加 API `/api/block/foldBlock` | Add API `/api/block/foldBlock`
 - 添加 API `/api/block/unfoldBlock` | Add API `/api/block/unfoldBlock`
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`

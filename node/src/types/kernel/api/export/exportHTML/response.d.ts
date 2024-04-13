@@ -16,10 +16,38 @@
  */
 
 //#region content
-/* directories */
-export * as exportMdContent from "./exportMdContent";
-export * as exportResources from "./exportResources";
-export * as exportHTML from "./exportHTML";
+/**
+ * Packages the specified files and folders as *.zip files and returns their download
+ * addresses
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    code: number;
+    data: IData;
+    /**
+     * status message
+     */
+    msg: string;
+}
 
-/* files */
+/**
+ * response data
+ */
+export interface IData {
+    /**
+     * doc block ID
+     */
+    id: string;
+    /**
+     * doc name
+     */
+    name: string;
+    /**
+     * doc content
+     */
+    content: string;
+}
+
 //#endregion content

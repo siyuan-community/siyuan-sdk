@@ -1,0 +1,39 @@
+/**
+ * schemas/kernel/api/export/exportHTML/payload.schema.json5
+ * 导出指定文档块为 HTML
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.7/kernel/api/export.go#L419-L436
+ * @pathname: /api/export/exportHTML
+ * @version: 3.0.7
+ */
+{
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportHTML/payload.schema.json5',
+    $comment: 'v3.0.7',
+    $ref: '#/$defs/root',
+    $defs: {
+        root: {
+            title: 'payload body',
+            description: 'Exports the specified document block as HTML',
+            type: 'object',
+            additionalProperties: {
+                keepFold: 'boolean'
+            },
+            required: [ 'id', 'pdf', 'savePath' ],
+            properties: {
+                id: {
+                    type: 'string',
+                    description: 'doc block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$'
+                },
+                pdf: {
+                    type: 'boolean',
+                    description: 'Whether the export format is PDF'
+                },
+                savePath: {
+                    type: 'string',
+                    description: 'The location where the file is saved'
+                }
+            }
+        },
+    },
+}

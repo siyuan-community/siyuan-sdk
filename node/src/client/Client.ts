@@ -114,6 +114,7 @@ export class Client implements IFetch {
         export: {
             exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
             exportResources: { pathname: "/api/export/exportResources", method: "POST" },
+            exportHTML: { pathname: "/api/export/exportHTML", method: "POST" },
         },
         file: {
             getFile: { pathname: "/api/file/getFile", method: "POST" },
@@ -751,6 +752,20 @@ export class Client implements IFetch {
             payload,
             config,
         ) as kernel.api.export.exportMdContent.IResponse;
+        return response;
+    }
+
+    /* 导出指定文档块为 HTML */
+    public async exportHTML(
+        payload: kernel.api.export.exportHTML.IPayload,
+        config?: TempOptions,
+    ): Promise<kernel.api.export.exportHTML.IResponse> {
+        const response = await this._request(
+            Client.api.export.exportHTML.pathname,
+            Client.api.export.exportHTML.method,
+            payload,
+            config,
+        ) as kernel.api.export.exportHTML.IResponse;
         return response;
     }
 

@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 添加 API `/api/export/exportHTML` | Add API `/api/export/exportHTML`
+
 ## v0.3.9 / 2024-04-06
 
 - [v0.3.8 ... v0.3.9](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.8...v0.3.9)

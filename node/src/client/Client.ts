@@ -112,9 +112,9 @@ export class Client implements IFetch {
             pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
         },
         export: {
+            exportHTML: { pathname: "/api/export/exportHTML", method: "POST" },
             exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
             exportResources: { pathname: "/api/export/exportResources", method: "POST" },
-            exportHTML: { pathname: "/api/export/exportHTML", method: "POST" },
         },
         file: {
             getFile: { pathname: "/api/file/getFile", method: "POST" },
@@ -727,17 +727,17 @@ export class Client implements IFetch {
         return response;
     }
 
-    /* 打包文件与文件夹以导出 */
-    public async exportResources(
-        payload: kernel.api.export.exportResources.IPayload,
+    /* 导出指定文档块为 HTML */
+    public async exportHTML(
+        payload: kernel.api.export.exportHTML.IPayload,
         config?: TempOptions,
-    ): Promise<kernel.api.export.exportResources.IResponse> {
+    ): Promise<kernel.api.export.exportHTML.IResponse> {
         const response = await this._request(
-            Client.api.export.exportResources.pathname,
-            Client.api.export.exportResources.method,
+            Client.api.export.exportHTML.pathname,
+            Client.api.export.exportHTML.method,
             payload,
             config,
-        ) as kernel.api.export.exportResources.IResponse;
+        ) as kernel.api.export.exportHTML.IResponse;
         return response;
     }
 
@@ -755,17 +755,17 @@ export class Client implements IFetch {
         return response;
     }
 
-    /* 导出指定文档块为 HTML */
-    public async exportHTML(
-        payload: kernel.api.export.exportHTML.IPayload,
+    /* 打包文件与文件夹以导出 */
+    public async exportResources(
+        payload: kernel.api.export.exportResources.IPayload,
         config?: TempOptions,
-    ): Promise<kernel.api.export.exportHTML.IResponse> {
+    ): Promise<kernel.api.export.exportResources.IResponse> {
         const response = await this._request(
-            Client.api.export.exportHTML.pathname,
-            Client.api.export.exportHTML.method,
+            Client.api.export.exportResources.pathname,
+            Client.api.export.exportResources.method,
             payload,
             config,
-        ) as kernel.api.export.exportHTML.IResponse;
+        ) as kernel.api.export.exportResources.IResponse;
         return response;
     }
 

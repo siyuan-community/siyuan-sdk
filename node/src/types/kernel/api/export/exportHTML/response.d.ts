@@ -17,8 +17,7 @@
 
 //#region content
 /**
- * Packages the specified files and folders as *.zip files and returns their download
- * addresses
+ * Exports the specified document block as HTML
  */
 export interface IResponse {
     /**
@@ -33,21 +32,21 @@ export interface IResponse {
 }
 
 /**
- * response data
+ * exported content
  */
 export interface IData {
+    /**
+     * html content
+     */
+    content: string;
     /**
      * doc block ID
      */
     id: string;
     /**
-     * doc name
+     * html name
      */
     name: string;
-    /**
-     * doc content
-     */
-    content: string;
 }
 
 //#endregion content

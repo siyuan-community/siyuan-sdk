@@ -17,8 +17,7 @@
 
 //#region content
 /**
- * Packages the specified files and folders as *.zip files and returns their download
- * addresses
+ * Exports the specified document block as HTML
  */
 export interface IPayload {
     /**
@@ -26,17 +25,14 @@ export interface IPayload {
      */
     id: string;
     /**
-     * Whether the export format is PDF.
+     * Whether the export format is PDF
      */
     pdf: boolean;
     /**
      * The location where the file is saved
      */
     savePath: string;
-    /**
-     * Whether to expand by default when exporting.
-     */
-    keepFold?: boolean
+    [property: string]: any;
 }
 
 //#endregion content

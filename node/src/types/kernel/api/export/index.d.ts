@@ -17,9 +17,9 @@
 
 //#region content
 /* directories */
+export * as exportHTML from "./exportHTML";
 export * as exportMdContent from "./exportMdContent";
 export * as exportResources from "./exportResources";
-export * as exportHTML from "./exportHTML";
 
 /* files */
 //#endregion content

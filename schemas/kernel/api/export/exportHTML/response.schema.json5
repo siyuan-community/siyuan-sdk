@@ -49,7 +49,7 @@
                 id: {
                     type: 'string',
                     description: 'doc block ID',
-                    pattern: '^\\d{14}-[0-9a-z]{7}'
+                    pattern: '^\\d{14}-[0-9a-z]{7}$'
                 },
                 name: {
                     type: 'string',

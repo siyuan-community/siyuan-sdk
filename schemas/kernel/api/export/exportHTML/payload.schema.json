@@ -11,7 +11,11 @@
             "additionalProperties": {
                 "keepFold": "boolean"
             },
-            "required": [ "id", "pdf", "savePath" ],
+            "required": [
+                "id",
+                "pdf",
+                "savePath"
+            ],
             "properties": {
                 "id": {
                     "type": "string",

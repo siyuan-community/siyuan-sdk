@@ -16,10 +16,27 @@
  */
 
 //#region content
-/* directories */
-export * as exportMdContent from "./exportMdContent";
-export * as exportResources from "./exportResources";
-export * as exportHTML from "./exportHTML";
+/**
+ * Packages the specified files and folders as *.zip files and returns their download
+ * addresses
+ */
+export interface IPayload {
+    /**
+     * doc block ID
+     */
+    id: string;
+    /**
+     * Whether the export format is PDF.
+     */
+    pdf: boolean;
+    /**
+     * The location where the file is saved
+     */
+    savePath: string;
+    /**
+     * Whether to expand by default when exporting.
+     */
+    keepFold?: boolean
+}
 
-/* files */
 //#endregion content

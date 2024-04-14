@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportHTML/payload.schema.json",
+    "$comment": "v3.0.7",
+    "$ref": "#/$defs/root",
+    "$defs": {
+        "root": {
+            "title": "payload body",
+            "description": "Exports the specified document block as HTML",
+            "type": "object",
+            "additionalProperties": {
+                "keepFold": "boolean"
+            },
+            "required": [ "id", "pdf", "savePath" ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "doc block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "pdf": {
+                    "type": "boolean",
+                    "description": "Whether the export format is PDF"
+                },
+                "savePath": {
+                    "type": "string",
+                    "description": "The location where the file is saved"
+                }
+            }
+        }
+    }
+}

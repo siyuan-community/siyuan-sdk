@@ -8,9 +8,7 @@
             "title": "payload body",
             "description": "Exports the specified document block as HTML",
             "type": "object",
-            "additionalProperties": {
-                "keepFold": "boolean"
-            },
+            "additionalProperties": false,
             "required": [
                 "id",
                 "pdf",
@@ -29,6 +27,16 @@
                 "savePath": {
                     "type": "string",
                     "description": "The location where the file is saved"
+                },
+                "keepFold": {
+                    "type": "boolean",
+                    "description": "Whether to keep the folding state",
+                    "default": false
+                },
+                "merge": {
+                    "type": "boolean",
+                    "description": "Whether to merge the content of the subdocument",
+                    "default": false
                 }
             }
         }

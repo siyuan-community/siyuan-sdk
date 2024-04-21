@@ -25,6 +25,14 @@ export interface IPayload {
      */
     id: string;
     /**
+     * Whether to keep the folding state
+     */
+    keepFold?: boolean;
+    /**
+     * Whether to merge the content of the subdocument
+     */
+    merge?: boolean;
+    /**
      * Whether the export format is PDF
      */
     pdf: boolean;
@@ -32,7 +40,6 @@ export interface IPayload {
      * The location where the file is saved
      */
     savePath: string;
-    [property: string]: any;
 }
 
 //#endregion content

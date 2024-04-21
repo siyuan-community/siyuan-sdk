@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 添加 API `/api/export/exportHTML` | Add API `/api/export/exportHTML`
+- 调整 API `/api/export/exportHTML` | Adjust API `/api/export/exportHTML`
 
 ## v0.3.9 / 2024-04-06
 

@@ -37,13 +37,20 @@ describe.concurrent(pathname, async () => {
     const validate_payload = schema_payload.constructValidateFuction();
     const validate_response = schema_response.constructValidateFuction();
 
+    await client.client.putFile({
+        path: savePath,
+        isDir: true,
+    });
+
     testKernelAPI<exportHTML.IPayload, exportHTML.IResponse>({
         name: "main",
         payload: {
             data: {
                 id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
                 pdf: false,
-                savePath
+                savePath,
+                keepFold: true,
+                merge: false,
             },
             validate: validate_payload,
         },
@@ -58,7 +65,7 @@ describe.concurrent(pathname, async () => {
 // REF: https://cn.vitest.dev/api/#afterall
 afterAll(async () => {
     /* 删除测试生成的文件目录 */
-    client.client.removeFile({
+    await client.client.removeFile({
         path: savePath,
     });
 });

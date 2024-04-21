@@ -16,50 +16,42 @@
             description: 'Exports the specified document block as HTML',
             type: 'object',
             additionalProperties: false,
-            required: [
-                'code',
-                'msg',
-                'data'
-            ],
+            required: ['code', 'msg', 'data'],
             properties: {
                 code: {
                     type: 'integer',
-                    description: 'status code'
+                    description: 'status code',
                 },
                 msg: {
                     type: 'string',
-                    description: 'status message'
+                    description: 'status message',
                 },
                 data: {
-                    $ref: '#/$defs/data'
-                }
-            }
+                    $ref: '#/$defs/data',
+                },
+            },
         },
         data: {
             title: 'IData',
             description: 'exported content',
             type: 'object',
             additionalProperties: false,
-            required: [
-                'id',
-                'name',
-                'content'
-            ],
+            required: ['id', 'name', 'content'],
             properties: {
                 id: {
                     type: 'string',
                     description: 'doc block ID',
-                    pattern: '^\\d{14}-[0-9a-z]{7}$'
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
                 name: {
                     type: 'string',
-                    description: 'html name'
+                    description: 'html name',
                 },
                 content: {
                     type: 'string',
-                    description: 'html content'
-                }
-            }
-        }
-    }
+                    description: 'html content',
+                },
+            },
+        },
+    },
 }

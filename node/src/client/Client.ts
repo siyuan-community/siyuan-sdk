@@ -385,14 +385,14 @@ export class Client implements IFetch {
         params: kernel.ws.broadcast.IParams | URLSearchParams,
         protocols?: string | string[],
         config?: IBaseOptions,
-    ): WebSocket {
+    ): InstanceType<typeof Websocket> {
         const baseURL = config?.baseURL ?? this._baseURL;
         const token = config?.token ?? this._token;
 
         const searchParams = new URLSearchParams(params);
         token && searchParams.set("token", token);
 
-        const url = new URL(baseURL);
+        const url = new URL(baseURL, globalThis.location?.href);
         url.protocol = url.protocol.replace(/^http/, "ws");
         url.pathname = url.pathname.endsWith("/")
             ? `${url.pathname}${Client.ws.broadcast.pathname.substring(1)}`

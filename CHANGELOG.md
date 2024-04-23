@@ -3,6 +3,7 @@
 - 添加 API `/api/export/exportHTML` | Add API `/api/export/exportHTML`
 - 调整 API `/api/export/exportHTML` | Adjust API `/api/export/exportHTML`
 - 优化 WebSocket URL 生成方案 | Optimize WebSocket URL generation scheme
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 
 ## v0.3.9 / 2024-04-06
 

@@ -57,7 +57,7 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['accessAuthCode', 'account', 'ai', 'api', 'appearance', 'bazaar', 'cloudRegion', 'editor', 'export', 'fileTree', 'flashcard', 'graph', 'keymap', 'lang', 'langs', 'localIPs', 'logLevel', 'openHelp', 'readonly', 'repo', 'search', 'showChangelog', 'snippet', 'stat', 'sync', 'system', 'tag', 'uiLayout', 'userData'],
+            required: ['accessAuthCode', 'account', 'ai', 'api', 'appearance', 'bazaar', 'cloudRegion', 'editor', 'export', 'fileTree', 'flashcard', 'graph', 'keymap', 'lang', 'langs', 'localIPs', 'logLevel', 'openHelp', 'readonly', 'repo', 'search', 'showChangelog', 'snippet', 'stat', 'state', 'sync', 'system', 'tag', 'uiLayout', 'userData'],
             properties: {
                 accessAuthCode: {
                     // 访问授权码
@@ -199,6 +199,17 @@
                 stat: {
                     // 工作空间内容统计
                     $ref: '#/$defs/stat',
+                },
+                state: {
+                    // 闪卡状态
+                    type: 'integer',
+                    description: 'Flashcard status\n- `0`: New\n- `1`: Learning\n- `2`: Review\n- `3`: Relearn',
+                    enum: [
+                        0, // 新建
+                        1, // 学习
+                        2, // 复习
+                        3, // 重新学习
+                    ],
                 },
                 sync: {
                     // 同步相关设置项

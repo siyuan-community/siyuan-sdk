@@ -100,10 +100,18 @@ export interface IConf {
     showChangelog: boolean;
     snippet:       ISnippet;
     stat:          IStat;
-    sync:          ISync;
-    system:        ISystem;
-    tag:           ITag;
-    uiLayout:      IUILayout;
+    /**
+     * Flashcard status
+     * - `0`: New
+     * - `1`: Learning
+     * - `2`: Review
+     * - `3`: Relearn
+     */
+    state:    number;
+    sync:     ISync;
+    system:   ISystem;
+    tag:      ITag;
+    uiLayout: IUILayout;
     /**
      * Community user data (Encrypted)
      */

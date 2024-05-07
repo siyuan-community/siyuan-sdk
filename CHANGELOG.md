@@ -6,6 +6,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/notebook/getNotebookConf` | Adjust API `/api/notebook/getNotebookConf`
 - 调整 API `/api/notebook/setNotebookConf` | Adjust API `/api/notebook/setNotebookConf`
+- 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 
 ## v0.3.9 / 2024-04-06
 

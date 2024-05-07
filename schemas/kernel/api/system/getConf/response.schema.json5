@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.7/kernel/api/system.go#L206-L225
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.12/kernel/api/system.go#L206-L225
  * @pathname: /api/system/getConf
- * @version: 3.0.7
+ * @version: 3.0.12
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
-    $comment: 'v3.0.5',
+    $comment: 'v3.0.12',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -504,8 +504,13 @@
 
             description: 'SiYuan editor related configuration',
             additionalProperties: false,
-            required: ['backlinkExpandCount', 'backmentionExpandCount', 'blockRefDynamicAnchorTextMaxLen', 'codeLigatures', 'codeLineWrap', 'codeSyntaxHighlightLineNum', 'codeTabSpaces', 'displayBookmarkIcon', 'displayNetImgMark', 'dynamicLoadBlocks', 'embedBlockBreadcrumb', 'emoji', 'floatWindowMode', 'fontFamily', 'fontSize', 'fontSizeScrollZoom', 'fullWidth', 'generateHistoryInterval', 'historyRetentionDays', 'justify', 'katexMacros', 'listItemDotNumberClickFocus', 'listLogicalOutdent', 'onlySearchForDoc', 'plantUMLServePath', 'readOnly', 'rtl', 'spellcheck', 'virtualBlockRef', 'virtualBlockRefExclude', 'virtualBlockRefInclude'],
+            required: ['allowHTMLBLockScript', 'backlinkExpandCount', 'backmentionExpandCount', 'blockRefDynamicAnchorTextMaxLen', 'codeLigatures', 'codeLineWrap', 'codeSyntaxHighlightLineNum', 'codeTabSpaces', 'displayBookmarkIcon', 'displayNetImgMark', 'dynamicLoadBlocks', 'embedBlockBreadcrumb', 'emoji', 'floatWindowMode', 'fontFamily', 'fontSize', 'fontSizeScrollZoom', 'fullWidth', 'generateHistoryInterval', 'historyRetentionDays', 'justify', 'katexMacros', 'listItemDotNumberClickFocus', 'listLogicalOutdent', 'onlySearchForDoc', 'plantUMLServePath', 'readOnly', 'rtl', 'spellcheck', 'virtualBlockRef', 'virtualBlockRefExclude', 'virtualBlockRefInclude'],
             properties: {
+                allowHTMLBLockScript: {
+                    // 是否允许 HTML 块运行脚本
+                    type: 'boolean',
+                    description: 'Allow HTML blocks to run scripts',
+                },
                 backlinkExpandCount: {
                     // 反向链接默认展开数量
                     type: 'integer',

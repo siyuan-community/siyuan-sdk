@@ -315,6 +315,10 @@ export interface IBazaar {
  */
 export interface IEditor {
     /**
+     * Allow HTML blocks to run scripts
+     */
+    allowHTMLBLockScript: boolean;
+    /**
      * The default number of backlinks to expand
      */
     backlinkExpandCount: number;

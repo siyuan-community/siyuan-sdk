@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json",
-    "$comment": "v3.0.5",
+    "$comment": "v3.0.12",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -526,6 +526,7 @@
             "description": "SiYuan editor related configuration",
             "additionalProperties": false,
             "required": [
+                "allowHTMLBLockScript",
                 "backlinkExpandCount",
                 "backmentionExpandCount",
                 "blockRefDynamicAnchorTextMaxLen",
@@ -559,6 +560,10 @@
                 "virtualBlockRefInclude"
             ],
             "properties": {
+                "allowHTMLBLockScript": {
+                    "type": "boolean",
+                    "description": "Allow HTML blocks to run scripts"
+                },
                 "backlinkExpandCount": {
                     "type": "integer",
                     "description": "The default number of backlinks to expand"

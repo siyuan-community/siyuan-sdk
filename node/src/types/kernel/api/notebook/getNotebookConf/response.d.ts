@@ -63,6 +63,10 @@ export interface IConf {
      */
     dailyNoteTemplatePath: string;
     /**
+     * New document save notebook
+     */
+    docCreateSaveBox: string;
+    /**
      * New document save location
      */
     docCreateSavePath: string;
@@ -75,7 +79,11 @@ export interface IConf {
      */
     name: string;
     /**
-     * Ref create doc save location
+     * The notebook that was stored when a new document was created using block references
+     */
+    refCreateSaveBox: string;
+    /**
+     * The document path that was stored when a new document was created using block references
      */
     refCreateSavePath: string;
     /**

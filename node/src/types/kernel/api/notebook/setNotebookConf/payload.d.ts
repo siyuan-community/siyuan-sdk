@@ -34,39 +34,47 @@ export interface IConf {
     /**
      * notebook open state
      */
-    closed?: boolean;
+    closed: boolean;
     /**
      * the path of new daily note
      */
-    dailyNoteSavePath?: string;
+    dailyNoteSavePath: string;
     /**
      * the template file path of new daily note
      */
-    dailyNoteTemplatePath?: string;
+    dailyNoteTemplatePath: string;
+    /**
+     * New document save notebook
+     */
+    docCreateSaveBox: string;
     /**
      * New document save location
      */
-    docCreateSavePath?: string;
+    docCreateSavePath: string;
     /**
      * notebook icon
      */
-    icon?: string;
+    icon: string;
     /**
      * notebook name
      */
-    name?: string;
+    name: string;
     /**
-     * Ref create doc save location
+     * The notebook that was stored when a new document was created using block references
      */
-    refCreateSavePath?: string;
+    refCreateSaveBox: string;
+    /**
+     * The document path that was stored when a new document was created using block references
+     */
+    refCreateSavePath: string;
     /**
      * sequence number
      */
-    sort?: number;
+    sort: number;
     /**
      * document sorting mode
      */
-    sortMode?: number;
+    sortMode: number;
 }
 
 //#endregion content

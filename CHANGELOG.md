@@ -5,6 +5,7 @@
 - 优化 WebSocket URL 生成方案 | Optimize WebSocket URL generation scheme
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/notebook/getNotebookConf` | Adjust API `/api/notebook/getNotebookConf`
+- 调整 API `/api/notebook/setNotebookConf` | Adjust API `/api/notebook/setNotebookConf`
 
 ## v0.3.9 / 2024-04-06
 

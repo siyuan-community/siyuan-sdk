@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/setNotebookConf/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.0.12",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -29,31 +29,23 @@
             "description": "notebook configuration",
             "type": "object",
             "additionalProperties": false,
+            "required": [
+                "closed",
+                "dailyNoteSavePath",
+                "dailyNoteTemplatePath",
+                "docCreateSaveBox",
+                "docCreateSavePath",
+                "icon",
+                "name",
+                "refCreateSaveBox",
+                "refCreateSavePath",
+                "sort",
+                "sortMode"
+            ],
             "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "notebook name"
-                },
-                "sort": {
-                    "type": "integer",
-                    "description": "sequence number",
-                    "minimum": 0
-                },
-                "icon": {
-                    "type": "string",
-                    "description": "notebook icon"
-                },
                 "closed": {
                     "type": "boolean",
                     "description": "notebook open state"
-                },
-                "refCreateSavePath": {
-                    "type": "string",
-                    "description": "Ref create doc save location"
-                },
-                "docCreateSavePath": {
-                    "type": "string",
-                    "description": "New document save location"
                 },
                 "dailyNoteSavePath": {
                     "type": "string",
@@ -62,6 +54,35 @@
                 "dailyNoteTemplatePath": {
                     "type": "string",
                     "description": "the template file path of new daily note"
+                },
+                "docCreateSaveBox": {
+                    "type": "string",
+                    "description": "New document save notebook"
+                },
+                "docCreateSavePath": {
+                    "type": "string",
+                    "description": "New document save location"
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "notebook icon"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "notebook name"
+                },
+                "refCreateSaveBox": {
+                    "type": "string",
+                    "description": "The notebook that was stored when a new document was created using block references"
+                },
+                "refCreateSavePath": {
+                    "type": "string",
+                    "description": "The document path that was stored when a new document was created using block references"
+                },
+                "sort": {
+                    "type": "integer",
+                    "description": "sequence number",
+                    "minimum": 0
                 },
                 "sortMode": {
                     "type": "integer",

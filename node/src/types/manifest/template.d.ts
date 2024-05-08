@@ -17,7 +17,7 @@
 
 //#region content
 /**
- * Top-level attributes
+ * Template resource manifest file definition
  */
 export interface ITemplate {
     author:         string;

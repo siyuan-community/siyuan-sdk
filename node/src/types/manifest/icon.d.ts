@@ -17,7 +17,7 @@
 
 //#region content
 /**
- * Top-level attributes
+ * Icon resource manifest file definition
  */
 export interface IIcon {
     author:         string;

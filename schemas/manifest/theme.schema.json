@@ -1,11 +1,11 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/manifest/base.schema.json",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/manifest/theme.schema.json",
     "$comment": "v1.0.0",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
-            "description": "Basic definition of community resource manifest file",
+            "description": "Theme resource manifest file definition",
             "type": "object",
             "additionalProperties": true,
             "required": [
@@ -35,6 +35,9 @@
                 },
                 "name": {
                     "$ref": "#/$defs/name"
+                },
+                "modes": {
+                    "$ref": "#/$defs/modes"
                 },
                 "readme": {
                     "$ref": "#/$defs/readme"
@@ -121,6 +124,18 @@
             "description": "The name of the resource",
             "pattern": "^[^\\\\/:*?\"<>|. ][^\\\\/:*?\"<>|]*[^\\\\/:*?\"<>|. ]$"
         },
+        "modes": {
+            "type": "array",
+            "description": "The modes supported by the theme",
+            "items": {
+                "type": "string",
+                "description": "The mode supported by the theme",
+                "enum": [
+                    "dark",
+                    "light"
+                ]
+            }
+        },
         "readme": {
             "description": "The readme file name of the resource",
             "$ref": "#/$defs/_localized_text_"
@@ -130,11 +145,7 @@
             "description": "The GitHub repository URL of the resource",
             "format": "uri",
             "examples": [
-                "https://github.com/siyuan-note/icon-sample",
-                "https://github.com/siyuan-note/plugin-sample",
-                "https://github.com/siyuan-note/template-sample",
-                "https://github.com/siyuan-note/theme-sample",
-                "https://github.com/siyuan-note/widget-sample"
+                "https://github.com/siyuan-note/theme-sample"
             ]
         },
         "version": {

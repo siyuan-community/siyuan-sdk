@@ -17,15 +17,16 @@
 
 //#region content
 /**
- * Basic definition of community resource manifest file
+ * Theme resource manifest file definition
  */
-export interface IBase {
+export interface ITheme {
     author:         string;
     description?:   Description;
     displayName?:   Description;
     funding?:       Funding;
     keywords?:      string[];
     minAppVersion?: string;
+    modes?:         IThem[];
     name:           string;
     readme?:        Description;
     url:            string;
@@ -83,5 +84,12 @@ export interface Funding {
      */
     patreon?: string;
 }
+
+/**
+ * The modes supported by the theme
+ *
+ * The mode supported by the theme
+ */
+export type IThem = "dark" | "light";
 
 //#endregion content

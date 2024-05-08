@@ -8,8 +8,8 @@
     $ref: '#/$defs/root',
     $defs: {
         root: {
-            // 顶层属性
-            description: 'Top-level attributes',
+            // 挂件资源清单文件定义
+            description: 'Widget resource manifest file definition',
 
             type: 'object',
             additionalProperties: true,

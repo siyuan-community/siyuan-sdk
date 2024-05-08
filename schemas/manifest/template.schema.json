@@ -5,7 +5,7 @@
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
-            "description": "Top-level attributes",
+            "description": "Template resource manifest file definition",
             "type": "object",
             "additionalProperties": true,
             "required": [

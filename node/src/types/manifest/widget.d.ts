@@ -17,7 +17,7 @@
 
 //#region content
 /**
- * Top-level attributes
+ * Widget resource manifest file definition
  */
 export interface IWidget {
     author:         string;

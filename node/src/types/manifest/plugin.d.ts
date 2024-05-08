@@ -17,7 +17,7 @@
 
 //#region content
 /**
- * Top-level attributes
+ * Plugin resource manifest file definition
  */
 export interface IPlugin {
     author:         string;

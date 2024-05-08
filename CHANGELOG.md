@@ -11,6 +11,7 @@
 - 添加图标资源清单文件定义 | Add icon resource manifest file definition
 - 添加插件资源清单文件定义 | Add plugin resource manifest file definition
 - 添加模板资源清单文件定义 | Add template resource manifest file definition
+- 添加挂件资源清单文件定义 | Add widget resource manifest file definition
 
 ## v0.3.9 / 2024-04-06
 

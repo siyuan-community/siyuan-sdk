@@ -21,4 +21,6 @@
 /* files */
 export * as base from "./base";
 export * as icon from "./icon";
+export * as plugin from "./plugin";
+export * as template from "./template";
 //#endregion content

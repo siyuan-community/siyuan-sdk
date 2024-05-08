@@ -169,11 +169,7 @@
             "description": "The GitHub repository URL of the resource",
             "format": "uri",
             "examples": [
-                "https://github.com/siyuan-note/icon-sample",
-                "https://github.com/siyuan-note/plugin-sample",
-                "https://github.com/siyuan-note/template-sample",
-                "https://github.com/siyuan-note/theme-sample",
-                "https://github.com/siyuan-note/widget-sample"
+                "https://github.com/siyuan-note/plugin-sample"
             ]
         },
         "version": {

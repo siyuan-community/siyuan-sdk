@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/manifest/icon.schema.json",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/manifest/template.schema.json",
     "$comment": "v1.0.0",
     "$ref": "#/$defs/root",
     "$defs": {
@@ -130,7 +130,7 @@
             "description": "The GitHub repository URL of the resource",
             "format": "uri",
             "examples": [
-                "https://github.com/siyuan-note/icon-sample"
+                "https://github.com/siyuan-note/template-sample"
             ]
         },
         "version": {

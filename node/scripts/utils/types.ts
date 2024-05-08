@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,26 +25,31 @@ import * as constants from "./constants";
  * @param path: 指定目录的路径
  * @return: 该目录的类型定义文件名
  */
-export async function updateTypeDefinitionFile(path: string): Promise<string> {
+export async function updateTypeDefinitionFile (path: string): Promise<string> {
+    if (path.endsWith("src")) {
+        throw new Error("Cannot update src directory.");
+    }
+
     const ts: string[] = [constants.LICENSE]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
     const dirs = children.filter(child => child.isDirectory()); // 下级目录列表
-    const files = children.filter(child =>
-        child.isFile()
-        && child.name.endsWith(".d.ts")
-        && child.name !== "index.d.ts"
+    const files = children.filter(
+        child =>
+            child.isFile() && //
+            child.name.endsWith(".d.ts") &&
+            child.name !== "index.d.ts",
     ); // 下级文件列表
 
     ts.push(constants.REGION_BEGIN_CONTENT); // 代码内容首
 
     /* 导出下级目录的类型定义 */
-    ts.push(`/* directories */`)
+    ts.push(`/* directories */`);
     dirs.forEach(dir => {
         ts.push(`export * as ${dir.name} from "./${dir.name}";`);
     });
 
     /* 导出文件的类型定义 */
-    ts.push(`\n/* files */`)
+    ts.push(`\n/* files */`);
     files.forEach(file => {
         const name = file.name.split(".").shift()!;
         switch (name) {

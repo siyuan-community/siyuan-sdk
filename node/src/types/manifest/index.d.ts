@@ -17,8 +17,7 @@
 
 //#region content
 /* directories */
-export * as kernel from "./kernel";
-export * as manifest from "./manifest";
 
 /* files */
+export * as base from "./base";
 //#endregion content

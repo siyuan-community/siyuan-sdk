@@ -18,6 +18,37 @@
     // REF https://code.visualstudio.com/docs/editor/userdefinedsnippets
     // REF https://json-schema.org/learn/getting-started-step-by-step.html
     // REF https://www.learnjsonschema.com/2020-12/
+    "base JSON Schema (json5)": {
+        "scope": "json5",
+        "prefix": "base-json-schema",
+        "body": [
+            "/**",
+            " * $1",
+            " */",
+            "{",
+            "\t\\$schema: 'https://json-schema.org/draft/2020-12/schema',",
+            "\t\\$id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/${RELATIVE_FILEPATH/[\\\\]/${0:+\/}/g}',",
+            "\t\\$comment: 'v$2',",
+            "\t\\$ref: '#/\\$defs/root',",
+            "\t\\$defs: {",
+            "\t\troot: {",
+            "\t\t\t// $3",
+            "\t\t\ttitle: '$4',",
+            "\t\t\tdescription: '$5',",
+            "",
+            "\t\t\ttype: 'object',",
+            "\t\t\tadditionalProperties: false,",
+            "\t\t\trequired: [",
+            "\t\t\t],",
+            "\t\t\tproperties: {",
+            "\t\t\t},",
+            "\t\t},",
+            "\t},",
+            "}",
+        ],
+        "description": "base.schema.json5"
+    },
+
     "JSON Schema response body (json5)": {
         "scope": "json5",
         "prefix": "response-json-schema",

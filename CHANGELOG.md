@@ -7,6 +7,7 @@
 - 调整 API `/api/notebook/getNotebookConf` | Adjust API `/api/notebook/getNotebookConf`
 - 调整 API `/api/notebook/setNotebookConf` | Adjust API `/api/notebook/setNotebookConf`
 - 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
+- 添加社区资源清单文件基本定义 | Add basic definition of community resource manifest file
 
 ## v0.3.9 / 2024-04-06
 

@@ -319,7 +319,7 @@
                     "type": "string",
                     "title": "TOpenAIAPIModel",
                     "description": "The model name called by the API",
-                    "enum": [
+                    "examples": [
                         "gpt-4",
                         "gpt-4-32k",
                         "gpt-3.5-turbo",

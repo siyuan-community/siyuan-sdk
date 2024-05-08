@@ -167,7 +167,7 @@ export interface IOpenAI {
     /**
      * The model name called by the API
      */
-    apiModel: TOpenAIAPIModel;
+    apiModel: string;
     /**
      * API Provider
      */
@@ -193,11 +193,6 @@ export interface IOpenAI {
      */
     apiVersion: string;
 }
-
-/**
- * The model name called by the API
- */
-export type TOpenAIAPIModel = "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | "gpt-3.5-turbo-16k";
 
 /**
  * API Provider

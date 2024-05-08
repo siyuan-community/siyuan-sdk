@@ -9,6 +9,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 - 添加社区资源清单文件基本定义 | Add basic definition of community resource manifest file
 - 添加图标资源清单文件定义 | Add icon resource manifest file definition
+- 添加插件资源清单文件定义 | Add plugin resource manifest file definition
 
 ## v0.3.9 / 2024-04-06
 

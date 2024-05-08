@@ -134,6 +134,6 @@ const types_watcher = chokidar.watch(constants.TYPES_DIR_PATH, {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
 })
 
-types_watcher.on('all', typesHandler)
-json_schemas_watcher.on('all', jsonSchemasHandler)
-json5_schemas_watcher.on('all', json5SchemasHandler)
+json5_schemas_watcher.on('all', json5SchemasHandler);
+json_schemas_watcher.on('all', jsonSchemasHandler);
+types_watcher.on('all', typesHandler);

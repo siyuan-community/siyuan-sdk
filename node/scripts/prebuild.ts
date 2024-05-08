@@ -18,8 +18,8 @@
 import fsWalk from "@nodelib/fs.walk";
 
 import {
-    KERNEL_SCHEMAS_DIR_PATH,
-    KERNEL_TYPES_DIR_PATH,
+    SCHEMAS_DIR_PATH,
+    TYPES_DIR_PATH,
 } from "./utils/constants";
 import {
     json52json,
@@ -33,7 +33,7 @@ import { updateTypeDefinitionFile } from "./utils/types";
  * REF https://www.npmjs.com/package/@nodelib/fs.walk
  */
 fsWalk.walk(
-    KERNEL_SCHEMAS_DIR_PATH,
+    SCHEMAS_DIR_PATH,
     {
         entryFilter: (entry) => entry.name.endsWith(".schema.json5"), // 仅处理 *.schema.json5 文件
     },
@@ -49,7 +49,7 @@ fsWalk.walk(
 
                 /* 将所有 *.schema.json 文件转换为对应的 *.d.ts */
                 fsWalk.walk(
-                    KERNEL_SCHEMAS_DIR_PATH,
+                    SCHEMAS_DIR_PATH,
                     {
                         entryFilter: (entry) => entry.name.endsWith(".schema.json"), // 仅处理 *.schema.json 文件
                     },
@@ -65,7 +65,7 @@ fsWalk.walk(
 
                                 /* 更新各目录下的 index.d.ts */
                                 fsWalk.walk(
-                                    KERNEL_TYPES_DIR_PATH,
+                                    TYPES_DIR_PATH,
                                     {
                                         entryFilter: (entry) => entry.dirent.isDirectory(), // 仅处理目录
                                     },
@@ -93,4 +93,3 @@ fsWalk.walk(
             });
     },
 );
-

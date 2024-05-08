@@ -31,12 +31,16 @@ export const PRETTIER = TOML.parse(PRETTIERRC, { bigint: false });
 /* schema 目录路径 */
 export const SCHEMAS_DIR_PATH = path.resolve(process.cwd(), "./../schemas");
 /* kernel 相关 schema 目录路径 */
-export const KERNEL_SCHEMAS_DIR_PATH = path.resolve(SCHEMAS_DIR_PATH, "kernel");
+export const SCHEMAS_DIR_PATH_KERNEL = path.resolve(SCHEMAS_DIR_PATH, "kernel");
+/* manifest 相关 schema 目录路径 */
+export const SCHEMAS_DIR_PATH_MANIFEST = path.resolve(SCHEMAS_DIR_PATH, "manifest");
 
 /* types 目录路径 */
 export const TYPES_DIR_PATH = path.resolve(process.cwd(), "./src/types");
 /* kernel 相关 types 目录路径 */
-export const KERNEL_TYPES_DIR_PATH = path.resolve(TYPES_DIR_PATH, "kernel");
+export const TYPES_DIR_PATH_KERNEL = path.resolve(TYPES_DIR_PATH, "kernel");
+/* manifest 相关 types 目录路径 */
+export const TYPES_DIR_PATH_MANIFEST = path.resolve(TYPES_DIR_PATH, "manifest");
 
 export const LICENSE = `/**
  * Copyright (C) 2023 SiYuan Community

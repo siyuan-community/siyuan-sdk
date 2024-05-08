@@ -20,4 +20,5 @@
 
 /* files */
 export * as base from "./base";
+export * as icon from "./icon";
 //#endregion content

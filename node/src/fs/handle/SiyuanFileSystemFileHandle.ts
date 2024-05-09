@@ -111,6 +111,7 @@ export class SiyuanFileSystemFileHandle
     }
 }
 
+
 /**
  * REF: https://github.com/jimmywarting/native-file-system-adapter/blob/master/src/adapters/memory.js
  */
@@ -140,7 +141,8 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
         if (typeof chunk === "object" && "type" in chunk) {
             switch (chunk.type) {
                 case "write": {
-                    if (Number.isInteger(chunk.position)
+                    if ("position" in chunk
+                        && Number.isInteger(chunk.position)
                         && chunk.position
                         && chunk.position >= 0
                     ) {
@@ -153,8 +155,8 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                             );
                         }
                     }
-                    if (chunk.data) {
-                        chunk = chunk.data;
+                    if ("data" in chunk) {
+                        chunk = chunk.data as BlobPart;
                     }
                     else {
                         throw new DOMException(...errors.SYNTAX("write requires a data argument"));
@@ -162,7 +164,8 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                     break;
                 }
                 case "seek": {
-                    if (Number.isInteger(chunk.position)
+                    if ("position" in chunk
+                        && Number.isInteger(chunk.position)
                         && chunk.position
                         && chunk.position >= 0
                     ) {
@@ -196,7 +199,7 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
             }
         }
 
-        chunk = new Blob([chunk]);
+        chunk = new Blob([chunk as BlobPart]);
 
         // Calc the head and tail fragments
         const head = this.file.slice(0, this.position);

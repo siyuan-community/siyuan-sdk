@@ -29,7 +29,7 @@ export interface IPayload {
      */
     keepFold?: boolean;
     /**
-     * Whether to merge the content of the subdocument
+     * Whether to merge the content of the sub-document
      */
     merge?: boolean;
     /**

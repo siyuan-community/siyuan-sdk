@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
     "name": "@siyuan-community/siyuan-sdk",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "packageManager": "pnpm@9.1.0",
     "engines": {
         "node": "22"
@@ -68,9 +68,9 @@
         "test": "vitest",
         "test:ui": "vitest --ui",
         "test:once": "vitest run",
-        "prebuild": "node --import=./scripts/ts-node-register.js ./scripts/prebuild.ts",
         "build": "vite build",
-        "publish:npm": "npm run prebuild && npm run build && npm publish",
+        "build:prebuild": "node --import=./scripts/ts-node-register.js ./scripts/prebuild.ts",
+        "publish:npm": "npm run build:prebuild && npm run build && npm publish",
         "format": "eslint --fix ./src",
         "spell:code": "cspell .",
         "spell:schemas": "cspell ./../schemas",
@@ -81,7 +81,7 @@
     "devDependencies": {
         "@ltd/j-toml": "^1.38.0",
         "@nodelib/fs.walk": "^2.0.0",
-        "@types/node": "^20.12.10",
+        "@types/node": "^20.12.11",
         "@typescript-eslint/eslint-plugin": "^7.8.0",
         "@typescript-eslint/parser": "^7.8.0",
         "@vitest/coverage-istanbul": "^1.6.0",

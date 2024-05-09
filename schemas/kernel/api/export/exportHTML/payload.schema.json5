@@ -43,7 +43,7 @@
                 merge: {
                     // 是否合并下级文档内容
                     type: 'boolean',
-                    description: 'Whether to merge the content of the subdocument',
+                    description: 'Whether to merge the content of the sub-document',
                     default: false,
                 },
             },

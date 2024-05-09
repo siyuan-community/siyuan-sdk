@@ -27,8 +27,12 @@ export default defineConfig({
         viteStaticCopy({
             targets: [
                 {
-                    src: "./../schemas/",
-                    dest: "./",
+                    src: "./../schemas/kernel/",
+                    dest: "./schemas/",
+                },
+                {
+                    src: "./../schemas/manifest/",
+                    dest: "./schemas/",
                 },
                 {
                     src: "./src/types/",

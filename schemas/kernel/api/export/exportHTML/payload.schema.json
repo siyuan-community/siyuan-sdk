@@ -35,7 +35,7 @@
                 },
                 "merge": {
                     "type": "boolean",
-                    "description": "Whether to merge the content of the subdocument",
+                    "description": "Whether to merge the content of the sub-document",
                     "default": false
                 }
             }

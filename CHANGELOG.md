@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 排序 `import` 表达式 | Sort `import` expressions
+
 ## v0.3.10 / 2024-05-09
 
 - [v0.3.9 ... v0.3.10](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.9...v0.3.10)

@@ -97,6 +97,7 @@
         "quicktype-core": "^23.0.158",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5",
+        "typescript-eslint": "^7.8.0",
         "vite": "^5.2.11",
         "vite-plugin-dts": "^3.9.1",
         "vite-plugin-static-copy": "^1.0.4",

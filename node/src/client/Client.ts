@@ -1,13 +1,12 @@
 import * as axios from "axios";
-import * as ofetch from "ofetch";
-import * as base64 from "js-base64";
 import Websocket from "isomorphic-ws";
-
-import { kernel } from "@/types";
+import * as base64 from "js-base64";
+import * as ofetch from "ofetch";
 
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
 import { KernelError } from "@/errors/kernel";
+import { kernel } from "@/types";
 
 /* 基础设置选项 */
 export interface IBaseOptions {

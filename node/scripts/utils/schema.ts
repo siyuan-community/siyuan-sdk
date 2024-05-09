@@ -15,22 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import fs from "fs";
-import asyncFs from "fs/promises";
-import path from "path";
+import fs from "node:fs";
+import asyncFs from "node:fs/promises";
+import path from "node:path";
 
 import JSON5 from "json5";
+
+import {
+    LICENSE,
+    REGION_BEGIN_CONTENT,
+    REGION_END_CONTENT,
+    SCHEMAS_DIR_PATH,
+    TYPES_DIR_PATH,
+} from "./constants";
 import {
     JSONSchema2QuicktypeInputData,
     quicktypeInputData2TypeScriptInterface,
 } from "./quicktype";
-import {
-    SCHEMAS_DIR_PATH,
-    TYPES_DIR_PATH,
-    LICENSE,
-    REGION_BEGIN_CONTENT,
-    REGION_END_CONTENT,
-} from "./constants";
 
 /**
  * 将 *.json5 路径转换为 *.json 路径

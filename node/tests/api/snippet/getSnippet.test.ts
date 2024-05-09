@@ -17,16 +17,16 @@
 
 import {
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import setSnippet from "@/types/kernel/api/snippet/setSnippet";
 import getSnippet from "@/types/kernel/api/snippet/getSnippet";
+import setSnippet from "@/types/kernel/api/snippet/setSnippet";
 
 const pathname = client.Client.api.snippet.getSnippet.pathname;
 

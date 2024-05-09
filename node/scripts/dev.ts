@@ -17,21 +17,33 @@
 
 /* 监听 schemas 目录下文件的变化 */
 
-import fs from 'fs'
-import asyncFs from 'fs/promises'
-import { parse, resolve } from 'path'
+import fs from "node:fs";
+import asyncFs from "node:fs/promises";
+import {
+    parse,
+    resolve,
+} from "node:path";
 
-import chokidar from 'chokidar'
+import chokidar from "chokidar";
 
-import * as constants from './utils/constants'
-import * as logger from './utils/logger'
-import { json52json, json5Path2jsonPath, json2types, jsonPath2typesPath } from './utils/schema'
-import { updateTypeDefinitionFile } from './utils/types'
+import * as constants from "./utils/constants";
+import * as logger from "./utils/logger";
+import {
+    json2types,
+    json52json,
+    json5Path2jsonPath,
+    jsonPath2typesPath,
+} from "./utils/schema";
+import { updateTypeDefinitionFile } from "./utils/types";
 
 /**
  * 处理 *.schema.json5 文件变化
  */
-async function json5SchemasHandler (eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir', path: string, _stats?: fs.Stats) {
+async function json5SchemasHandler(
+    eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
+    path: string,
+    _stats?: fs.Stats,
+) {
     console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`)
     try {
         switch (true) {
@@ -63,7 +75,11 @@ async function json5SchemasHandler (eventName: 'add' | 'addDir' | 'change' | 'un
 /**
  * 处理 *.schema.json 文件变化
  */
-async function jsonSchemasHandler (eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir', path: string, _stats?: fs.Stats) {
+async function jsonSchemasHandler(
+    eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
+    path: string,
+    _stats?: fs.Stats,
+) {
     console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`)
     try {
         switch (true) {
@@ -92,7 +108,11 @@ async function jsonSchemasHandler (eventName: 'add' | 'addDir' | 'change' | 'unl
     }
 }
 
-async function typesHandler (eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir', path: string, _stats?: fs.Stats) {
+async function typesHandler(
+    eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
+    path: string,
+    _stats?: fs.Stats,
+) {
     console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`)
     try {
         switch (eventName) {
@@ -108,7 +128,7 @@ async function typesHandler (eventName: 'add' | 'addDir' | 'change' | 'unlink' |
                 break;
             }
             case "add":
-            case "unlink": { 
+            case "unlink": {
                 /* 更新在其目录下的 index.d.ts 文件 */
                 const index_path = await updateTypeDefinitionFile(parse(path).dir);
                 logger.change(index_path);

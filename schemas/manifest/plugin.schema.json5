@@ -78,7 +78,7 @@
                     'darwin', // macOS 环境
                     'docker', // Docker 环境
                     'android', // Android 环境
-                    'ios ', // iOS 环境
+                    'ios', // iOS 环境
                 ],
             },
         },

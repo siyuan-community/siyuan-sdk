@@ -15,12 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import addFormats from "ajv-formats";
+import Ajv2020, {
+    Options,
+    Schema,
+    ValidateFunction,
+} from "ajv/dist/2020";
 import { resolve } from "path";
 
-import Ajv2020, { Schema, ValidateFunction, Options } from "ajv/dist/2020";
-import addFormats from "ajv-formats"
-
 import constants from "@/constants";
+
 import { loadJSON5 } from "./json5";
 
 export class SchemaJSON {

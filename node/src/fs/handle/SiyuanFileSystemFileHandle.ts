@@ -15,11 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { KernelError } from "~/src/errors";
+
+import { errors } from "@/fs/error";
 import { Client } from "@/index";
+
 import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
 import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";
-import { KernelError } from "~/src/errors";
-import { errors } from "@/fs/error";
 
 /**
  * @see {@link https://fs.spec.whatwg.org/#api-filesystemfilehandle}

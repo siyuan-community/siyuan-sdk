@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import path from "path";
+import path from "node:path";
 
 export function change(filePath: string) {
     const file = path.parse(filePath);

@@ -17,17 +17,17 @@
 
 import {
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
 
+import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
-import constants from "~/tests/constants";
+import { sleep } from "~/tests/utils/time";
 
 import removeFile from "@/types/kernel/api/file/removeFile";
-import { sleep } from "~/tests/utils/time";
 
 const pathname = client.Client.api.file.removeFile.pathname;
 

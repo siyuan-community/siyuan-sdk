@@ -16,8 +16,10 @@
  */
 
 import "dotenv/config";
-import { Client } from "@/client/Client";
+
 import CONSTANTS from "~/tests/constants";
+
+import { Client } from "@/client/Client";
 
 const client = new Client({
     baseURL: process.env.VITE_SIYUAN_SERVE,

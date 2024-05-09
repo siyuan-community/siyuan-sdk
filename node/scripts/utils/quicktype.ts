@@ -16,6 +16,7 @@
  */
 
 import quicktype from "quicktype-core";
+
 import { QUICKTYPE_OPTIONS } from "./constants";
 
 /**

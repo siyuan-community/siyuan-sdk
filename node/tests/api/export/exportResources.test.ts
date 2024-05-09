@@ -21,8 +21,8 @@ import {
 } from "vitest";
 
 import client from "~/tests/utils/client";
-import { testKernelAPI } from "~/tests/utils/test";
 import { SchemaJSON } from "~/tests/utils/schema";
+import { testKernelAPI } from "~/tests/utils/test";
 
 import exportResources from "@/types/kernel/api/export/exportResources";
 

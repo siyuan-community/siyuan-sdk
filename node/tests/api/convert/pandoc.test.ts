@@ -17,14 +17,14 @@
 
 import {
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
 
+import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
-import constants from "~/tests/constants";
 
 import pandoc from "@/types/kernel/api/convert/pandoc";
 
@@ -86,7 +86,7 @@ describe.concurrent(pathname, async () => {
                 test("test the result of pandoc converting", async () => {
                     await expect(client.client.getFile({
                         path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.md`,
-                    })).resolves.toBeTypeOf("string");
+                    }, "text")).resolves.toBeTypeOf("string");
                 });
             },
             debug: false,

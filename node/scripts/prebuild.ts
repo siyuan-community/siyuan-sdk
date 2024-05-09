@@ -22,8 +22,8 @@ import {
     TYPES_DIR_PATH,
 } from "./utils/constants";
 import {
-    json52json,
     json2types,
+    json52json,
 } from "./utils/schema";
 import { updateTypeDefinitionFile } from "./utils/types";
 

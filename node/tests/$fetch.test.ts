@@ -18,8 +18,8 @@
 
 import {
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
 
 import client from "~/tests/utils/client";

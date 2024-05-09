@@ -15,15 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import path from "path-browserify";
+
+import { errors } from "@/fs/error";
 import {
     Client,
     KernelError,
-    type types,
+    types,
 } from "@/index";
-import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
+
 import { SiyuanFileSystemFileHandle } from "./SiyuanFileSystemFileHandle";
-import path from "path-browserify";
-import { errors } from "@/fs/error";
+import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
 
 export type TEntry = types.kernel.api.file.readDir.IDatum;
 export type THandle = SiyuanFileSystemDirectoryHandle | SiyuanFileSystemFileHandle;

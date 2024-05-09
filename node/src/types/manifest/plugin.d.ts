@@ -40,7 +40,7 @@ export interface IPlugin {
  *
  * The back-end environment that the plugin is compatible with
  */
-export type BackendElement = "all" | "windows" | "linux" | "darwin" | "docker" | "android" | "ios ";
+export type BackendElement = "all" | "windows" | "linux" | "darwin" | "docker" | "android" | "ios";
 
 /**
  * The description of the resource

@@ -18,16 +18,19 @@
 import {
     afterAll,
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import { NodeType, BlockSubType } from "@/utils/siyuan";
 import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
+import {
+    BlockSubType,
+    NodeType,
+} from "@/utils/siyuan";
 
 const pathname = client.Client.api.block.getBlockBreadcrumb.pathname;
 

@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ValidateFunction } from "ajv";
 import {
     describe,
-    test,
     expect,
+    test,
 } from "vitest";
-import { ValidateFunction } from "ajv";
 
 import { IResponse } from "~/src/types/kernel/kernel";
 

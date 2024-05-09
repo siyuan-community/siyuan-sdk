@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IResponse } from "@/types/kernel/kernel";
 import * as axios from "axios";
+
+import { IResponse } from "@/types/kernel/kernel";
 
 export class KernelError extends Error {
     public readonly code: number;

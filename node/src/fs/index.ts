@@ -18,7 +18,9 @@
 export * from "./handle";
 
 import path from "path-browserify";
+
 import { Client } from "@/index";
+
 import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirectoryHandle";
 
 /**

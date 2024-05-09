@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import asyncFs from "fs/promises";
-import { resolve } from "path";
+import asyncFs from "node:fs/promises";
+import { resolve } from "node:path";
 
 import * as constants from "./constants";
 
@@ -25,7 +25,7 @@ import * as constants from "./constants";
  * @param path: 指定目录的路径
  * @return: 该目录的类型定义文件名
  */
-export async function updateTypeDefinitionFile (path: string): Promise<string> {
+export async function updateTypeDefinitionFile(path: string): Promise<string> {
     if (path.endsWith("src")) {
         throw new Error("Cannot update src directory.");
     }

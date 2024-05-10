@@ -20,16 +20,46 @@
  * Widget resource manifest file definition
  */
 export interface IWidget {
-    author:         string;
-    description?:   Description;
-    displayName?:   Description;
-    funding?:       Funding;
-    keywords?:      string[];
+    /**
+     * The name of the author
+     */
+    author: string;
+    /**
+     * The description of the resource
+     */
+    description?: ILocalizedText;
+    /**
+     * The display name of the resource
+     */
+    displayName?: ILocalizedText;
+    /**
+     * The funding of the resource
+     */
+    funding?: IFunding;
+    /**
+     * The keywords of the resource used for search
+     */
+    keywords?: string[];
+    /**
+     * The minimum version of SiYuan that the resource is compatible with
+     */
     minAppVersion?: string;
-    name:           string;
-    readme?:        Description;
-    url:            string;
-    version:        string;
+    /**
+     * The name of the resource
+     */
+    name: string;
+    /**
+     * The readme file name of the resource
+     */
+    readme?: ILocalizedText;
+    /**
+     * The GitHub repository URL of the resource
+     */
+    url: string;
+    /**
+     * The version of the resource
+     */
+    version: string;
     [property: string]: any;
 }
 
@@ -42,7 +72,7 @@ export interface IWidget {
  *
  * The readme file name of the resource
  */
-export interface Description {
+export interface ILocalizedText {
     /**
      * The default text
      */
@@ -65,7 +95,7 @@ export interface Description {
 /**
  * The funding of the resource
  */
-export interface Funding {
+export interface IFunding {
     /**
      * The custom funding URLs
      */

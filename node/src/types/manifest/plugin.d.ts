@@ -20,27 +20,61 @@
  * Plugin resource manifest file definition
  */
 export interface IPlugin {
-    author:         string;
-    backends?:      BackendElement[];
-    description?:   Description;
-    displayName?:   Description;
-    frontends?:     FrontendElement[];
-    funding?:       Funding;
-    keywords?:      string[];
+    /**
+     * The back-end environment list that the plugin is compatible with
+     */
+    backends?: TBackEnd[];
+    /**
+     * The front-end environment list that the plugin is compatible with
+     */
+    frontends?: TFrontEnd[];
+    /**
+     * The name of the author
+     */
+    author: string;
+    /**
+     * The description of the resource
+     */
+    description?: ILocalizedText;
+    /**
+     * The display name of the resource
+     */
+    displayName?: ILocalizedText;
+    /**
+     * The funding of the resource
+     */
+    funding?: IFunding;
+    /**
+     * The keywords of the resource used for search
+     */
+    keywords?: string[];
+    /**
+     * The minimum version of SiYuan that the resource is compatible with
+     */
     minAppVersion?: string;
-    name:           string;
-    readme?:        Description;
-    url:            string;
-    version:        string;
+    /**
+     * The name of the resource
+     */
+    name: string;
+    /**
+     * The readme file name of the resource
+     */
+    readme?: ILocalizedText;
+    /**
+     * The GitHub repository URL of the resource
+     */
+    url: string;
+    /**
+     * The version of the resource
+     */
+    version: string;
     [property: string]: any;
 }
 
 /**
- * The back-end environment list that the plugin is compatible with
- *
  * The back-end environment that the plugin is compatible with
  */
-export type BackendElement = "all" | "windows" | "linux" | "darwin" | "docker" | "android" | "ios";
+export type TBackEnd = "all" | "windows" | "linux" | "darwin" | "docker" | "android" | "ios";
 
 /**
  * The description of the resource
@@ -51,7 +85,7 @@ export type BackendElement = "all" | "windows" | "linux" | "darwin" | "docker" |
  *
  * The readme file name of the resource
  */
-export interface Description {
+export interface ILocalizedText {
     /**
      * The default text
      */
@@ -72,16 +106,14 @@ export interface Description {
 }
 
 /**
- * The front-end environment list that the plugin is compatible with
- *
  * The front-end environment that the plugin is compatible with
  */
-export type FrontendElement = "all" | "desktop" | "desktop-window" | "mobile" | "browser-desktop" | "browser-mobile";
+export type TFrontEnd = "all" | "desktop" | "desktop-window" | "mobile" | "browser-desktop" | "browser-mobile";
 
 /**
  * The funding of the resource
  */
-export interface Funding {
+export interface IFunding {
     /**
      * The custom funding URLs
      */

@@ -29,7 +29,7 @@ tabWidth = 4
 # 是否优先使用单引号
 
 # singleQuote: <bool>
-# singleQuote = false
+singleQuote = true
 
 
 # 对象属性名是否使用引号

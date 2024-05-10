@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 排序 `import` 表达式 | Sort `import` expressions
+- 完善社区资源清单文件定义 | Perfect community resource manifest file definition
 
 ## v0.3.10 / 2024-05-09
 

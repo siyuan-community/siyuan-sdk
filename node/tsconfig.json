@@ -4,10 +4,7 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
+        "lib": ["ESNext", "DOM"],
         "moduleResolution": "Node",
         "strict": true,
         "resolveJsonModule": true,
@@ -21,24 +18,14 @@
         /* path */
         "baseUrl": "./",
         "paths": {
-            "@schemas/*": [
-                "./../schemas/*"
-            ],
-            "~/*": [
-                "./*"
-            ],
-            "@/*": [
-                "./src/*"
-            ],
-        },
+            "@schemas/*": ["./../schemas/*"],
+            "~/*": ["./*"],
+            "@/*": ["./src/*"]
+        }
     },
     "ts-node": {
         "esm": true,
-        "experimentalSpecifierResolution": "node",
+        "experimentalSpecifierResolution": "node"
     },
-    "include": [
-        "./src",
-        "tests",
-        "scripts",
-    ],
+    "include": ["./src", "tests", "scripts"]
 }

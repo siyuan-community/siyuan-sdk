@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,10 +26,10 @@ import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFi
 /**
  * @see {@link https://fs.spec.whatwg.org/#api-filesystemfilehandle}
  */
-export class SiyuanFileSystemFileHandle
+export class SiyuanFileSystemFileHandle //
     extends SiyuanFileSystemHandle
-    implements FileSystemFileHandle {
-
+    implements FileSystemFileHandle
+{
     public readonly kind = "file";
 
     constructor(
@@ -70,11 +70,11 @@ export class SiyuanFileSystemFileHandle
     async getFile(): Promise<File> {
         try {
             const blob = await this._client.getFile(
-                { path: this.relativePath },
+                { path: this.relativePath }, //
                 "blob",
             );
             const file = new File(
-                [blob],
+                [blob], //
                 this.name,
                 {
                     lastModified: this.lastModified * 1_000,
@@ -102,17 +102,18 @@ export class SiyuanFileSystemFileHandle
      * {@link https://fs.spec.whatwg.org/#api-filesystemfilehandle-createwritable}
      */
     async createWritable(options?: FileSystemCreateWritableOptions): Promise<SiyuanFileSystemWritableFileStream> {
-        const file = options?.keepExistingData
+        const file = options?.keepExistingData //
             ? await this.getFile()
             : new File([], this.name, { lastModified: this.lastModified * 1_000 });
-        return new SiyuanFileSystemWritableFileStream(new Sink(
-            file,
-            this.relativePath,
-            this._client,
-        ));
+        return new SiyuanFileSystemWritableFileStream(
+            new Sink(
+                file, //
+                this.relativePath,
+                this._client,
+            ),
+        );
     }
 }
-
 
 /**
  * REF: https://github.com/jimmywarting/native-file-system-adapter/blob/master/src/adapters/memory.js
@@ -137,40 +138,27 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
     }
 
     write(
-        chunk: FileSystemWriteChunkType,
-        controller: WritableStreamDefaultController,
+        chunk: FileSystemWriteChunkType, //
+        _controller: WritableStreamDefaultController,
     ): void | PromiseLike<void> {
         if (typeof chunk === "object" && "type" in chunk) {
             switch (chunk.type) {
                 case "write": {
-                    if ("position" in chunk
-                        && Number.isInteger(chunk.position)
-                        && chunk.position
-                        && chunk.position >= 0
-                    ) {
+                    if ("position" in chunk && Number.isInteger(chunk.position) && chunk.position && chunk.position >= 0) {
                         this.position = chunk.position;
                         if (this.size < chunk.position) {
-                            this.file = new File(
-                                [this.file, new ArrayBuffer(chunk.position - this.size)],
-                                this.file.name,
-                                this.file,
-                            );
+                            this.file = new File([this.file, new ArrayBuffer(chunk.position - this.size)], this.file.name, this.file);
                         }
                     }
                     if ("data" in chunk) {
                         chunk = chunk.data as BlobPart;
-                    }
-                    else {
+                    } else {
                         throw new DOMException(...errors.SYNTAX("write requires a data argument"));
                     }
                     break;
                 }
                 case "seek": {
-                    if ("position" in chunk
-                        && Number.isInteger(chunk.position)
-                        && chunk.position
-                        && chunk.position >= 0
-                    ) {
+                    if ("position" in chunk && Number.isInteger(chunk.position) && chunk.position && chunk.position >= 0) {
                         if (this.size < chunk.position) {
                             throw new DOMException(...errors.INVALID);
                         }
@@ -181,13 +169,8 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                     }
                 }
                 case "truncate": {
-                    if (Number.isInteger(chunk.size)
-                        && chunk.size
-                        && chunk.size >= 0
-                    ) {
-                        this.file = chunk.size < this.size
-                            ? new File([this.file.slice(0, chunk.size)], this.file.name, this.file)
-                            : new File([this.file, new Uint8Array(chunk.size - this.size)], this.file.name);
+                    if (Number.isInteger(chunk.size) && chunk.size && chunk.size >= 0) {
+                        this.file = chunk.size < this.size ? new File([this.file.slice(0, chunk.size)], this.file.name, this.file) : new File([this.file, new Uint8Array(chunk.size - this.size)], this.file.name);
 
                         this.size = this.file.size;
                         if (this.position > this.file.size) {
@@ -212,16 +195,7 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
         if (padding < 0) {
             padding = 0;
         }
-        this.file = new File(
-            [
-                head,
-                new Uint8Array(padding),
-                chunk,
-                tail,
-            ],
-            this.file.name,
-            this.file,
-        );
+        this.file = new File([head, new Uint8Array(padding), chunk, tail], this.file.name, this.file);
 
         this.size = this.file.size;
         this.position += chunk.size;

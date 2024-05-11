@@ -2,6 +2,7 @@
 
 - 排序 `import` 表达式 | Sort `import` expressions
 - 完善社区资源清单文件定义 | Perfect community resource manifest file definition
+- 完善 Prettier 配置并应用 | Perfect Prettier configuration and apply
 
 ## v0.3.10 / 2024-05-09
 

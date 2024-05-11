@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,8 +37,8 @@ export interface IResponse {
 export interface IData {
     Context: IContext;
     Request: IRequest;
-    URL:     IURL;
-    User:    IUser;
+    URL: IURL;
+    User: IUser;
 }
 
 /**
@@ -442,7 +442,7 @@ export interface ICookie {
  * multipart form data
  */
 export interface IMultipartForm {
-    File:  { [key: string]: IFile[] };
+    File: { [key: string]: IFile[] };
     Value: { [key: string]: string[] };
 }
 
@@ -580,49 +580,49 @@ export interface Itls {
  * A Certificate represents an X.509 certificate.
  */
 export interface ICertificate {
-    Raw:                         any;
-    RawTBSCertificate:           any;
-    RawSubjectPublicKeyInfo:     any;
-    RawSubject:                  any;
-    RawIssuer:                   any;
-    Signature:                   any;
-    SignatureAlgorithm:          any;
-    PublicKeyAlgorithm:          any;
-    PublicKey:                   any;
-    Version:                     any;
-    SerialNumber:                any;
-    Issuer:                      any;
-    Subject:                     any;
-    NotBefore:                   any;
-    KeyUsage:                    any;
-    Extensions:                  any;
-    ExtraExtensions:             any;
+    Raw: any;
+    RawTBSCertificate: any;
+    RawSubjectPublicKeyInfo: any;
+    RawSubject: any;
+    RawIssuer: any;
+    Signature: any;
+    SignatureAlgorithm: any;
+    PublicKeyAlgorithm: any;
+    PublicKey: any;
+    Version: any;
+    SerialNumber: any;
+    Issuer: any;
+    Subject: any;
+    NotBefore: any;
+    KeyUsage: any;
+    Extensions: any;
+    ExtraExtensions: any;
     UnhandledCriticalExtensions: any;
-    ExtKeyUsage:                 any;
-    UnknownExtKeyUsage:          any;
-    BasicConstraintsValid:       any;
-    IsCA:                        any;
-    MaxPathLen:                  any;
-    MaxPathLenZero:              any;
-    SubjectKeyId:                any;
-    AuthorityKeyId:              any;
-    OCSPServer:                  any;
-    IssuingCertificateURL:       any;
-    DNSNames:                    any;
-    EmailAddresses:              any;
-    IPAddresses:                 any;
-    URIs:                        any;
+    ExtKeyUsage: any;
+    UnknownExtKeyUsage: any;
+    BasicConstraintsValid: any;
+    IsCA: any;
+    MaxPathLen: any;
+    MaxPathLenZero: any;
+    SubjectKeyId: any;
+    AuthorityKeyId: any;
+    OCSPServer: any;
+    IssuingCertificateURL: any;
+    DNSNames: any;
+    EmailAddresses: any;
+    IPAddresses: any;
+    URIs: any;
     PermittedDNSDomainsCritical: any;
-    PermittedDNSDomains:         any;
-    ExcludedDNSDomains:          any;
-    PermittedIPRanges:           any;
-    ExcludedIPRanges:            any;
-    PermittedEmailAddresses:     any;
-    ExcludedEmailAddresses:      any;
-    PermittedURIDomains:         any;
-    ExcludedURIDomains:          any;
-    CRLDistributionPoints:       any;
-    PolicyIdentifiers:           any;
+    PermittedDNSDomains: any;
+    ExcludedDNSDomains: any;
+    PermittedIPRanges: any;
+    ExcludedIPRanges: any;
+    PermittedEmailAddresses: any;
+    ExcludedEmailAddresses: any;
+    PermittedURIDomains: any;
+    ExcludedURIDomains: any;
+    CRLDistributionPoints: any;
+    PolicyIdentifiers: any;
     [property: string]: any;
 }
 

@@ -23,7 +23,7 @@
                     // 快照文件对象 ID
                     type: 'string',
                     description: 'Snapshot file object ID',
-                    pattern: '^[0-9a-f]{40}$'
+                    pattern: '^[0-9a-f]{40}$',
                 },
             },
         },

@@ -82,7 +82,7 @@ bracketSameLine = false
 
 # arrowParens: "<always|avoid>"
 # arrowParens = "always"
-arrowParens = "avoid"
+arrowParens = "always"
 
 
 # 仅格式化文件的一部分

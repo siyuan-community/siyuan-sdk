@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -31,11 +27,11 @@ import setSnippet from "@/types/kernel/api/snippet/setSnippet";
 const pathname = client.Client.api.snippet.getSnippet.pathname;
 
 interface ICase {
-    name: string,
-    before?: () => void,
-    payload: getSnippet.IPayload,
-    after?: (response: getSnippet.IResponse, payload: getSnippet.IPayload) => void,
-    debug: boolean,
+    name: string;
+    before?: () => void;
+    payload: getSnippet.IPayload;
+    after?: (response: getSnippet.IResponse, payload: getSnippet.IPayload) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -52,15 +48,15 @@ describe.concurrent(pathname, async () => {
             name: "test-getSnippet-css-1",
             type: "css",
             enabled: true,
-            content: "/* test-getSnippet-css-1 */"
+            content: "/* test-getSnippet-css-1 */",
         },
         {
             id: "",
             name: "test-getSnippet-js-1",
             type: "js",
             enabled: false,
-            content: "// test-getSnippet-js-1"
-        }
+            content: "// test-getSnippet-js-1",
+        },
     ];
     const cases: ICase[] = [
         {
@@ -77,7 +73,7 @@ describe.concurrent(pathname, async () => {
             after: async (response) => {
                 test("test the result of get snippet", async () => {
                     for (const snippet of response.data.snippets) {
-                        const s = snippets.find(s => s.name === snippet.name);
+                        const s = snippets.find((s) => s.name === snippet.name);
                         expect(s).not.toBeUndefined();
                         if (s) {
                             if (s.id !== "") {
@@ -95,7 +91,7 @@ describe.concurrent(pathname, async () => {
         },
     ];
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getSnippet.IPayload, getSnippet.IResponse>({
             name: "main",
             payload: {

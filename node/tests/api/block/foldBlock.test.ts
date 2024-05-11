@@ -1,26 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -56,11 +51,11 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    before?: (payload: foldBlock.IPayload) => void,
-    payload: foldBlock.IPayload,
-    after?: (response: foldBlock.IResponse, payload: foldBlock.IPayload) => void,
-    debug: boolean,
+    name: string;
+    before?: (payload: foldBlock.IPayload) => void;
+    payload: foldBlock.IPayload;
+    after?: (response: foldBlock.IResponse, payload: foldBlock.IPayload) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -81,7 +76,7 @@ describe.concurrent(pathname, async () => {
     ]) {
         cases.push({
             name: `fold: ${markdown}`,
-            before: async (payload) => { 
+            before: async (payload) => {
                 /* 插入一个测试用的块 */
                 const response_foldBlock = await client.client.insertBlock({
                     dataType: "markdown",
@@ -94,7 +89,7 @@ describe.concurrent(pathname, async () => {
                 id: "", // 将使用新插入的块 ID
             },
             after: async (response, payload) => {
-                const response_getBlockAttrs = await client.client.getBlockAttrs({id: payload.id});
+                const response_getBlockAttrs = await client.client.getBlockAttrs({ id: payload.id });
                 test("Block IAL > fold", () => {
                     expect.soft(response_getBlockAttrs.data.fold).toEqual("1");
                 });
@@ -102,7 +97,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         });
     }
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<foldBlock.IPayload, foldBlock.IResponse>({
             name: item.name,
             payload: {

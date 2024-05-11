@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,17 +21,8 @@ import path from "node:path";
 
 import JSON5 from "json5";
 
-import {
-    LICENSE,
-    REGION_BEGIN_CONTENT,
-    REGION_END_CONTENT,
-    SCHEMAS_DIR_PATH,
-    TYPES_DIR_PATH,
-} from "./constants";
-import {
-    JSONSchema2QuicktypeInputData,
-    quicktypeInputData2TypeScriptInterface,
-} from "./quicktype";
+import { LICENSE, REGION_BEGIN_CONTENT, REGION_END_CONTENT, SCHEMAS_DIR_PATH, TYPES_DIR_PATH } from "./constants";
+import { JSONSchema2QuicktypeInputData, quicktypeInputData2TypeScriptInterface } from "./quicktype";
 
 /**
  * 将 *.json5 路径转换为 *.json 路径
@@ -95,19 +86,13 @@ export async function json2types(jsonFilePath: string): Promise<string> {
     const input_data = await JSONSchema2QuicktypeInputData({
         name: `I${file_main_name.charAt(0).toUpperCase()}${file_main_name.substring(1)}`,
         schema: json,
-    })
+    });
     const ts = await quicktypeInputData2TypeScriptInterface(input_data);
 
     const ts_path = jsonPath2typesPath(jsonFilePath); // *.d.ts 文件路径
     if (!fs.existsSync(ts_path)) {
         fs.mkdirSync(path.parse(ts_path).dir, { recursive: true }); // 目录不存在则创建目录
     }
-    fs.writeFileSync(ts_path, [
-        LICENSE,
-        REGION_BEGIN_CONTENT,
-        ...ts.lines,
-        REGION_END_CONTENT,
-        "",
-    ].join("\n"));
+    fs.writeFileSync(ts_path, [LICENSE, REGION_BEGIN_CONTENT, ...ts.lines, REGION_END_CONTENT, ""].join("\n"));
     return ts_path;
 }

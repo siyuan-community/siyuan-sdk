@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
@@ -31,11 +27,11 @@ import pandoc from "@/types/kernel/api/convert/pandoc";
 const pathname = client.Client.api.convert.pandoc.pathname;
 
 interface ICase {
-    name: string,
-    before?: () => void,
-    payload: pandoc.IPayload,
-    after?: () => void,
-    debug: boolean,
+    name: string;
+    before?: () => void;
+    payload: pandoc.IPayload;
+    after?: () => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -50,9 +46,7 @@ describe.concurrent(pathname, async () => {
         {
             name: "test pandoc",
             payload: {
-                args: [
-                    "-h",
-                ],
+                args: ["-h"],
             },
             debug: false,
         },
@@ -64,7 +58,7 @@ describe.concurrent(pathname, async () => {
                     await client.client.removeFile({
                         path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/`,
                     });
-                } catch (error) { }
+                } catch (error) {}
 
                 /* 写入测试文件 */
                 await client.client.putFile({
@@ -74,26 +68,25 @@ describe.concurrent(pathname, async () => {
             },
             payload: {
                 dir: "convert-test",
-                args: [
-                    "--to",
-                    "gfm-raw_html+tex_math_dollars+pipe_tables",
-                    "test.html",
-                    "-o",
-                    "test.md"
-                ],
+                args: ["--to", "gfm-raw_html+tex_math_dollars+pipe_tables", "test.html", "-o", "test.md"],
             },
             after: async () => {
                 test("test the result of pandoc converting", async () => {
-                    await expect(client.client.getFile({
-                        path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.md`,
-                    }, "text")).resolves.toBeTypeOf("string");
+                    await expect(
+                        client.client.getFile(
+                            {
+                                path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.md`,
+                            },
+                            "text",
+                        ),
+                    ).resolves.toBeTypeOf("string");
                 });
             },
             debug: false,
         },
     ];
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
             name: "main",
             payload: {

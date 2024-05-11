@@ -1,26 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -65,9 +60,9 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    payload: getDocInfo.IPayload,
-    debug: boolean,
+    name: string;
+    payload: getDocInfo.IPayload;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -97,7 +92,7 @@ describe.concurrent(pathname, async () => {
             debug: true,
         },
     ];
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getDocInfo.IPayload, getDocInfo.IResponse>({
             name: item.name,
             payload: {
@@ -109,39 +104,15 @@ describe.concurrent(pathname, async () => {
                 validate: validate_response,
                 test: (response, payload) => {
                     test("test response data", () => {
-                        expect.soft(
-                            response.data.id,
-                            "data.id"
-                        ).toEqual(payload.id);
-                        expect.soft(
-                            response.data.rootID,
-                            "data.rootID"
-                        ).toEqual(context.document);
-                        expect.soft(
-                            response.data.name,
-                            "data.name"
-                        ).toEqual("getDocInfo");
-                        expect.soft(
-                            response.data.refCount,
-                            "data.refCount"
-                        ).toEqual(0);
-                        expect.soft(
-                            response.data.subFileCount,
-                            "data.subFileCount"
-                        ).toEqual(0);
-                        expect.soft(
-                            response.data.refIDs,
-                            "data.refIDs"
-                        ).toHaveLength(0);
-                        expect.soft(
-                            response.data.icon,
-                            "data.icon"
-                        ).toEqual("");
+                        expect.soft(response.data.id, "data.id").toEqual(payload.id);
+                        expect.soft(response.data.rootID, "data.rootID").toEqual(context.document);
+                        expect.soft(response.data.name, "data.name").toEqual("getDocInfo");
+                        expect.soft(response.data.refCount, "data.refCount").toEqual(0);
+                        expect.soft(response.data.subFileCount, "data.subFileCount").toEqual(0);
+                        expect.soft(response.data.refIDs, "data.refIDs").toHaveLength(0);
+                        expect.soft(response.data.icon, "data.icon").toEqual("");
 
-                        expect.soft(
-                            response.data.ial,
-                            "data.ial"
-                        ).toMatchObject({
+                        expect.soft(response.data.ial, "data.ial").toMatchObject({
                             id: context.document,
                             title: "getDocInfo",
                         });

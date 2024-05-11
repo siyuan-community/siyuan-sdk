@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -30,10 +26,10 @@ import getChildBlocks from "@/types/kernel/api/block/getChildBlocks";
 const pathname = client.Client.api.block.getChildBlocks.pathname;
 
 interface ICase {
-    name: string,
-    payload: getChildBlocks.IPayload,
-    debug: boolean,
-    after?: (response: getChildBlocks.IResponse) => void,
+    name: string;
+    payload: getChildBlocks.IPayload;
+    debug: boolean;
+    after?: (response: getChildBlocks.IResponse) => void;
 }
 
 describe.concurrent(pathname, async () => {
@@ -99,7 +95,7 @@ describe.concurrent(pathname, async () => {
             payload: {
                 id: "20210104091228-mwb2x54",
             },
-            after: async response => {
+            after: async (response) => {
                 test("leaf block has't child blocks", () => {
                     expect(response.data).toHaveLength(0);
                 });
@@ -107,7 +103,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         },
     ];
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getChildBlocks.IPayload, getChildBlocks.IResponse>({
             name: item.name,
             payload: {

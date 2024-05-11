@@ -1,26 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -46,7 +41,7 @@ async function initContext() {
 
     /* 创建一个测试用文档 */
     let count = 5;
-    while(count--) {
+    while (count--) {
         const response_createDocWithMd = await client.client.createDocWithMd({
             notebook: context.notebook,
             markdown: "",
@@ -58,10 +53,10 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    payload: getIDsByHPath.IPayload,
-    after?: (response: getIDsByHPath.IResponse, payload: getIDsByHPath.IPayload) => void,
-    debug: boolean,
+    name: string;
+    payload: getIDsByHPath.IPayload;
+    after?: (response: getIDsByHPath.IResponse, payload: getIDsByHPath.IPayload) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -87,7 +82,7 @@ describe.concurrent(pathname, async () => {
                 const ids_set_1 = new Set<string>(context.document);
                 const ids_set_2 = new Set<string>(response.data);
                 expect.soft(ids_set_1.size, "document ID list length").toEqual(ids_set_2.size);
-                ids_set_1.forEach(id => {
+                ids_set_1.forEach((id) => {
                     expect.soft(ids_set_2.has(id), `document ID ${id}`).toBeTruthy();
                 });
             });
@@ -95,7 +90,7 @@ describe.concurrent(pathname, async () => {
         debug: false,
     });
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getIDsByHPath.IPayload, getIDsByHPath.IResponse>({
             name: item.name,
             payload: {

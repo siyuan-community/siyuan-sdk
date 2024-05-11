@@ -32,9 +32,9 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
 
     const ts: string[] = [constants.LICENSE]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
-    const dirs = children.filter(child => child.isDirectory()); // 下级目录列表
+    const dirs = children.filter((child) => child.isDirectory()); // 下级目录列表
     const files = children.filter(
-        child =>
+        (child) =>
             child.isFile() && //
             child.name.endsWith(".d.ts") &&
             child.name !== "index.d.ts",
@@ -44,13 +44,13 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
 
     /* 导出下级目录的类型定义 */
     ts.push(`/* directories */`);
-    dirs.forEach(dir => {
+    dirs.forEach((dir) => {
         ts.push(`export * as ${dir.name} from "./${dir.name}";`);
     });
 
     /* 导出文件的类型定义 */
     ts.push(`\n/* files */`);
-    files.forEach(file => {
+    files.forEach((file) => {
         const name = file.name.split(".").shift()!;
         switch (name) {
             case "payload":

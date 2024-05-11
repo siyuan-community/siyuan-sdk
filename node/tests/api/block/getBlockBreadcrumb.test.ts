@@ -1,36 +1,28 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
 import getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
-import {
-    BlockSubType,
-    NodeType,
-} from "@/utils/siyuan";
+import { BlockSubType, NodeType } from "@/utils/siyuan";
 
 const pathname = client.Client.api.block.getBlockBreadcrumb.pathname;
 
@@ -87,10 +79,10 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    payload: getBlockBreadcrumb.IPayload,
-    after?: (response: getBlockBreadcrumb.IResponse) => void,
-    debug: boolean,
+    name: string;
+    payload: getBlockBreadcrumb.IPayload;
+    after?: (response: getBlockBreadcrumb.IResponse) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -110,7 +102,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.document,
         },
-        after: response => {
+        after: (response) => {
             test("document", () => {
                 expect(response.data).toHaveLength(1);
 
@@ -127,14 +119,15 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.container,
         },
-        after: response => {
+        after: (response) => {
             test("document > container", () => {
                 expect(response.data).toHaveLength(1);
 
                 const document = response.data[0];
                 expect.soft(document.id).toEqual(context.document);
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
-                expect.soft(document.subType).toEqual(BlockSubType.none);            });
+                expect.soft(document.subType).toEqual(BlockSubType.none);
+            });
         },
         debug: false,
     });
@@ -143,7 +136,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.heading,
         },
-        after: response => {
+        after: (response) => {
             test("document > container > heading", () => {
                 expect(response.data).toHaveLength(2);
 
@@ -165,7 +158,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.block,
         },
-        after: response => {
+        after: (response) => {
             test("document > container > heading > block", () => {
                 expect(response.data).toHaveLength(3);
 
@@ -188,7 +181,7 @@ describe.concurrent(pathname, async () => {
         debug: false,
     });
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getBlockBreadcrumb.IPayload, getBlockBreadcrumb.IResponse>({
             name: item.name,
             payload: {

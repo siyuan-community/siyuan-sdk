@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,9 @@ import searchDocs from "@/types/kernel/api/filetree/searchDocs";
 const pathname = client.Client.api.filetree.searchDocs.pathname;
 
 interface ICase {
-    name: string,
-    payload: searchDocs.IPayload,
-    debug: boolean,
+    name: string;
+    payload: searchDocs.IPayload;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -45,7 +45,7 @@ describe.concurrent(pathname, async () => {
             payload: {
                 k: "block",
             },
-            debug: false
+            debug: false,
         },
         {
             name: "flashcard: false",
@@ -53,7 +53,7 @@ describe.concurrent(pathname, async () => {
                 k: "block",
                 flashcard: false,
             },
-            debug: false
+            debug: false,
         },
         {
             name: "flashcard: true",
@@ -61,10 +61,10 @@ describe.concurrent(pathname, async () => {
                 k: "block",
                 flashcard: true,
             },
-            debug: false
+            debug: false,
         },
     ];
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<searchDocs.IPayload, searchDocs.IResponse>({
             name: "main",
             payload: {

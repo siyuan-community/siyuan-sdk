@@ -29,7 +29,7 @@
                     description: 'status message',
                 },
                 data: {
-                    $ref: '#/$defs/data'
+                    $ref: '#/$defs/data',
                 },
             },
         },

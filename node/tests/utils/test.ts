@@ -1,26 +1,22 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import { ValidateFunction } from "ajv";
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import { IResponse } from "~/src/types/kernel/kernel";
 
@@ -40,31 +36,20 @@ expect.extend({
 });
 
 interface ITestKernelAPIOptions<P, R> {
-    name: string,
+    name: string;
     payload?: {
-        data?: P,
-        validate?: ValidateFunction,
-        test?: (
-            payload: P,
-            options: ITestKernelAPIOptions<P, R>,
-        ) => void,
-    },
-    request: (payload?: P) => Promise<R>,
-    catch?: (
-        error: unknown,
-        payload: P,
-        options: ITestKernelAPIOptions<P, R>,
-    ) => void,
+        data?: P;
+        validate?: ValidateFunction;
+        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void;
+    };
+    request: (payload?: P) => Promise<R>;
+    catch?: (error: unknown, payload: P, options: ITestKernelAPIOptions<P, R>) => void;
     response?: {
-        validate?: ValidateFunction,
-        test?: (
-            response: R,
-            payload: P,
-            options: ITestKernelAPIOptions<P, R>,
-        ) => void,
-    },
-    debug?: boolean,
-    [key: string]: any,
+        validate?: ValidateFunction;
+        test?: (response: R, payload: P, options: ITestKernelAPIOptions<P, R>) => void;
+    };
+    debug?: boolean;
+    [key: string]: any;
 }
 /**
  * 校验内核 API
@@ -100,8 +85,7 @@ export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) 
                     }
                     await options.catch(error, options.payload?.data!, options);
                     return;
-                }
-                else {
+                } else {
                     throw error;
                 }
             }
@@ -134,16 +118,10 @@ export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) 
  * @param payload: 请求体对象
  * @param validate: ajv 校验函数
  */
-export function testPayload<T>(
-    payload: T,
-    validate: ValidateFunction,
-) {
+export function testPayload<T>(payload: T, validate: ValidateFunction) {
     test("payload verify", async () => {
         const valid = validate(payload);
-        expect.soft(
-            valid,
-            `verify payload using JSON Schema`,
-        ).toBeTruthy(); // 校验请求体
+        expect.soft(valid, `verify payload using JSON Schema`).toBeTruthy(); // 校验请求体
         if (!valid) {
             console.warn(validate.errors);
         }
@@ -160,10 +138,7 @@ export async function testPromise<T>(
     return new Promise((resolve) => {
         // REF https://cn.vitest.dev/api/expect.html#resolves
         test("promise verify", async () => {
-            await expect.soft(
-                promise,
-                `verify promise resolve`,
-            ).resolves.toResolve(resolve);
+            await expect.soft(promise, `verify promise resolve`).resolves.toResolve(resolve);
         });
     });
 }
@@ -173,21 +148,12 @@ export async function testPromise<T>(
  * @param payload: 响应体对象
  * @param validate: ajv 校验函数
  */
-export function testResponse<T extends IResponse = IResponse>(
-    response: T,
-    validate: ValidateFunction,
-) {
+export function testResponse<T extends IResponse = IResponse>(response: T, validate: ValidateFunction) {
     test("response verify", () => {
-        expect.soft(
-            response.code,
-            `verify response code`,
-        ).toEqual(0); // 校验响应码
+        expect.soft(response.code, `verify response code`).toEqual(0); // 校验响应码
 
         const valid = validate(response);
-        expect.soft(
-            valid,
-            `verify response using JSON Schema`,
-        ).toBeTruthy(); // 校验响应体
+        expect.soft(valid, `verify response using JSON Schema`).toBeTruthy(); // 校验响应体
         if (!valid) {
             console.warn(validate.errors);
         }
@@ -200,8 +166,8 @@ export function testResponse<T extends IResponse = IResponse>(
  */
 export function testThrowError(error: unknown) {
     test(`\x1b[31;1m${(error as object).constructor.name}`, () => {
-        expect(
-            () => { throw error },
-        ).not.toThrowError(); // 输出运行时错误
+        expect(() => {
+            throw error;
+        }).not.toThrowError(); // 输出运行时错误
     });
 }

@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,9 @@ import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 const pathname = client.Client.api.search.fullTextSearchBlock.pathname;
 
 interface ICase {
-    name: string,
-    payload: fullTextSearchBlock.IPayload,
-    debug: boolean,
+    name: string;
+    payload: fullTextSearchBlock.IPayload;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -48,16 +48,16 @@ describe.concurrent(pathname, async () => {
                         switch (method) {
                             default:
                             case 0:
-                                return "测试"
+                                return "测试";
 
                             case 1:
-                                return '"测试"'
+                                return '"测试"';
 
                             case 2:
-                                return "^测试$"
+                                return "^测试$";
 
                             case 3:
-                                return "SELECT * FROM blocks_fts WHERE blocks_fts MATCH '测试' LIMIT 1;"
+                                return "SELECT * FROM blocks_fts WHERE blocks_fts MATCH '测试' LIMIT 1;";
                         }
                     })();
                     payloads.push({
@@ -86,18 +86,18 @@ describe.concurrent(pathname, async () => {
                             // list: false,
                             // listItem: false,
                         },
-                    })
+                    });
                 }
             }
         }
-        return payloads.map(payload => ({
+        return payloads.map((payload) => ({
             name: `method: ${payload.method} groupBy: ${payload.groupBy} orderBy: ${payload.orderBy}`,
             payload,
             debug: false,
         }));
     })();
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<fullTextSearchBlock.IPayload, fullTextSearchBlock.IResponse>({
             name: item.name,
             payload: {

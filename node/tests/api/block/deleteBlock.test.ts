@@ -1,24 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-} from "vitest";
+import { afterAll, describe } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -54,10 +51,10 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    before?: (payload: deleteBlock.IPayload) => void,
-    payload: deleteBlock.IPayload,
-    debug: boolean,
+    name: string;
+    before?: (payload: deleteBlock.IPayload) => void;
+    payload: deleteBlock.IPayload;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -77,7 +74,7 @@ describe.concurrent(pathname, async () => {
     ]) {
         cases.push({
             name: `delete: ${markdown}`,
-            before: async (payload) => { 
+            before: async (payload) => {
                 /* 插入一个测试用的块 */
                 const response_deleteBlock = await client.client.insertBlock({
                     dataType: "markdown",
@@ -92,7 +89,7 @@ describe.concurrent(pathname, async () => {
             debug: false,
         });
     }
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<deleteBlock.IPayload, deleteBlock.IResponse>({
             name: item.name,
             payload: {

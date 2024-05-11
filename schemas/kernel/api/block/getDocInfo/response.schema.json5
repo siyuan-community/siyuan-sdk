@@ -122,12 +122,7 @@
                             const: '',
                         },
                         name: {
-                            enum: [
-                                "Untitled",
-                                "Sin título",
-                                "Sans titre",
-                                "未命名",
-                            ]
+                            enum: ['Untitled', 'Sin título', 'Sans titre', '未命名'],
                         },
                     },
                 },

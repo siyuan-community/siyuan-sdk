@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
@@ -31,9 +27,9 @@ import putFile from "@/types/kernel/api/file/putFile";
 const pathname = client.Client.api.file.putFile.pathname;
 
 interface ICase {
-    name: string,
-    payload: putFile.IPayload,
-    debug: boolean,
+    name: string;
+    payload: putFile.IPayload;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -85,7 +81,7 @@ describe.concurrent(pathname, async () => {
         },
     ];
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<putFile.IPayload, putFile.IResponse>({
             name: item.name,
             payload: {
@@ -104,8 +100,7 @@ describe.concurrent(pathname, async () => {
                                 }),
                                 `dir path: ${item.payload.path}`,
                             ).resolves.toMatchObject({ code: 0 });
-                        }
-                        else {
+                        } else {
                             /* 测试文件是否存在 */
                             await expect(
                                 client.client.getFile(

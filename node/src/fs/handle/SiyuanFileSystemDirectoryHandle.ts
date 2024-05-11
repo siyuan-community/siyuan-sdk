@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -19,7 +19,7 @@ import path from "path-browserify";
 
 import { errors } from "@/fs/error";
 import {
-    Client,
+    Client, //
     KernelError,
     types,
 } from "@/index";
@@ -36,10 +36,7 @@ export interface IEntries {
     readonly directories: Map<string, TEntry>;
 }
 
-export class SiyuanFileSystemDirectoryHandle
-    extends SiyuanFileSystemHandle
-    implements FileSystemDirectoryHandle {
-
+export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle implements FileSystemDirectoryHandle {
     /**
      * @override
      */
@@ -92,11 +89,10 @@ export class SiyuanFileSystemDirectoryHandle
 
         this._entries.Initialized = true;
         this._entries.list.push(...response.data);
-        response.data.forEach(entry => {
+        response.data.forEach((entry) => {
             if (entry.isDir) {
                 this._entries.directories.set(entry.name, entry);
-            }
-            else {
+            } else {
                 this._entries.files.set(entry.name, entry);
             }
         });
@@ -122,8 +118,7 @@ export class SiyuanFileSystemDirectoryHandle
     public get length(): number {
         if (this._entries.Initialized) {
             return this._entries.list.length;
-        }
-        else {
+        } else {
             throw new DOMException(...errors.INVALID_STATE);
         }
     }
@@ -131,35 +126,28 @@ export class SiyuanFileSystemDirectoryHandle
     *[Symbol.iterator](): IterableIterator<[string, THandle]> {
         if (this._entries.Initialized) {
             for (const entry of this._entries.list) {
-                yield [
-                    entry.name,
-                    this._entry2handle(entry),
-                ];
+                yield [entry.name, this._entry2handle(entry)];
             }
-        }
-        else {
+        } else {
             throw new DOMException(...errors.INVALID_STATE);
         }
     }
 
-    async * entries(): AsyncGenerator<[string, THandle]> {
+    async *entries(): AsyncGenerator<[string, THandle]> {
         await this.ls();
         for (const entry of this._entries.list) {
-            yield [
-                entry.name,
-                this._entry2handle(entry),
-            ];
+            yield [entry.name, this._entry2handle(entry)];
         }
     }
 
-    async * keys(): AsyncGenerator<string> {
+    async *keys(): AsyncGenerator<string> {
         await this.ls();
         for (const entry of this._entries.list) {
             yield entry.name;
         }
     }
 
-    async * values(): AsyncGenerator<THandle> {
+    async *values(): AsyncGenerator<THandle> {
         await this.ls();
         for (const entry of this._entries.list) {
             yield this._entry2handle(entry);
@@ -171,17 +159,13 @@ export class SiyuanFileSystemDirectoryHandle
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemdirectoryhandle-getdirectoryhandle}
      */
-    async getDirectoryHandle(
-        name: string,
-        options?: FileSystemGetDirectoryOptions,
-    ): Promise<SiyuanFileSystemDirectoryHandle> {
+    async getDirectoryHandle(name: string, options?: FileSystemGetDirectoryOptions): Promise<SiyuanFileSystemDirectoryHandle> {
         await this.ls();
         const entry: TEntry | undefined = this._entries.directories.get(name);
         if (entry) {
             const handle = this._entry2handle(entry) as SiyuanFileSystemDirectoryHandle;
             return handle;
-        }
-        else {
+        } else {
             const relative_path = path.join(this.relativePath, name);
             if (options?.create) {
                 await this._client.putFile({
@@ -190,8 +174,7 @@ export class SiyuanFileSystemDirectoryHandle
                 });
                 await this.init();
                 return this.getDirectoryHandle(name);
-            }
-            else {
+            } else {
                 throw new DOMException(...errors.NOT_FOUND(relative_path));
             }
         }
@@ -202,17 +185,13 @@ export class SiyuanFileSystemDirectoryHandle
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemdirectoryhandle-getfilehandle}
      */
-    async getFileHandle(
-        name: string,
-        options?: FileSystemGetFileOptions,
-    ): Promise<SiyuanFileSystemFileHandle> {
+    async getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<SiyuanFileSystemFileHandle> {
         await this.ls();
         const entry: TEntry | undefined = this._entries.files.get(name);
         if (entry) {
             const handle = this._entry2handle(entry) as SiyuanFileSystemFileHandle;
             return handle;
-        }
-        else {
+        } else {
             const relative_path = path.join(this.relativePath, name);
             if (options?.create) {
                 await this._client.putFile({
@@ -221,8 +200,7 @@ export class SiyuanFileSystemDirectoryHandle
                 });
                 await this.init();
                 return this.getFileHandle(name);
-            }
-            else {
+            } else {
                 throw new DOMException(...errors.NOT_FOUND(relative_path));
             }
         }
@@ -233,22 +211,17 @@ export class SiyuanFileSystemDirectoryHandle
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemdirectoryhandle-removeentry}
      */
-    async removeEntry(
-        name: string,
-        options?: FileSystemRemoveOptions,
-    ): Promise<void> {
+    async removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void> {
         await this.ls();
         const relative_path = path.join(this.relativePath, name);
-        const entry: TEntry | undefined = this._entries.files.get(name)
-            ?? this._entries.directories.get(name);
+        const entry: TEntry | undefined = this._entries.files.get(name) ?? this._entries.directories.get(name);
 
         if (entry) {
             if (
-                !entry.isDir // 文件
-                || (entry.isDir && options?.recursive) // 递归删除目录
+                !entry.isDir || // 文件
+                (entry.isDir && options?.recursive) // 递归删除目录
             ) {
-            }
-            else {
+            } else {
                 const handle = this._entry2handle(entry) as SiyuanFileSystemDirectoryHandle;
                 await handle.ls();
                 if (handle.length > 0) {
@@ -260,8 +233,7 @@ export class SiyuanFileSystemDirectoryHandle
                 path: relative_path,
             });
             await this.init();
-        }
-        else {
+        } else {
             throw new DOMException(...errors.NOT_FOUND(relative_path));
         }
     }
@@ -283,19 +255,7 @@ export class SiyuanFileSystemDirectoryHandle
     }
 
     protected _entry2handle(entry: TEntry): THandle {
-        const options = [
-            entry.name,
-            this.root,
-            path.join(this.path, entry.name),
-            this.path,
-            path.join(this.relativePath, entry.name),
-            this.relativePath,
-            entry.isSymlink,
-            entry.updated * 1_000,
-            this._client,
-        ] as const;
-        return entry.isDir
-            ? new SiyuanFileSystemDirectoryHandle(...options)
-            : new SiyuanFileSystemFileHandle(...options);
+        const options = [entry.name, this.root, path.join(this.path, entry.name), this.path, path.join(this.relativePath, entry.name), this.relativePath, entry.isSymlink, entry.updated * 1_000, this._client] as const;
+        return entry.isDir ? new SiyuanFileSystemDirectoryHandle(...options) : new SiyuanFileSystemFileHandle(...options);
     }
 }

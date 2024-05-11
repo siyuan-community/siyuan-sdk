@@ -1,26 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    afterAll,
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
@@ -83,10 +78,10 @@ async function initContext() {
 }
 
 interface ICase {
-    name: string,
-    payload: getBlockInfo.IPayload,
-    after?: (response: getBlockInfo.IResponse) => void,
-    debug: boolean,
+    name: string;
+    payload: getBlockInfo.IPayload;
+    after?: (response: getBlockInfo.IResponse) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -106,7 +101,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.document,
         },
-        after: response => {
+        after: (response) => {
             test("document", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
@@ -122,7 +117,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.container,
         },
-        after: response => {
+        after: (response) => {
             test("document > container", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
@@ -138,7 +133,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.heading,
         },
-        after: response => {
+        after: (response) => {
             test("document > container > heading", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
@@ -154,7 +149,7 @@ describe.concurrent(pathname, async () => {
         payload: {
             id: context.block,
         },
-        after: response => {
+        after: (response) => {
             test("document > container > heading > block", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
@@ -166,7 +161,7 @@ describe.concurrent(pathname, async () => {
         debug: false,
     });
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getBlockInfo.IPayload, getBlockInfo.IResponse>({
             name: item.name,
             payload: {

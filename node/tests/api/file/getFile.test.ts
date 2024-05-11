@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import { KernelError } from "~/src";
 import client from "~/tests/utils/client";
@@ -31,13 +27,13 @@ import type { ResponseType } from "@/client/Client";
 const pathname = client.Client.api.file.getFile.pathname;
 
 interface ICase {
-    name: string,
-    path: string,
-    responseType: ResponseType,
-    type: string,
-    protoType?: any,
-    catch?: (err: unknown) => void,
-    debug: boolean,
+    name: string;
+    path: string;
+    responseType: ResponseType;
+    type: string;
+    protoType?: any;
+    catch?: (err: unknown) => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -122,14 +118,8 @@ describe.concurrent(pathname, async () => {
             type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
             catch: (error) => {
                 test("KernelError: 403", async () => {
-                    expect(
-                        error,
-                        "error's type",
-                    ).toBeInstanceOf(KernelError);
-                    expect(
-                        (error as KernelError).code,
-                        "error's code",
-                    ).toEqual(403);
+                    expect(error, "error's type").toBeInstanceOf(KernelError);
+                    expect((error as KernelError).code, "error's code").toEqual(403);
                 });
             },
             debug: false,
@@ -142,11 +132,11 @@ describe.concurrent(pathname, async () => {
             catch: (error) => {
                 test("KernelError: 404", async () => {
                     expect(
-                        error,
+                        error, //
                         "error's type",
                     ).toBeInstanceOf(KernelError);
                     expect(
-                        (error as KernelError).code,
+                        (error as KernelError).code, //
                         "error's code",
                     ).toEqual(404);
                 });
@@ -161,11 +151,11 @@ describe.concurrent(pathname, async () => {
             catch: (error) => {
                 test("KernelError: 405", async () => {
                     expect(
-                        error,
+                        error, //
                         "error's type",
                     ).toBeInstanceOf(KernelError);
                     expect(
-                        (error as KernelError).code,
+                        (error as KernelError).code, //
                         "error's code",
                     ).toEqual(405);
                 });
@@ -174,7 +164,7 @@ describe.concurrent(pathname, async () => {
         },
     ];
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<getFile.IPayload, unknown>({
             name: item.name,
             payload: {
@@ -186,14 +176,15 @@ describe.concurrent(pathname, async () => {
             request: (payload) => client.client.getFile(payload!, item.responseType),
             catch: item.catch,
             response: {
-                test: body => {
+                test: (body) => {
                     if (item.debug) {
                         console.debug(body);
                     }
                     test("response body type verify", () => {
                         expect.soft(typeof body, "typeof").toEqual(item.type);
-                        if (item.protoType)
+                        if (item.protoType) {
                             expect.soft(body, "instanceof").toBeInstanceOf(item.protoType);
+                        }
                     });
                 },
             },

@@ -1,25 +1,21 @@
 /**
  * Copyright (C) 2023 SiYuan Community
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    describe,
-    expect,
-    test,
-} from "vitest";
+import { describe, expect, test } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
@@ -31,11 +27,11 @@ import renameFile from "@/types/kernel/api/file/renameFile";
 const pathname = client.Client.api.file.renameFile.pathname;
 
 interface ICase {
-    name: string,
-    before?: () => void,
-    payload: renameFile.IPayload,
-    after?: () => void,
-    debug: boolean,
+    name: string;
+    before?: () => void;
+    payload: renameFile.IPayload;
+    after?: () => void;
+    debug: boolean;
 }
 
 describe.concurrent(pathname, async () => {
@@ -51,14 +47,12 @@ describe.concurrent(pathname, async () => {
             name: "rename file",
             before: async () => {
                 /* 删除可能已存在的测试文件 */
-                for (const path of [
-                    "/temp/convert/pandoc/test/rename-file/",
-                ]) {
+                for (const path of ["/temp/convert/pandoc/test/rename-file/"]) {
                     try {
                         await client.client.removeFile({
                             path,
                         });
-                    } catch (error) { }
+                    } catch (error) {}
                 }
 
                 /* 写入测试文件 */
@@ -75,17 +69,23 @@ describe.concurrent(pathname, async () => {
                 test("test the result of renaming file", async () => {
                     /* 测试原文件是否存在 */
                     await expect(
-                        client.client.getFile({
-                            path: "/temp/convert/pandoc/test/rename-file/test.html",
-                        }, "json"),
+                        client.client.getFile(
+                            {
+                                path: "/temp/convert/pandoc/test/rename-file/test.html",
+                            },
+                            "json",
+                        ),
                         `original path: /temp/convert/pandoc/test/rename-file/test.html`,
                     ).rejects.toMatchObject({ code: 404 });
 
                     /* 测试重命名后文件是否存在 */
                     await expect(
-                        client.client.getFile({
-                            path: "/temp/convert/pandoc/test/rename-file/test-new.html",
-                        }, "text"),
+                        client.client.getFile(
+                            {
+                                path: "/temp/convert/pandoc/test/rename-file/test-new.html",
+                            },
+                            "text",
+                        ),
                         `new path: /temp/convert/pandoc/test/rename-file/test-new.html`,
                     ).resolves.toEqual(constants.TEST_FILE_CONTENT);
                 });
@@ -97,14 +97,14 @@ describe.concurrent(pathname, async () => {
             before: async () => {
                 /* 删除可能已存在的测试文件 */
                 for (const path of [
-                    "/temp/convert/pandoc/test/rename-dir/",
+                    "/temp/convert/pandoc/test/rename-dir/", //
                     "/temp/convert/pandoc/test/rename-dir-new/",
                 ]) {
                     try {
                         await client.client.removeFile({
                             path,
                         });
-                    } catch (error) { }
+                    } catch (error) {}
                 }
 
                 /* 写入测试文件 */
@@ -140,7 +140,7 @@ describe.concurrent(pathname, async () => {
         },
     ];
 
-    cases.forEach(item => {
+    cases.forEach((item) => {
         testKernelAPI<renameFile.IPayload, renameFile.IResponse>({
             name: item.name,
             payload: {

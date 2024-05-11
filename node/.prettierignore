@@ -4,6 +4,8 @@ dist
 node_modules
 temp
 
+**.json
+
 .DS_Store
 .svelte-kit
 .env

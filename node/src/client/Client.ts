@@ -19,7 +19,7 @@ export interface IBaseOptions {
      * 思源 API Token
      * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Authentication
      */
-    token?: string;
+    token?: string | null;
 }
 
 export interface IBlob extends Blob {
@@ -27,12 +27,12 @@ export interface IBlob extends Blob {
 }
 
 /* 扩展设置选项 */
-export type ExtendOptions = ofetch.FetchOptions | axios.AxiosRequestConfig;
+export type ExtendOptions = ofetch.FetchOptions | axios.CreateAxiosDefaults;
 
 /* 完整设置选项 */
-// export type IOptions = (IBaseOptions & axios.AxiosRequestConfig) | (IBaseOptions & ofetch.FetchOptions);
+// export type IOptions = (IBaseOptions & axios.CreateAxiosDefaults) | (IBaseOptions & ofetch.FetchOptions);
 export type FetchOptions = IBaseOptions & ofetch.FetchOptions;
-export type AxiosOptions = IBaseOptions & axios.AxiosRequestConfig;
+export type AxiosOptions = IBaseOptions & axios.CreateAxiosDefaults;
 export type Options = FetchOptions | AxiosOptions;
 
 /* HTTP 请求客户端类型 */
@@ -73,6 +73,10 @@ export interface IFetch {
     $fetch: typeof fetch;
 }
 
+export enum HeaderKey {
+    Authorization = "Authorization",
+}
+
 export class Client implements IFetch {
     public static readonly ws = {
         broadcast: { pathname: "/ws/broadcast" },
@@ -80,125 +84,125 @@ export class Client implements IFetch {
 
     public static readonly api = {
         asset: {
-            upload: { pathname: "/api/asset/upload", method: "POST" },
-        },
+            upload: { pathname: "/api/asset/upload", method: "POST" } as const,
+        } as const,
         attr: {
-            getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" },
-            getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" },
-            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" },
-        },
+            getBlockAttrs: { pathname: "/api/attr/getBlockAttrs", method: "POST" } as const,
+            getBookmarkLabels: { pathname: "/api/attr/getBookmarkLabels", method: "POST" } as const,
+            setBlockAttrs: { pathname: "/api/attr/setBlockAttrs", method: "POST" } as const,
+        } as const,
         block: {
-            appendBlock: { pathname: "/api/block/appendBlock", method: "POST" },
-            deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" },
-            foldBlock: { pathname: "/api/block/foldBlock", method: "POST" },
-            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" },
-            getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" },
-            getBlockInfo: { pathname: "/api/block/getBlockInfo", method: "POST" },
-            getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" },
-            getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" },
-            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" },
-            insertBlock: { pathname: "/api/block/insertBlock", method: "POST" },
-            moveBlock: { pathname: "/api/block/moveBlock", method: "POST" },
-            prependBlock: { pathname: "/api/block/prependBlock", method: "POST" },
-            transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" },
-            unfoldBlock: { pathname: "/api/block/unfoldBlock", method: "POST" },
-            updateBlock: { pathname: "/api/block/updateBlock", method: "POST" },
-        },
+            appendBlock: { pathname: "/api/block/appendBlock", method: "POST" } as const,
+            deleteBlock: { pathname: "/api/block/deleteBlock", method: "POST" } as const,
+            foldBlock: { pathname: "/api/block/foldBlock", method: "POST" } as const,
+            getBlockBreadcrumb: { pathname: "/api/block/getBlockBreadcrumb", method: "POST" } as const,
+            getBlockDOM: { pathname: "/api/block/getBlockDOM", method: "POST" } as const,
+            getBlockInfo: { pathname: "/api/block/getBlockInfo", method: "POST" } as const,
+            getBlockKramdown: { pathname: "/api/block/getBlockKramdown", method: "POST" } as const,
+            getChildBlocks: { pathname: "/api/block/getChildBlocks", method: "POST" } as const,
+            getDocInfo: { pathname: "/api/block/getDocInfo", method: "POST" } as const,
+            insertBlock: { pathname: "/api/block/insertBlock", method: "POST" } as const,
+            moveBlock: { pathname: "/api/block/moveBlock", method: "POST" } as const,
+            prependBlock: { pathname: "/api/block/prependBlock", method: "POST" } as const,
+            transferBlockRef: { pathname: "/api/block/transferBlockRef", method: "POST" } as const,
+            unfoldBlock: { pathname: "/api/block/unfoldBlock", method: "POST" } as const,
+            updateBlock: { pathname: "/api/block/updateBlock", method: "POST" } as const,
+        } as const,
         broadcast: {
-            getChannelInfo: { pathname: "/api/broadcast/getChannelInfo", method: "POST" },
-            getChannels: { pathname: "/api/broadcast/getChannels", method: "POST" },
-            postMessage: { pathname: "/api/broadcast/postMessage", method: "POST" },
-        },
+            getChannelInfo: { pathname: "/api/broadcast/getChannelInfo", method: "POST" } as const,
+            getChannels: { pathname: "/api/broadcast/getChannels", method: "POST" } as const,
+            postMessage: { pathname: "/api/broadcast/postMessage", method: "POST" } as const,
+        } as const,
         convert: {
-            pandoc: { pathname: "/api/convert/pandoc", method: "POST" },
-        },
+            pandoc: { pathname: "/api/convert/pandoc", method: "POST" } as const,
+        } as const,
         export: {
-            exportHTML: { pathname: "/api/export/exportHTML", method: "POST" },
-            exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" },
-            exportResources: { pathname: "/api/export/exportResources", method: "POST" },
-        },
+            exportHTML: { pathname: "/api/export/exportHTML", method: "POST" } as const,
+            exportMdContent: { pathname: "/api/export/exportMdContent", method: "POST" } as const,
+            exportResources: { pathname: "/api/export/exportResources", method: "POST" } as const,
+        } as const,
         file: {
-            getFile: { pathname: "/api/file/getFile", method: "POST" },
-            putFile: { pathname: "/api/file/putFile", method: "POST" },
-            readDir: { pathname: "/api/file/readDir", method: "POST" },
-            removeFile: { pathname: "/api/file/removeFile", method: "POST" },
-            renameFile: { pathname: "/api/file/renameFile", method: "POST" },
-        },
+            getFile: { pathname: "/api/file/getFile", method: "POST" } as const,
+            putFile: { pathname: "/api/file/putFile", method: "POST" } as const,
+            readDir: { pathname: "/api/file/readDir", method: "POST" } as const,
+            removeFile: { pathname: "/api/file/removeFile", method: "POST" } as const,
+            renameFile: { pathname: "/api/file/renameFile", method: "POST" } as const,
+        } as const,
         filetree: {
-            createDailyNote: { pathname: "/api/filetree/createDailyNote", method: "POST" },
-            createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" },
-            getDoc: { pathname: "/api/filetree/getDoc", method: "POST" },
-            getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" },
-            getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" },
-            getIDsByHPath: { pathname: "/api/filetree/getIDsByHPath", method: "POST" },
-            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" },
-            moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" },
-            removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" },
-            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" },
-            searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" },
-        },
+            createDailyNote: { pathname: "/api/filetree/createDailyNote", method: "POST" } as const,
+            createDocWithMd: { pathname: "/api/filetree/createDocWithMd", method: "POST" } as const,
+            getDoc: { pathname: "/api/filetree/getDoc", method: "POST" } as const,
+            getHPathByID: { pathname: "/api/filetree/getHPathByID", method: "POST" } as const,
+            getHPathByPath: { pathname: "/api/filetree/getHPathByPath", method: "POST" } as const,
+            getIDsByHPath: { pathname: "/api/filetree/getIDsByHPath", method: "POST" } as const,
+            listDocsByPath: { pathname: "/api/filetree/listDocsByPath", method: "POST" } as const,
+            moveDocs: { pathname: "/api/filetree/moveDocs", method: "POST" } as const,
+            removeDoc: { pathname: "/api/filetree/removeDoc", method: "POST" } as const,
+            renameDoc: { pathname: "/api/filetree/renameDoc", method: "POST" } as const,
+            searchDocs: { pathname: "/api/filetree/searchDocs", method: "POST" } as const,
+        } as const,
         history: {
-            getDocHistoryContent: { pathname: "/api/history/getDocHistoryContent", method: "POST" },
-            getHistoryItems: { pathname: "/api/history/getHistoryItems", method: "POST" },
-        },
+            getDocHistoryContent: { pathname: "/api/history/getDocHistoryContent", method: "POST" } as const,
+            getHistoryItems: { pathname: "/api/history/getHistoryItems", method: "POST" } as const,
+        } as const,
         inbox: {
-            getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" },
-        },
+            getShorthand: { pathname: "/api/inbox/getShorthand", method: "POST" } as const,
+        } as const,
         network: {
-            echo: { pathname: "/api/network/echo", method: "POST" },
-            forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" },
-        },
+            echo: { pathname: "/api/network/echo", method: "POST" } as const,
+            forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" } as const,
+        } as const,
         notebook: {
-            closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" },
-            createNotebook: { pathname: "/api/notebook/createNotebook", method: "POST" },
-            getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" },
-            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" },
-            openNotebook: { pathname: "/api/notebook/openNotebook", method: "POST" },
-            removeNotebook: { pathname: "/api/notebook/removeNotebook", method: "POST" },
-            renameNotebook: { pathname: "/api/notebook/renameNotebook", method: "POST" },
-            setNotebookConf: { pathname: "/api/notebook/setNotebookConf", method: "POST" },
-        },
+            closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" } as const,
+            createNotebook: { pathname: "/api/notebook/createNotebook", method: "POST" } as const,
+            getNotebookConf: { pathname: "/api/notebook/getNotebookConf", method: "POST" } as const,
+            lsNotebooks: { pathname: "/api/notebook/lsNotebooks", method: "POST" } as const,
+            openNotebook: { pathname: "/api/notebook/openNotebook", method: "POST" } as const,
+            removeNotebook: { pathname: "/api/notebook/removeNotebook", method: "POST" } as const,
+            renameNotebook: { pathname: "/api/notebook/renameNotebook", method: "POST" } as const,
+            setNotebookConf: { pathname: "/api/notebook/setNotebookConf", method: "POST" } as const,
+        } as const,
         notification: {
-            pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" },
-            pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" },
-        },
+            pushErrMsg: { pathname: "/api/notification/pushErrMsg", method: "POST" } as const,
+            pushMsg: { pathname: "/api/notification/pushMsg", method: "POST" } as const,
+        } as const,
         outline: {
-            getDocOutline: { pathname: "/api/outline/getDocOutline", method: "POST" },
-        },
+            getDocOutline: { pathname: "/api/outline/getDocOutline", method: "POST" } as const,
+        } as const,
         query: {
-            sql: { pathname: "/api/query/sql", method: "POST" },
-        },
+            sql: { pathname: "/api/query/sql", method: "POST" } as const,
+        } as const,
         repo: {
-            openRepoSnapshotDoc: { pathname: "/api/repo/openRepoSnapshotDoc", method: "POST" },
-        },
+            openRepoSnapshotDoc: { pathname: "/api/repo/openRepoSnapshotDoc", method: "POST" } as const,
+        } as const,
         search: {
-            fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" },
-        },
+            fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" } as const,
+        } as const,
         snippet: {
-            getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" },
-            setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" },
-        },
+            getSnippet: { pathname: "/api/snippet/getSnippet", method: "POST" } as const,
+            setSnippet: { pathname: "/api/snippet/setSnippet", method: "POST" } as const,
+        } as const,
         sqlite: {
-            flushTransaction: { pathname: "/api/sqlite/flushTransaction", method: "POST" },
-        },
+            flushTransaction: { pathname: "/api/sqlite/flushTransaction", method: "POST" } as const,
+        } as const,
         storage: {
-            getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" },
-            getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" },
-            setLocalStorage: { pathname: "/api/storage/setLocalStorage", method: "POST" },
-            setLocalStorageVal: { pathname: "/api/storage/setLocalStorageVal", method: "POST" },
-        },
+            getLocalStorage: { pathname: "/api/storage/getLocalStorage", method: "POST" } as const,
+            getRecentDocs: { pathname: "/api/storage/getRecentDocs", method: "POST" } as const,
+            setLocalStorage: { pathname: "/api/storage/setLocalStorage", method: "POST" } as const,
+            setLocalStorageVal: { pathname: "/api/storage/setLocalStorageVal", method: "POST" } as const,
+        } as const,
         system: {
-            bootProgress: { pathname: "/api/system/bootProgress", method: "POST" },
-            currentTime: { pathname: "/api/system/currentTime", method: "POST" },
-            exit: { pathname: "/api/system/exit", method: "POST" },
-            getConf: { pathname: "/api/system/getConf", method: "POST" },
-            logoutAuth: { pathname: "/api/system/logoutAuth", method: "POST" },
-            version: { pathname: "/api/system/version", method: "POST" },
-        },
+            bootProgress: { pathname: "/api/system/bootProgress", method: "POST" } as const,
+            currentTime: { pathname: "/api/system/currentTime", method: "POST" } as const,
+            exit: { pathname: "/api/system/exit", method: "POST" } as const,
+            getConf: { pathname: "/api/system/getConf", method: "POST" } as const,
+            logoutAuth: { pathname: "/api/system/logoutAuth", method: "POST" } as const,
+            version: { pathname: "/api/system/version", method: "POST" } as const,
+        } as const,
         template: {
-            render: { pathname: "/api/template/render", method: "POST" },
-            renderSprig: { pathname: "/api/template/renderSprig", method: "POST" },
-        },
+            render: { pathname: "/api/template/render", method: "POST" } as const,
+            renderSprig: { pathname: "/api/template/renderSprig", method: "POST" } as const,
+        } as const,
     } as const;
 
     public static headers2record(headers: Headers): Record<string, string> {
@@ -241,22 +245,30 @@ export class Client implements IFetch {
         globalThis.location?.origin ??
         constants.SIYUAN_DEFAULT_BASE_URL;
 
-    protected _token: string = constants.SIYUAN_DEFAULT_TOKEN;
+    protected _token: string | null = null;
 
-    public _axios = axios.default.create({
+    protected _ofetch_options: ofetch.FetchOptions = {
+        baseURL: this._baseURL,
+        headers: this._headers,
+    };
+    protected _axios_options: axios.CreateAxiosDefaults = {
         baseURL: this._baseURL,
         timeout: constants.REQUEST_TIMEOUT,
-        headers: {
-            Authorization: `Token ${this._token}`,
-        },
-    });
+        headers: this._headers,
+    };
 
-    public _fetch = ofetch.ofetch.create({
-        baseURL: this._baseURL,
-        headers: {
-            Authorization: `Token ${this._token}`,
-        },
-    });
+    public _fetch = ofetch.ofetch.create(this._ofetch_options);
+    public _axios = axios.default.create(this._axios_options);
+
+    protected get _authorization(): string {
+        return `Token ${this._token}`;
+    }
+
+    protected get _headers(): Record<string, string> {
+        return this._token !== null //
+            ? { [HeaderKey.Authorization]: this._authorization }
+            : {};
+    }
 
     constructor(
         options?: FetchOptions, //
@@ -301,45 +313,105 @@ export class Client implements IFetch {
         options: Options, //
         type: ClientType = this._type,
     ): void {
-        this._token = options.token ?? this._token;
         this._baseURL = options.baseURL ?? this._baseURL;
-
-        switch (type) {
-            case "fetch":
-                const ofetch_options = options as FetchOptions;
-                if (ofetch_options.token) {
-                    const header_name = "Authorization";
-                    const header_value = `Token ${options.token}`;
-                    if (Array.isArray(ofetch_options.headers)) {
-                        ofetch_options.headers.push([header_name, header_value]);
-                    } else if (ofetch_options.headers instanceof Headers) {
-                        ofetch_options.headers.set(header_name, header_value);
-                    } else if (typeof ofetch_options.headers === "object") {
-                        ofetch_options.headers[header_name] = header_value;
-                    } else {
-                        ofetch_options.headers = {
-                            [header_name]: header_value,
-                        };
-                    }
-                    delete options.token;
-                }
-                this._fetch = this._fetch.create(ofetch_options);
+        switch (options.token) {
+            case undefined: // 不更新 token
                 break;
-            case "xhr":
-            default:
-                for (const [key, value] of Object.entries(options)) {
-                    switch (key) {
-                        case "token":
-                            this._axios.defaults.headers.Authorization = `Token ${this._token}`;
-                            break;
-                        default:
-                            this._axios.defaults[key as keyof axios.AxiosRequestConfig] = value;
-                            break;
-                    }
-                }
+            case null: // 删除 token
+            default: // 设置 token
+                this._token = options.token;
+                delete options.token;
                 break;
         }
-        this._baseURL = options.baseURL ?? this._baseURL;
+
+        /* options.headers 的优先级高于 token */
+        switch (type) {
+            case "fetch": {
+                const ofetch_options = options as FetchOptions;
+                switch (true) {
+                    case Array.isArray(ofetch_options.headers): {
+                        const header = ofetch_options.headers.find(([key]) => key.toLowerCase() === HeaderKey.Authorization.toLowerCase());
+                        if (!header) {
+                            ofetch_options.headers.push([HeaderKey.Authorization, this._authorization]);
+                        }
+                        break;
+                    }
+                    case ofetch_options.headers instanceof Headers: {
+                        if (!ofetch_options.headers.has(HeaderKey.Authorization)) {
+                            ofetch_options.headers.set(HeaderKey.Authorization, this._authorization);
+                        }
+                        break;
+                    }
+                    case typeof ofetch_options.headers === "object": {
+                        if (!(HeaderKey.Authorization in ofetch_options.headers)) {
+                            ofetch_options.headers[HeaderKey.Authorization] = this._authorization;
+                        }
+                        break;
+                    }
+                    default: {
+                        ofetch_options.headers = this._headers;
+                        break;
+                    }
+                }
+                this._ofetch_options = ofetch_options as ofetch.FetchOptions;
+                this._fetch = ofetch.ofetch.create(this._ofetch_options);
+                break;
+            }
+            case "xhr":
+            default: {
+                const axios_options = options as AxiosOptions;
+                if (axios_options.headers) {
+                    switch (true) {
+                        case axios_options.headers instanceof axios.AxiosHeaders: {
+                            if (!axios_options.headers.has(HeaderKey.Authorization)) {
+                                axios_options.headers.set(HeaderKey.Authorization, this._authorization);
+                            }
+                            break;
+                        }
+                        case typeof axios_options.headers === "object": {
+                            switch (true) {
+                                case "common" in axios_options.headers || //
+                                    "get" in axios_options.headers ||
+                                    "post" in axios_options.headers: {
+                                    if ("common" in axios_options.headers) {
+                                        if (!(HeaderKey.Authorization in (axios_options.headers as axios.HeadersDefaults).get)) {
+                                            (axios_options.headers as axios.HeadersDefaults).get[HeaderKey.Authorization] = this._authorization;
+                                        }
+                                    }
+                                    if ("get" in axios_options.headers) {
+                                        if (!(HeaderKey.Authorization in (axios_options.headers as axios.HeadersDefaults).get)) {
+                                            (axios_options.headers as axios.HeadersDefaults).get[HeaderKey.Authorization] = this._authorization;
+                                        }
+                                    }
+                                    if ("post" in axios_options.headers) {
+                                        if (!(HeaderKey.Authorization in (axios_options.headers as axios.HeadersDefaults).post)) {
+                                            (axios_options.headers as axios.HeadersDefaults).post[HeaderKey.Authorization] = this._authorization;
+                                        }
+                                    }
+                                    break;
+                                }
+                                default: {
+                                    if (!(HeaderKey.Authorization in axios_options.headers)) {
+                                        (axios_options.headers as axios.RawAxiosRequestHeaders)[HeaderKey.Authorization] = this._authorization;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        default: {
+                            axios_options.headers = this._headers;
+                            break;
+                        }
+                    }
+                } else {
+                    axios_options.headers = this._headers;
+                }
+                this._axios_options = axios_options as axios.CreateAxiosDefaults;
+                this._axios = axios.default.create(this._axios_options);
+                break;
+            }
+        }
     }
 
     /**
@@ -1102,7 +1174,7 @@ export class Client implements IFetch {
             };
             switch (config?.type) {
                 case "fetch": {
-                    const options: FetchOptions = {};
+                    const options: ofetch.FetchOptions = {};
                     if (payload.headers) {
                         options.headers = payload.headers;
                     }
@@ -1117,7 +1189,7 @@ export class Client implements IFetch {
                     break;
                 }
                 case "xhr": {
-                    const options: AxiosOptions = {};
+                    const options: axios.AxiosRequestConfig = {};
                     if (payload.headers) {
                         options.headers = Array.isArray(payload.headers) ? Client.entries2record(payload.headers) : payload.headers instanceof Headers ? Client.headers2record(payload.headers) : payload.headers;
                     }
@@ -1629,7 +1701,7 @@ export class Client implements IFetch {
                 }
                 case "xhr":
                 default: {
-                    const options = config?.options as AxiosOptions | undefined;
+                    const options = config?.options as TempAxiosOptions | undefined;
                     responseType = (() => {
                         switch (responseType) {
                             case "arrayBuffer":

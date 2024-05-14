@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,17 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['oId', 'hCreated', 'shorthandURL', 'shorthandFrom', 'shorthandTitle', 'shorthandDesc', 'shorthandMd', 'shorthandContent'],
+            required: [
+                //
+                'oId',
+                'hCreated',
+                'shorthandURL',
+                'shorthandFrom',
+                'shorthandTitle',
+                'shorthandDesc',
+                'shorthandMd',
+                'shorthandContent',
+            ],
             properties: {
                 oId: {
                     // 速记对象标识

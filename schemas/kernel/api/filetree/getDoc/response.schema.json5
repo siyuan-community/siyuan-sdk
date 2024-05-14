@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,23 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['blockCount', 'box', 'content', 'eof', 'id', 'isBacklinkExpand', 'isSyncing', 'mode', 'parent2ID', 'parentID', 'path', 'rootID', 'scroll', 'type'],
+            required: [
+                //
+                'blockCount',
+                'box',
+                'content',
+                'eof',
+                'id',
+                'isBacklinkExpand',
+                'isSyncing',
+                'mode',
+                'parent2ID',
+                'parentID',
+                'path',
+                'rootID',
+                'scroll',
+                'type',
+            ],
             properties: {
                 blockCount: {
                     // 块数量

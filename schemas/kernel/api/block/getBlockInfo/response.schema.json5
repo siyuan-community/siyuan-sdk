@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,15 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['box', 'path', 'rootChildID', 'rootID', 'rootIcon', 'rootTitle'],
+            required: [
+                //
+                'box',
+                'path',
+                'rootChildID',
+                'rootID',
+                'rootIcon',
+                'rootTitle',
+            ],
             properties: {
                 box: {
                     // 笔记本 ID

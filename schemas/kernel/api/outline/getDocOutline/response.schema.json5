@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -44,7 +49,17 @@
 
             type: 'object',
             additionalProperties: true,
-            required: ['id', 'box', 'name', 'type', 'nodeType', 'subType', 'depth', 'count'],
+            required: [
+                //
+                'id',
+                'box',
+                'name',
+                'type',
+                'nodeType',
+                'subType',
+                'depth',
+                'count',
+            ],
             properties: {
                 id: {
                     // 块 ID
@@ -111,7 +126,19 @@
 
             type: 'object',
             additionalProperties: true,
-            required: ['id', 'box', 'rootID', 'path', 'content', 'type', 'subType', 'depth', 'count', 'children'],
+            required: [
+                //
+                'id',
+                'box',
+                'rootID',
+                'path',
+                'content',
+                'type',
+                'subType',
+                'depth',
+                'count',
+                'children',
+            ],
             properties: {
                 id: {
                     // 块 ID

@@ -39,7 +39,7 @@ export interface IData {
      * Attribute view reference list
      */
     attrViews: IAttrView[];
-    ial: Ial;
+    ial:       Ial;
     /**
      * document icon
      */

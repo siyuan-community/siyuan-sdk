@@ -24,7 +24,7 @@ export interface IPayload {
      * App ID
      */
     app?: string;
-    val: { [key: string]: any };
+    val:  { [key: string]: any };
 }
 
 //#endregion content

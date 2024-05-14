@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -50,7 +55,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['timestamp', 'doOperations', 'undoOperations'],
+            required: [
+                //
+                'timestamp',
+                'doOperations',
+                'undoOperations',
+            ],
             properties: {
                 timestamp: {
                     type: 'integer',
@@ -82,7 +92,14 @@
 
             type: 'object',
             additionalProperties: true,
-            required: ['action', 'data', 'id', 'previousID', 'parentID'],
+            required: [
+                //
+                'action',
+                'data',
+                'id',
+                'previousID',
+                'parentID',
+            ],
             properties: {
                 action: {
                     // 操作活动类型: 移动

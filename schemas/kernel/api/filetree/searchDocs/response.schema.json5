@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -41,7 +46,13 @@
             title: 'IDocInfo',
             type: 'object',
             additionalProperties: true,
-            required: ['box', 'boxIcon', 'hPath', 'path'],
+            required: [
+                //
+                'box',
+                'boxIcon',
+                'hPath',
+                'path',
+            ],
             properties: {
                 box: {
                     // 笔记本 ID

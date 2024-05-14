@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -39,7 +44,16 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['url', 'status', 'elapsed', 'contentType', 'headers', 'body', 'bodyEncoding'],
+            required: [
+                //
+                'url',
+                'status',
+                'elapsed',
+                'contentType',
+                'headers',
+                'body',
+                'bodyEncoding',
+            ],
             properties: {
                 url: {
                     // 请求 URL

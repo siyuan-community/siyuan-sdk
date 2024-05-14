@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -39,7 +44,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['notebook'],
+            required: [
+                //
+                'notebook',
+            ],
             properties: {
                 notebook: {
                     $ref: '#/$defs/notebook',
@@ -52,7 +60,18 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'name', 'icon', 'sort', 'sortMode', 'closed', 'newFlashcardCount', 'dueFlashcardCount', 'flashcardCount'],
+            required: [
+                //
+                'id',
+                'name',
+                'icon',
+                'sort',
+                'sortMode',
+                'closed',
+                'newFlashcardCount',
+                'dueFlashcardCount',
+                'flashcardCount',
+            ],
             properties: {
                 id: {
                     // 笔记本 ID

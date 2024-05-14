@@ -18,7 +18,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['notebook', 'name'],
+            required: [
+                //
+                'notebook',
+                'name',
+            ],
             properties: {
                 notebook: {
                     type: 'string',

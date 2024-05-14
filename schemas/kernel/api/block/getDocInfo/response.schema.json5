@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,18 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['attrViews', 'ial', 'icon', 'id', 'name', 'refCount', 'refIDs', 'rootID', 'subFileCount'],
+            required: [
+                //
+                'attrViews',
+                'ial',
+                'icon',
+                'id',
+                'name',
+                'refCount',
+                'refIDs',
+                'rootID',
+                'subFileCount',
+            ],
             properties: {
                 attrViews: {
                     // 属性视图引用列表
@@ -102,7 +118,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'name'],
+            required: [
+                //
+                'id',
+                'name',
+            ],
             properties: {
                 id: {
                     // 属性视图 ID
@@ -155,7 +175,12 @@
             additionalProperties: {
                 type: 'string',
             },
-            required: ['id', 'title', 'updated'],
+            required: [
+                //
+                'id',
+                'title',
+                'updated',
+            ],
             properties: {
                 id: {
                     // 文档块 ID

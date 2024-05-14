@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -39,7 +44,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['box', 'conf', 'name'],
+            required: [
+                //
+                'box',
+                'conf',
+                'name',
+            ],
             properties: {
                 box: {
                     type: 'string',
@@ -61,7 +71,20 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['closed', 'dailyNoteSavePath', 'dailyNoteTemplatePath', 'docCreateSaveBox', 'docCreateSavePath', 'icon', 'name', 'refCreateSaveBox', 'refCreateSavePath', 'sort', 'sortMode'],
+            required: [
+                //
+                'closed',
+                'dailyNoteSavePath',
+                'dailyNoteTemplatePath',
+                'docCreateSaveBox',
+                'docCreateSavePath',
+                'icon',
+                'name',
+                'refCreateSaveBox',
+                'refCreateSavePath',
+                'sort',
+                'sortMode',
+            ],
             properties: {
                 closed: {
                     // 笔记本是否关闭

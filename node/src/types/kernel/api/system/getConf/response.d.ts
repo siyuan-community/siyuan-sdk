@@ -50,23 +50,23 @@ export interface IConf {
      * Access authorization code
      */
     accessAuthCode: TAccessAuthCode;
-    account: IAccount;
-    ai: Iai;
-    api: IAPI;
-    appearance: IAppearance;
-    bazaar: IBazaar;
+    account:        IAccount;
+    ai:             Iai;
+    api:            IAPI;
+    appearance:     IAppearance;
+    bazaar:         IBazaar;
     /**
      * Cloud Service Provider Region
      * - `0`: Chinese mainland
      * - `1`: North America
      */
     cloudRegion: number;
-    editor: IEditor;
-    export: IExport;
-    fileTree: IFileTree;
-    flashcard: IFlashCard;
-    graph: IGraph;
-    keymap: IKeymap;
+    editor:      IEditor;
+    export:      IExport;
+    fileTree:    IFileTree;
+    flashcard:   IFlashCard;
+    graph:       IGraph;
+    keymap:      IKeymap;
     /**
      * User interface language
      * Same as {@link IAppearance.lang}
@@ -92,14 +92,14 @@ export interface IConf {
      * Whether it is running in read-only mode
      */
     readonly: boolean;
-    repo: IRepo;
-    search: ISearch;
+    repo:     IRepo;
+    search:   ISearch;
     /**
      * Whether to display the changelog for this release version
      */
     showChangelog: boolean;
-    snippet: ISnippet;
-    stat: IStat;
+    snippet:       ISnippet;
+    stat:          IStat;
     /**
      * Flashcard status
      * - `0`: New
@@ -107,10 +107,10 @@ export interface IConf {
      * - `2`: Review
      * - `3`: Relearn
      */
-    state: number;
-    sync: ISync;
-    system: ISystem;
-    tag: ITag;
+    state:    number;
+    sync:     ISync;
+    system:   ISystem;
+    tag:      ITag;
     uiLayout: IUILayout;
     /**
      * Community user data (Encrypted)
@@ -410,6 +410,7 @@ export interface IEditor {
      * Whether to enable the list logical reverse indentation scheme
      */
     listLogicalOutdent: boolean;
+    markdown:           IEditorMarkdown;
     /**
      * Whether to enable the `[[` symbol to search only for document blocks
      */
@@ -442,6 +443,28 @@ export interface IEditor {
      * Virtual reference keyword inclusion list (separated by commas `,`)
      */
     virtualBlockRefInclude: string;
+}
+
+/**
+ * Markdown syntax configuration
+ */
+export interface IEditorMarkdown {
+    /**
+     * Whether to enable inline formula syntax $foo$
+     */
+    inlineMath: boolean;
+    /**
+     * Whether to enable subscript syntax ~foo~
+     */
+    inlineSub: boolean;
+    /**
+     * Whether to enable superscript syntax ^foo^
+     */
+    inlineSup: boolean;
+    /**
+     * Whether to enable tag syntax #foo#
+     */
+    inlineTag: boolean;
 }
 
 /**
@@ -547,6 +570,10 @@ export interface IFileTree {
      */
     closeTabsOnStart: boolean;
     /**
+     * The notebook to storage the new document
+     */
+    docCreateSaveBox: string;
+    /**
      * The storage path of the new document
      */
     docCreateSavePath: string;
@@ -562,6 +589,10 @@ export interface IFileTree {
      * Whether to open the file in the current tab
      */
     openFilesUseCurrentTab: boolean;
+    /**
+     * The notebook to storage the new document created using block references
+     */
+    refCreateSaveBox: string;
     /**
      * The storage path of the new document created using block references
      */
@@ -656,7 +687,7 @@ export interface IFlashCard {
  */
 export interface IGraph {
     global: IGraphGlobal;
-    local: IGraphLocal;
+    local:  IGraphLocal;
     /**
      * Maximum number of content blocks displayed
      */
@@ -676,7 +707,7 @@ export interface IGraphGlobal {
      * The minimum number of references to the displayed node
      */
     minRefs: number;
-    type: IGraphType;
+    type:    IGraphType;
 }
 
 /**
@@ -772,16 +803,16 @@ export interface IGraphLocal {
      * Whether to display nodes in daily notes
      */
     dailyNote: boolean;
-    type: IGraphType;
+    type:      IGraphType;
 }
 
 /**
  * SiYuan keymap related configuration
  */
 export interface IKeymap {
-    editor: IKeymapEditor;
+    editor:  IKeymapEditor;
     general: IKeymapGeneral;
-    plugin: { [key: string]: { [key: string]: IKey } };
+    plugin:  { [key: string]: { [key: string]: IKey } };
 }
 
 /**
@@ -790,66 +821,68 @@ export interface IKeymap {
 export interface IKeymapEditor {
     general: IKeymapEditorGeneral;
     heading: IKeymapEditorHeading;
-    insert: IKeymapEditorInsert;
-    list: IKeymapEditorList;
-    table: IKeymapEditorTable;
+    insert:  IKeymapEditorInsert;
+    list:    IKeymapEditorList;
+    table:   IKeymapEditorTable;
 }
 
 /**
  * SiYuan editor general shortcut keys
  */
 export interface IKeymapEditorGeneral {
-    ai: IKey;
-    alignCenter: IKey;
-    alignLeft: IKey;
-    alignRight: IKey;
-    attr: IKey;
-    backlinks: IKey;
-    collapse: IKey;
-    copyBlockEmbed: IKey;
-    copyBlockRef: IKey;
-    copyHPath: IKey;
-    copyID: IKey;
-    copyPlainText: IKey;
-    copyProtocol: IKey;
-    copyProtocolInMd: IKey;
-    copyText: IKey;
-    duplicate: IKey;
-    exitFocus: IKey;
-    expand: IKey;
-    expandDown: IKey;
-    expandUp: IKey;
-    fullscreen: IKey;
-    graphView: IKey;
-    hLayout: IKey;
-    insertAfter: IKey;
-    insertBefore: IKey;
-    insertBottom: IKey;
-    insertRight: IKey;
-    jumpToParentNext: IKey;
-    moveToDown: IKey;
-    moveToUp: IKey;
+    ai:                    IKey;
+    alignCenter:           IKey;
+    alignLeft:             IKey;
+    alignRight:            IKey;
+    attr:                  IKey;
+    backlinks:             IKey;
+    collapse:              IKey;
+    copyBlockEmbed:        IKey;
+    copyBlockRef:          IKey;
+    copyHPath:             IKey;
+    copyID:                IKey;
+    copyPlainText:         IKey;
+    copyProtocol:          IKey;
+    copyProtocolInMd:      IKey;
+    copyText:              IKey;
+    duplicate:             IKey;
+    exitFocus:             IKey;
+    expand:                IKey;
+    expandDown:            IKey;
+    expandUp:              IKey;
+    fullscreen:            IKey;
+    graphView:             IKey;
+    hLayout:               IKey;
+    insertAfter:           IKey;
+    insertBefore:          IKey;
+    insertBottom:          IKey;
+    insertRight:           IKey;
+    jumpToParent:          IKey;
+    jumpToParentNext:      IKey;
+    jumpToParentPrev:      IKey;
+    moveToDown:            IKey;
+    moveToUp:              IKey;
     netAssets2LocalAssets: IKey;
-    netImg2LocalAsset: IKey;
-    newContentFile: IKey;
-    newNameFile: IKey;
-    newNameSettingFile: IKey;
-    openBy: IKey;
-    optimizeTypography: IKey;
-    outline: IKey;
-    preview: IKey;
-    quickMakeCard: IKey;
-    redo: IKey;
-    refPopover: IKey;
-    refresh: IKey;
-    refTab: IKey;
-    rename: IKey;
-    showInFolder: IKey;
-    spaceRepetition: IKey;
-    switchReadonly: IKey;
-    undo: IKey;
-    vLayout: IKey;
-    wysiwyg: IKey;
+    netImg2LocalAsset:     IKey;
+    newContentFile:        IKey;
+    newNameFile:           IKey;
+    newNameSettingFile:    IKey;
+    openBy:                IKey;
+    optimizeTypography:    IKey;
+    outline:               IKey;
+    preview:               IKey;
+    quickMakeCard:         IKey;
+    redo:                  IKey;
+    refPopover:            IKey;
+    refresh:               IKey;
+    refTab:                IKey;
+    rename:                IKey;
+    showInFolder:          IKey;
+    spaceRepetition:       IKey;
+    switchReadonly:        IKey;
+    undo:                  IKey;
+    vLayout:               IKey;
+    wysiwyg:               IKey;
 }
 
 /**
@@ -870,12 +903,12 @@ export interface IKey {
  * SiYuan editor heading shortcut keys
  */
 export interface IKeymapEditorHeading {
-    heading1: IKey;
-    heading2: IKey;
-    heading3: IKey;
-    heading4: IKey;
-    heading5: IKey;
-    heading6: IKey;
+    heading1:  IKey;
+    heading2:  IKey;
+    heading3:  IKey;
+    heading4:  IKey;
+    heading5:  IKey;
+    heading6:  IKey;
     paragraph: IKey;
 }
 
@@ -883,26 +916,26 @@ export interface IKeymapEditorHeading {
  * SiYuan editor insert shortcut keys
  */
 export interface IKeymapEditorInsert {
-    appearance: IKey;
-    bold: IKey;
-    check: IKey;
-    clearInline: IKey;
-    code: IKey;
+    appearance:    IKey;
+    bold:          IKey;
+    check:         IKey;
+    clearInline:   IKey;
+    code:          IKey;
     "inline-code": IKey;
     "inline-math": IKey;
-    italic: IKey;
-    kbd: IKey;
-    lastUsed: IKey;
-    link: IKey;
-    mark: IKey;
-    memo: IKey;
-    ref: IKey;
-    strike: IKey;
-    sub: IKey;
-    sup: IKey;
-    table: IKey;
-    tag: IKey;
-    underline: IKey;
+    italic:        IKey;
+    kbd:           IKey;
+    lastUsed:      IKey;
+    link:          IKey;
+    mark:          IKey;
+    memo:          IKey;
+    ref:           IKey;
+    strike:        IKey;
+    sub:           IKey;
+    sup:           IKey;
+    table:         IKey;
+    tag:           IKey;
+    underline:     IKey;
 }
 
 /**
@@ -910,86 +943,86 @@ export interface IKeymapEditorInsert {
  */
 export interface IKeymapEditorList {
     checkToggle: IKey;
-    indent: IKey;
-    outdent: IKey;
+    indent:      IKey;
+    outdent:     IKey;
 }
 
 /**
  * SiYuan editor table shortcut keys
  */
 export interface IKeymapEditorTable {
-    "delete-column": IKey;
-    "delete-row": IKey;
-    insertColumnLeft: IKey;
+    "delete-column":   IKey;
+    "delete-row":      IKey;
+    insertColumnLeft:  IKey;
     insertColumnRight: IKey;
-    insertRowAbove: IKey;
-    insertRowBelow: IKey;
-    moveToDown: IKey;
-    moveToLeft: IKey;
-    moveToRight: IKey;
-    moveToUp: IKey;
+    insertRowAbove:    IKey;
+    insertRowBelow:    IKey;
+    moveToDown:        IKey;
+    moveToLeft:        IKey;
+    moveToRight:       IKey;
+    moveToUp:          IKey;
 }
 
 /**
  * SiYuan general shortcut keys
  */
 export interface IKeymapGeneral {
-    addToDatabase: IKey;
-    backlinks: IKey;
-    bookmark: IKey;
-    closeAll: IKey;
-    closeLeft: IKey;
-    closeOthers: IKey;
-    closeRight: IKey;
-    closeTab: IKey;
+    addToDatabase:   IKey;
+    backlinks:       IKey;
+    bookmark:        IKey;
+    closeAll:        IKey;
+    closeLeft:       IKey;
+    closeOthers:     IKey;
+    closeRight:      IKey;
+    closeTab:        IKey;
     closeUnmodified: IKey;
-    commandPanel: IKey;
-    config: IKey;
-    dailyNote: IKey;
-    dataHistory: IKey;
-    editReadonly: IKey;
-    enter: IKey;
-    enterBack: IKey;
-    fileTree: IKey;
-    globalGraph: IKey;
-    globalSearch: IKey;
-    goBack: IKey;
-    goForward: IKey;
+    commandPanel:    IKey;
+    config:          IKey;
+    dailyNote:       IKey;
+    dataHistory:     IKey;
+    editReadonly:    IKey;
+    enter:           IKey;
+    enterBack:       IKey;
+    fileTree:        IKey;
+    globalGraph:     IKey;
+    globalSearch:    IKey;
+    goBack:          IKey;
+    goForward:       IKey;
     goToEditTabNext: IKey;
     goToEditTabPrev: IKey;
-    goToTab1: IKey;
-    goToTab2: IKey;
-    goToTab3: IKey;
-    goToTab4: IKey;
-    goToTab5: IKey;
-    goToTab6: IKey;
-    goToTab7: IKey;
-    goToTab8: IKey;
-    goToTab9: IKey;
-    goToTabNext: IKey;
-    goToTabPrev: IKey;
-    graphView: IKey;
-    inbox: IKey;
-    lockScreen: IKey;
-    mainMenu: IKey;
-    move: IKey;
-    newFile: IKey;
-    outline: IKey;
-    recentDocs: IKey;
-    replace: IKey;
-    riffCard: IKey;
-    search: IKey;
-    selectOpen1: IKey;
-    splitLR: IKey;
-    splitMoveB: IKey;
-    splitMoveR: IKey;
-    splitTB: IKey;
-    stickSearch: IKey;
-    syncNow: IKey;
-    tabToWindow: IKey;
-    tag: IKey;
-    toggleDock: IKey;
-    toggleWin: IKey;
+    goToTab1:        IKey;
+    goToTab2:        IKey;
+    goToTab3:        IKey;
+    goToTab4:        IKey;
+    goToTab5:        IKey;
+    goToTab6:        IKey;
+    goToTab7:        IKey;
+    goToTab8:        IKey;
+    goToTab9:        IKey;
+    goToTabNext:     IKey;
+    goToTabPrev:     IKey;
+    graphView:       IKey;
+    inbox:           IKey;
+    lockScreen:      IKey;
+    mainMenu:        IKey;
+    move:            IKey;
+    newFile:         IKey;
+    outline:         IKey;
+    recentDocs:      IKey;
+    replace:         IKey;
+    riffCard:        IKey;
+    search:          IKey;
+    selectOpen1:     IKey;
+    splitLR:         IKey;
+    splitMoveB:      IKey;
+    splitMoveR:      IKey;
+    splitTB:         IKey;
+    stickSearch:     IKey;
+    syncNow:         IKey;
+    tabToWindow:     IKey;
+    tag:             IKey;
+    toggleDock:      IKey;
+    toggleWin:       IKey;
 }
 
 /**
@@ -1251,7 +1284,7 @@ export interface ISync {
      * - `3`: Network storage service using WebDAV protocol
      */
     provider: number;
-    s3: ISyncS3;
+    s3:       ISyncS3;
     /**
      * The prompt information of the last synchronization
      */
@@ -1336,9 +1369,12 @@ export interface ISystem {
      */
     appDir: string;
     /**
-     * Boot automatically
+     * Boot automatically mode
+     * - `0`: Close automatically start
+     * - `1`: Auto start
+     * - `2`: Silent auto start
      */
-    autoLaunch: boolean;
+    autoLaunch2: number;
     /**
      * The absolute path of the `conf` directory of the current workspace
      */
@@ -1392,7 +1428,7 @@ export interface ISystem {
     /**
      * The name of the current device
      */
-    name: string;
+    name:         string;
     networkProxy: INetworkProxy;
     /**
      * Whether to enable network serve (whether to allow connections from other devices)
@@ -1498,9 +1534,9 @@ export interface IUILayout {
      * Whether to hide the sidebar
      */
     hideDock: boolean;
-    layout: IUILayoutLayout;
-    left: IUILayoutDock;
-    right: IUILayoutDock;
+    layout:   IUILayoutLayout;
+    left:     IUILayoutDock;
+    right:    IUILayoutDock;
 }
 
 /**
@@ -1827,7 +1863,7 @@ export interface IUILayoutTabContent {
      * (Outline) Whether the associated editor is in preview mode
      */
     isPreview?: boolean;
-    config?: IUILayoutTabSearchConfig;
+    config?:    IUILayoutTabSearchConfig;
 }
 
 /**
@@ -1839,7 +1875,7 @@ export interface IUILayoutTabSearchConfig {
      * - `0`: No grouping
      * - `1`: Group by document
      */
-    group: number;
+    group:      number;
     hasReplace: any;
     /**
      * Readable path list
@@ -1877,7 +1913,7 @@ export interface IUILayoutTabSearchConfig {
     /**
      * Whether to clear the search box after removing the currently used query condition group
      */
-    removed?: boolean;
+    removed?:     boolean;
     replaceTypes: IUILayoutTabSearchConfigReplaceTypes;
     /**
      * Search result sorting scheme
@@ -1891,7 +1927,7 @@ export interface IUILayoutTabSearchConfig {
      * - `7`: Descending by relevance
      * @default 0
      */
-    sort: number;
+    sort:  number;
     types: IUILayoutTabSearchConfigTypes;
 }
 

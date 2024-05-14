@@ -17,7 +17,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id'],
+            required: [
+                //
+                'id',
+            ],
             dependentRequired: {
                 /**
                  * 属性相互依赖

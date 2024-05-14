@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['dataType', 'data', 'parentID'],
+            required: [
+                //
+                'dataType',
+                'data',
+                'parentID',
+            ],
             properties: {
                 dataType: {
                     // 块数据格式

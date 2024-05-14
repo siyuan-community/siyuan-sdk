@@ -18,7 +18,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['stmt'],
+            required: [
+                //
+                'stmt',
+            ],
             properties: {
                 stmt: {
                     // SQL 查询语句

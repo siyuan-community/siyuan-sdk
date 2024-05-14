@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,13 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['blocks', 'matchedBlockCount', 'matchedRootCount', 'pageCount'],
+            required: [
+                //
+                'blocks',
+                'matchedBlockCount',
+                'matchedRootCount',
+                'pageCount',
+            ],
             properties: {
                 blocks: {
                     // 搜索结果列表
@@ -74,7 +85,38 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['box', 'path', 'hPath', 'id', 'rootID', 'parentID', 'name', 'alias', 'memo', 'tag', 'content', 'fcontent', 'markdown', 'folded', 'type', 'subType', 'refText', 'refs', 'defID', 'defPath', 'ial', 'children', 'depth', 'count', 'sort', 'created', 'updated', 'riffCardID', 'riffCardReps'],
+            required: [
+                //
+                'box',
+                'path',
+                'hPath',
+                'id',
+                'rootID',
+                'parentID',
+                'name',
+                'alias',
+                'memo',
+                'tag',
+                'content',
+                'fcontent',
+                'markdown',
+                'folded',
+                'type',
+                'subType',
+                'refText',
+                'refs',
+                'defID',
+                'defPath',
+                'ial',
+                'children',
+                'depth',
+                'count',
+                'sort',
+                'created',
+                'updated',
+                'riffCardID',
+                'riffCardReps',
+            ],
             properties: {
                 box: {
                     // 笔记本 ID
@@ -332,7 +374,11 @@
             additionalProperties: {
                 type: 'string',
             },
-            required: ['id', 'updated'],
+            required: [
+                //
+                'id',
+                'updated',
+            ],
             properties: {
                 id: {
                     // 文档块 ID

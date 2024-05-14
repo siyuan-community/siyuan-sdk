@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -41,7 +46,14 @@
             title: 'IBreadcrumbItem',
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'name', 'type', 'subType', 'children'],
+            required: [
+                //
+                'id',
+                'name',
+                'type',
+                'subType',
+                'children',
+            ],
             properties: {
                 id: {
                     // 块 ID

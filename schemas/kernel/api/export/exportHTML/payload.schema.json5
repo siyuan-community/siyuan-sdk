@@ -16,7 +16,12 @@
             description: 'Exports the specified document block as HTML',
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'pdf', 'savePath'],
+            required: [
+                //
+                'id',
+                'pdf',
+                'savePath',
+            ],
             properties: {
                 id: {
                     // 要导出的块 ID

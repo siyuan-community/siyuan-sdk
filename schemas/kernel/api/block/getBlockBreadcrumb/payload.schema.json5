@@ -17,7 +17,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id'],
+            required: [
+                //
+                'id',
+            ],
             properties: {
                 id: {
                     // 块 ID

@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['notebook', 'path', 'title'],
+            required: [
+                //
+                'notebook',
+                'path',
+                'title',
+            ],
             properties: {
                 notebook: {
                     // 笔记本 ID

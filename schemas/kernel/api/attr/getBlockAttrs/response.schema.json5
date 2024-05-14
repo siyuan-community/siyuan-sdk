@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,10 @@
             description: 'Inline Attribute List (IAL)',
 
             type: 'object',
-            required: ['id'],
+            required: [
+                //
+                'id',
+            ],
             // REF: https://opis.io/json-schema/2.x/object.html#propertynames
             propertyNames: {
                 type: 'string',

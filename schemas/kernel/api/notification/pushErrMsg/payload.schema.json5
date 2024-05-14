@@ -18,7 +18,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['msg'],
+            required: [
+                //
+                'msg',
+            ],
             properties: {
                 msg: {
                     type: 'string',

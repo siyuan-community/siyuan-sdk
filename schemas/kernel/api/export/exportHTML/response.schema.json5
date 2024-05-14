@@ -16,7 +16,12 @@
             description: 'Exports the specified document block as HTML',
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -36,7 +41,12 @@
             description: 'exported content',
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'name', 'content'],
+            required: [
+                //
+                'id',
+                'name',
+                'content',
+            ],
             properties: {
                 id: {
                     type: 'string',

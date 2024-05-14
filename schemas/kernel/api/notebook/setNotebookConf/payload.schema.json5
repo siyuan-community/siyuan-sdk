@@ -18,7 +18,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['notebook', 'conf'],
+            required: [
+                //
+                'notebook',
+                'conf',
+            ],
             properties: {
                 notebook: {
                     type: 'string',
@@ -36,7 +40,20 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['closed', 'dailyNoteSavePath', 'dailyNoteTemplatePath', 'docCreateSaveBox', 'docCreateSavePath', 'icon', 'name', 'refCreateSaveBox', 'refCreateSavePath', 'sort', 'sortMode'],
+            required: [
+                //
+                'closed',
+                'dailyNoteSavePath',
+                'dailyNoteTemplatePath',
+                'docCreateSaveBox',
+                'docCreateSavePath',
+                'icon',
+                'name',
+                'refCreateSaveBox',
+                'refCreateSavePath',
+                'sort',
+                'sortMode',
+            ],
             properties: {
                 closed: {
                     // 笔记本是否关闭

@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['box', 'path', 'files'],
+            required: [
+                //
+                'box',
+                'path',
+                'files',
+            ],
             properties: {
                 box: {
                     // 笔记本 ID
@@ -65,7 +75,30 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['path', 'name', 'icon', 'name1', 'alias', 'memo', 'bookmark', 'id', 'count', 'size', 'hSize', 'mtime', 'ctime', 'hMtime', 'hCtime', 'sort', 'subFileCount', 'hidden', 'newFlashcardCount', 'dueFlashcardCount', 'flashcardCount'],
+            required: [
+                //
+                'path',
+                'name',
+                'icon',
+                'name1',
+                'alias',
+                'memo',
+                'bookmark',
+                'id',
+                'count',
+                'size',
+                'hSize',
+                'mtime',
+                'ctime',
+                'hMtime',
+                'hCtime',
+                'sort',
+                'subFileCount',
+                'hidden',
+                'newFlashcardCount',
+                'dueFlashcardCount',
+                'flashcardCount',
+            ],
             properties: {
                 path: {
                     // 文档文件路径

@@ -18,7 +18,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id'],
+            required: [
+                //
+                'id',
+            ],
             properties: {
                 id: {
                     // 待折叠的块 ID

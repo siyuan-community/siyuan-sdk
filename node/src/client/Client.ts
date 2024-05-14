@@ -459,7 +459,9 @@ export class Client implements IFetch {
 
         const url = new URL(baseURL, globalThis.location?.href);
         url.protocol = url.protocol.replace(/^http/, "ws");
-        url.pathname = url.pathname.endsWith("/") ? `${url.pathname}${Client.ws.broadcast.pathname.substring(1)}` : `${url.pathname}${Client.ws.broadcast.pathname}`;
+        url.pathname = url.pathname.endsWith("/") //
+            ? `${url.pathname}${Client.ws.broadcast.pathname.substring(1)}`
+            : `${url.pathname}${Client.ws.broadcast.pathname}`;
         url.search = searchParams.toString();
 
         return new Websocket(url, protocols);

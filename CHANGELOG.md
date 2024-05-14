@@ -4,6 +4,7 @@
 - 完善社区资源清单文件定义 | Perfect community resource manifest file definition
 - 完善 Prettier 配置并应用 | Perfect Prettier configuration and apply
 - 重构 API 客户端配置更新机制 | Refactor API client configuration update mechanism
+- 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 
 ## v0.3.10 / 2024-05-09
 

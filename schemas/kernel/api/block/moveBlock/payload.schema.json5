@@ -46,10 +46,18 @@
             },
             oneOf: [
                 {
-                    required: ['id', 'previousID'],
+                    required: [
+                        //
+                        'id',
+                        'previousID',
+                    ],
                 },
                 {
-                    required: ['id', 'parentID'],
+                    required: [
+                        //
+                        'id',
+                        'parentID',
+                    ],
                 },
             ],
         },

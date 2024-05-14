@@ -17,7 +17,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['type', 'enabled'],
+            required: [
+                //
+                'type',
+                'enabled',
+            ],
             properties: {
                 type: {
                     // 获取指定类型的代码片段

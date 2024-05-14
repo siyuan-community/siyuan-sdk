@@ -17,7 +17,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['paths'],
+            required: [
+                //
+                'paths',
+            ],
             properties: {
                 paths: {
                     // 文件/文件夹路径列表

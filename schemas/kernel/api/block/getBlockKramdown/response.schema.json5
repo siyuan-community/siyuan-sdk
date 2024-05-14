@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -39,7 +44,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'kramdown'],
+            required: [
+                //
+                'id',
+                'kramdown',
+            ],
             properties: {
                 id: {
                     type: 'string',

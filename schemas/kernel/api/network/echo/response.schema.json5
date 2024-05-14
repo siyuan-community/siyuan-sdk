@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,13 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['Context', 'Request', 'URL', 'User'],
+            required: [
+                //
+                'Context',
+                'Request',
+                'URL',
+                'User',
+            ],
             properties: {
                 Context: {
                     // 请求上下文
@@ -64,7 +75,17 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['ClientIP', 'ContentType', 'FullPath', 'HandlerNames', 'IsWebsocket', 'Params', 'RawData', 'RemoteIP'],
+            required: [
+                //
+                'ClientIP',
+                'ContentType',
+                'FullPath',
+                'HandlerNames',
+                'IsWebsocket',
+                'Params',
+                'RawData',
+                'RemoteIP',
+            ],
             properties: {
                 ClientIP: {
                     // 客户端 IP
@@ -166,7 +187,28 @@ RemoteIP parses the IP from Request.RemoteAddr, normalizes and returns the IP (w
 
             type: 'object',
             additionalProperties: false,
-            required: ['Close', 'ContentLength', 'Cookies', 'Form', 'Header', 'Host', 'Method', 'MultipartForm', 'PostForm', 'Proto', 'ProtoMajor', 'ProtoMinor', 'Referer', 'RemoteAddr', 'TLS', 'Trailer', 'TransferEncoding', 'URL', 'UserAgent'],
+            required: [
+                //
+                'Close',
+                'ContentLength',
+                'Cookies',
+                'Form',
+                'Header',
+                'Host',
+                'Method',
+                'MultipartForm',
+                'PostForm',
+                'Proto',
+                'ProtoMajor',
+                'ProtoMinor',
+                'Referer',
+                'RemoteAddr',
+                'TLS',
+                'Trailer',
+                'TransferEncoding',
+                'URL',
+                'UserAgent',
+            ],
             properties: {
                 Close: {
                     // 响应后连接是否关闭
@@ -450,7 +492,18 @@ For client requests, the URL's Host specifies the server to connect to, while th
 
             type: 'object',
             additionalProperties: false,
-            required: ['EscapedFragment', 'EscapedPath', 'Hostname', 'IsAbs', 'Port', 'Query', 'Redacted', 'RequestURI', 'String'],
+            required: [
+                //
+                'EscapedFragment',
+                'EscapedPath',
+                'Hostname',
+                'IsAbs',
+                'Port',
+                'Query',
+                'Redacted',
+                'RequestURI',
+                'String',
+            ],
             properties: {
                 EscapedFragment: {
                     // 解码后的 URL 片段
@@ -592,7 +645,13 @@ In the second form, the following rules apply:\
 
             type: 'object',
             additionalProperties: false,
-            required: ['Password', 'PasswordSet', 'String', 'Username'],
+            required: [
+                //
+                'Password',
+                'PasswordSet',
+                'String',
+                'Username',
+            ],
             properties: {
                 Password: {
                     // 密码
@@ -639,7 +698,11 @@ Username returns the username.\
 
             type: 'object',
             additionalProperties: false,
-            required: ['Key', 'Value'],
+            required: [
+                //
+                'Key',
+                'Value',
+            ],
             properties: {
                 Key: {
                     // 键名
@@ -665,7 +728,21 @@ See https://tools.ietf.org/html/rfc6265 for details.\
 ',
             type: 'object',
             additionalProperties: false,
-            required: ['Name', 'Value', 'Path', 'Domain', 'Expires', 'RawExpires', 'MaxAge', 'Secure', 'HttpOnly', 'SameSite', 'Raw', 'Unparsed'],
+            required: [
+                //
+                'Name',
+                'Value',
+                'Path',
+                'Domain',
+                'Expires',
+                'RawExpires',
+                'MaxAge',
+                'Secure',
+                'HttpOnly',
+                'SameSite',
+                'Raw',
+                'Unparsed',
+            ],
             properties: {
                 Name: {
                     // Cookie 名称
@@ -864,7 +941,11 @@ For client requests, certain headers such as Content-Length and Connection are a
             description: 'multipart form data',
             type: 'object',
             additionalProperties: false,
-            required: ['Value', 'File'],
+            required: [
+                //
+                'Value',
+                'File',
+            ],
             properties: {
                 Value: {
                     $ref: '#/$defs/Values',
@@ -895,7 +976,13 @@ For client requests, certain headers such as Content-Length and Connection are a
             description: 'multipart form file part',
             type: 'object',
             additionalProperties: false,
-            required: ['Content', 'Filename', 'Header', 'Size'],
+            required: [
+                //
+                'Content',
+                'Filename',
+                'Header',
+                'Size',
+            ],
             properties: {
                 Content: {
                     // 使用 base64 编码的文件数据
@@ -949,7 +1036,20 @@ The RawPath field is an optional field which is only set when the default encodi
 URL's String method uses the EscapedPath method to obtain the path.\
 ",
             type: 'object',
-            required: ['Scheme', 'Opaque', 'User', 'Host', 'Path', 'RawPath', 'OmitHost', 'ForceQuery', 'RawQuery', 'Fragment', 'RawFragment'],
+            required: [
+                //
+                'Scheme',
+                'Opaque',
+                'User',
+                'Host',
+                'Path',
+                'RawPath',
+                'OmitHost',
+                'ForceQuery',
+                'RawQuery',
+                'Fragment',
+                'RawFragment',
+            ],
             properties: {
                 Scheme: {
                     // URL 协议
@@ -1062,7 +1162,21 @@ ConnectionState records basic TLS details about the connection.\
 ',
             type: 'object',
             additionalProperties: false,
-            required: ['Version', 'HandshakeComplete', 'DidResume', 'CipherSuite', 'NegotiatedProtocol', 'NegotiatedProtocolIsMutual', 'ServerName', 'PeerCertificates', 'VerifiedChains', 'SignedCertificateTimestamps', 'OCSPResponse', 'TLSUnique'],
+            required: [
+                //
+                'Version',
+                'HandshakeComplete',
+                'DidResume',
+                'CipherSuite',
+                'NegotiatedProtocol',
+                'NegotiatedProtocolIsMutual',
+                'ServerName',
+                'PeerCertificates',
+                'VerifiedChains',
+                'SignedCertificateTimestamps',
+                'OCSPResponse',
+                'TLSUnique',
+            ],
             properties: {
                 Version: {
                     // TLS 版本
@@ -1203,7 +1317,52 @@ This value will be nil for TLS 1.3 connections and for resumed connections that 
 A Certificate represents an X.509 certificate.\
 ',
             type: 'object',
-            required: ['Raw', 'RawTBSCertificate', 'RawSubjectPublicKeyInfo', 'RawSubject', 'RawIssuer', 'Signature', 'SignatureAlgorithm', 'PublicKeyAlgorithm', 'PublicKey', 'Version', 'SerialNumber', 'Issuer', 'Subject', 'NotBefore', 'KeyUsage', 'Extensions', 'ExtraExtensions', 'UnhandledCriticalExtensions', 'ExtKeyUsage', 'UnknownExtKeyUsage', 'BasicConstraintsValid', 'IsCA', 'MaxPathLen', 'MaxPathLenZero', 'SubjectKeyId', 'AuthorityKeyId', 'OCSPServer', 'IssuingCertificateURL', 'DNSNames', 'EmailAddresses', 'IPAddresses', 'URIs', 'PermittedDNSDomainsCritical', 'PermittedDNSDomains', 'ExcludedDNSDomains', 'PermittedIPRanges', 'ExcludedIPRanges', 'PermittedEmailAddresses', 'ExcludedEmailAddresses', 'PermittedURIDomains', 'ExcludedURIDomains', 'CRLDistributionPoints', 'PolicyIdentifiers'],
+            required: [
+                //
+                'Raw',
+                'RawTBSCertificate',
+                'RawSubjectPublicKeyInfo',
+                'RawSubject',
+                'RawIssuer',
+                'Signature',
+                'SignatureAlgorithm',
+                'PublicKeyAlgorithm',
+                'PublicKey',
+                'Version',
+                'SerialNumber',
+                'Issuer',
+                'Subject',
+                'NotBefore',
+                'KeyUsage',
+                'Extensions',
+                'ExtraExtensions',
+                'UnhandledCriticalExtensions',
+                'ExtKeyUsage',
+                'UnknownExtKeyUsage',
+                'BasicConstraintsValid',
+                'IsCA',
+                'MaxPathLen',
+                'MaxPathLenZero',
+                'SubjectKeyId',
+                'AuthorityKeyId',
+                'OCSPServer',
+                'IssuingCertificateURL',
+                'DNSNames',
+                'EmailAddresses',
+                'IPAddresses',
+                'URIs',
+                'PermittedDNSDomainsCritical',
+                'PermittedDNSDomains',
+                'ExcludedDNSDomains',
+                'PermittedIPRanges',
+                'ExcludedIPRanges',
+                'PermittedEmailAddresses',
+                'ExcludedEmailAddresses',
+                'PermittedURIDomains',
+                'ExcludedURIDomains',
+                'CRLDistributionPoints',
+                'PolicyIdentifiers',
+            ],
         },
     },
 }

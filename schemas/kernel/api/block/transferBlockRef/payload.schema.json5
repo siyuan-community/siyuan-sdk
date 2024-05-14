@@ -18,7 +18,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['fromID', 'toID'],
+            required: [
+                //
+                'fromID',
+                'toID',
+            ],
             properties: {
                 fromID: {
                     // 移动前引用指向的块 ID

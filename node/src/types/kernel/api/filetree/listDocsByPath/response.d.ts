@@ -38,7 +38,7 @@ export interface IData {
     /**
      * notebook ID
      */
-    box: string;
+    box:   string;
     files: IFile[];
     /**
      * document file/folder path

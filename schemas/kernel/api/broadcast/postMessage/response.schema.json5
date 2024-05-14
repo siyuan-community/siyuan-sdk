@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['channel'],
+            required: [
+                //
+                'channel',
+            ],
             properties: {
                 channel: {
                     $ref: '#/$defs/channel',
@@ -51,7 +59,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['name', 'count'],
+            required: [
+                //
+                'name',
+                'count',
+            ],
             properties: {
                 name: {
                     // 名称

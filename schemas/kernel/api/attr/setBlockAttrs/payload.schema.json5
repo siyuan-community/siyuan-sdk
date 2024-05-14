@@ -18,7 +18,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'attrs'],
+            required: [
+                //
+                'id',
+                'attrs',
+            ],
             properties: {
                 id: {
                     type: 'string',

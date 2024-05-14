@@ -17,7 +17,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -38,7 +43,13 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['id', 'rootID', 'isLargeDoc', 'content'],
+            required: [
+                //
+                'id',
+                'rootID',
+                'isLargeDoc',
+                'content',
+            ],
             properties: {
                 id: {
                     // 块 ID

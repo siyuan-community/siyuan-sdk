@@ -48,7 +48,7 @@ export interface IPayload {
      * Query method
      */
     queryMethod?: number;
-    queryTypes?: IQueryTypes;
+    queryTypes?:  IQueryTypes;
     /**
      * Maximum number of loaded blocks
      */

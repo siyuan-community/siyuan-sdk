@@ -17,7 +17,10 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['k'],
+            required: [
+                //
+                'k',
+            ],
             properties: {
                 k: {
                     // 关键字

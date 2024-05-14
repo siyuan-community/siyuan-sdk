@@ -64,13 +64,28 @@
             },
             oneOf: [
                 {
-                    required: ['dataType', 'data', 'nextID'],
+                    required: [
+                        //
+                        'dataType',
+                        'data',
+                        'nextID',
+                    ],
                 },
                 {
-                    required: ['dataType', 'data', 'previousID'],
+                    required: [
+                        //
+                        'dataType',
+                        'data',
+                        'previousID',
+                    ],
                 },
                 {
-                    required: ['dataType', 'data', 'parentID'],
+                    required: [
+                        //
+                        'dataType',
+                        'data',
+                        'parentID',
+                    ],
                 },
             ],
         },

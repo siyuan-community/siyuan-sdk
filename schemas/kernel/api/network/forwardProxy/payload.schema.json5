@@ -18,7 +18,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['url', 'headers'],
+            required: [
+                //
+                'url',
+                'headers',
+            ],
             properties: {
                 url: {
                     // 请求 URL

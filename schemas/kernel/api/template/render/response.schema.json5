@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['code', 'msg', 'data'],
+            required: [
+                //
+                'code',
+                'msg',
+                'data',
+            ],
             properties: {
                 code: {
                     type: 'integer',
@@ -39,7 +44,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['path', 'content'],
+            required: [
+                //
+                'path',
+                'content',
+            ],
             properties: {
                 path: {
                     // 模板文件绝对路径

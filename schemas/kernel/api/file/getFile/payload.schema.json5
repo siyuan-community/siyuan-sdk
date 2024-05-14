@@ -17,7 +17,10 @@
             description: 'get file under the workspace directory',
             type: 'object',
             additionalProperties: false,
-            required: ['path'],
+            required: [
+                //
+                'path',
+            ],
             properties: {
                 path: {
                     // 工作空间路径下的文件路径

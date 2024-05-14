@@ -17,7 +17,11 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['query', 'created'],
+            required: [
+                //
+                'query',
+                'created',
+            ],
             properties: {
                 query: {
                     // 查询关键词, 可以是文档块 ID

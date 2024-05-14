@@ -18,7 +18,12 @@
 
             type: 'object',
             additionalProperties: false,
-            required: ['fromPaths', 'toNotebook', 'toPath'],
+            required: [
+                //
+                'fromPaths',
+                'toNotebook',
+                'toPath',
+            ],
             properties: {
                 fromPaths: {
                     /**

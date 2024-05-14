@@ -142,7 +142,10 @@
             description: 'Localize text fields',
 
             additionalProperties: true,
-            required: ['default'],
+            required: [
+                //
+                'default',
+            ],
             properties: {
                 default: {
                     // 默认文本

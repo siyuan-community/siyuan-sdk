@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.11 / 2024-05-14
+
+- [v0.3.10 ... v0.3.11](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.10...v0.3.11)
 - 排序 `import` 表达式 | Sort `import` expressions
 - 完善社区资源清单文件定义 | Perfect community resource manifest file definition
 - 完善 Prettier 配置并应用 | Perfect Prettier configuration and apply

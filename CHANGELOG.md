@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 改进 eslint 配置 | Improve eslint configuration
+
 ## v0.3.11 / 2024-05-14
 
 - [v0.3.10 ... v0.3.11](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.10...v0.3.11)

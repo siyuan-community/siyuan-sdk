@@ -283,7 +283,7 @@ export class Client implements IFetch {
         type: ClientType = "xhr", // HTTP 请求客户端类型
     ) {
         this._setClientType(type);
-        // @ts-expect-error
+        // @ts-expect-error Options 类型不能赋值给 FetchOptions 类型或者 AxiosOptions 类型
         this._updateOptions(options, type);
     }
 
@@ -850,7 +850,7 @@ export class Client implements IFetch {
         payload: kernel.api.file.getFile.IPayload, //
         responseType: Extract<ResponseType, "json">,
         config?: TempOptions,
-    ): Promise<Object>;
+    ): Promise<any>;
     public async getFile<R = any>(
         payload: kernel.api.file.getFile.IPayload, //
         responseType: Extract<ResponseType, "stream">,
@@ -869,7 +869,7 @@ export class Client implements IFetch {
         | ArrayBuffer //
         | IBlob
         | Document
-        | Object
+        | any
         | ReadableStream
         | string
     >;
@@ -909,12 +909,10 @@ export class Client implements IFetch {
         // REF: https://axios-http.com/zh/docs/post_example
         const formdata = new FormData();
         for (const [key, value] of Object.entries(payload)) {
-            if (payload.hasOwnProperty(key)) {
-                if (value instanceof Blob) {
-                    formdata.append(key, value);
-                } else {
-                    formdata.append(key, String(value));
-                }
+            if (value instanceof Blob) {
+                formdata.append(key, value);
+            } else {
+                formdata.append(key, String(value));
             }
         }
 
@@ -1642,115 +1640,112 @@ export class Client implements IFetch {
         normal: boolean = true,
         responseType: ResponseType = "json",
     ): Promise<R> {
-        try {
-            switch (config?.type ?? this._type) {
-                case "fetch": {
-                    const options = config?.options as FetchOptions | undefined;
-                    responseType = (() => {
-                        switch (responseType) {
-                            case "arraybuffer":
-                                return "arrayBuffer";
-                            case "document":
-                                return "text";
-                            default:
-                                return responseType;
-                        }
-                    })();
-                    const response = await this._fetch<
-                        R, //
-                        FetchResponseType
-                    >(
-                        pathname, //
-                        {
-                            method,
-                            body: payload,
-                            responseType,
-                            onResponse: async (context) => {
-                                switch (context.response.status) {
-                                    case axios.HttpStatusCode.Ok:
-                                        switch (responseType) {
-                                            case "blob":
-                                                (context.response._data as IBlob).contentType = context.response.headers.get("content-type");
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        break;
-
-                                    case axios.HttpStatusCode.Accepted:
-                                        /* api/file/getFile */
-                                        if (pathname === Client.api.file.getFile.pathname) {
-                                            this._parseFetchResponse(context.response._data);
-                                        }
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-                            },
-                            ...options,
-                        },
-                    );
-                    if (
-                        normal && //
-                        responseType === "json" &&
-                        typeof response === "object"
-                    ) {
-                        return this._parseFetchResponse(response as kernel.kernel.IResponse) as R;
-                    } else {
-                        return response as R;
-                    }
-                }
-                case "xhr":
-                default: {
-                    const options = config?.options as TempAxiosOptions | undefined;
-                    responseType = (() => {
-                        switch (responseType) {
-                            case "arrayBuffer":
-                                return "arraybuffer";
-                            default:
-                                return responseType;
-                        }
-                    })();
-                    const response = await this._axios.request<R>({
-                        url: pathname,
-                        method,
-                        data: payload,
-                        responseType,
-                        ...options,
-                    });
-                    switch (response.status) {
-                        case axios.HttpStatusCode.Ok:
-                            if (normal && responseType === "json" && typeof response.data === "object") {
-                                return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
-                            } else {
-                                switch (responseType) {
-                                    case "blob":
-                                        // @ts-ignore
-                                        (response.data as IBlob).contentType = response.headers.getContentType() as string;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                return response.data;
-                            }
-
-                        case axios.HttpStatusCode.Accepted:
-                            /* api/file/getFile */
-                            if (pathname === Client.api.file.getFile.pathname) {
-                                return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
-                            } else {
-                                return response.data;
-                            }
-
+        switch (config?.type ?? this._type) {
+            case "fetch": {
+                const options = config?.options as FetchOptions | undefined;
+                responseType = (() => {
+                    switch (responseType) {
+                        case "arraybuffer":
+                            return "arrayBuffer";
+                        case "document":
+                            return "text";
                         default:
-                            const error = new HTTPError(response);
-                            throw error;
+                            return responseType;
                     }
+                })();
+                const response = await this._fetch<
+                    R, //
+                    FetchResponseType
+                >(
+                    pathname, //
+                    {
+                        method,
+                        body: payload,
+                        responseType,
+                        onResponse: async (context) => {
+                            switch (context.response.status) {
+                                case axios.HttpStatusCode.Ok:
+                                    switch (responseType) {
+                                        case "blob":
+                                            (context.response._data as IBlob).contentType = context.response.headers.get("content-type");
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    break;
+
+                                case axios.HttpStatusCode.Accepted:
+                                    /* api/file/getFile */
+                                    if (pathname === Client.api.file.getFile.pathname) {
+                                        this._parseFetchResponse(context.response._data);
+                                    }
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        },
+                        ...options,
+                    },
+                );
+                if (
+                    normal && //
+                    responseType === "json" &&
+                    typeof response === "object"
+                ) {
+                    return this._parseFetchResponse(response as kernel.kernel.IResponse) as R;
+                } else {
+                    return response as R;
                 }
             }
-        } catch (error) {
-            throw error;
+            case "xhr":
+            default: {
+                const options = config?.options as TempAxiosOptions | undefined;
+                responseType = (() => {
+                    switch (responseType) {
+                        case "arrayBuffer":
+                            return "arraybuffer";
+                        default:
+                            return responseType;
+                    }
+                })();
+                const response = await this._axios.request<R>({
+                    url: pathname,
+                    method,
+                    data: payload,
+                    responseType,
+                    ...options,
+                });
+                switch (response.status) {
+                    case axios.HttpStatusCode.Ok:
+                        if (normal && responseType === "json" && typeof response.data === "object") {
+                            return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
+                        } else {
+                            switch (responseType) {
+                                case "blob":
+                                    if ("content-type" in response.headers) {
+                                        (response.data as IBlob).contentType = response.headers["content-type"];
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return response.data;
+                        }
+
+                    case axios.HttpStatusCode.Accepted:
+                        /* api/file/getFile */
+                        if (pathname === Client.api.file.getFile.pathname) {
+                            return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
+                        } else {
+                            return response.data;
+                        }
+
+                    default:
+                        const error = new HTTPError(response);
+                        throw error;
+                }
+            }
         }
     }
 

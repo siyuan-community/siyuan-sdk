@@ -1,4 +1,3 @@
-// @ts-check
 import js_eslint from "@eslint/js";
 import ts_eslint from "typescript-eslint";
 
@@ -9,9 +8,30 @@ export default ts_eslint.config(
     ...ts_eslint.configs.recommended,
     ...[
         {
-            ignores: ["./*.cjs", "./coverage/**", "./dist/**", "./node_modules/**", "./temp/**"],
+            ignores: [
+                "./coverage/**",
+                "./dist/**",
+                "./node_modules/**",
+                "./temp/**",
+            ],
             // REF https://eslint.nodejs.cn/docs/latest/rules/
-            rules: {},
+            rules: {
+                "no-empty": "off",
+                "no-case-declarations": "off",
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/no-unused-vars": [
+                    "error",
+                    {
+                        args: "all",
+                        argsIgnorePattern: "^_",
+                        caughtErrors: "all",
+                        caughtErrorsIgnorePattern: "^_",
+                        destructuredArrayIgnorePattern: "^_",
+                        varsIgnorePattern: "^_",
+                        ignoreRestSiblings: true
+                    },
+                ],
+            },
         },
     ],
 );

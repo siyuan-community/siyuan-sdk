@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * Def block ID
      */
-    fromID:  string;
+    fromID: string;
     refIDs?: string[] | null;
     /**
      * Whether to refresh the UI

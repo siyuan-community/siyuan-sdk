@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 改进 eslint 配置 | Improve eslint configuration
+- 改进构建流程 | Improve the build process
 
 ## v0.3.11 / 2024-05-14
 

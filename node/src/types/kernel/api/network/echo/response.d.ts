@@ -37,8 +37,8 @@ export interface IResponse {
 export interface IData {
     Context: IContext;
     Request: IRequest;
-    URL:     IURL;
-    User:    IUser;
+    URL: IURL;
+    User: IUser;
 }
 
 /**
@@ -442,7 +442,7 @@ export interface ICookie {
  * multipart form data
  */
 export interface IMultipartForm {
-    File:  { [key: string]: IFile[] };
+    File: { [key: string]: IFile[] };
     Value: { [key: string]: string[] };
 }
 
@@ -580,49 +580,49 @@ export interface Itls {
  * A Certificate represents an X.509 certificate.
  */
 export interface ICertificate {
-    Raw:                         any;
-    RawTBSCertificate:           any;
-    RawSubjectPublicKeyInfo:     any;
-    RawSubject:                  any;
-    RawIssuer:                   any;
-    Signature:                   any;
-    SignatureAlgorithm:          any;
-    PublicKeyAlgorithm:          any;
-    PublicKey:                   any;
-    Version:                     any;
-    SerialNumber:                any;
-    Issuer:                      any;
-    Subject:                     any;
-    NotBefore:                   any;
-    KeyUsage:                    any;
-    Extensions:                  any;
-    ExtraExtensions:             any;
+    Raw: any;
+    RawTBSCertificate: any;
+    RawSubjectPublicKeyInfo: any;
+    RawSubject: any;
+    RawIssuer: any;
+    Signature: any;
+    SignatureAlgorithm: any;
+    PublicKeyAlgorithm: any;
+    PublicKey: any;
+    Version: any;
+    SerialNumber: any;
+    Issuer: any;
+    Subject: any;
+    NotBefore: any;
+    KeyUsage: any;
+    Extensions: any;
+    ExtraExtensions: any;
     UnhandledCriticalExtensions: any;
-    ExtKeyUsage:                 any;
-    UnknownExtKeyUsage:          any;
-    BasicConstraintsValid:       any;
-    IsCA:                        any;
-    MaxPathLen:                  any;
-    MaxPathLenZero:              any;
-    SubjectKeyId:                any;
-    AuthorityKeyId:              any;
-    OCSPServer:                  any;
-    IssuingCertificateURL:       any;
-    DNSNames:                    any;
-    EmailAddresses:              any;
-    IPAddresses:                 any;
-    URIs:                        any;
+    ExtKeyUsage: any;
+    UnknownExtKeyUsage: any;
+    BasicConstraintsValid: any;
+    IsCA: any;
+    MaxPathLen: any;
+    MaxPathLenZero: any;
+    SubjectKeyId: any;
+    AuthorityKeyId: any;
+    OCSPServer: any;
+    IssuingCertificateURL: any;
+    DNSNames: any;
+    EmailAddresses: any;
+    IPAddresses: any;
+    URIs: any;
     PermittedDNSDomainsCritical: any;
-    PermittedDNSDomains:         any;
-    ExcludedDNSDomains:          any;
-    PermittedIPRanges:           any;
-    ExcludedIPRanges:            any;
-    PermittedEmailAddresses:     any;
-    ExcludedEmailAddresses:      any;
-    PermittedURIDomains:         any;
-    ExcludedURIDomains:          any;
-    CRLDistributionPoints:       any;
-    PolicyIdentifiers:           any;
+    PermittedDNSDomains: any;
+    ExcludedDNSDomains: any;
+    PermittedIPRanges: any;
+    ExcludedIPRanges: any;
+    PermittedEmailAddresses: any;
+    ExcludedEmailAddresses: any;
+    PermittedURIDomains: any;
+    ExcludedURIDomains: any;
+    CRLDistributionPoints: any;
+    PolicyIdentifiers: any;
     [property: string]: any;
 }
 

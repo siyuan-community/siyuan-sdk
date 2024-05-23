@@ -65,7 +65,7 @@ export interface IOperation {
     /**
      * ID of the block to be deleted
      */
-    id:       string;
+    id: string;
     parentID: any;
     [property: string]: any;
 }

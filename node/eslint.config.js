@@ -8,12 +8,7 @@ export default ts_eslint.config(
     ...ts_eslint.configs.recommended,
     ...[
         {
-            ignores: [
-                "./coverage/**",
-                "./dist/**",
-                "./node_modules/**",
-                "./temp/**",
-            ],
+            ignores: ["./coverage/**", "./dist/**", "./node_modules/**", "./temp/**"],
             // REF https://eslint.nodejs.cn/docs/latest/rules/
             rules: {
                 "no-empty": "off",
@@ -28,7 +23,7 @@ export default ts_eslint.config(
                         caughtErrorsIgnorePattern: "^_",
                         destructuredArrayIgnorePattern: "^_",
                         varsIgnorePattern: "^_",
-                        ignoreRestSiblings: true
+                        ignoreRestSiblings: true,
                     },
                 ],
             },

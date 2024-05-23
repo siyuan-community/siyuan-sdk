@@ -73,14 +73,14 @@ export interface IBlock {
      * Block content
      */
     content: string;
-    count:   number;
+    count: number;
     /**
      * Creation time
      */
     created: string;
-    defID:   string;
+    defID: string;
     defPath: string;
-    depth:   number;
+    depth: number;
     /**
      * The first block content in the container block
      */

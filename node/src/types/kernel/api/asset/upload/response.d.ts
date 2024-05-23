@@ -36,7 +36,7 @@ export interface IResponse {
  */
 export interface IData {
     errFiles: string[] | null;
-    succMap:  { [key: string]: string };
+    succMap: { [key: string]: string };
 }
 
 //#endregion content

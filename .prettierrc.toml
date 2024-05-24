@@ -175,3 +175,14 @@ embeddedLanguageFormatting = "auto"
 # singleAttributePerLine: <bool>
 # singleAttributePerLine = false
 singleAttributePerLine = true
+
+# REF: https://prettier.io/docs/en/configuration#configuration-overrides
+[[overrides]]
+
+files = [ #
+    "*.schema.json5",
+]
+
+[overrides.options]
+
+singleQuote = true

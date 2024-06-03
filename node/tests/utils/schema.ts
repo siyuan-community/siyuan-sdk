@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { resolve } from "node:path";
+
 import addFormats from "ajv-formats";
 import Ajv2020, { Options, Schema, ValidateFunction } from "ajv/dist/2020";
-import { resolve } from "path";
 
 import constants from "@/constants";
 

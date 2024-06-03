@@ -176,6 +176,38 @@ embeddedLanguageFormatting = "auto"
 # singleAttributePerLine = false
 singleAttributePerLine = true
 
+plugins = [ #
+    "prettier-plugin-packagejson",
+    "@ianvs/prettier-plugin-sort-imports",
+]
+
+importOrder = [ #
+    "^node:(.*)$",                  # Node.js builtins modules
+    "<BUILTIN_MODULES>",            # Node.js builtins modules
+    "",
+    "<THIRD_PARTY_MODULES>",        # Third-party modules
+    "",
+    "^[~]/(.*)$",
+    "",
+    "^[@]/(.*)$",
+    "",
+    "^[.]/(.*)$",
+    "",
+    "<TYPES>^node:(.*)$",
+    "",
+    "<TYPES><BUILTIN_MODULES>",
+    "",
+    "<TYPES><THIRD_PARTY_MODULES>",
+    "",
+    "<TYPES>^[~]/(.*)$",
+    "",
+    "<TYPES>^[@]/(.*)$",
+    "",
+    "<TYPES>^[.]/(.*)$",
+    "",
+    "\\.(c|le|sc)ss$",
+]
+
 # REF: https://prettier.io/docs/en/configuration#configuration-overrides
 [[overrides]]
 

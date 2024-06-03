@@ -4,6 +4,7 @@
 - 改进构建流程 | Improve the build process
 - 优化 Prettier 配置 | Optimize Prettier configuration
 - 添加 `Husky` 配置 | Add `Husky` configuration
+- Prettier 支持排序模块导入 | Prettier supports sorting module imports
 
 ## v0.3.11 / 2024-05-14
 

@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { readFileSync } from "fs";
-import { readFile } from "fs/promises";
+import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+
 import JSON5 from "json5";
 
 export async function loadJSON5<T>(filepath: string): Promise<T> {

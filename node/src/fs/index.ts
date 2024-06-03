@@ -1,3 +1,9 @@
+import path from "path-browserify";
+
+import { Client } from "@/index";
+
+import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirectoryHandle";
+
 /**
  * Copyright (C) 2023 SiYuan Community
  *
@@ -16,12 +22,6 @@
  */
 
 export * from "./handle";
-
-import path from "path-browserify";
-
-import { Client } from "@/index";
-
-import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirectoryHandle";
 
 /**
  * 思源文件系统

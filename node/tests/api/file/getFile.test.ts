@@ -22,8 +22,9 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import type getFile from "@/types/kernel/api/file/getFile";
 import type { ResponseType } from "@/client/Client";
+import type getFile from "@/types/kernel/api/file/getFile";
+
 const pathname = client.Client.api.file.getFile.pathname;
 
 interface ICase {

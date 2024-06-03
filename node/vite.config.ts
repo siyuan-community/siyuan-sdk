@@ -2,9 +2,9 @@
 
 import { resolve } from "path";
 
-import { defineConfig } from "vitest/config";
-import { viteStaticCopy } from "vite-plugin-static-copy";
 import dts from "vite-plugin-dts";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
     base: `./`,

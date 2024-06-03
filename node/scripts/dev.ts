@@ -25,7 +25,7 @@ import chokidar from "chokidar";
 
 import * as constants from "./utils/constants";
 import * as logger from "./utils/logger";
-import { json2types, json52json, json5Path2jsonPath, jsonPath2typesPath } from "./utils/schema";
+import { json2types, json5Path2jsonPath, json52json, jsonPath2typesPath } from "./utils/schema";
 import { updateTypeDefinitionFile } from "./utils/types";
 
 /**

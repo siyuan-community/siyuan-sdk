@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'oId',
                 'hCreated',
                 'shorthandURL',
@@ -60,14 +58,18 @@
                     type: 'string',
                     description: 'shorthand object ID',
                     pattern: '^\\d{13}$',
-                    examples: ['167325294279'],
+                    examples: [
+                        '167325294279',
+                    ],
                 },
                 hCreated: {
                     // 人类友好的创建时间
                     type: 'string',
                     description: 'Human-friendly creation time',
                     pattern: '^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$',
-                    examples: ['2023-01-09 16:29'],
+                    examples: [
+                        '2023-01-09 16:29',
+                    ],
                 },
                 shorthandURL: {
                     // 速记原文 URL 地址

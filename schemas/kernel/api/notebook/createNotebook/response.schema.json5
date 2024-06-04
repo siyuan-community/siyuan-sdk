@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -45,7 +44,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'notebook',
             ],
             properties: {
@@ -61,7 +59,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'id',
                 'name',
                 'icon',
@@ -88,7 +85,10 @@
                     // 图标
                     type: 'string',
                     description: 'notebook icon',
-                    examples: ['1f4d1', 'material/folder-project.svg'],
+                    examples: [
+                        '1f4d1',
+                        'material/folder-project.svg',
+                    ],
                 },
                 sort: {
                     // 排序序号

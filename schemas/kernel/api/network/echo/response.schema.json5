@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Context',
                 'Request',
                 'URL',
@@ -76,7 +74,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'ClientIP',
                 'ContentType',
                 'FullPath',
@@ -145,7 +142,10 @@ IsWebsocket returns true if the request headers indicate that a websocket handsh
                 },
                 Params: {
                     // 路由参数
-                    type: ['array', 'null'],
+                    type: [
+                        'array',
+                        'null',
+                    ],
                     description: '\
 {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Params}\
 \n\n\
@@ -188,7 +188,6 @@ RemoteIP parses the IP from Request.RemoteAddr, normalizes and returns the IP (w
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Close',
                 'ContentLength',
                 'Cookies',
@@ -442,7 +441,10 @@ Few HTTP clients, servers, or proxies support HTTP trailers.\
                 },
                 TransferEncoding: {
                     // 从最外层到最内层的传输编码
-                    type: ['array', 'null'],
+                    type: [
+                        'array',
+                        'null',
+                    ],
                     description: '\
 {@link https://pkg.go.dev/net/http#Request.TransferEncoding}\
 \n\n\
@@ -493,7 +495,6 @@ For client requests, the URL's Host specifies the server to connect to, while th
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'EscapedFragment',
                 'EscapedPath',
                 'Hostname',
@@ -646,7 +647,6 @@ In the second form, the following rules apply:\
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Password',
                 'PasswordSet',
                 'String',
@@ -699,7 +699,6 @@ Username returns the username.\
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Key',
                 'Value',
             ],
@@ -729,7 +728,6 @@ See https://tools.ietf.org/html/rfc6265 for details.\
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Name',
                 'Value',
                 'Path',
@@ -859,7 +857,10 @@ Raw text of this cookie\
                 },
                 Unparsed: {
                     // Cookie 未解析的属性值对的原始文本
-                    type: ['array', 'null'],
+                    type: [
+                        'array',
+                        'null',
+                    ],
                     description: '\
 {@link https://pkg.go.dev/net/http#Cookie.Unparsed}\
 \n\n\
@@ -942,7 +943,6 @@ For client requests, certain headers such as Content-Length and Connection are a
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Value',
                 'File',
             ],
@@ -977,7 +977,6 @@ For client requests, certain headers such as Content-Length and Connection are a
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Content',
                 'Filename',
                 'Header',
@@ -1037,7 +1036,6 @@ URL's String method uses the EscapedPath method to obtain the path.\
 ",
             type: 'object',
             required: [
-                //
                 'Scheme',
                 'Opaque',
                 'User',
@@ -1163,7 +1161,6 @@ ConnectionState records basic TLS details about the connection.\
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'Version',
                 'HandshakeComplete',
                 'DidResume',
@@ -1318,7 +1315,6 @@ A Certificate represents an X.509 certificate.\
 ',
             type: 'object',
             required: [
-                //
                 'Raw',
                 'RawTBSCertificate',
                 'RawSubjectPublicKeyInfo',

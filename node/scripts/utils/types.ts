@@ -30,7 +30,9 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
         throw new Error("Cannot update src directory.");
     }
 
-    const ts: string[] = [constants.LICENSE]; // index.d.ts 要写入的内容
+    const ts: string[] = [
+        constants.LICENSE,
+    ]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
     const dirs = children.filter((child) => child.isDirectory()); // 下级目录列表
     const files = children.filter(

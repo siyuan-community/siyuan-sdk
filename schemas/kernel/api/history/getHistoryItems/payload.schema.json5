@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'query',
                 'created',
             ],
@@ -33,7 +32,9 @@
                     type: 'string',
                     description: 'The timestamp of history item creation',
                     pattern: '^\\d{10}$',
-                    examples: ['1690304916'],
+                    examples: [
+                        '1690304916',
+                    ],
                 },
                 notebook: {
                     // 查询的笔记本 ID

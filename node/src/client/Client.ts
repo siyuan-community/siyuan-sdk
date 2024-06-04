@@ -223,15 +223,28 @@ export class Client implements IFetch {
 
     public static headers2entries(headers: { [key: string]: string[] }): Array<[string, string]> {
         const entries: Array<[string, string]> = [];
-        Object.entries(headers).forEach(([key, values]) => {
-            values.forEach((value) => entries.push([key, value]));
-        });
+        Object.entries(headers).forEach(
+            ([
+                key,
+                values,
+            ]) => {
+                values.forEach((value) =>
+                    entries.push([
+                        key,
+                        value,
+                    ]),
+                );
+            },
+        );
         return entries;
     }
 
     public static entries2record(entries: IterableIterator<[string, string]> | Array<[string, string]>): Record<string, string> {
         const record: Record<string, string> = {};
-        for (const [key, value] of entries) {
+        for (const [
+            key,
+            value,
+        ] of entries) {
             record[key] = value;
         }
         return record;
@@ -330,9 +343,16 @@ export class Client implements IFetch {
                 const ofetch_options = options as FetchOptions;
                 switch (true) {
                     case Array.isArray(ofetch_options.headers): {
-                        const header = ofetch_options.headers.find(([key]) => key.toLowerCase() === HeaderKey.Authorization.toLowerCase());
+                        const header = ofetch_options.headers.find(
+                            ([
+                                key,
+                            ]) => key.toLowerCase() === HeaderKey.Authorization.toLowerCase(),
+                        );
                         if (!header) {
-                            ofetch_options.headers.push([HeaderKey.Authorization, this._authorization]);
+                            ofetch_options.headers.push([
+                                HeaderKey.Authorization,
+                                this._authorization,
+                            ]);
                         }
                         break;
                     }
@@ -901,14 +921,19 @@ export class Client implements IFetch {
          */
         if (payload.file !== undefined && !(payload.file instanceof File)) {
             payload.file = new File(
-                [payload.file], //
+                [
+                    payload.file,
+                ], //
                 payload.path.split("/").pop()!,
             );
         }
 
         // REF: https://axios-http.com/zh/docs/post_example
         const formdata = new FormData();
-        for (const [key, value] of Object.entries(payload)) {
+        for (const [
+            key,
+            value,
+        ] of Object.entries(payload)) {
             if (value instanceof Blob) {
                 formdata.append(key, value);
             } else {

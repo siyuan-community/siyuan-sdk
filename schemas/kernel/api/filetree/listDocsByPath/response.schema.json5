@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'box',
                 'path',
                 'files',
@@ -76,7 +74,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'path',
                 'name',
                 'icon',
@@ -109,7 +106,9 @@
                     // 文档标题
                     type: 'string',
                     description: 'document title',
-                    examples: ['title.sy'],
+                    examples: [
+                        'title.sy',
+                    ],
                 },
                 icon: {
                     // 文海图标
@@ -156,31 +155,47 @@
                     // 人类可读的文档大小
                     type: 'string',
                     description: 'human readable document size',
-                    examples: ['1 B', '1 kB', '1 MB', '1 GB', '1 TB', '1 PB', '1 EB'],
+                    examples: [
+                        '1 B',
+                        '1 kB',
+                        '1 MB',
+                        '1 GB',
+                        '1 TB',
+                        '1 PB',
+                        '1 EB',
+                    ],
                 },
                 mtime: {
                     // 文档修改时间 (Unix 时间戳, 单位: ms)
                     type: 'integer',
                     description: 'document modified time (Unix timestamp, unit: s)',
-                    examples: [1690511805],
+                    examples: [
+                        1690511805,
+                    ],
                 },
                 ctime: {
                     // 文档创建时间 (Unix 时间戳, 单位: ms)
                     type: 'integer',
                     description: 'document created time (Unix timestamp, unit: s)',
-                    examples: [1597241155],
+                    examples: [
+                        1597241155,
+                    ],
                 },
                 hMtime: {
                     // 人类可读的文档修改时间
                     type: 'string',
                     description: 'human readable document modified time',
-                    examples: ['1 week ago'],
+                    examples: [
+                        '1 week ago',
+                    ],
                 },
                 hCtime: {
                     // 人类可读的文档创建时间
                     type: 'string',
                     description: 'human readable document created time',
-                    examples: ['1 week ago'],
+                    examples: [
+                        '1 week ago',
+                    ],
                 },
                 sort: {
                     // 文档排序规则

@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -33,7 +32,10 @@
                     description: 'status message',
                 },
                 data: {
-                    type: ['array', 'null'],
+                    type: [
+                        'array',
+                        'null',
+                    ],
                     description: 'document info list',
 
                     items: {
@@ -47,7 +49,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'rootID',
                 'icon',
                 'title',
@@ -63,7 +64,11 @@
                     // 文档图标
                     type: 'string',
                     description: 'Document icon',
-                    examples: ['1f3d8', 'icon.svg', 'folder/icon.png'],
+                    examples: [
+                        '1f3d8',
+                        'icon.svg',
+                        'folder/icon.png',
+                    ],
                 },
                 title: {
                     // 文档标题

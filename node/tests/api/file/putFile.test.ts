@@ -67,7 +67,9 @@ describe.concurrent(pathname, async () => {
             name: "create file with Blob",
             payload: {
                 path: "/temp/convert/test/test2.html",
-                file: new Blob([constants.TEST_FILE_CONTENT]),
+                file: new Blob([
+                    constants.TEST_FILE_CONTENT,
+                ]),
             },
             debug: false,
         },
@@ -75,7 +77,12 @@ describe.concurrent(pathname, async () => {
             name: "create file with File",
             payload: {
                 path: "/temp/convert/test/test3.html",
-                file: new File([constants.TEST_FILE_CONTENT], "test3.html"),
+                file: new File(
+                    [
+                        constants.TEST_FILE_CONTENT,
+                    ],
+                    "test3.html",
+                ),
             },
             debug: false,
         },

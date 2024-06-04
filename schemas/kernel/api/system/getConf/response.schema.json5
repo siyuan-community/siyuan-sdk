@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'start',
                 'conf',
             ],
@@ -67,7 +65,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'accessAuthCode',
                 'account',
                 'ai',
@@ -106,7 +103,10 @@
                     title: 'TAccessAuthCode',
                     description: 'Access authorization code',
                     default: '',
-                    enum: ['', '*******'],
+                    enum: [
+                        '',
+                        '*******',
+                    ],
                 },
                 account: {
                     // 账户相关设置项
@@ -132,7 +132,10 @@
                     // 云服务供应商地区
                     type: 'integer',
                     description: 'Cloud Service Provider Region\n- `0`: Chinese mainland\n- `1`: North America',
-                    enum: [0, 1],
+                    enum: [
+                        0,
+                        1,
+                    ],
                 },
                 editor: {
                     // 编辑器相关设置项
@@ -283,7 +286,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'displayTitle',
                 'displayVIP',
             ],
@@ -307,7 +309,6 @@
             description: 'Artificial Intelligence (AI) related configuration',
             additionalProperties: false,
             required: [
-                //
                 'openAI',
             ],
             properties: {
@@ -324,7 +325,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'apiBaseURL',
                 'apiKey',
                 'apiMaxContexts',
@@ -343,13 +343,17 @@
                     type: 'string',
                     description: 'API base URL',
                     format: 'uri',
-                    examples: ['https://api.openai.com/v1'],
+                    examples: [
+                        'https://api.openai.com/v1',
+                    ],
                 },
                 apiKey: {
                     // API 密钥
                     type: 'string',
                     description: 'API key',
-                    examples: ['sk-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL'],
+                    examples: [
+                        'sk-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL',
+                    ],
                 },
                 apiMaxContexts: {
                     // 请求 API 时传入的最大上下文数
@@ -368,20 +372,32 @@
                     type: 'string',
                     title: 'TOpenAIAPIModel',
                     description: 'The model name called by the API',
-                    examples: ['gpt-4', 'gpt-4-32k', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k'],
+                    examples: [
+                        'gpt-4',
+                        'gpt-4-32k',
+                        'gpt-3.5-turbo',
+                        'gpt-3.5-turbo-16k',
+                    ],
                 },
                 apiProvider: {
                     // API 供应商
                     type: 'string',
                     title: 'TOpenAIApiProvider',
                     description: 'API Provider',
-                    enum: ['OpenAI', 'Azure'],
+                    enum: [
+                        'OpenAI',
+                        'Azure',
+                    ],
                 },
                 apiProxy: {
                     // API 请求代理地址
                     type: 'string',
                     description: 'API request proxy address',
-                    examples: ['http://127.0.0.1:1080', 'socks://127.0.0.1:1080', 'socks5://127.0.0.1:1080'],
+                    examples: [
+                        'http://127.0.0.1:1080',
+                        'socks://127.0.0.1:1080',
+                        'socks5://127.0.0.1:1080',
+                    ],
                 },
                 apiTemperature: {
                     // 控制生成的文本随机性的参数 `temperature`
@@ -413,14 +429,16 @@
             description: 'SiYuan API related configuration',
             additionalProperties: false,
             required: [
-                //
                 'token',
             ],
             properties: {
                 token: {
                     type: 'string',
                     description: 'API Token',
-                    examples: ['', '0123456789abcdef'],
+                    examples: [
+                        '',
+                        '0123456789abcdef',
+                    ],
                 },
             },
         },
@@ -431,7 +449,6 @@
             description: 'SiYuan appearance related configuration',
             additionalProperties: false,
             required: [
-                //
                 'closeButtonBehavior',
                 'codeBlockThemeDark',
                 'codeBlockThemeLight',
@@ -567,7 +584,6 @@
             description: 'SiYuan bazaar related configuration',
             additionalProperties: false,
             required: [
-                //
                 'petalDisabled',
                 'trust',
             ],
@@ -591,7 +607,6 @@
             description: 'SiYuan editor related configuration',
             additionalProperties: false,
             required: [
-                //
                 'allowHTMLBLockScript',
                 'backlinkExpandCount',
                 'backmentionExpandCount',
@@ -817,7 +832,6 @@
             description: 'Markdown syntax configuration',
             additionalProperties: false,
             required: [
-                //
                 'inlineMath',
                 'inlineSub',
                 'inlineSup',
@@ -853,7 +867,6 @@
             description: 'SiYuan export related configuration',
             additionalProperties: false,
             required: [
-                //
                 'paragraphBeginningSpace',
                 'addTitle',
                 'blockRefMode',
@@ -983,7 +996,6 @@
             description: 'Document tree related configuration',
             additionalProperties: false,
             required: [
-                //
                 'allowCreateDeeper',
                 'alwaysSelectOpenedFile',
                 'closeTabsOnStart',
@@ -1092,7 +1104,6 @@
             description: 'Flashcard related configuration',
             additionalProperties: false,
             required: [
-                //
                 'deck',
                 'heading',
                 'list',
@@ -1175,7 +1186,6 @@
             description: 'SiYuan graph related configuration',
             additionalProperties: false,
             required: [
-                //
                 'global',
                 'local',
                 'maxBlocks',
@@ -1203,7 +1213,6 @@
             description: 'Global graph configuration',
             additionalProperties: false,
             required: [
-                //
                 'd3',
                 'dailyNote',
                 'minRefs',
@@ -1237,7 +1246,6 @@
             description: 'Local graph configuration',
             additionalProperties: false,
             required: [
-                //
                 'd3',
                 'dailyNote',
                 'type',
@@ -1265,7 +1273,6 @@
             description: 'd3.js graph configuration',
             additionalProperties: false,
             required: [
-                //
                 'arrow',
                 'centerStrength',
                 'collideRadius',
@@ -1325,7 +1332,6 @@
             description: 'SiYuan node type filter',
             additionalProperties: false,
             required: [
-                //
                 'blockquote',
                 'code',
                 'heading',
@@ -1397,7 +1403,6 @@
             description: 'SiYuan keymap related configuration',
             additionalProperties: false,
             required: [
-                //
                 'editor',
                 'general',
                 'plugin',
@@ -1424,7 +1429,6 @@
             description: 'SiYuan editor shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'general',
                 'heading',
                 'insert',
@@ -1461,7 +1465,6 @@
             description: 'SiYuan editor general shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'ai',
                 'alignCenter',
                 'alignLeft',
@@ -1685,7 +1688,6 @@
             description: 'SiYuan editor heading shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'heading1',
                 'heading2',
                 'heading3',
@@ -1725,7 +1727,6 @@
             description: 'SiYuan editor insert shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'appearance',
                 'bold',
                 'check',
@@ -1817,7 +1818,6 @@
             description: 'SiYuan editor list shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'checkToggle',
                 'indent',
                 'outdent',
@@ -1841,7 +1841,6 @@
             description: 'SiYuan editor table shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'delete-column',
                 'delete-row',
                 'insertColumnLeft',
@@ -1893,7 +1892,6 @@
             description: 'SiYuan general shortcut keys',
             additionalProperties: false,
             required: [
-                //
                 'addToDatabase',
                 'backlinks',
                 'bookmark',
@@ -2158,7 +2156,6 @@
             description: 'SiYuan shortcut key',
             additionalProperties: false,
             required: [
-                //
                 'custom',
                 'default',
             ],
@@ -2182,7 +2179,6 @@
             description: 'Supported language',
             additionalProperties: false,
             required: [
-                //
                 'label',
                 'name',
             ],
@@ -2191,14 +2187,22 @@
                     // 语言名称
                     type: 'string',
                     description: 'Language name',
-                    examples: ['简体中文', '繁体中文', 'English'],
+                    examples: [
+                        '简体中文',
+                        '繁体中文',
+                        'English',
+                    ],
                 },
                 name: {
                     // 语言标识
                     type: 'string',
                     description: 'Language identifier',
                     pattern: '^[a-z]{2}_[A-Z]{2,}$',
-                    examples: ['zh_CN', 'zh_CHT', 'en_US'],
+                    examples: [
+                        'zh_CN',
+                        'zh_CHT',
+                        'en_US',
+                    ],
                 },
             },
         },
@@ -2209,7 +2213,6 @@
             description: 'Snapshot repository related configuration',
             additionalProperties: false,
             required: [
-                //
                 'key',
                 'syncIndexTiming',
             ],
@@ -2234,7 +2237,6 @@
             description: 'SiYuan search related configuration',
             additionalProperties: false,
             required: [
-                //
                 'alias',
                 'audioBlock',
                 'backlinkMentionAlias',
@@ -2444,7 +2446,6 @@
             description: 'SiYuan code snippets related configuration',
             additionalProperties: false,
             required: [
-                //
                 'enabledCSS',
                 'enabledJS',
             ],
@@ -2468,7 +2469,6 @@
             description: 'SiYuan workspace content statistics',
             additionalProperties: false,
             required: [
-                //
                 'assetsSize',
                 'blockCount',
                 'cAssetsSize',
@@ -2528,7 +2528,6 @@
             description: 'SiYuan synchronization related configuration',
             additionalProperties: false,
             required: [
-                //
                 'cloudName',
                 'enabled',
                 'generateConflictDoc',
@@ -2595,7 +2594,9 @@
                     // 最近一次同步的时间 (Unix 时间戳)
                     type: 'integer',
                     description: 'The time of the last synchronization (Unix timestamp)',
-                    examples: [1700000000000],
+                    examples: [
+                        1700000000000,
+                    ],
                 },
                 webdav: {
                     // WebDAV 相关设置项
@@ -2610,7 +2611,6 @@
             description: 'S3 compatible object storage related configuration',
             additionalProperties: false,
             required: [
-                //
                 'accessKey',
                 'bucket',
                 'endpoint',
@@ -2670,7 +2670,6 @@
             description: 'WebDAV related configuration',
             additionalProperties: false,
             required: [
-                //
                 'endpoint',
                 'username',
                 'password',
@@ -2683,7 +2682,9 @@
                     type: 'string',
                     description: 'Service endpoint',
                     format: 'uri',
-                    examples: ['https://webdav.example.com/siyuan/'],
+                    examples: [
+                        'https://webdav.example.com/siyuan/',
+                    ],
                 },
                 password: {
                     // 密码
@@ -2714,7 +2715,6 @@
             description: 'System related information',
             additionalProperties: false,
             required: [
-                //
                 'appDir',
                 'autoLaunch2',
                 'confDir',
@@ -2871,7 +2871,6 @@
             description: 'SiYuan Network proxy configuration',
             additionalProperties: false,
             required: [
-                //
                 'host',
                 'port',
                 'scheme',
@@ -2909,7 +2908,6 @@
             description: 'SiYuan tag dock related configuration',
             additionalProperties: false,
             required: [
-                //
                 'sort',
             ],
             properties: {
@@ -2935,7 +2933,6 @@
             description: 'SiYuan UI layout related configuration',
             additionalProperties: false,
             required: [
-                //
                 'bottom',
                 'hideDock',
                 'layout',
@@ -2973,7 +2970,6 @@
             description: 'SiYuan panel layout',
             additionalProperties: false,
             required: [
-                //
                 'children',
                 'instance',
             ],
@@ -3056,7 +3052,6 @@
             description: 'SiYuan window layout',
             additionalProperties: false,
             required: [
-                //
                 'children',
                 'instance',
             ],
@@ -3081,13 +3076,17 @@
                     // 窗口高度
                     type: 'string',
                     description: 'Panel height',
-                    examples: ['128px'],
+                    examples: [
+                        '128px',
+                    ],
                 },
                 width: {
                     // 窗口宽度
                     type: 'string',
                     description: 'Panel width',
-                    examples: ['128px'],
+                    examples: [
+                        '128px',
+                    ],
                 },
                 resize: {
                     // 尺寸可调整的方向
@@ -3108,7 +3107,6 @@
             description: 'SiYuan tab',
             additionalProperties: false,
             required: [
-                //
                 'active',
                 'children',
                 'instance',
@@ -3183,7 +3181,9 @@
                     // 图标引用 ID
                     type: 'string',
                     description: 'Icon reference ID',
-                    examples: ['iconCode'],
+                    examples: [
+                        'iconCode',
+                    ],
                 },
                 instance: {
                     // 对象名称
@@ -3216,7 +3216,6 @@
             description: 'SiYuan editor tab',
             additionalProperties: false,
             required: [
-                //
                 'blockId',
                 'instance',
                 'mode',
@@ -3276,7 +3275,6 @@
             description: 'SiYuan asset file tab',
             additionalProperties: false,
             required: [
-                //
                 'instance',
                 'path',
             ],
@@ -3292,7 +3290,9 @@
                     // 资源文件引用路径
                     type: 'string',
                     description: '(Asset) Asset reference path',
-                    examples: ['assets/filename-20210604092205-djd749a.png'],
+                    examples: [
+                        'assets/filename-20210604092205-djd749a.png',
+                    ],
                 },
                 page: {
                     // PDF 文件页码
@@ -3308,7 +3308,6 @@
             description: 'SiYuan custom tab',
             additionalProperties: false,
             required: [
-                //
                 'customModelData',
                 'customModelType',
                 'instance',
@@ -3339,7 +3338,6 @@
             description: 'SiYuan back link tab',
             additionalProperties: false,
             required: [
-                //
                 'blockId',
                 'instance',
                 'rootId',
@@ -3384,7 +3382,6 @@
             description: 'SiYuan bookmark tab',
             additionalProperties: false,
             required: [
-                //
                 'instance',
             ],
             properties: {
@@ -3404,7 +3401,6 @@
             description: 'SiYuan filetree tab',
             additionalProperties: false,
             required: [
-                //
                 'instance',
             ],
             properties: {
@@ -3424,7 +3420,6 @@
             description: 'SiYuan graph tab',
             additionalProperties: false,
             required: [
-                //
                 'blockId',
                 'instance',
                 'rootId',
@@ -3470,7 +3465,6 @@
             description: 'SiYuan outline tab',
             additionalProperties: false,
             required: [
-                //
                 'blockId',
                 'instance',
                 'isPreview',
@@ -3514,7 +3508,6 @@
             description: 'SiYuan tag tab',
             additionalProperties: false,
             required: [
-                //
                 'instance',
             ],
             properties: {
@@ -3534,7 +3527,6 @@
             description: 'SiYuan search tab',
             additionalProperties: false,
             required: [
-                //
                 'config',
                 'instance',
             ],
@@ -3559,7 +3551,6 @@
             description: 'SiYuan search tab configuration',
             additionalProperties: false,
             required: [
-                //
                 'group',
                 'hPath',
                 'hasReplace',
@@ -3822,7 +3813,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'blockquote',
                 'codeBlock',
                 'databaseBlock',
@@ -3932,7 +3922,6 @@
             description: 'SiYuan dock related configuration',
             additionalProperties: false,
             required: [
-                //
                 'data',
                 'pin',
             ],
@@ -3963,7 +3952,6 @@
             description: 'SiYuan dock tab data',
             additionalProperties: false,
             required: [
-                //
                 'hotkey',
                 'icon',
                 'show',
@@ -4019,19 +4007,24 @@
             description: 'SiYuan dock tab size',
             additionalProperties: false,
             required: [
-                //
                 'height',
                 'width',
             ],
             properties: {
                 height: {
                     // 面板高度 (单位: px)
-                    type: ['integer', 'null'],
+                    type: [
+                        'integer',
+                        'null',
+                    ],
                     description: 'Tab height (unit: px)',
                 },
                 width: {
                     // 面板宽度 (单位: px)
-                    type: ['integer', 'null'],
+                    type: [
+                        'integer',
+                        'null',
+                    ],
                     description: 'Tab width (unit: px)',
                 },
             },

@@ -177,10 +177,11 @@ embeddedLanguageFormatting = "auto"
 singleAttributePerLine = true
 
 plugins = [ #
-    "prettier-plugin-packagejson",
     "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-multiline-arrays",
 ]
 
+# REF: https://www.npmjs.com/package/@ianvs/prettier-plugin-sort-imports#importorder
 importOrder = [ #
     "^node:(.*)$",                  # Node.js builtins modules
     "<BUILTIN_MODULES>",            # Node.js builtins modules
@@ -207,6 +208,16 @@ importOrder = [ #
     "",
     "\\.(c|le|sc)ss$",
 ]
+
+# REF: https://www.npmjs.com/package/prettier-plugin-multiline-arrays
+# 数组的元素多于此处指定的数量，则会强制换行
+# -1 表示由用户手动控制是否换行 (原数组已换行则换行, 否则不换行)
+# @default -1
+multilineArraysWrapThreshold = -1
+
+# 每行元素的数量, 可以使用空格分隔指定一组数字
+# @default "1"
+multilineArraysLinePattern = "1"
 
 # REF: https://prettier.io/docs/en/configuration#configuration-overrides
 [[overrides]]

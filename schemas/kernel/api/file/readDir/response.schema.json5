@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -54,7 +53,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'isDir',
                 'isSymlink',
                 'name',
@@ -80,7 +78,9 @@
                     // 文件/文件夹最后修改时间
                     type: 'integer',
                     description: 'file/directory last modified time (Unix timestamp, seconds)',
-                    examples: [1663298365],
+                    examples: [
+                        1663298365,
+                    ],
                 },
             },
         },

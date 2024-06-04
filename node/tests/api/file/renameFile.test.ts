@@ -47,7 +47,9 @@ describe.concurrent(pathname, async () => {
             name: "rename file",
             before: async () => {
                 /* 删除可能已存在的测试文件 */
-                for (const path of ["/temp/convert/pandoc/test/rename-file/"]) {
+                for (const path of [
+                    "/temp/convert/pandoc/test/rename-file/",
+                ]) {
                     try {
                         await client.client.removeFile({
                             path,

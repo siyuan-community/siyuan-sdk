@@ -126,7 +126,10 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
     *[Symbol.iterator](): IterableIterator<[string, THandle]> {
         if (this._entries.Initialized) {
             for (const entry of this._entries.list) {
-                yield [entry.name, this._entry2handle(entry)];
+                yield [
+                    entry.name,
+                    this._entry2handle(entry),
+                ];
             }
         } else {
             throw new DOMException(...errors.INVALID_STATE);
@@ -136,7 +139,10 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
     async *entries(): AsyncGenerator<[string, THandle]> {
         await this.ls();
         for (const entry of this._entries.list) {
-            yield [entry.name, this._entry2handle(entry)];
+            yield [
+                entry.name,
+                this._entry2handle(entry),
+            ];
         }
     }
 
@@ -255,7 +261,17 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
     }
 
     protected _entry2handle(entry: TEntry): THandle {
-        const options = [entry.name, this.root, path.join(this.path, entry.name), this.path, path.join(this.relativePath, entry.name), this.relativePath, entry.isSymlink, entry.updated * 1_000, this._client] as const;
+        const options = [
+            entry.name,
+            this.root,
+            path.join(this.path, entry.name),
+            this.path,
+            path.join(this.relativePath, entry.name),
+            this.relativePath,
+            entry.isSymlink,
+            entry.updated * 1_000,
+            this._client,
+        ] as const;
         return entry.isDir ? new SiyuanFileSystemDirectoryHandle(...options) : new SiyuanFileSystemFileHandle(...options);
     }
 }

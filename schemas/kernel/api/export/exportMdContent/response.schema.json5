@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'content',
                 'hPath',
             ],

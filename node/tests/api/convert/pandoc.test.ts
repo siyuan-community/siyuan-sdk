@@ -46,7 +46,9 @@ describe.concurrent(pathname, async () => {
         {
             name: "test pandoc",
             payload: {
-                args: ["-h"],
+                args: [
+                    "-h",
+                ],
             },
             debug: false,
         },
@@ -68,7 +70,13 @@ describe.concurrent(pathname, async () => {
             },
             payload: {
                 dir: "convert-test",
-                args: ["--to", "gfm-raw_html+tex_math_dollars+pipe_tables", "test.html", "-o", "test.md"],
+                args: [
+                    "--to",
+                    "gfm-raw_html+tex_math_dollars+pipe_tables",
+                    "test.html",
+                    "-o",
+                    "test.md",
+                ],
             },
             after: async () => {
                 test("test the result of pandoc converting", async () => {

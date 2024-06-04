@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -44,7 +43,6 @@
 
             type: 'object',
             required: [
-                //
                 'id',
             ],
             // REF: https://opis.io/json-schema/2.x/object.html#propertynames
@@ -71,14 +69,18 @@
                     type: 'string',
                     description: 'block ID',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
-                    examples: ['20200812220555-lj3enxa'],
+                    examples: [
+                        '20200812220555-lj3enxa',
+                    ],
                 },
                 updated: {
                     // 块上次更新时间 YYYYMMDDhhmmss
                     type: 'string',
                     description: 'The last time the block was updated',
                     pattern: '^((?:19|20)\\d{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])([01]\\d|2[0-3])([0-5]\\d)([0-5]\\d)$',
-                    examples: ['20210714092948'],
+                    examples: [
+                        '20210714092948',
+                    ],
                 },
             },
         },

@@ -41,9 +41,26 @@ describe.concurrent(pathname, async () => {
 
     const cases: ICase[] = (() => {
         const payloads: fullTextSearchBlock.IPayload[] = [];
-        for (const groupBy of [0, 1]) {
-            for (const orderBy of [0, 1, 2, 3, 4, 5, 6, 7]) {
-                for (const method of [0, 1, 2, 3]) {
+        for (const groupBy of [
+            0,
+            1,
+        ]) {
+            for (const orderBy of [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+            ]) {
+                for (const method of [
+                    0,
+                    1,
+                    2,
+                    3,
+                ]) {
                     const query = (() => {
                         switch (method) {
                             default:

@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'url',
                 'headers',
             ],
@@ -37,7 +36,17 @@
                     type: 'string',
                     description: 'HTTP method to request\n@default: "GET"',
 
-                    enum: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE', 'CONNECT'],
+                    enum: [
+                        'GET',
+                        'HEAD',
+                        'POST',
+                        'PUT',
+                        'PATCH',
+                        'DELETE',
+                        'OPTIONS',
+                        'TRACE',
+                        'CONNECT',
+                    ],
                     default: 'GET',
                 },
                 timeout: {
@@ -65,7 +74,10 @@
                 },
                 payload: {
                     // 请求体
-                    type: ['object', 'string'],
+                    type: [
+                        'object',
+                        'string',
+                    ],
                     description: 'request body',
                 },
                 payloadEncoding: {
@@ -92,7 +104,16 @@
             title: 'TEncodeSchema',
             type: 'string',
             default: 'text',
-            enum: ['text', 'base64', 'base64-std', 'base64-url', 'base32', 'base32-std', 'base32-hex', 'hex'],
+            enum: [
+                'text',
+                'base64',
+                'base64-std',
+                'base64-url',
+                'base32',
+                'base32-std',
+                'base32-hex',
+                'hex',
+            ],
         },
     },
 }

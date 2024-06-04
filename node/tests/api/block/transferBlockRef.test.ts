@@ -141,7 +141,9 @@ describe.concurrent(pathname, async () => {
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
                 });
-                payload.refIDs = [context.notebook];
+                payload.refIDs = [
+                    context.notebook,
+                ];
             },
             payload: {
                 fromID: context.block,
@@ -159,7 +161,9 @@ describe.concurrent(pathname, async () => {
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
                 });
-                payload.refIDs = [context.document];
+                payload.refIDs = [
+                    context.document,
+                ];
             },
             payload: {
                 fromID: context.block,
@@ -177,7 +181,9 @@ describe.concurrent(pathname, async () => {
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
                 });
-                payload.refIDs = [context.block];
+                payload.refIDs = [
+                    context.block,
+                ];
             },
             payload: {
                 fromID: context.block,
@@ -195,7 +201,9 @@ describe.concurrent(pathname, async () => {
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
                 });
-                payload.refIDs = [response_insertBlock.data[0].doOperations[0].id];
+                payload.refIDs = [
+                    response_insertBlock.data[0].doOperations[0].id,
+                ];
             },
             payload: {
                 fromID: context.block,

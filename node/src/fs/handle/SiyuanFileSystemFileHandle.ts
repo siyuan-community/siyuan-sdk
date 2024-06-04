@@ -74,7 +74,9 @@ export class SiyuanFileSystemFileHandle //
                 "blob",
             );
             const file = new File(
-                [blob], //
+                [
+                    blob,
+                ], //
                 this.name,
                 {
                     lastModified: this.lastModified * 1_000,
@@ -147,7 +149,14 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                     if ("position" in chunk && Number.isInteger(chunk.position) && chunk.position && chunk.position >= 0) {
                         this.position = chunk.position;
                         if (this.size < chunk.position) {
-                            this.file = new File([this.file, new ArrayBuffer(chunk.position - this.size)], this.file.name, this.file);
+                            this.file = new File(
+                                [
+                                    this.file,
+                                    new ArrayBuffer(chunk.position - this.size),
+                                ],
+                                this.file.name,
+                                this.file,
+                            );
                         }
                     }
                     if ("data" in chunk) {
@@ -170,7 +179,22 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                 }
                 case "truncate": {
                     if (Number.isInteger(chunk.size) && chunk.size && chunk.size >= 0) {
-                        this.file = chunk.size < this.size ? new File([this.file.slice(0, chunk.size)], this.file.name, this.file) : new File([this.file, new Uint8Array(chunk.size - this.size)], this.file.name);
+                        this.file =
+                            chunk.size < this.size
+                                ? new File(
+                                      [
+                                          this.file.slice(0, chunk.size),
+                                      ],
+                                      this.file.name,
+                                      this.file,
+                                  )
+                                : new File(
+                                      [
+                                          this.file,
+                                          new Uint8Array(chunk.size - this.size),
+                                      ],
+                                      this.file.name,
+                                  );
 
                         this.size = this.file.size;
                         if (this.position > this.file.size) {
@@ -184,7 +208,9 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
             }
         }
 
-        chunk = new Blob([chunk as BlobPart]);
+        chunk = new Blob([
+            chunk as BlobPart,
+        ]);
 
         // Calc the head and tail fragments
         const head = this.file.slice(0, this.position);
@@ -195,7 +221,16 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
         if (padding < 0) {
             padding = 0;
         }
-        this.file = new File([head, new Uint8Array(padding), chunk, tail], this.file.name, this.file);
+        this.file = new File(
+            [
+                head,
+                new Uint8Array(padding),
+                chunk,
+                tail,
+            ],
+            this.file.name,
+            this.file,
+        );
 
         this.size = this.file.size;
         this.position += chunk.size;

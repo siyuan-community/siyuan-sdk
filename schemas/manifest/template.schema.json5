@@ -17,7 +17,6 @@
             type: 'object',
             additionalProperties: true,
             required: [
-                //
                 'author',
                 'name',
                 'url',
@@ -71,13 +70,17 @@
                             // GitHub sponsors 用户名
                             type: 'string',
                             description: 'The GitHub sponsors username, such as https://github.com/sponsors/<username>',
-                            examples: ['88250'],
+                            examples: [
+                                '88250',
+                            ],
                         },
                         openCollective: {
                             // Open Collective 用户名
                             type: 'string',
                             description: 'The Open Collective username, such as https://opencollective.com/<username>',
-                            examples: ['siyuan'],
+                            examples: [
+                                'siyuan',
+                            ],
                         },
                         patreon: {
                             // Patreon 用户名
@@ -117,7 +120,9 @@
                     type: 'string',
                     description: 'The GitHub repository URL of the resource',
                     format: 'uri',
-                    examples: ['https://github.com/siyuan-note/template-sample'],
+                    examples: [
+                        'https://github.com/siyuan-note/template-sample',
+                    ],
                 },
                 version: {
                     // 资源版本号
@@ -136,7 +141,6 @@
 
             additionalProperties: true,
             required: [
-                //
                 'default',
             ],
             properties: {

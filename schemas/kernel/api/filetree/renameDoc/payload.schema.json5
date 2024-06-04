@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'notebook',
                 'path',
                 'title',
@@ -36,7 +35,10 @@
                     type: 'string',
                     description: 'Document path, which needs to start with / and separate levels with /\npath here corresponds to the database path field',
                     pattern: '^(/\\d{14}-[0-9a-z]{7})+\\.sy$',
-                    examples: ['/20200812220555-lj3enxa.sy', '/20200812220555-lj3enxa/20210808180320-fqgskfj.sy'],
+                    examples: [
+                        '/20200812220555-lj3enxa.sy',
+                        '/20200812220555-lj3enxa/20210808180320-fqgskfj.sy',
+                    ],
                 },
                 title: {
                     // 文档的新标题

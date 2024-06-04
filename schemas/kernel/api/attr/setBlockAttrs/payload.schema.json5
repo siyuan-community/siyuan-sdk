@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'id',
                 'attrs',
             ],
@@ -40,7 +39,10 @@
 
             type: 'object',
             additionalProperties: {
-                type: ['string', 'null'],
+                type: [
+                    'string',
+                    'null',
+                ],
             },
             // REF: https://opis.io/json-schema/2.x/object.html#propertynames
             propertyNames: {

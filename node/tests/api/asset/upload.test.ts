@@ -42,7 +42,13 @@ describe.concurrent(pathname, async () => {
             name: "test upload file",
             payload: {
                 files: [
-                    new File(["test0.txt"], "test0.txt", { type: "text/plain" }), //
+                    new File(
+                        [
+                            "test0.txt",
+                        ],
+                        "test0.txt",
+                        { type: "text/plain" },
+                    ), //
                 ],
             },
             debug: false,
@@ -52,8 +58,20 @@ describe.concurrent(pathname, async () => {
             name: "test upload files",
             payload: {
                 files: [
-                    new File(["test1.txt"], "test1.txt", { type: "text/plain" }), //
-                    new File(["test2.txt"], "test2.txt", { type: "text/plain" }),
+                    new File(
+                        [
+                            "test1.txt",
+                        ],
+                        "test1.txt",
+                        { type: "text/plain" },
+                    ), //
+                    new File(
+                        [
+                            "test2.txt",
+                        ],
+                        "test2.txt",
+                        { type: "text/plain" },
+                    ),
                 ],
             },
             debug: false,
@@ -64,8 +82,20 @@ describe.concurrent(pathname, async () => {
             payload: {
                 assetsDirPath: "/assets/dir1/dir2/",
                 files: [
-                    new File(["test3.txt"], "test3.txt", { type: "text/plain" }), //
-                    new File(["test4.txt"], "test4.txt", { type: "text/plain" }),
+                    new File(
+                        [
+                            "test3.txt",
+                        ],
+                        "test3.txt",
+                        { type: "text/plain" },
+                    ), //
+                    new File(
+                        [
+                            "test4.txt",
+                        ],
+                        "test4.txt",
+                        { type: "text/plain" },
+                    ),
                 ],
             },
             debug: false,
@@ -93,7 +123,10 @@ describe.concurrent(pathname, async () => {
 
                     /* 测试文件是是否能正常获取到 */
                     test("test the file is accessible", async () => {
-                        for (const [filename, filepath] of Object.entries(response.data.succMap)) {
+                        for (const [
+                            filename,
+                            filepath,
+                        ] of Object.entries(response.data.succMap)) {
                             const path = `/data/${filepath}`;
                             await expect
                                 .soft(

@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'snippets',
             ],
             properties: {
@@ -40,7 +39,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'id',
                 'name',
                 'type',

@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'notebook',
                 'path',
             ],
@@ -33,7 +32,18 @@
                     // 文档文件/文件夹路径
                     type: 'string',
                     description: 'document file/folder path',
-                    examples: ['', '/', '.', './', '20210117215840-jcl17fx', '/20210117215840-jcl17fx', './20210117215840-jcl17fx', '20210117215840-jcl17fx.sy', '/20210117215840-jcl17fx.sy', './20210117215840-jcl17fx.sy'],
+                    examples: [
+                        '',
+                        '/',
+                        '.',
+                        './',
+                        '20210117215840-jcl17fx',
+                        '/20210117215840-jcl17fx',
+                        './20210117215840-jcl17fx',
+                        '20210117215840-jcl17fx.sy',
+                        '/20210117215840-jcl17fx.sy',
+                        './20210117215840-jcl17fx.sy',
+                    ],
                 },
                 sort: {
                     // 文档排序规则

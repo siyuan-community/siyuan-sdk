@@ -34,7 +34,11 @@ describe(pathname, async () => {
     const validate_response = schema_response.constructValidateFuction();
 
     const notebook_name = "moveDocs";
-    const hpaths = ["/path1", "/path1/path2", "/path1/path2/moveDocs"];
+    const hpaths = [
+        "/path1",
+        "/path1/path2",
+        "/path1/path2/moveDocs",
+    ];
     const markdown = "# moveDocs\n";
     const hpath = "/moveDocs";
     testKernelAPI<moveDocs.IPayload, moveDocs.IResponse>({

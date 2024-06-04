@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'code',
                 'msg',
                 'data',
@@ -56,7 +55,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'timestamp',
                 'doOperations',
                 'undoOperations',
@@ -93,7 +91,6 @@
             type: 'object',
             additionalProperties: true,
             required: [
-                //
                 'action',
                 'data',
                 'id',

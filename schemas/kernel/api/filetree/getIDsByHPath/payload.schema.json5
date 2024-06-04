@@ -19,7 +19,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                //
                 'notebook',
                 'path',
             ],
@@ -35,7 +34,10 @@
                     type: 'string',
                     description: 'Document path, which needs to start with / and separate levels with /\npath here corresponds to the database hpath field',
                     pattern: '^(/[^/\\t\\r\\n\\u2028\\u2029]+)+$',
-                    examples: ['/doc-name', '/parent-doc-name/doc-name'],
+                    examples: [
+                        '/doc-name',
+                        '/parent-doc-name/doc-name',
+                    ],
                 },
             },
         },

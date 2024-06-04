@@ -93,6 +93,15 @@ export async function json2types(jsonFilePath: string): Promise<string> {
     if (!fs.existsSync(ts_path)) {
         fs.mkdirSync(path.parse(ts_path).dir, { recursive: true }); // 目录不存在则创建目录
     }
-    fs.writeFileSync(ts_path, [LICENSE, REGION_BEGIN_CONTENT, ...ts.lines, REGION_END_CONTENT, ""].join("\n"));
+    fs.writeFileSync(
+        ts_path,
+        [
+            LICENSE,
+            REGION_BEGIN_CONTENT,
+            ...ts.lines,
+            REGION_END_CONTENT,
+            "",
+        ].join("\n"),
+    );
     return ts_path;
 }

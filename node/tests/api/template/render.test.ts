@@ -37,7 +37,7 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
+                id: "20240608220538-at6p2x4", // 测试/模板渲染测试
                 path: `${process.env.VITE_SIYUAN_WORKSPACE_PATH}/temp/convert/test/render/test.md`,
             },
             validate: validate_payload,

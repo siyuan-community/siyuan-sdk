@@ -37,7 +37,7 @@ describe.concurrent(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
+                id: "20240608221014-g7o9pk5", // 测试/exportMdContent
             },
             validate: validate_payload,
         },

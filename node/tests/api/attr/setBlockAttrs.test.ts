@@ -46,7 +46,7 @@ describe(pathname, async () => {
         {
             name: "set block attr",
             payload: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
+                id: "20240608220844-2jfu489", // 测试/块属性测试
                 attrs: {
                     "custom-test-set": "1",
                 },
@@ -55,7 +55,7 @@ describe(pathname, async () => {
                 test("test the result of set attrs", async () => {
                     await expect(
                         client.client.getBlockAttrs({
-                            id: "20200812220555-lj3enxa",
+                            id: "20240608220844-2jfu489",
                         }),
                     ).resolves.toMatchObject({
                         code: 0,
@@ -72,7 +72,7 @@ describe(pathname, async () => {
             name: "delete block attr",
             before: async () => {
                 await client.client.setBlockAttrs({
-                    id: "20200812220555-lj3enxa",
+                    id: "20240608220844-2jfu489",
                     attrs: {
                         "custom-test-delete-empty": "1",
                         "custom-test-delete-null": "2",
@@ -80,7 +80,7 @@ describe(pathname, async () => {
                 });
             },
             payload: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
+                id: "20240608220844-2jfu489", // 测试/块属性测试
                 attrs: {
                     "custom-test-delete-empty": "",
                     "custom-test-delete-null": null,
@@ -89,7 +89,7 @@ describe(pathname, async () => {
             after: async () => {
                 test("test the result of set attrs", async () => {
                     const response = await client.client.getBlockAttrs({
-                        id: "20200812220555-lj3enxa",
+                        id: "20240608220844-2jfu489",
                     });
                     expect(response.data["custom-test-delete-empty"], `delete attr by set value to ""`).toBeUndefined();
                     expect(response.data["custom-test-delete-null"], `delete attr by set value to null`).toBeUndefined();

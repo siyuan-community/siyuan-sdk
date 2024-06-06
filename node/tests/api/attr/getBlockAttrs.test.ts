@@ -37,7 +37,7 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
+                id: "20240608220844-2jfu489", // 测试/块属性测试
             },
             validate: validate_payload,
         },

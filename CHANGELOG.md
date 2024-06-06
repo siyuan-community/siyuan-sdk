@@ -6,6 +6,7 @@
 - 添加 `Husky` 配置 | Add `Husky` configuration
 - Prettier 支持排序模块导入 | Prettier supports sorting module imports
 - Prettier 支持数组换行 | Prettier supports array line breaks
+- 优化部分测试用例 | Optimize some test cases
 
 ## v0.3.11 / 2024-05-14
 

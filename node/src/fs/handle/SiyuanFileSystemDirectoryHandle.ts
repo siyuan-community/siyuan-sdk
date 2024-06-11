@@ -223,14 +223,12 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         const entry: TEntry | undefined = this._entries.files.get(name) ?? this._entries.directories.get(name);
 
         if (entry) {
-            if (
-                !entry.isDir || // 文件
-                (entry.isDir && options?.recursive) // 递归删除目录
-            ) {
-            } else {
+            if (entry.isDir && !options?.recursive) {
+                // 非递归删除一个目录
                 const handle = this._entry2handle(entry) as SiyuanFileSystemDirectoryHandle;
                 await handle.ls();
                 if (handle.length > 0) {
+                    // 目录非空
                     throw new DOMException(...errors.INVALID_MODIFICATION(relative_path));
                 }
             }
@@ -252,11 +250,11 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
     async resolve(possibleDescendant: SiyuanFileSystemHandle): Promise<string[] | null> {
         switch (true) {
             case this.path === possibleDescendant.path:
-                return [];
+                return Promise.resolve([]);
             case possibleDescendant.path.startsWith(this.path):
-                return path.relative(this.relativePath, possibleDescendant.relativePath).split(path.sep);
+                return Promise.resolve(path.relative(this.relativePath, possibleDescendant.relativePath).split(path.sep));
             default:
-                return null;
+                return Promise.resolve(null);
         }
     }
 

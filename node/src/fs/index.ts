@@ -38,18 +38,20 @@ export class SiyuanFileSystem implements Pick<StorageManager, "getDirectory"> {
 
     async getDirectory(): Promise<SiyuanFileSystemDirectoryHandle> {
         const info = path.parse(this.root);
-        return new SiyuanFileSystemDirectoryHandle(
-            info.base,
+        return Promise.resolve(
+            new SiyuanFileSystemDirectoryHandle(
+                info.base,
 
-            this.root,
-            this.root,
-            info.dir,
-            ".",
-            "..",
-            false,
-            new Date().getTime(),
+                this.root,
+                this.root,
+                info.dir,
+                ".",
+                "..",
+                false,
+                new Date().getTime(),
 
-            this._client,
+                this._client,
+            ),
         );
     }
 }

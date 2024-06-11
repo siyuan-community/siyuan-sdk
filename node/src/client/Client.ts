@@ -221,7 +221,7 @@ export class Client implements IFetch {
         return records;
     }
 
-    public static headers2entries(headers: { [key: string]: string[] }): Array<[string, string]> {
+    public static headers2entries(headers: Record<string, string[]>): Array<[string, string]> {
         const entries: Array<[string, string]> = [];
         Object.entries(headers).forEach(
             ([
@@ -484,6 +484,7 @@ export class Client implements IFetch {
             : `${url.pathname}${Client.ws.broadcast.pathname}`;
         url.search = searchParams.toString();
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         return new Websocket(url, protocols);
     }
 
@@ -497,12 +498,12 @@ export class Client implements IFetch {
         formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
         payload.files.forEach((file) => formdata.append("file[]", file));
 
-        const response = (await this._request(
+        const response: kernel.api.asset.upload.IResponse = await this._request(
             Client.api.asset.upload.pathname, //
             Client.api.asset.upload.method,
             formdata,
             config,
-        )) as kernel.api.asset.upload.IResponse;
+        );
         return response;
     }
 
@@ -511,23 +512,23 @@ export class Client implements IFetch {
         payload: kernel.api.attr.getBlockAttrs.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.attr.getBlockAttrs.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.attr.getBlockAttrs.IResponse = await this._request(
             Client.api.attr.getBlockAttrs.pathname, //
             Client.api.attr.getBlockAttrs.method,
             payload,
             config,
-        )) as kernel.api.attr.getBlockAttrs.IResponse;
+        );
         return response;
     }
 
     /* 获取所有书签 */
     public async getBookmarkLabels(config?: TempOptions): Promise<kernel.api.attr.getBookmarkLabels.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.attr.getBookmarkLabels.IResponse = await this._request(
             Client.api.attr.getBookmarkLabels.pathname, //
             Client.api.attr.getBookmarkLabels.method,
             undefined,
             config,
-        )) as kernel.api.attr.getBookmarkLabels.IResponse;
+        );
         return response;
     }
 
@@ -536,12 +537,12 @@ export class Client implements IFetch {
         payload: kernel.api.attr.setBlockAttrs.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.attr.setBlockAttrs.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.attr.setBlockAttrs.IResponse = await this._request(
             Client.api.attr.setBlockAttrs.pathname, //
             Client.api.attr.setBlockAttrs.method,
             payload,
             config,
-        )) as kernel.api.attr.setBlockAttrs.IResponse;
+        );
         return response;
     }
 
@@ -550,12 +551,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.appendBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.appendBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.appendBlock.IResponse = await this._request(
             Client.api.block.appendBlock.pathname, //
             Client.api.block.appendBlock.method,
             payload,
             config,
-        )) as kernel.api.block.appendBlock.IResponse;
+        );
         return response;
     }
 
@@ -564,12 +565,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.deleteBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.deleteBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.deleteBlock.IResponse = await this._request(
             Client.api.block.deleteBlock.pathname, //
             Client.api.block.deleteBlock.method,
             payload,
             config,
-        )) as kernel.api.block.deleteBlock.IResponse;
+        );
         return response;
     }
 
@@ -578,12 +579,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.foldBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.foldBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.foldBlock.IResponse = await this._request(
             Client.api.block.foldBlock.pathname, //
             Client.api.block.foldBlock.method,
             payload,
             config,
-        )) as kernel.api.block.foldBlock.IResponse;
+        );
         return response;
     }
 
@@ -592,12 +593,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getBlockBreadcrumb.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getBlockBreadcrumb.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getBlockBreadcrumb.IResponse = await this._request(
             Client.api.block.getBlockBreadcrumb.pathname, //
             Client.api.block.getBlockBreadcrumb.method,
             payload,
             config,
-        )) as kernel.api.block.getBlockBreadcrumb.IResponse;
+        );
         return response;
     }
 
@@ -606,12 +607,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getBlockDOM.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getBlockDOM.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getBlockDOM.IResponse = await this._request(
             Client.api.block.getBlockDOM.pathname, //
             Client.api.block.getBlockDOM.method,
             payload,
             config,
-        )) as kernel.api.block.getBlockDOM.IResponse;
+        );
         return response;
     }
 
@@ -620,12 +621,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getBlockInfo.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getBlockInfo.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getBlockInfo.IResponse = await this._request(
             Client.api.block.getBlockInfo.pathname, //
             Client.api.block.getBlockInfo.method,
             payload,
             config,
-        )) as kernel.api.block.getBlockInfo.IResponse;
+        );
         return response;
     }
 
@@ -634,12 +635,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getBlockKramdown.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getBlockKramdown.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getBlockKramdown.IResponse = await this._request(
             Client.api.block.getBlockKramdown.pathname, //
             Client.api.block.getBlockKramdown.method,
             payload,
             config,
-        )) as kernel.api.block.getBlockKramdown.IResponse;
+        );
         return response;
     }
 
@@ -648,12 +649,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getChildBlocks.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getChildBlocks.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getChildBlocks.IResponse = await this._request(
             Client.api.block.getChildBlocks.pathname, //
             Client.api.block.getChildBlocks.method,
             payload,
             config,
-        )) as kernel.api.block.getChildBlocks.IResponse;
+        );
         return response;
     }
 
@@ -662,12 +663,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.getDocInfo.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.getDocInfo.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.getDocInfo.IResponse = await this._request(
             Client.api.block.getDocInfo.pathname, //
             Client.api.block.getDocInfo.method,
             payload,
             config,
-        )) as kernel.api.block.getDocInfo.IResponse;
+        );
         return response;
     }
 
@@ -676,12 +677,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.insertBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.insertBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.insertBlock.IResponse = await this._request(
             Client.api.block.insertBlock.pathname, //
             Client.api.block.insertBlock.method,
             payload,
             config,
-        )) as kernel.api.block.insertBlock.IResponse;
+        );
         return response;
     }
 
@@ -690,12 +691,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.moveBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.moveBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.moveBlock.IResponse = await this._request(
             Client.api.block.moveBlock.pathname, //
             Client.api.block.moveBlock.method,
             payload,
             config,
-        )) as kernel.api.block.moveBlock.IResponse;
+        );
         return response;
     }
 
@@ -704,12 +705,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.prependBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.prependBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.prependBlock.IResponse = await this._request(
             Client.api.block.prependBlock.pathname, //
             Client.api.block.prependBlock.method,
             payload,
             config,
-        )) as kernel.api.block.prependBlock.IResponse;
+        );
         return response;
     }
 
@@ -718,12 +719,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.transferBlockRef.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.transferBlockRef.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.transferBlockRef.IResponse = await this._request(
             Client.api.block.transferBlockRef.pathname, //
             Client.api.block.transferBlockRef.method,
             payload,
             config,
-        )) as kernel.api.block.transferBlockRef.IResponse;
+        );
         return response;
     }
 
@@ -732,12 +733,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.unfoldBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.unfoldBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.unfoldBlock.IResponse = await this._request(
             Client.api.block.unfoldBlock.pathname, //
             Client.api.block.unfoldBlock.method,
             payload,
             config,
-        )) as kernel.api.block.unfoldBlock.IResponse;
+        );
         return response;
     }
 
@@ -746,12 +747,12 @@ export class Client implements IFetch {
         payload: kernel.api.block.updateBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.block.updateBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.block.updateBlock.IResponse = await this._request(
             Client.api.block.updateBlock.pathname, //
             Client.api.block.updateBlock.method,
             payload,
             config,
-        )) as kernel.api.block.updateBlock.IResponse;
+        );
         return response;
     }
 
@@ -760,23 +761,23 @@ export class Client implements IFetch {
         payload: kernel.api.broadcast.getChannelInfo.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.broadcast.getChannelInfo.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.broadcast.getChannelInfo.IResponse = await this._request(
             Client.api.broadcast.getChannelInfo.pathname, //
             Client.api.broadcast.getChannelInfo.method,
             payload,
             config,
-        )) as kernel.api.broadcast.getChannelInfo.IResponse;
+        );
         return response;
     }
 
     /* 获取所有广播频道信息 */
     public async getChannels(config?: TempOptions): Promise<kernel.api.broadcast.getChannels.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.broadcast.getChannels.IResponse = await this._request(
             Client.api.broadcast.getChannels.pathname, //
             Client.api.broadcast.getChannels.method,
             undefined,
             config,
-        )) as kernel.api.broadcast.getChannels.IResponse;
+        );
         return response;
     }
 
@@ -785,12 +786,12 @@ export class Client implements IFetch {
         payload: kernel.api.broadcast.postMessage.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.broadcast.postMessage.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.broadcast.postMessage.IResponse = await this._request(
             Client.api.broadcast.postMessage.pathname, //
             Client.api.broadcast.postMessage.method,
             payload,
             config,
-        )) as kernel.api.broadcast.postMessage.IResponse;
+        );
         return response;
     }
 
@@ -799,12 +800,12 @@ export class Client implements IFetch {
         payload: kernel.api.convert.pandoc.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.convert.pandoc.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.convert.pandoc.IResponse = await this._request(
             Client.api.convert.pandoc.pathname, //
             Client.api.convert.pandoc.method,
             payload,
             config,
-        )) as kernel.api.convert.pandoc.IResponse;
+        );
         return response;
     }
 
@@ -813,12 +814,12 @@ export class Client implements IFetch {
         payload: kernel.api.export.exportHTML.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.export.exportHTML.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.export.exportHTML.IResponse = await this._request(
             Client.api.export.exportHTML.pathname, //
             Client.api.export.exportHTML.method,
             payload,
             config,
-        )) as kernel.api.export.exportHTML.IResponse;
+        );
         return response;
     }
 
@@ -827,12 +828,12 @@ export class Client implements IFetch {
         payload: kernel.api.export.exportMdContent.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.export.exportMdContent.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.export.exportMdContent.IResponse = await this._request(
             Client.api.export.exportMdContent.pathname, //
             Client.api.export.exportMdContent.method,
             payload,
             config,
-        )) as kernel.api.export.exportMdContent.IResponse;
+        );
         return response;
     }
 
@@ -841,12 +842,12 @@ export class Client implements IFetch {
         payload: kernel.api.export.exportResources.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.export.exportResources.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.export.exportResources.IResponse = await this._request(
             Client.api.export.exportResources.pathname, //
             Client.api.export.exportResources.method,
             payload,
             config,
-        )) as kernel.api.export.exportResources.IResponse;
+        );
         return response;
     }
 
@@ -870,8 +871,8 @@ export class Client implements IFetch {
         payload: kernel.api.file.getFile.IPayload, //
         responseType: Extract<ResponseType, "json">,
         config?: TempOptions,
-    ): Promise<any>;
-    public async getFile<R = any>(
+    ): Promise<object>;
+    public async getFile<R = unknown>(
         payload: kernel.api.file.getFile.IPayload, //
         responseType: Extract<ResponseType, "stream">,
         config?: TempOptions,
@@ -889,7 +890,7 @@ export class Client implements IFetch {
         | ArrayBuffer //
         | IBlob
         | Document
-        | any
+        | object
         | ReadableStream
         | string
     >;
@@ -941,12 +942,12 @@ export class Client implements IFetch {
             }
         }
 
-        const response = (await this._request(
+        const response: kernel.api.file.putFile.IResponse = await this._request(
             Client.api.file.putFile.pathname, //
             Client.api.file.putFile.method,
             formdata,
             config,
-        )) as kernel.api.file.putFile.IResponse;
+        );
         return response;
     }
 
@@ -955,12 +956,12 @@ export class Client implements IFetch {
         payload: kernel.api.file.readDir.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.file.readDir.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.file.readDir.IResponse = await this._request(
             Client.api.file.readDir.pathname, //
             Client.api.file.readDir.method,
             payload,
             config,
-        )) as kernel.api.file.readDir.IResponse;
+        );
         return response;
     }
 
@@ -969,12 +970,12 @@ export class Client implements IFetch {
         payload: kernel.api.file.removeFile.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.file.removeFile.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.file.removeFile.IResponse = await this._request(
             Client.api.file.removeFile.pathname, //
             Client.api.file.removeFile.method,
             payload,
             config,
-        )) as kernel.api.file.removeFile.IResponse;
+        );
         return response;
     }
 
@@ -983,12 +984,12 @@ export class Client implements IFetch {
         payload: kernel.api.file.renameFile.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.file.renameFile.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.file.renameFile.IResponse = await this._request(
             Client.api.file.renameFile.pathname, //
             Client.api.file.renameFile.method,
             payload,
             config,
-        )) as kernel.api.file.renameFile.IResponse;
+        );
         return response;
     }
 
@@ -997,12 +998,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.createDailyNote.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.createDailyNote.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.createDailyNote.IResponse = await this._request(
             Client.api.filetree.createDailyNote.pathname, //
             Client.api.filetree.createDailyNote.method,
             payload,
             config,
-        )) as kernel.api.filetree.createDailyNote.IResponse;
+        );
         return response;
     }
 
@@ -1011,12 +1012,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.createDocWithMd.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.createDocWithMd.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.createDocWithMd.IResponse = await this._request(
             Client.api.filetree.createDocWithMd.pathname, //
             Client.api.filetree.createDocWithMd.method,
             payload,
             config,
-        )) as kernel.api.filetree.createDocWithMd.IResponse;
+        );
         return response;
     }
 
@@ -1025,12 +1026,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.getDoc.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.getDoc.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.getDoc.IResponse = await this._request(
             Client.api.filetree.getDoc.pathname, //
             Client.api.filetree.getDoc.method,
             payload,
             config,
-        )) as kernel.api.filetree.getDoc.IResponse;
+        );
         return response;
     }
 
@@ -1039,12 +1040,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.getHPathByID.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.getHPathByID.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.getHPathByID.IResponse = await this._request(
             Client.api.filetree.getHPathByID.pathname, //
             Client.api.filetree.getHPathByID.method,
             payload,
             config,
-        )) as kernel.api.filetree.getHPathByID.IResponse;
+        );
         return response;
     }
 
@@ -1053,12 +1054,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.getHPathByPath.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.getHPathByPath.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.getHPathByPath.IResponse = await this._request(
             Client.api.filetree.getHPathByPath.pathname, //
             Client.api.filetree.getHPathByPath.method,
             payload,
             config,
-        )) as kernel.api.filetree.getHPathByPath.IResponse;
+        );
         return response;
     }
 
@@ -1067,12 +1068,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.getIDsByHPath.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.getIDsByHPath.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.getIDsByHPath.IResponse = await this._request(
             Client.api.filetree.getIDsByHPath.pathname, //
             Client.api.filetree.getIDsByHPath.method,
             payload,
             config,
-        )) as kernel.api.filetree.getIDsByHPath.IResponse;
+        );
         return response;
     }
 
@@ -1081,12 +1082,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.listDocsByPath.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.listDocsByPath.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.listDocsByPath.IResponse = await this._request(
             Client.api.filetree.listDocsByPath.pathname, //
             Client.api.filetree.listDocsByPath.method,
             payload,
             config,
-        )) as kernel.api.filetree.listDocsByPath.IResponse;
+        );
         return response;
     }
 
@@ -1095,12 +1096,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.moveDocs.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.moveDocs.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.moveDocs.IResponse = await this._request(
             Client.api.filetree.moveDocs.pathname, //
             Client.api.filetree.moveDocs.method,
             payload,
             config,
-        )) as kernel.api.filetree.moveDocs.IResponse;
+        );
         return response;
     }
 
@@ -1109,12 +1110,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.removeDoc.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.removeDoc.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.removeDoc.IResponse = await this._request(
             Client.api.filetree.removeDoc.pathname, //
             Client.api.filetree.removeDoc.method,
             payload,
             config,
-        )) as kernel.api.filetree.removeDoc.IResponse;
+        );
         return response;
     }
 
@@ -1123,12 +1124,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.renameDoc.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.renameDoc.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.renameDoc.IResponse = await this._request(
             Client.api.filetree.renameDoc.pathname, //
             Client.api.filetree.renameDoc.method,
             payload,
             config,
-        )) as kernel.api.filetree.renameDoc.IResponse;
+        );
         return response;
     }
 
@@ -1137,12 +1138,12 @@ export class Client implements IFetch {
         payload: kernel.api.filetree.searchDocs.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.filetree.searchDocs.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.filetree.searchDocs.IResponse = await this._request(
             Client.api.filetree.searchDocs.pathname, //
             Client.api.filetree.searchDocs.method,
             payload,
             config,
-        )) as kernel.api.filetree.searchDocs.IResponse;
+        );
         return response;
     }
 
@@ -1151,12 +1152,12 @@ export class Client implements IFetch {
         payload: kernel.api.history.getDocHistoryContent.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.history.getDocHistoryContent.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.history.getDocHistoryContent.IResponse = await this._request(
             Client.api.history.getDocHistoryContent.pathname, //
             Client.api.history.getDocHistoryContent.method,
             payload,
             config,
-        )) as kernel.api.history.getDocHistoryContent.IResponse;
+        );
         return response;
     }
 
@@ -1165,12 +1166,12 @@ export class Client implements IFetch {
         payload: kernel.api.history.getHistoryItems.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.history.getHistoryItems.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.history.getHistoryItems.IResponse = await this._request(
             Client.api.history.getHistoryItems.pathname, //
             Client.api.history.getHistoryItems.method,
             payload,
             config,
-        )) as kernel.api.history.getHistoryItems.IResponse;
+        );
         return response;
     }
 
@@ -1179,12 +1180,12 @@ export class Client implements IFetch {
         payload: kernel.api.inbox.getShorthand.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.inbox.getShorthand.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.inbox.getShorthand.IResponse = await this._request(
             Client.api.inbox.getShorthand.pathname, //
             Client.api.inbox.getShorthand.method,
             payload,
             config,
-        )) as kernel.api.inbox.getShorthand.IResponse;
+        );
         return response;
     }
 
@@ -1231,12 +1232,12 @@ export class Client implements IFetch {
             }
         }
 
-        const response = (await this._request(
+        const response: kernel.api.network.echo.IResponse = await this._request(
             Client.api.network.echo.pathname, //
             payload?.method ?? Client.api.network.echo.method,
             payload?.body,
             config,
-        )) as kernel.api.network.echo.IResponse;
+        );
         return response;
     }
 
@@ -1245,12 +1246,12 @@ export class Client implements IFetch {
         payload: kernel.api.network.forwardProxy.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.network.forwardProxy.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.network.forwardProxy.IResponse = await this._request(
             Client.api.network.forwardProxy.pathname, //
             Client.api.network.forwardProxy.method,
             payload,
             config,
-        )) as kernel.api.network.forwardProxy.IResponse;
+        );
         return response;
     }
 
@@ -1259,12 +1260,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.closeNotebook.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.closeNotebook.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.closeNotebook.IResponse = await this._request(
             Client.api.notebook.closeNotebook.pathname, //
             Client.api.notebook.closeNotebook.method,
             payload,
             config,
-        )) as kernel.api.notebook.closeNotebook.IResponse;
+        );
         return response;
     }
 
@@ -1273,12 +1274,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.createNotebook.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.createNotebook.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.createNotebook.IResponse = await this._request(
             Client.api.notebook.createNotebook.pathname, //
             Client.api.notebook.createNotebook.method,
             payload,
             config,
-        )) as kernel.api.notebook.createNotebook.IResponse;
+        );
         return response;
     }
 
@@ -1287,23 +1288,23 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.getNotebookConf.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.getNotebookConf.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.getNotebookConf.IResponse = await this._request(
             Client.api.notebook.getNotebookConf.pathname, //
             Client.api.notebook.getNotebookConf.method,
             payload,
             config,
-        )) as kernel.api.notebook.getNotebookConf.IResponse;
+        );
         return response;
     }
 
     /* 列出笔记本信息 */
     public async lsNotebooks(config?: TempOptions): Promise<kernel.api.notebook.lsNotebooks.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.lsNotebooks.IResponse = await this._request(
             Client.api.notebook.lsNotebooks.pathname, //
             Client.api.notebook.lsNotebooks.method,
             undefined,
             config,
-        )) as kernel.api.notebook.lsNotebooks.IResponse;
+        );
         return response;
     }
 
@@ -1312,12 +1313,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.openNotebook.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.openNotebook.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.openNotebook.IResponse = await this._request(
             Client.api.notebook.openNotebook.pathname, //
             Client.api.notebook.openNotebook.method,
             payload,
             config,
-        )) as kernel.api.notebook.openNotebook.IResponse;
+        );
         return response;
     }
 
@@ -1326,12 +1327,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.removeNotebook.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.removeNotebook.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.removeNotebook.IResponse = await this._request(
             Client.api.notebook.removeNotebook.pathname, //
             Client.api.notebook.removeNotebook.method,
             payload,
             config,
-        )) as kernel.api.notebook.removeNotebook.IResponse;
+        );
         return response;
     }
 
@@ -1340,12 +1341,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.renameNotebook.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.renameNotebook.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.renameNotebook.IResponse = await this._request(
             Client.api.notebook.renameNotebook.pathname, //
             Client.api.notebook.renameNotebook.method,
             payload,
             config,
-        )) as kernel.api.notebook.renameNotebook.IResponse;
+        );
         return response;
     }
 
@@ -1354,12 +1355,12 @@ export class Client implements IFetch {
         payload: kernel.api.notebook.setNotebookConf.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notebook.setNotebookConf.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notebook.setNotebookConf.IResponse = await this._request(
             Client.api.notebook.setNotebookConf.pathname, //
             Client.api.notebook.setNotebookConf.method,
             payload,
             config,
-        )) as kernel.api.notebook.setNotebookConf.IResponse;
+        );
         return response;
     }
 
@@ -1368,12 +1369,12 @@ export class Client implements IFetch {
         payload: kernel.api.notification.pushErrMsg.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notification.pushErrMsg.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notification.pushErrMsg.IResponse = await this._request(
             Client.api.notification.pushErrMsg.pathname, //
             Client.api.notification.pushErrMsg.method,
             payload,
             config,
-        )) as kernel.api.notification.pushErrMsg.IResponse;
+        );
         return response;
     }
 
@@ -1382,12 +1383,12 @@ export class Client implements IFetch {
         payload: kernel.api.notification.pushMsg.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.notification.pushMsg.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.notification.pushMsg.IResponse = await this._request(
             Client.api.notification.pushMsg.pathname, //
             Client.api.notification.pushMsg.method,
             payload,
             config,
-        )) as kernel.api.notification.pushMsg.IResponse;
+        );
         return response;
     }
 
@@ -1396,12 +1397,12 @@ export class Client implements IFetch {
         payload: kernel.api.outline.getDocOutline.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.outline.getDocOutline.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.outline.getDocOutline.IResponse = await this._request(
             Client.api.outline.getDocOutline.pathname, //
             Client.api.outline.getDocOutline.method,
             payload,
             config,
-        )) as kernel.api.outline.getDocOutline.IResponse;
+        );
         return response;
     }
 
@@ -1410,12 +1411,12 @@ export class Client implements IFetch {
         payload: kernel.api.query.sql.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.query.sql.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.query.sql.IResponse = await this._request(
             Client.api.query.sql.pathname, //
             Client.api.query.sql.method,
             payload,
             config,
-        )) as kernel.api.query.sql.IResponse;
+        );
         return response;
     }
 
@@ -1424,12 +1425,12 @@ export class Client implements IFetch {
         payload: kernel.api.repo.openRepoSnapshotDoc.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.repo.openRepoSnapshotDoc.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.repo.openRepoSnapshotDoc.IResponse = await this._request(
             Client.api.repo.openRepoSnapshotDoc.pathname, //
             Client.api.repo.openRepoSnapshotDoc.method,
             payload,
             config,
-        )) as kernel.api.repo.openRepoSnapshotDoc.IResponse;
+        );
         return response;
     }
 
@@ -1438,12 +1439,12 @@ export class Client implements IFetch {
         payload: kernel.api.search.fullTextSearchBlock.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.search.fullTextSearchBlock.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.search.fullTextSearchBlock.IResponse = await this._request(
             Client.api.search.fullTextSearchBlock.pathname, //
             Client.api.search.fullTextSearchBlock.method,
             payload,
             config,
-        )) as kernel.api.search.fullTextSearchBlock.IResponse;
+        );
         return response;
     }
 
@@ -1452,12 +1453,12 @@ export class Client implements IFetch {
         payload: kernel.api.snippet.getSnippet.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.snippet.getSnippet.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.snippet.getSnippet.IResponse = await this._request(
             Client.api.snippet.getSnippet.pathname, //
             Client.api.snippet.getSnippet.method,
             payload,
             config,
-        )) as kernel.api.snippet.getSnippet.IResponse;
+        );
         return response;
     }
 
@@ -1466,44 +1467,44 @@ export class Client implements IFetch {
         payload: kernel.api.snippet.setSnippet.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.snippet.setSnippet.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.snippet.setSnippet.IResponse = await this._request(
             Client.api.snippet.setSnippet.pathname, //
             Client.api.snippet.setSnippet.method,
             payload,
             config,
-        )) as kernel.api.snippet.setSnippet.IResponse;
+        );
         return response;
     }
 
     /* 等待业务数据持久化完成 */
     public async flushTransaction(config?: TempOptions): Promise<kernel.api.sqlite.flushTransaction.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.sqlite.flushTransaction.IResponse = await this._request(
             Client.api.sqlite.flushTransaction.pathname, //
             Client.api.sqlite.flushTransaction.method,
             config,
-        )) as kernel.api.sqlite.flushTransaction.IResponse;
+        );
         return response;
     }
 
     /* 获取所有本地存储的数据 */
     public async getLocalStorage(config?: TempOptions): Promise<kernel.api.storage.getLocalStorage.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.storage.getLocalStorage.IResponse = await this._request(
             Client.api.storage.getLocalStorage.pathname, //
             Client.api.storage.getLocalStorage.method,
             undefined,
             config,
-        )) as kernel.api.storage.getLocalStorage.IResponse;
+        );
         return response;
     }
 
     /* 查询最近打开的文档 */
     public async getRecentDocs(config?: TempOptions): Promise<kernel.api.storage.getRecentDocs.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.storage.getRecentDocs.IResponse = await this._request(
             Client.api.storage.getRecentDocs.pathname, //
             Client.api.storage.getRecentDocs.method,
             undefined,
             config,
-        )) as kernel.api.storage.getRecentDocs.IResponse;
+        );
         return response;
     }
 
@@ -1512,12 +1513,12 @@ export class Client implements IFetch {
         payload: kernel.api.storage.setLocalStorage.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.storage.setLocalStorage.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.storage.setLocalStorage.IResponse = await this._request(
             Client.api.storage.setLocalStorage.pathname, //
             Client.api.storage.setLocalStorage.method,
             payload,
             config,
-        )) as kernel.api.storage.setLocalStorage.IResponse;
+        );
         return response;
     }
 
@@ -1526,34 +1527,34 @@ export class Client implements IFetch {
         payload: kernel.api.storage.setLocalStorageVal.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.storage.setLocalStorageVal.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.storage.setLocalStorageVal.IResponse = await this._request(
             Client.api.storage.setLocalStorageVal.pathname, //
             Client.api.storage.setLocalStorageVal.method,
             payload,
             config,
-        )) as kernel.api.storage.setLocalStorageVal.IResponse;
+        );
         return response;
     }
 
     /* 获取内核启动进度 */
     public async bootProgress(config?: TempOptions): Promise<kernel.api.system.bootProgress.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.bootProgress.IResponse = await this._request(
             Client.api.system.bootProgress.pathname, //
             Client.api.system.bootProgress.method,
             undefined,
             config,
-        )) as kernel.api.system.bootProgress.IResponse;
+        );
         return response;
     }
 
     /* 获得内核 Unix 时间戳 (单位: ms) */
     public async currentTime(config?: TempOptions): Promise<kernel.api.system.currentTime.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.currentTime.IResponse = await this._request(
             Client.api.system.currentTime.pathname, //
             Client.api.system.currentTime.method,
             undefined,
             config,
-        )) as kernel.api.system.currentTime.IResponse;
+        );
         return response;
     }
 
@@ -1562,45 +1563,45 @@ export class Client implements IFetch {
         payload: kernel.api.system.exit.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.system.exit.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.exit.IResponse = await this._request(
             Client.api.system.exit.pathname, //
             Client.api.system.exit.method,
             payload,
             config,
-        )) as kernel.api.system.exit.IResponse;
+        );
         return response;
     }
 
     /* 获得配置 */
     public async getConf(config?: TempOptions): Promise<kernel.api.system.getConf.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.getConf.IResponse = await this._request(
             Client.api.system.getConf.pathname, //
             Client.api.system.getConf.method,
             undefined,
             config,
-        )) as kernel.api.system.getConf.IResponse;
+        );
         return response;
     }
 
     /* 注销登录状态 */
     public async logoutAuth(config?: TempOptions): Promise<kernel.api.system.logoutAuth.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.logoutAuth.IResponse = await this._request(
             Client.api.system.logoutAuth.pathname, //
             Client.api.system.logoutAuth.method,
             undefined,
             config,
-        )) as kernel.api.system.logoutAuth.IResponse;
+        );
         return response;
     }
 
     /* 获得内核版本 */
     public async version(config?: TempOptions): Promise<kernel.api.system.version.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.system.version.IResponse = await this._request(
             Client.api.system.version.pathname, //
             Client.api.system.version.method,
             undefined,
             config,
-        )) as kernel.api.system.version.IResponse;
+        );
         return response;
     }
 
@@ -1609,12 +1610,12 @@ export class Client implements IFetch {
         payload: kernel.api.template.render.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.template.render.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.template.render.IResponse = await this._request(
             Client.api.template.render.pathname, //
             Client.api.template.render.method,
             payload,
             config,
-        )) as kernel.api.template.render.IResponse;
+        );
         return response;
     }
 
@@ -1623,18 +1624,18 @@ export class Client implements IFetch {
         payload: kernel.api.template.renderSprig.IPayload, //
         config?: TempOptions,
     ): Promise<kernel.api.template.renderSprig.IResponse> {
-        const response = (await this._request(
+        const response: kernel.api.template.renderSprig.IResponse = await this._request(
             Client.api.template.renderSprig.pathname, //
             Client.api.template.renderSprig.method,
             payload,
             config,
-        )) as kernel.api.template.renderSprig.IResponse;
+        );
         return response;
     }
 
     public async _request<
-        P extends kernel.kernel.IPayload, //
-        R,
+        R, //
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1644,8 +1645,8 @@ export class Client implements IFetch {
         responseType?: "json",
     ): Promise<R>;
     public async _request<
-        P extends kernel.kernel.IPayload, //
-        R,
+        R, //
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1655,8 +1656,8 @@ export class Client implements IFetch {
         responseType?: ResponseType,
     ): Promise<R>;
     public async _request<
-        P extends kernel.kernel.IPayload, //
-        R,
+        R, //
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1677,7 +1678,7 @@ export class Client implements IFetch {
                         default:
                             return responseType;
                     }
-                })();
+                })() as FetchResponseType;
                 const response = await this._fetch<
                     R, //
                     FetchResponseType
@@ -1687,8 +1688,8 @@ export class Client implements IFetch {
                         method,
                         body: payload,
                         responseType,
-                        onResponse: async (context) => {
-                            switch (context.response.status) {
+                        onResponse: (context) => {
+                            switch (context.response.status as axios.HttpStatusCode) {
                                 case axios.HttpStatusCode.Ok:
                                     switch (responseType) {
                                         case "blob":
@@ -1741,7 +1742,7 @@ export class Client implements IFetch {
                     responseType,
                     ...options,
                 });
-                switch (response.status) {
+                switch (response.status as axios.HttpStatusCode) {
                     case axios.HttpStatusCode.Ok:
                         if (normal && responseType === "json" && typeof response.data === "object") {
                             return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
@@ -1749,7 +1750,7 @@ export class Client implements IFetch {
                             switch (responseType) {
                                 case "blob":
                                     if ("content-type" in response.headers) {
-                                        (response.data as IBlob).contentType = response.headers["content-type"];
+                                        (response.data as IBlob).contentType = response.headers["content-type"] as string;
                                     }
                                     break;
                                 default:
@@ -1766,9 +1767,10 @@ export class Client implements IFetch {
                             return response.data;
                         }
 
-                    default:
+                    default: {
                         const error = new HTTPError(response);
                         throw error;
+                    }
                 }
             }
         }

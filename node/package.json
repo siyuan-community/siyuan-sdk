@@ -88,7 +88,8 @@
         "axios": "^1.7.2",
         "isomorphic-ws": "^5.0.0",
         "js-base64": "^3.7.7",
-        "ofetch": "^1.3.4"
+        "ofetch": "^1.3.4",
+        "ws": "^8.17.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.4.0",
@@ -108,16 +109,15 @@
         "json5": "^2.2.3",
         "npm-run-all": "^4.1.5",
         "path-browserify": "^1.0.1",
-        "prettier": "^3.3.1",
+        "prettier": "^3.3.2",
         "prettier-plugin-multiline-arrays": "^3.0.6",
         "quicktype-core": "^23.0.170",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5",
-        "typescript-eslint": "^7.12.0",
+        "typescript-eslint": "^7.13.0",
         "vite": "^5.2.13",
         "vite-plugin-dts": "^3.9.1",
         "vite-plugin-static-copy": "^1.0.5",
-        "vitest": "^1.6.0",
-        "ws": "^8.17.0"
+        "vitest": "^1.6.0"
     }
 }

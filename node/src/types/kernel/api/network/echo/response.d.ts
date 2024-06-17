@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 //#region content
@@ -152,7 +152,7 @@ export interface IRequest {
      *
      * The value -1 indicates that the length is unknown.
      *
-     * Values >= 0 indicate that the given number of bytes may be read from Body.
+     * Values `>=` 0 indicate that the given number of bytes may be read from Body.
      *
      * For client requests, a value of 0 with a non-nil Body is also treated as unknown.
      */
@@ -459,7 +459,7 @@ export interface IFile {
      */
     Filename: string;
     /**
-     * {@link A MIMEHeader represents a MIME-style header mapping keys to sets of values.}
+     * {@link https://pkg.go.dev/net/http#Header}
      *
      * A MIMEHeader represents a MIME-style header mapping keys to sets of values.
      */
@@ -846,10 +846,10 @@ export interface IURL {
      * To obtain the path, String uses u.EscapedPath().
      *
      * In the second form, the following rules apply:
-     * - if u.Scheme is empty, scheme: is omitted.
-     * - if u.User is nil, userinfo@ is omitted.
-     * - if u.Host is empty, host/ is omitted.
-     * - if u.Scheme and u.Host are empty and u.User is nil, the entire scheme://userinfo@host/
+     * - if u.Scheme is empty, `scheme:` is omitted.
+     * - if u.User is nil, `userinfo@` is omitted.
+     * - if u.Host is empty, `host/` is omitted.
+     * - if u.Scheme and u.Host are empty and u.User is nil, the entire `scheme://userinfo@host/`
      * is omitted.
      * - if u.Host is non-empty and u.Path begins with a /, the form host/path does not add its
      * own /.

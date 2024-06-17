@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 //#region content
@@ -22,7 +22,7 @@
 export interface IPayload {
     /**
      * Content-Type for request body
-     * @default: "application/json"
+     * @defaultValue "application/json"
      */
     contentType?: string;
     /**
@@ -31,7 +31,7 @@ export interface IPayload {
     headers: { [key: string]: string }[];
     /**
      * HTTP method to request
-     * @default: "GET"
+     * @defaultValue "GET"
      */
     method?: TRequestMethod;
     /**
@@ -40,17 +40,17 @@ export interface IPayload {
     payload?: Payload;
     /**
      * Encoding schema for request payload
-     * @default: "text"
+     * @defaultValue "text"
      */
     payloadEncoding?: TEncodeSchema;
     /**
      * Encoding schema for response body
-     * @default: "text"
+     * @defaultValue "text"
      */
     responseEncoding?: TEncodeSchema;
     /**
      * timeout to request (ms)
-     * @default: 7000
+     * @defaultValue 7000
      */
     timeout?: number;
     /**
@@ -61,7 +61,7 @@ export interface IPayload {
 
 /**
  * HTTP method to request
- * @default: "GET"
+ * @defaultValue "GET"
  */
 export type TRequestMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "TRACE" | "CONNECT";
 
@@ -72,10 +72,10 @@ export type Payload = { [key: string]: any } | string;
 
 /**
  * Encoding schema for request payload
- * @default: "text"
+ * @defaultValue "text"
  *
  * Encoding schema for response body
- * @default: "text"
+ * @defaultValue "text"
  */
 export type TEncodeSchema = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
 

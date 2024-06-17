@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 import { Client } from "@/index";
@@ -22,16 +22,16 @@ import { Client } from "@/index";
  */
 export class SiyuanFileSystemHandle implements FileSystemHandle {
     /**
-     * @param kind 资源类型 {@link https://fs.spec.whatwg.org/#dom-filesystemhandle-kind}
-     * @param name 资源名称 {@link https://fs.spec.whatwg.org/#dom-filesystemhandle-name}
-     * @param root 工作空间根目录
-     * @param path 资源完整路径
-     * @param directory 资源所在目录完整路径
-     * @param relativePath 资源相对路径
-     * @param relativeDirectory 目录相对路径
-     * @param isSymlink 是否为软连接
-     * @param lastModified 最后修改时间
-     * @param _client 客户端实例
+     * @param kind - 资源类型 {@link https://fs.spec.whatwg.org/#dom-filesystemhandle-kind}
+     * @param name - 资源名称 {@link https://fs.spec.whatwg.org/#dom-filesystemhandle-name}
+     * @param root - 工作空间根目录
+     * @param path - 资源完整路径
+     * @param directory - 资源所在目录完整路径
+     * @param relativePath - 资源相对路径
+     * @param relativeDirectory - 目录相对路径
+     * @param isSymlink - 是否为软连接
+     * @param lastModified - 最后修改时间
+     * @param _client - 客户端实例
      */
     constructor(
         readonly kind: FileSystemHandleKind,
@@ -51,7 +51,7 @@ export class SiyuanFileSystemHandle implements FileSystemHandle {
     /**
      * 判断节点是否为同一节点
      * @see {@link https://fs.spec.whatwg.org/#api-filesystemhandle-issameentry}
-     * @param other 另一个节点
+     * @param other - 另一个节点
      * @returns 是否为同一节点
      */
     public isSameEntry(other: SiyuanFileSystemHandle): Promise<boolean> {

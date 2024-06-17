@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 //#region content
@@ -26,7 +26,7 @@ export interface IPayload {
     flashcard?: boolean;
     /**
      * max list count of docs
-     * <= 0: unlimited
+     * `<= 0`: unlimited
      */
     maxListCount?: number;
     /**

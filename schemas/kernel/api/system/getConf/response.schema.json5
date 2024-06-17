@@ -2838,7 +2838,15 @@
                     // 编译时确定的操作系统名称 (使用命令 `go tool dist list` 获取)
                     type: 'string',
                     title: 'TSystemOS',
-                    description: 'The operating system name determined at compile time (obtained using the command `go tool dist list`)\n- `android`: Android\n- `darwin`: macOS\n- `ios`: iOS\n- `linux`: Linux\n- `windows`: Windows',
+                    description: '\
+The operating system name determined at compile time\
+\n(obtained using the command `go tool dist list`)\
+\n- `android`: Android\
+\n- `darwin`: macOS\
+\n- `ios`: iOS\
+\n- `linux`: Linux\
+\n- `windows`: Windows\
+',
                     enum: [
                         'android', // Android
                         'darwin', // macOS
@@ -3603,7 +3611,7 @@
                 method: {
                     // 搜索方案
                     type: 'integer',
-                    description: 'Search scheme\n- `0`: Keyword (default)\n- `1`: Query syntax\n- `2`: SQL\n- `3`: Regular expression\n@default 0',
+                    description: 'Search scheme\n- `0`: Keyword (default)\n- `1`: Query syntax\n- `2`: SQL\n- `3`: Regular expression\n@defaultValue 0',
                     enum: [
                         0, // 关键字
                         1, // 查询语法
@@ -3639,7 +3647,7 @@
                 sort: {
                     // 查询结果排序方案
                     type: 'integer',
-                    description: 'Search result sorting scheme\n- `0`: Block type (default)\n- `1`: Ascending by creation time\n- `2`: Descending by creation time\n- `3`: Ascending by update time\n- `4`: Descending by update time\n- `5`: By content order (only valid when grouping by document)\n- `6`: Ascending by relevance\n- `7`: Descending by relevance\n@default 0',
+                    description: 'Search result sorting scheme\n- `0`: Block type (default)\n- `1`: Ascending by creation time\n- `2`: Descending by creation time\n- `3`: Ascending by update time\n- `4`: Descending by update time\n- `5`: By content order (only valid when grouping by document)\n- `6`: Ascending by relevance\n- `7`: Descending by relevance\n@defaultValue 0',
                     enum: [
                         0, // 按块类型
                         1, // 按创建时间升序
@@ -3669,139 +3677,139 @@
                 aHref: {
                     // 超链接地址
                     type: 'boolean',
-                    description: 'Replace hyperlinks\n@default false',
+                    description: 'Replace hyperlinks\n@defaultValue false',
                     default: false,
                 },
                 aText: {
                     // 超链接锚文本
                     type: 'boolean',
-                    description: 'Replace hyperlink anchor text\n@default true',
+                    description: 'Replace hyperlink anchor text\n@defaultValue true',
                     default: true,
                 },
                 aTitle: {
                     // 超链接标题
                     type: 'boolean',
-                    description: 'Replace hyperlink title\n@default true',
+                    description: 'Replace hyperlink title\n@defaultValue true',
                     default: true,
                 },
                 code: {
                     // 行内代码
                     type: 'boolean',
-                    description: 'Replace inline code\n@default false',
+                    description: 'Replace inline code\n@defaultValue false',
                     default: false,
                 },
                 codeBlock: {
                     // 代码块
                     type: 'boolean',
-                    description: 'Replace code blocks\n@default false',
+                    description: 'Replace code blocks\n@defaultValue false',
                     default: false,
                 },
                 docTitle: {
                     // 文档标题
                     type: 'boolean',
-                    description: 'Replace document title\n@default true',
+                    description: 'Replace document title\n@defaultValue true',
                     default: true,
                 },
                 em: {
                     // 斜体元素
                     type: 'boolean',
-                    description: 'Replace italic elements\n@default true',
+                    description: 'Replace italic elements\n@defaultValue true',
                     default: true,
                 },
                 htmlBlock: {
                     // HTML 块
                     type: 'boolean',
-                    description: 'Replace HTML blocks\n@default false',
+                    description: 'Replace HTML blocks\n@defaultValue false',
                     default: false,
                 },
                 imgSrc: {
                     // 图片地址
                     type: 'boolean',
-                    description: 'Replace image addresses\n@default false',
+                    description: 'Replace image addresses\n@defaultValue false',
                     default: false,
                 },
                 imgText: {
                     // 图标锚文本
                     type: 'boolean',
-                    description: 'Replace image anchor text\n@default true',
+                    description: 'Replace image anchor text\n@defaultValue true',
                     default: true,
                 },
                 imgTitle: {
                     // 图片标题
                     type: 'boolean',
-                    description: 'Replace image titles\n@default true',
+                    description: 'Replace image titles\n@defaultValue true',
                     default: true,
                 },
                 inlineMath: {
                     // 行内公式
                     type: 'boolean',
-                    description: 'Replace inline formulas\n@default false',
+                    description: 'Replace inline formulas\n@defaultValue false',
                     default: false,
                 },
                 inlineMemo: {
                     // 行内备注
                     type: 'boolean',
-                    description: 'Replace inline memos\n@default true',
+                    description: 'Replace inline memos\n@defaultValue true',
                     default: true,
                 },
                 kbd: {
                     // 按键元素
                     type: 'boolean',
-                    description: 'Replace kdb elements\n@default true',
+                    description: 'Replace kdb elements\n@defaultValue true',
                     default: true,
                 },
                 mark: {
                     // 标记元素
                     type: 'boolean',
-                    description: 'Replace mark elements\n@default true',
+                    description: 'Replace mark elements\n@defaultValue true',
                     default: true,
                 },
                 mathBlock: {
                     // 公式块
                     type: 'boolean',
-                    description: 'Replace formula blocks\n@default false',
+                    description: 'Replace formula blocks\n@defaultValue false',
                     default: false,
                 },
                 s: {
                     // 删除元素
                     type: 'boolean',
-                    description: 'Replace delete elements\n@default true',
+                    description: 'Replace delete elements\n@defaultValue true',
                     default: true,
                 },
                 strong: {
                     // 粗体元素
                     type: 'boolean',
-                    description: 'Replace bold elements\n@default true',
+                    description: 'Replace bold elements\n@defaultValue true',
                     default: true,
                 },
                 sub: {
                     // 下标元素
                     type: 'boolean',
-                    description: 'Replace subscript elements\n@default true',
+                    description: 'Replace subscript elements\n@defaultValue true',
                     default: true,
                 },
                 sup: {
                     // 上标元素
                     type: 'boolean',
-                    description: 'Replace superscript elements\n@default true',
+                    description: 'Replace superscript elements\n@defaultValue true',
                     default: true,
                 },
                 tag: {
                     // 标签元素
                     type: 'boolean',
-                    description: 'Replace tag elements\n@default true',
+                    description: 'Replace tag elements\n@defaultValue true',
                     default: true,
                 },
                 text: {
                     // 富文本元素
                     type: 'boolean',
-                    description: 'Replace rich text elements\n@default true',
+                    description: 'Replace rich text elements\n@defaultValue true',
                     default: true,
                 },
                 u: {
                     // 下划线元素
                     type: 'boolean',
-                    description: 'Replace underline elements\n@default true',
+                    description: 'Replace underline elements\n@defaultValue true',
                     default: true,
                 },
             },
@@ -3830,87 +3838,87 @@
             properties: {
                 audioBlock: {
                     type: 'boolean',
-                    description: 'Search results contain audio blocks\n@default false',
+                    description: 'Search results contain audio blocks\n@defaultValue false',
                     default: false,
                 },
                 blockquote: {
                     type: 'boolean',
-                    description: 'Search results contain blockquote blocks\n@default false',
+                    description: 'Search results contain blockquote blocks\n@defaultValue false',
                     default: false,
                 },
                 codeBlock: {
                     type: 'boolean',
-                    description: 'Search results contain code blocks\n@default false',
+                    description: 'Search results contain code blocks\n@defaultValue false',
                     default: false,
                 },
                 databaseBlock: {
                     type: 'boolean',
-                    description: 'Search results contain database blocks\n@default false',
+                    description: 'Search results contain database blocks\n@defaultValue false',
                     default: false,
                 },
                 document: {
                     type: 'boolean',
-                    description: 'Search results contain document blocks\n@default false',
+                    description: 'Search results contain document blocks\n@defaultValue false',
                     default: false,
                 },
                 embedBlock: {
                     type: 'boolean',
-                    description: 'Search results contain embed blocks\n@default false',
+                    description: 'Search results contain embed blocks\n@defaultValue false',
                     default: false,
                 },
                 heading: {
                     type: 'boolean',
-                    description: 'Search results contain heading blocks\n@default false',
+                    description: 'Search results contain heading blocks\n@defaultValue false',
                     default: false,
                 },
                 htmlBlock: {
                     type: 'boolean',
-                    description: 'Search results contain html blocks\n@default false',
+                    description: 'Search results contain html blocks\n@defaultValue false',
                     default: false,
                 },
                 iframeBlock: {
                     type: 'boolean',
-                    description: 'Search results contain iframe blocks\n@default false',
+                    description: 'Search results contain iframe blocks\n@defaultValue false',
                     default: false,
                 },
                 list: {
                     type: 'boolean',
-                    description: 'Search results contain list blocks\n@default false',
+                    description: 'Search results contain list blocks\n@defaultValue false',
                     default: false,
                 },
                 listItem: {
                     type: 'boolean',
-                    description: 'Search results contain list item blocks\n@default false',
+                    description: 'Search results contain list item blocks\n@defaultValue false',
                     default: false,
                 },
                 mathBlock: {
                     type: 'boolean',
-                    description: 'Search results contain math blocks\n@default false',
+                    description: 'Search results contain math blocks\n@defaultValue false',
                     default: false,
                 },
                 paragraph: {
                     type: 'boolean',
-                    description: 'Search results contain paragraph blocks\n@default false',
+                    description: 'Search results contain paragraph blocks\n@defaultValue false',
                     default: false,
                 },
                 superBlock: {
                     type: 'boolean',
-                    description: 'Search results contain super blocks\n@default false',
+                    description: 'Search results contain super blocks\n@defaultValue false',
                     default: false,
                 },
                 table: {
                     type: 'boolean',
-                    description: 'Search results contain table blocks\n@default false',
+                    description: 'Search results contain table blocks\n@defaultValue false',
                     default: false,
                 },
                 videoBlock: {
                     type: 'boolean',
-                    description: 'Search results contain video blocks\n@default false',
+                    description: 'Search results contain video blocks\n@defaultValue false',
                     default: false,
                 },
                 widgetBlock: {
                     type: 'boolean',
-                    description: 'Search results contain widget blocks\n@default false',
+                    description: 'Search results contain widget blocks\n@defaultValue false',
                     default: false,
                 },
             },

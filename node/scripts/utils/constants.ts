@@ -22,7 +22,7 @@ import TOML from "@ltd/j-toml";
 import quicktype from "quicktype-core";
 
 /* prettier 配置文件路径 */
-export const PRETTIERRC_PATH = path.resolve(process.cwd(), "./.prettierrc.toml");
+export const PRETTIERRC_PATH = path.resolve(process.cwd(), "./../.prettierrc.toml");
 /* prettier 配置文件文本 */
 export const PRETTIERRC = fs.readFileSync(PRETTIERRC_PATH, "utf-8");
 /* prettier 配置 */
@@ -57,7 +57,7 @@ export const LICENSE = `/**
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 `; // 注释
 

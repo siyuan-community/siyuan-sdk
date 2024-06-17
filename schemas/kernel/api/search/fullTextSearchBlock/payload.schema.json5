@@ -22,7 +22,7 @@
                 method: {
                     // 搜索方案
                     type: 'integer',
-                    description: 'Search scheme\n- `0`: Keyword (default)\n- `1`: Query syntax\n- `2`: SQL\n- `3`: Regular expression\n@default 0',
+                    description: 'Search scheme\n- `0`: Keyword (default)\n- `1`: Query syntax\n- `2`: SQL\n- `3`: Regular expression\n@defaultValue 0',
                     enum: [
                         0, // 关键字
                         1, // 查询语法
@@ -34,7 +34,7 @@
                 groupBy: {
                     // 搜索结果分组方案
                     type: 'integer',
-                    description: 'Search results grouping scheme\n- `0`: No grouping (default)\n- `1`: Group by document\n@default 0',
+                    description: 'Search results grouping scheme\n- `0`: No grouping (default)\n- `1`: Group by document\n@defaultValue 0',
                     enum: [
                         0, // 不分组
                         1, // 按文档分组
@@ -44,7 +44,7 @@
                 orderBy: {
                     // 搜索结果排序方案
                     type: 'integer',
-                    description: 'Search result sorting scheme\n- `0`: Block type (default)\n- `1`: Ascending by creation time\n- `2`: Descending by creation time\n- `3`: Ascending by update time\n- `4`: Descending by update time\n- `5`: By content order (only valid when grouping by document)\n- `6`: Ascending by relevance\n- `7`: Descending by relevance\n@default 0',
+                    description: 'Search result sorting scheme\n- `0`: Block type (default)\n- `1`: Ascending by creation time\n- `2`: Descending by creation time\n- `3`: Ascending by update time\n- `4`: Descending by update time\n- `5`: By content order (only valid when grouping by document)\n- `6`: Ascending by relevance\n- `7`: Descending by relevance\n@defaultValue 0',
                     enum: [
                         0, // 按块类型
                         1, // 按创建时间升序
@@ -60,21 +60,21 @@
                 page: {
                     // 当前分页页码
                     type: 'integer',
-                    description: 'Current page number\nStarts from `1`\n@default 1',
+                    description: 'Current page number\nStarts from `1`\n@defaultValue 1',
                     minimum: 1,
                     default: 1,
                 },
                 pageSize: {
                     // 每页搜索结果数量
                     type: 'integer',
-                    description: 'Number of search results per page\nminimum: 32\n@default 32',
+                    description: 'Number of search results per page\nminimum: 32\n@defaultValue 32',
                     minimum: 32,
                     default: 32,
                 },
                 paths: {
                     // 指定搜索范围
                     type: 'array',
-                    description: 'Search range (document path list)\n@default []',
+                    description: 'Search range (document path list)\n@defaultValue []',
                     items: {
                         type: 'string',
                         description: 'Document path',
@@ -111,67 +111,67 @@
             properties: {
                 blockquote: {
                     type: 'boolean',
-                    description: 'Search results contain blockquote blocks\n@default false',
+                    description: 'Search results contain blockquote blocks\n@defaultValue false',
                     default: false,
                 },
                 codeBlock: {
                     type: 'boolean',
-                    description: 'Search results contain code blocks\n@default false',
+                    description: 'Search results contain code blocks\n@defaultValue false',
                     default: false,
                 },
                 databaseBlock: {
                     type: 'boolean',
-                    description: 'Search results contain database blocks\n@default false',
+                    description: 'Search results contain database blocks\n@defaultValue false',
                     default: false,
                 },
                 document: {
                     type: 'boolean',
-                    description: 'Search results contain document blocks\n@default false',
+                    description: 'Search results contain document blocks\n@defaultValue false',
                     default: false,
                 },
                 embedBlock: {
                     type: 'boolean',
-                    description: 'Search results contain embed blocks\n@default false',
+                    description: 'Search results contain embed blocks\n@defaultValue false',
                     default: false,
                 },
                 heading: {
                     type: 'boolean',
-                    description: 'Search results contain heading blocks\n@default false',
+                    description: 'Search results contain heading blocks\n@defaultValue false',
                     default: false,
                 },
                 htmlBlock: {
                     type: 'boolean',
-                    description: 'Search results contain html blocks\n@default false',
+                    description: 'Search results contain html blocks\n@defaultValue false',
                     default: false,
                 },
                 list: {
                     type: 'boolean',
-                    description: 'Search results contain list blocks\n@default false',
+                    description: 'Search results contain list blocks\n@defaultValue false',
                     default: false,
                 },
                 listItem: {
                     type: 'boolean',
-                    description: 'Search results contain list item blocks\n@default false',
+                    description: 'Search results contain list item blocks\n@defaultValue false',
                     default: false,
                 },
                 mathBlock: {
                     type: 'boolean',
-                    description: 'Search results contain math blocks\n@default false',
+                    description: 'Search results contain math blocks\n@defaultValue false',
                     default: false,
                 },
                 paragraph: {
                     type: 'boolean',
-                    description: 'Search results contain paragraph blocks\n@default false',
+                    description: 'Search results contain paragraph blocks\n@defaultValue false',
                     default: false,
                 },
                 superBlock: {
                     type: 'boolean',
-                    description: 'Search results contain super blocks\n@default false',
+                    description: 'Search results contain super blocks\n@defaultValue false',
                     default: false,
                 },
                 table: {
                     type: 'boolean',
-                    description: 'Search results contain table blocks\n@default false',
+                    description: 'Search results contain table blocks\n@defaultValue false',
                     default: false,
                 },
             },

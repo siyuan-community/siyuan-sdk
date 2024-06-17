@@ -76,7 +76,7 @@
                     // 默认为 Conf.FileTree.MaxListCount
                     // 设置为 <= 0 的数标示无限制
                     type: 'integer',
-                    description: 'max list count of docs\n<= 0: unlimited',
+                    description: 'max list count of docs\n`<= 0`: unlimited',
                 },
                 flashcard: {
                     // 是否列出闪卡数

@@ -146,7 +146,7 @@
                 },
                 "ContentLength": {
                     "type": "integer",
-                    "description": "{@link https://pkg.go.dev/net/http#Request.ContentLength}\n\nContentLength records the length of the associated content.\n\nThe value -1 indicates that the length is unknown.\n\nValues >= 0 indicate that the given number of bytes may be read from Body.\n\nFor client requests, a value of 0 with a non-nil Body is also treated as unknown."
+                    "description": "{@link https://pkg.go.dev/net/http#Request.ContentLength}\n\nContentLength records the length of the associated content.\n\nThe value -1 indicates that the length is unknown.\n\nValues `>=` 0 indicate that the given number of bytes may be read from Body.\n\nFor client requests, a value of 0 with a non-nil Body is also treated as unknown."
                 },
                 "Cookies": {
                     "type": "array",
@@ -517,7 +517,7 @@
                     "description": "File name"
                 },
                 "Header": {
-                    "description": "{@link A MIMEHeader represents a MIME-style header mapping keys to sets of values.}\n\nA MIMEHeader represents a MIME-style header mapping keys to sets of values.",
+                    "description": "{@link https://pkg.go.dev/net/http#Header}\n\nA MIMEHeader represents a MIME-style header mapping keys to sets of values.",
                     "$ref": "#/$defs/Header"
                 },
                 "Size": {

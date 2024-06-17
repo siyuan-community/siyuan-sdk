@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 /**
@@ -20,7 +20,7 @@
  * {@link https://fs.spec.whatwg.org/#api-filesystemwritablefilestream}
  * REF:
  * {@link https://github.com/jimmywarting/native-file-system-adapter/blob/master/src/FileSystemWritableFileStream.js | native-file-system-adapter/src/FileSystemWritableFileStream.js}
- * {@link https://developer.mozilla.org/zh-CN/docs/Web/API/WritableStream | WritableStream - Web APIs | MDN}
+ * {@link https://developer.mozilla.org/zh-CN/docs/Web/API/WritableStream | WritableStream - Web APIs - MDN}
  */
 export class SiyuanFileSystemWritableFileStream<W extends FileSystemWriteChunkType = FileSystemWriteChunkType> extends WritableStream<W> implements FileSystemWritableFileStream {
     protected _closed: boolean; // 文件流是否已关闭
@@ -49,7 +49,7 @@ export class SiyuanFileSystemWritableFileStream<W extends FileSystemWriteChunkTy
      * 更新文件流的写入位置
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemwritablefilestream-write}
-     * @param data 将要写入的数据
+     * @param data - 将要写入的数据
      */
     write(data: FileSystemWriteChunkType): Promise<void> {
         if (this._closed) {
@@ -73,7 +73,7 @@ export class SiyuanFileSystemWritableFileStream<W extends FileSystemWriteChunkTy
      * 更新文件流的写入位置
      * @see
      * {@link https://fs.spec.whatwg.org/#dom-filesystemwritablefilestream-seek}
-     * @param position 写入位置相对于文件首的偏移量
+     * @param position - 写入位置相对于文件首的偏移量
      */
     seek(position: number): Promise<void> {
         return this.write({
@@ -86,7 +86,7 @@ export class SiyuanFileSystemWritableFileStream<W extends FileSystemWriteChunkTy
      * 截断文件流
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemwritablefilestream-truncate}
-     * @param size 截断位置相对于文件首的偏移量
+     * @param size - 截断位置相对于文件首的偏移量
      */
     truncate(size: number): Promise<void> {
         return this.write({

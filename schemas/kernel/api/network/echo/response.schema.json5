@@ -231,7 +231,7 @@ ContentLength records the length of the associated content.\
 \n\n\
 The value -1 indicates that the length is unknown.\
 \n\n\
-Values >= 0 indicate that the given number of bytes may be read from Body.\
+Values `>=` 0 indicate that the given number of bytes may be read from Body.\
 \n\n\
 For client requests, a value of 0 with a non-nil Body is also treated as unknown.\
 ',
@@ -996,7 +996,7 @@ For client requests, certain headers such as Content-Length and Connection are a
                 Header: {
                     // 文件部分 MIME 标识头
                     description: '\
-{@link A MIMEHeader represents a MIME-style header mapping keys to sets of values.}\
+{@link https://pkg.go.dev/net/http#Header}\
 \n\n\
 A MIMEHeader represents a MIME-style header mapping keys to sets of values.\
 ',

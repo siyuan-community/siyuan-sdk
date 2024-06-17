@@ -8,6 +8,7 @@
 - Prettier 支持数组换行 | Prettier supports array line breaks
 - 优化部分测试用例 | Optimize some test cases
 - 添加 `.editorconfig` 配置 | Add `.editorconfig` configuration
+- 添加 `tsdoc` 语法检查 | Add `tsdoc` syntax check
 
 ## v0.3.11 / 2024-05-14
 

@@ -61,7 +61,7 @@
                 },
                 "maxListCount": {
                     "type": "integer",
-                    "description": "max list count of docs\n<= 0: unlimited"
+                    "description": "max list count of docs\n`<= 0`: unlimited"
                 },
                 "flashcard": {
                     "type": "boolean",

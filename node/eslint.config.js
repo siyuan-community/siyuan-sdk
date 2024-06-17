@@ -1,4 +1,5 @@
 import js_eslint from "@eslint/js";
+import tsdoc from "eslint-plugin-tsdoc";
 import ts_eslint from "typescript-eslint";
 
 // REF: https://eslint.nodejs.cn/docs/latest/use/configure/configuration-files-new
@@ -17,6 +18,9 @@ export default ts_eslint.config(
                 "./node_modules/**",
                 "./temp/**",
             ],
+            plugins: {
+                tsdoc,
+            },
             languageOptions: {
                 parserOptions: {
                     project: true,
@@ -38,6 +42,8 @@ export default ts_eslint.config(
                         ignoreRestSiblings: true,
                     },
                 ],
+                // REF: https://www.npmjs.com/package/eslint-plugin-tsdoc
+                "tsdoc/syntax": ["warn"],
             },
         },
     ],

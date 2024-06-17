@@ -18,7 +18,7 @@ import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirect
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 export * from "./handle";
@@ -27,7 +27,7 @@ export * from "./handle";
  * 思源文件系统
  * @see
  * {@link https://fs.spec.whatwg.org/#sandboxed-filesystem | Accessing the Bucket File System}
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/StorageManager | StorageManager - Web APIs | MDN}
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/StorageManager | StorageManager - Web APIs - MDN}
  */
 export class SiyuanFileSystem implements Pick<StorageManager, "getDirectory"> {
     constructor(

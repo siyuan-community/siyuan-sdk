@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 //#region content
@@ -1435,8 +1435,8 @@ export interface ISystem {
      */
     networkServe: boolean;
     /**
-     * The operating system name determined at compile time (obtained using the command `go tool
-     * dist list`)
+     * The operating system name determined at compile time
+     * (obtained using the command `go tool dist list`)
      * - `android`: Android
      * - `darwin`: macOS
      * - `ios`: iOS
@@ -1499,8 +1499,8 @@ export interface INetworkProxy {
 export type TSystemNetworkProxyScheme = "" | "http" | "https" | "socks5";
 
 /**
- * The operating system name determined at compile time (obtained using the command `go tool
- * dist list`)
+ * The operating system name determined at compile time
+ * (obtained using the command `go tool dist list`)
  * - `android`: Android
  * - `darwin`: macOS
  * - `ios`: iOS
@@ -1895,7 +1895,7 @@ export interface IUILayoutTabSearchConfig {
      * - `1`: Query syntax
      * - `2`: SQL
      * - `3`: Regular expression
-     * @default 0
+     * @defaultValue 0
      */
     method: number;
     /**
@@ -1925,7 +1925,7 @@ export interface IUILayoutTabSearchConfig {
      * - `5`: By content order (only valid when grouping by document)
      * - `6`: Ascending by relevance
      * - `7`: Descending by relevance
-     * @default 0
+     * @defaultValue 0
      */
     sort: number;
     types: IUILayoutTabSearchConfigTypes;
@@ -1937,117 +1937,117 @@ export interface IUILayoutTabSearchConfig {
 export interface IUILayoutTabSearchConfigReplaceTypes {
     /**
      * Replace hyperlinks
-     * @default false
+     * @defaultValue false
      */
     aHref?: boolean;
     /**
      * Replace hyperlink anchor text
-     * @default true
+     * @defaultValue true
      */
     aText?: boolean;
     /**
      * Replace hyperlink title
-     * @default true
+     * @defaultValue true
      */
     aTitle?: boolean;
     /**
      * Replace inline code
-     * @default false
+     * @defaultValue false
      */
     code?: boolean;
     /**
      * Replace code blocks
-     * @default false
+     * @defaultValue false
      */
     codeBlock?: boolean;
     /**
      * Replace document title
-     * @default true
+     * @defaultValue true
      */
     docTitle?: boolean;
     /**
      * Replace italic elements
-     * @default true
+     * @defaultValue true
      */
     em?: boolean;
     /**
      * Replace HTML blocks
-     * @default false
+     * @defaultValue false
      */
     htmlBlock?: boolean;
     /**
      * Replace image addresses
-     * @default false
+     * @defaultValue false
      */
     imgSrc?: boolean;
     /**
      * Replace image anchor text
-     * @default true
+     * @defaultValue true
      */
     imgText?: boolean;
     /**
      * Replace image titles
-     * @default true
+     * @defaultValue true
      */
     imgTitle?: boolean;
     /**
      * Replace inline formulas
-     * @default false
+     * @defaultValue false
      */
     inlineMath?: boolean;
     /**
      * Replace inline memos
-     * @default true
+     * @defaultValue true
      */
     inlineMemo?: boolean;
     /**
      * Replace kdb elements
-     * @default true
+     * @defaultValue true
      */
     kbd?: boolean;
     /**
      * Replace mark elements
-     * @default true
+     * @defaultValue true
      */
     mark?: boolean;
     /**
      * Replace formula blocks
-     * @default false
+     * @defaultValue false
      */
     mathBlock?: boolean;
     /**
      * Replace delete elements
-     * @default true
+     * @defaultValue true
      */
     s?: boolean;
     /**
      * Replace bold elements
-     * @default true
+     * @defaultValue true
      */
     strong?: boolean;
     /**
      * Replace subscript elements
-     * @default true
+     * @defaultValue true
      */
     sub?: boolean;
     /**
      * Replace superscript elements
-     * @default true
+     * @defaultValue true
      */
     sup?: boolean;
     /**
      * Replace tag elements
-     * @default true
+     * @defaultValue true
      */
     tag?: boolean;
     /**
      * Replace rich text elements
-     * @default true
+     * @defaultValue true
      */
     text?: boolean;
     /**
      * Replace underline elements
-     * @default true
+     * @defaultValue true
      */
     u?: boolean;
 }
@@ -2058,87 +2058,87 @@ export interface IUILayoutTabSearchConfigReplaceTypes {
 export interface IUILayoutTabSearchConfigTypes {
     /**
      * Search results contain audio blocks
-     * @default false
+     * @defaultValue false
      */
     audioBlock?: boolean;
     /**
      * Search results contain blockquote blocks
-     * @default false
+     * @defaultValue false
      */
     blockquote: boolean;
     /**
      * Search results contain code blocks
-     * @default false
+     * @defaultValue false
      */
     codeBlock: boolean;
     /**
      * Search results contain database blocks
-     * @default false
+     * @defaultValue false
      */
     databaseBlock: boolean;
     /**
      * Search results contain document blocks
-     * @default false
+     * @defaultValue false
      */
     document: boolean;
     /**
      * Search results contain embed blocks
-     * @default false
+     * @defaultValue false
      */
     embedBlock: boolean;
     /**
      * Search results contain heading blocks
-     * @default false
+     * @defaultValue false
      */
     heading: boolean;
     /**
      * Search results contain html blocks
-     * @default false
+     * @defaultValue false
      */
     htmlBlock: boolean;
     /**
      * Search results contain iframe blocks
-     * @default false
+     * @defaultValue false
      */
     iframeBlock?: boolean;
     /**
      * Search results contain list blocks
-     * @default false
+     * @defaultValue false
      */
     list: boolean;
     /**
      * Search results contain list item blocks
-     * @default false
+     * @defaultValue false
      */
     listItem: boolean;
     /**
      * Search results contain math blocks
-     * @default false
+     * @defaultValue false
      */
     mathBlock: boolean;
     /**
      * Search results contain paragraph blocks
-     * @default false
+     * @defaultValue false
      */
     paragraph: boolean;
     /**
      * Search results contain super blocks
-     * @default false
+     * @defaultValue false
      */
     superBlock: boolean;
     /**
      * Search results contain table blocks
-     * @default false
+     * @defaultValue false
      */
     table: boolean;
     /**
      * Search results contain video blocks
-     * @default false
+     * @defaultValue false
      */
     videoBlock?: boolean;
     /**
      * Search results contain widget blocks
-     * @default false
+     * @defaultValue false
      */
     widgetBlock?: boolean;
 }

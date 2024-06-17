@@ -34,7 +34,7 @@
                     // HTTP 请求方法
                     title: 'TRequestMethod',
                     type: 'string',
-                    description: 'HTTP method to request\n@default: "GET"',
+                    description: 'HTTP method to request\n@defaultValue "GET"',
 
                     enum: [
                         'GET',
@@ -52,7 +52,7 @@
                 timeout: {
                     // 请求超时时间 (单位: ms)
                     type: 'integer',
-                    description: 'timeout to request (ms)\n@default: 7000',
+                    description: 'timeout to request (ms)\n@defaultValue 7000',
 
                     minimum: 0,
                     default: 7000,
@@ -60,7 +60,7 @@
                 contentType: {
                     // 请求体内容类型
                     type: 'string',
-                    description: 'Content-Type for request body\n@default: "application/json"',
+                    description: 'Content-Type for request body\n@defaultValue "application/json"',
 
                     default: 'application/json',
                 },
@@ -82,12 +82,12 @@
                 },
                 payloadEncoding: {
                     // 请求体编码类型
-                    description: 'Encoding schema for request payload\n@default: "text"',
+                    description: 'Encoding schema for request payload\n@defaultValue "text"',
                     $ref: '#/$defs/encodeSchema',
                 },
                 responseEncoding: {
                     // 响应体编码类型
-                    description: 'Encoding schema for response body\n@default: "text"',
+                    description: 'Encoding schema for response body\n@defaultValue "text"',
                     $ref: '#/$defs/encodeSchema',
                 },
             },

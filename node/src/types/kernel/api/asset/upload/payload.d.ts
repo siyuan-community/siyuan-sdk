@@ -12,7 +12,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
 //#region content
@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * The folder path where assets are stored
      * with the data folder as the root path
-     * @default "assets"
+     * @defaultValue "assets"
      *
      * @example "assets": workspace/data/assets/
      * @example "assets/": workspace/data/assets/

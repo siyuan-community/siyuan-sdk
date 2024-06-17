@@ -22,7 +22,7 @@
                 "method": {
                     "title": "TRequestMethod",
                     "type": "string",
-                    "description": "HTTP method to request\n@default: \"GET\"",
+                    "description": "HTTP method to request\n@defaultValue \"GET\"",
                     "enum": [
                         "GET",
                         "HEAD",
@@ -38,13 +38,13 @@
                 },
                 "timeout": {
                     "type": "integer",
-                    "description": "timeout to request (ms)\n@default: 7000",
+                    "description": "timeout to request (ms)\n@defaultValue 7000",
                     "minimum": 0,
                     "default": 7000
                 },
                 "contentType": {
                     "type": "string",
-                    "description": "Content-Type for request body\n@default: \"application/json\"",
+                    "description": "Content-Type for request body\n@defaultValue \"application/json\"",
                     "default": "application/json"
                 },
                 "headers": {
@@ -62,11 +62,11 @@
                     "description": "request body"
                 },
                 "payloadEncoding": {
-                    "description": "Encoding schema for request payload\n@default: \"text\"",
+                    "description": "Encoding schema for request payload\n@defaultValue \"text\"",
                     "$ref": "#/$defs/encodeSchema"
                 },
                 "responseEncoding": {
-                    "description": "Encoding schema for response body\n@default: \"text\"",
+                    "description": "Encoding schema for response body\n@defaultValue \"text\"",
                     "$ref": "#/$defs/encodeSchema"
                 }
             }

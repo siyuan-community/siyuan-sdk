@@ -56,6 +56,7 @@ module.exports = {
         "quicktype",
         "siyuan",
         "succ",
+        "tsdoc",
         "título",
         "userinfo",
         "webdav",

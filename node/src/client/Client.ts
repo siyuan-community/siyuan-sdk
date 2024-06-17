@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2024 SiYuan Community
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
+ */
+
 import * as axios from "axios";
 import Websocket from "isomorphic-ws";
 import * as base64 from "js-base64";
@@ -436,9 +453,9 @@ export class Client implements IFetch {
 
     /**
      * 兼容 fetch 接口的 forwardProxy 调用方案
-     * @param input {@link fetch} 的第一个参数
-     * @param init {@link fetch} 的第二个参数
-     * @returns {} {@link fetch} 的返回值
+     * @param input - {@link fetch} 的第一个参数
+     * @param init - {@link fetch} 的第二个参数
+     * @returns Response: {@link fetch} 的返回值
      */
     public async $fetch(
         input: URL | RequestInfo, //

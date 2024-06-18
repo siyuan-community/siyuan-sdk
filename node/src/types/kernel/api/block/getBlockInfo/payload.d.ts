@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Gets the document information where the block in
  */
@@ -26,4 +26,4 @@ export interface IPayload {
     id: string;
 }
 
-//#endregion content
+// #endregion content

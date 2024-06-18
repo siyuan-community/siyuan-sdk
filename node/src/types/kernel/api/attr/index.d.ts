@@ -15,11 +15,11 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 export * as getBlockAttrs from "./getBlockAttrs";
 export * as getBookmarkLabels from "./getBookmarkLabels";
 export * as setBlockAttrs from "./setBlockAttrs";
 
 /* files */
-//#endregion content
+// #endregion content

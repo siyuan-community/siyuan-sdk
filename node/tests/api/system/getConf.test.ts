@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getConf from "@/types/kernel/api/system/getConf";
+import type getConf from "@/types/kernel/api/system/getConf";
 
 const pathname = client.Client.api.system.getConf.pathname;
 

@@ -9,6 +9,7 @@
 - 优化部分测试用例 | Optimize some test cases
 - 添加 `.editorconfig` 配置 | Add `.editorconfig` configuration
 - 添加 `tsdoc` 语法检查 | Add `tsdoc` syntax check
+- 使用 `@antfu/eslint-config` 作为 eslint 基础配置 | Use `@antfu/eslint-config` as the basic eslint configuration
 
 ## v0.3.11 / 2024-05-14
 

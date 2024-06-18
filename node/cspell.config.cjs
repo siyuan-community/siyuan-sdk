@@ -1,6 +1,6 @@
 // cSpell Settings
 // REF https://cspell.org/configuration/
-// eslint-disable-next-line no-undef
+
 module.exports = {
     $schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
     // Version of the setting file.
@@ -23,6 +23,7 @@ module.exports = {
         "Proto",
         "Punycode",
         "Referer",
+        "antfu",
         "backlink",
         "backlinks",
         "backmention",

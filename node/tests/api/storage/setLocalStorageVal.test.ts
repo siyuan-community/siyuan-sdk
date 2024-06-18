@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import setLocalStorageVal from "@/types/kernel/api/storage/setLocalStorageVal";
+import type setLocalStorageVal from "@/types/kernel/api/storage/setLocalStorageVal";
 
 const pathname = client.Client.api.storage.setLocalStorageVal.pathname;
 
@@ -48,11 +48,11 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.setLocalStorageVal(payload!),
+        request: payload => client.client.setLocalStorageVal(payload!),
         response: {
             validate: validate_response,
             test: async () => {
-                test("test the result of set local storage", async () => {
+                it("test the result of set local storage", async () => {
                     await expect(client.client.getLocalStorage()).resolves.toEqual(response);
                 });
             },

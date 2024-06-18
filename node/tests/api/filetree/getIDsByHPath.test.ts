@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getIDsByHPath from "@/types/kernel/api/filetree/getIDsByHPath";
+import type getIDsByHPath from "@/types/kernel/api/filetree/getIDsByHPath";
 
 const pathname = client.Client.api.filetree.getIDsByHPath.pathname;
 
@@ -78,7 +78,7 @@ describe.concurrent(pathname, async () => {
             path: "/getIDsByHPath",
         },
         after: (response) => {
-            test("test document ID list", () => {
+            it("test document ID list", () => {
                 const ids_set_1 = new Set<string>(context.document);
                 const ids_set_2 = new Set<string>(response.data);
                 expect.soft(ids_set_1.size, "document ID list length").toEqual(ids_set_2.size);
@@ -97,7 +97,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getIDsByHPath(payload!),
+            request: payload => client.client.getIDsByHPath(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

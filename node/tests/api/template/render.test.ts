@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import render from "@/types/kernel/api/template/render";
+import type render from "@/types/kernel/api/template/render";
 
 const pathname = client.Client.api.template.render.pathname;
 
@@ -48,11 +48,11 @@ describe(pathname, async () => {
                 });
             },
         },
-        request: (payload) => client.client.render(payload!),
+        request: payload => client.client.render(payload!),
         response: {
             validate: validate_response,
             test: (response) => {
-                test("test the result of rendering template file", () => {
+                it("test the result of rendering template file", () => {
                     expect(response.data.path).toMatch(`${process.env.VITE_SIYUAN_WORKSPACE_PATH}/temp/convert/test/render/test.md`);
                     expect(response.data.content).toMatch(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}/);
                 });

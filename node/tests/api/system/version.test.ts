@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import version from "@/types/kernel/api/system/version";
+import type version from "@/types/kernel/api/system/version";
 
 const pathname = client.Client.api.system.version.pathname;
 

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { KernelError } from "~/src";
 import client from "~/tests/utils/client";
@@ -118,7 +118,7 @@ describe.concurrent(pathname, async () => {
             responseType: "json",
             type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
             catch: (error) => {
-                test("KernelError: 403", async () => {
+                it("kernelError: 403", async () => {
                     expect(error, "error's type").toBeInstanceOf(KernelError);
                     expect((error as KernelError).code, "error's code").toEqual(403);
                 });
@@ -131,7 +131,7 @@ describe.concurrent(pathname, async () => {
             responseType: "json",
             type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
             catch: (error) => {
-                test("KernelError: 404", async () => {
+                it("kernelError: 404", async () => {
                     expect(
                         error, //
                         "error's type",
@@ -150,7 +150,7 @@ describe.concurrent(pathname, async () => {
             responseType: "json",
             type: "object", // 返回 { code: 405, msg: 'file [/temp] is a directory', data: null }
             catch: (error) => {
-                test("KernelError: 405", async () => {
+                it("kernelError: 405", async () => {
                     expect(
                         error, //
                         "error's type",
@@ -174,14 +174,15 @@ describe.concurrent(pathname, async () => {
                 },
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getFile(payload!, item.responseType),
+            request: payload => client.client.getFile(payload!, item.responseType),
             catch: item.catch,
             response: {
                 test: (body) => {
                     if (item.debug) {
+                        // eslint-disable-next-line no-console
                         console.debug(body);
                     }
-                    test("response body type verify", () => {
+                    it("response body type verify", () => {
                         expect.soft(typeof body, "typeof").toEqual(item.type);
                         if (item.protoType) {
                             expect.soft(body, "instanceof").toBeInstanceOf(item.protoType);

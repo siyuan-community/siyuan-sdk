@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getChannels from "@/types/kernel/api/broadcast/getChannels";
+import type getChannels from "@/types/kernel/api/broadcast/getChannels";
 
 const pathname = client.Client.api.broadcast.getChannels.pathname;
 

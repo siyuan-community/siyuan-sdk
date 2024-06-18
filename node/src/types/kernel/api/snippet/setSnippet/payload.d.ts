@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Set code snippet list
  */
@@ -57,4 +57,4 @@ export interface ISnippet {
  */
 export type TSnippetType = "js" | "css";
 
-//#endregion content
+// #endregion content

@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import openRepoSnapshotDoc from "@/types/kernel/api/repo/openRepoSnapshotDoc";
+import type openRepoSnapshotDoc from "@/types/kernel/api/repo/openRepoSnapshotDoc";
 
 const pathname = client.Client.api.repo.openRepoSnapshotDoc.pathname;
 
@@ -73,7 +73,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.openRepoSnapshotDoc(payload!),
+            request: payload => client.client.openRepoSnapshotDoc(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

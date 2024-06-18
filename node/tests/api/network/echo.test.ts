@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import echo from "@/types/kernel/api/network/echo";
+import type echo from "@/types/kernel/api/network/echo";
 
 const pathname = client.Client.api.network.echo.pathname;
 
@@ -50,7 +50,7 @@ describe(pathname, async () => {
                 }),
             },
             after: (response, payload) => {
-                test("test GET response", async () => {
+                it("test GET response", async () => {
                     expect.soft(response.data.Request.Method, "verify method").toEqual(payload.method);
                     payload.query!.forEach((value, key) => {
                         expect(response.data.URL.Query[key].includes(value), `verify query: ${key}`).toBeTruthy();
@@ -74,7 +74,7 @@ describe(pathname, async () => {
                 }),
             },
             after: (response, payload) => {
-                test("test POST response", async () => {
+                it("test POST response", async () => {
                     expect.soft(response.data.Request.Method, "verify method").toEqual(payload.method);
                     payload.query!.forEach((value, key) => {
                         expect(response.data.URL.Query[key], `verify query: ${key}`).toEqual(payload.query!.getAll(key));
@@ -101,7 +101,7 @@ describe(pathname, async () => {
                 (payload.body as FormData).set("test4", "test-4");
             },
             after: (response, payload) => {
-                test("test POST", async () => {
+                it("test POST", async () => {
                     expect.soft(response.data.Request.Method, "verify method").toEqual(payload.method);
                     payload.query!.forEach((value, key) => {
                         expect(response.data.URL.Query[key], `verify query: ${key}`).toEqual(payload.query!.getAll(key));
@@ -122,7 +122,7 @@ describe(pathname, async () => {
                 data: item.payload,
                 test: item.before,
             },
-            request: (payload) => client.client.echo(payload!),
+            request: payload => client.client.echo(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

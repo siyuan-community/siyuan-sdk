@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import setSnippet from "@/types/kernel/api/snippet/setSnippet";
+import type setSnippet from "@/types/kernel/api/snippet/setSnippet";
 
 const pathname = client.Client.api.snippet.setSnippet.pathname;
 
@@ -63,7 +63,7 @@ describe.concurrent(pathname, async () => {
                 ],
             },
             after: async (_response, payload) => {
-                test("test the result of set snippet", async () => {
+                it("test the result of set snippet", async () => {
                     for (const snippet of payload.snippets) {
                         await expect((await fetch(`${process.env.VITE_SIYUAN_SERVE}/snippets/${snippet.name}.${snippet.type}`)).text()).resolves.toEqual(snippet.content);
                     }
@@ -81,7 +81,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.setSnippet(payload!),
+            request: payload => client.client.setSnippet(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

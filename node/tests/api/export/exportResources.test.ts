@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import exportResources from "@/types/kernel/api/export/exportResources";
+import type exportResources from "@/types/kernel/api/export/exportResources";
 
 const pathname = client.Client.api.export.exportResources.pathname;
 
@@ -105,7 +105,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.exportResources(payload!),
+            request: payload => client.client.exportResources(payload!),
             response: {
                 validate: validate_response,
                 test: (response) => {

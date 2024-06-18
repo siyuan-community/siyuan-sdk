@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import prependBlock from "@/types/kernel/api/block/prependBlock";
+import type prependBlock from "@/types/kernel/api/block/prependBlock";
 
 const pathname = client.Client.api.block.prependBlock.pathname;
 
@@ -97,7 +97,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.prependBlock(payload!),
+            request: payload => client.client.prependBlock(payload!),
             response: {
                 validate: validate_response,
             },

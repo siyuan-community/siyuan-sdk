@@ -1,8 +1,7 @@
 import path from "path-browserify";
 
-import { Client } from "@/index";
-
 import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirectoryHandle";
+import type { Client } from "@/index";
 
 /**
  * Copyright (C) 2023 SiYuan Community

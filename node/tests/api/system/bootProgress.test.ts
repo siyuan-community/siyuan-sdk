@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import bootProgress from "@/types/kernel/api/system/bootProgress";
+import type bootProgress from "@/types/kernel/api/system/bootProgress";
 
 const pathname = client.Client.api.system.bootProgress.pathname;
 

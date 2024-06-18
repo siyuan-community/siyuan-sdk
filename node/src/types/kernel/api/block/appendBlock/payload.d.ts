@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Append blocks
  */
@@ -40,4 +40,4 @@ export interface IPayload {
  */
 export type TDataType = "markdown" | "dom";
 
-//#endregion content
+// #endregion content

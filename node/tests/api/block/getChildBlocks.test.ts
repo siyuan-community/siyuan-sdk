@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getChildBlocks from "@/types/kernel/api/block/getChildBlocks";
+import type getChildBlocks from "@/types/kernel/api/block/getChildBlocks";
 
 const pathname = client.Client.api.block.getChildBlocks.pathname;
 
@@ -96,7 +96,7 @@ describe.concurrent(pathname, async () => {
                 id: "20210104091228-mwb2x54",
             },
             after: async (response) => {
-                test("leaf block has't child blocks", () => {
+                it("leaf block has't child blocks", () => {
                     expect(response.data).toHaveLength(0);
                 });
             },
@@ -110,7 +110,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getChildBlocks(payload!),
+            request: payload => client.client.getChildBlocks(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

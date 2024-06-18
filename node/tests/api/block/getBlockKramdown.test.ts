@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getBlockKramdown from "@/types/kernel/api/block/getBlockKramdown";
+import type getBlockKramdown from "@/types/kernel/api/block/getBlockKramdown";
 
 const pathname = client.Client.api.block.getBlockKramdown.pathname;
 
@@ -177,7 +177,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getBlockKramdown(payload!),
+            request: payload => client.client.getBlockKramdown(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

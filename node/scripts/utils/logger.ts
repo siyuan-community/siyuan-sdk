@@ -19,15 +19,15 @@ import path from "node:path";
 
 export function change(filePath: string) {
     const file = path.parse(filePath);
-    console.debug(`\t\x1b[32m+ [${file.base}] \x1b[1m${filePath}\x1b[0m`);
+    console.debug(`\t\x1B[32m+ [${file.base}] \x1B[1m${filePath}\x1B[0m`);
 }
 
 export function remove(filePath: string) {
     const file = path.parse(filePath);
-    console.debug(`\t\x1b[33m- [${file.base}] \x1b[1m${filePath}\x1b[0m`);
+    console.debug(`\t\x1B[33m- [${file.base}] \x1B[1m${filePath}\x1B[0m`);
 }
 
 export function error(filePath: string, error: unknown) {
-    console.error(`\t\x1b[31m! [${String(error)}] \x1b[1m${filePath}\x1b\x1b[0m`);
+    console.error(`\t\x1B[31m! [${String(error)}] \x1B[1m${filePath}\x1B\x1B[0m`);
     console.error(error);
 }

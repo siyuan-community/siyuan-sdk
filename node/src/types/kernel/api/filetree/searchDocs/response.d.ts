@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Search Document by Keyword
  */
@@ -66,4 +66,4 @@ export interface IDocInfo {
     [property: string]: any;
 }
 
-//#endregion content
+// #endregion content

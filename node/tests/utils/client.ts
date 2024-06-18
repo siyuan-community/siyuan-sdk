@@ -17,6 +17,7 @@
 
 import "dotenv/config";
 
+import process from "node:process";
 import CONSTANTS from "~/tests/constants";
 
 import { Client } from "@/client/Client";

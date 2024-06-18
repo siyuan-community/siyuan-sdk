@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import transferBlockRef from "@/types/kernel/api/block/transferBlockRef";
+import type transferBlockRef from "@/types/kernel/api/block/transferBlockRef";
 
 const pathname = client.Client.api.block.transferBlockRef.pathname;
 
@@ -83,9 +83,9 @@ describe.concurrent(pathname, async () => {
     ]) {
         cases.push({
             name: `✖Transfer all block ref: ${markdown}`,
-            before: async (payload) => {
+            before: async (_payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -101,9 +101,9 @@ describe.concurrent(pathname, async () => {
         });
         cases.push({
             name: `✖Transfer all block ref: ${markdown}`,
-            before: async (payload) => {
+            before: async (_payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -117,9 +117,9 @@ describe.concurrent(pathname, async () => {
         });
         cases.push({
             name: `✖Transfer all block ref: ${markdown}`,
-            before: async (payload) => {
+            before: async (_payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -136,7 +136,7 @@ describe.concurrent(pathname, async () => {
             name: `✖Transfer notebook block ref: ${markdown}`,
             before: async (payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -156,7 +156,7 @@ describe.concurrent(pathname, async () => {
             name: `✔Transfer document block ref: ${markdown}`,
             before: async (payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -176,7 +176,7 @@ describe.concurrent(pathname, async () => {
             name: `✔Transfer parent block ref: ${markdown}`,
             before: async (payload) => {
                 /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
+                await client.client.insertBlock({
                     dataType: "markdown",
                     data: `((${context.block} "${markdown}")) `.repeat(3),
                     previousID: context.block,
@@ -221,7 +221,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.transferBlockRef(payload!),
+            request: payload => client.client.transferBlockRef(payload!),
             response: {
                 validate: validate_response,
             },

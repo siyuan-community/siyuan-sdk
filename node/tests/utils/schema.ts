@@ -16,13 +16,14 @@
  */
 
 import { resolve } from "node:path";
+import process from "node:process";
 
 import addFormats from "ajv-formats";
-import Ajv2020, { Options, Schema, ValidateFunction } from "ajv/dist/2020";
-
-import constants from "@/constants";
+import type { Options, Schema, ValidateFunction } from "ajv/dist/2020";
+import Ajv2020 from "ajv/dist/2020";
 
 import { loadJSON5 } from "./json5";
+import constants from "@/constants";
 
 export class SchemaJSON {
     public static resolveSchemaPath(

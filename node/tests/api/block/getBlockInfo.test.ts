@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getBlockInfo from "@/types/kernel/api/block/getBlockInfo";
+import type getBlockInfo from "@/types/kernel/api/block/getBlockInfo";
 
 const pathname = client.Client.api.block.getBlockInfo.pathname;
 
@@ -102,7 +102,7 @@ describe.concurrent(pathname, async () => {
             id: context.document,
         },
         after: (response) => {
-            test("document", () => {
+            it("document", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
                 expect.soft(response.data.rootChildID).toEqual(context.document);
@@ -118,7 +118,7 @@ describe.concurrent(pathname, async () => {
             id: context.container,
         },
         after: (response) => {
-            test("document > container", () => {
+            it("document > container", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
                 expect.soft(response.data.rootChildID).toEqual(context.document);
@@ -134,7 +134,7 @@ describe.concurrent(pathname, async () => {
             id: context.heading,
         },
         after: (response) => {
-            test("document > container > heading", () => {
+            it("document > container > heading", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
                 expect.soft(response.data.rootChildID).toEqual(context.document);
@@ -150,7 +150,7 @@ describe.concurrent(pathname, async () => {
             id: context.block,
         },
         after: (response) => {
-            test("document > container > heading > block", () => {
+            it("document > container > heading > block", () => {
                 expect.soft(response.data.box).toEqual(context.notebook);
                 expect.soft(response.data.path).toEqual(`/${context.document}.sy`);
                 expect.soft(response.data.rootChildID).toEqual(context.document);
@@ -168,7 +168,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getBlockInfo(payload!),
+            request: payload => client.client.getBlockInfo(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

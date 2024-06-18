@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Update a block
  */
@@ -72,4 +72,4 @@ export interface IOperation {
 
 export type Action = "update";
 
-//#endregion content
+// #endregion content

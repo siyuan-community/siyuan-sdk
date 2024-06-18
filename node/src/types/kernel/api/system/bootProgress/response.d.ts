@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * get the booting progress of siyuan kernel
  */
@@ -45,4 +45,4 @@ export interface IData {
     progress: number;
 }
 
-//#endregion content
+// #endregion content

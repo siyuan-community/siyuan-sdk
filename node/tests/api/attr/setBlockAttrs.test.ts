@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
+import type setBlockAttrs from "@/types/kernel/api/attr/setBlockAttrs";
 
 const pathname = client.Client.api.attr.setBlockAttrs.pathname;
 
@@ -52,7 +52,7 @@ describe(pathname, async () => {
                 },
             },
             after: async () => {
-                test("test the result of set attrs", async () => {
+                it("test the result of set attrs", async () => {
                     await expect(
                         client.client.getBlockAttrs({
                             id: "20240608220844-2jfu489",
@@ -87,7 +87,8 @@ describe(pathname, async () => {
                 },
             },
             after: async () => {
-                test("test the result of set attrs", async () => {
+                // eslint-disable-next-line test/no-identical-title
+                it("test the result of set attrs", async () => {
                     const response = await client.client.getBlockAttrs({
                         id: "20240608220844-2jfu489",
                     });
@@ -107,7 +108,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.setBlockAttrs(payload!),
+            request: payload => client.client.setBlockAttrs(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

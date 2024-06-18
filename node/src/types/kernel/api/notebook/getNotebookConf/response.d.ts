@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Get notebook configuration
  */
@@ -96,4 +96,4 @@ export interface IConf {
     sortMode: number;
 }
 
-//#endregion content
+// #endregion content

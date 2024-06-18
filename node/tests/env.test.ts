@@ -17,13 +17,13 @@
 
 import "dotenv/config";
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
-describe("Environment Variable Test", async () => {
-    test(`VITE_SIYUAN_SERVE`, async () => {
+describe("environment Variable Test", async () => {
+    it(`vITE_SIYUAN_SERVE`, async () => {
         expect(process.env.VITE_SIYUAN_SERVE).not.toBeUndefined();
     });
-    test(`VITE_SIYUAN_TOKEN`, async () => {
+    it(`vITE_SIYUAN_TOKEN`, async () => {
         expect(process.env.VITE_SIYUAN_TOKEN).not.toBeUndefined();
     });
 });

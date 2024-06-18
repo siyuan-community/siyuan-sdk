@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-import * as axios from "axios";
+import type * as axios from "axios";
 
 export { FetchError } from "ofetch";
 

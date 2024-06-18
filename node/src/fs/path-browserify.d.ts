@@ -18,5 +18,6 @@
 declare module "path-browserify" {
     // export * from "path";
     import path from "node:path";
+
     export default path;
 }

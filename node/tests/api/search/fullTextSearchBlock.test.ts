@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
+import type fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 
 const pathname = client.Client.api.search.fullTextSearchBlock.pathname;
 
@@ -63,12 +63,13 @@ describe.concurrent(pathname, async () => {
                 ]) {
                     const query = (() => {
                         switch (method) {
+                            // eslint-disable-next-line default-case-last
                             default:
                             case 0:
                                 return "测试";
 
                             case 1:
-                                return '"测试"';
+                                return "\"测试\"";
 
                             case 2:
                                 return "^测试$";
@@ -107,7 +108,7 @@ describe.concurrent(pathname, async () => {
                 }
             }
         }
-        return payloads.map((payload) => ({
+        return payloads.map(payload => ({
             name: `method: ${payload.method} groupBy: ${payload.groupBy} orderBy: ${payload.orderBy}`,
             payload,
             debug: false,
@@ -121,7 +122,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.fullTextSearchBlock(payload!),
+            request: payload => client.client.fullTextSearchBlock(payload!),
             response: {
                 validate: validate_response,
             },

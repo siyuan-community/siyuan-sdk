@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 
-import version from "@/types/kernel/api/system/version";
+import type version from "@/types/kernel/api/system/version";
 
 const pathname_version = client.Client.api.system.version.pathname;
 
@@ -36,7 +36,7 @@ describe("$fetch", async () => {
         },
     };
 
-    test(`test GET ${pathname_version}`, async () => {
+    it(`test GET ${pathname_version}`, async () => {
         const response = await client.client.$fetch(
             url,
             Object.assign<any, RequestInit>(
@@ -50,7 +50,7 @@ describe("$fetch", async () => {
         expect.soft(validate_response_version(version), "verify response text").toBeTruthy();
     });
 
-    test(`test POST ${pathname_version}`, async () => {
+    it(`test POST ${pathname_version}`, async () => {
         const response = await client.client.$fetch(
             url,
             Object.assign<any, RequestInit>(

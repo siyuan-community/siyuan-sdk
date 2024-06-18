@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
+import type getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
 
 const pathname = client.Client.api.storage.getRecentDocs.pathname;
 

@@ -40,11 +40,14 @@ export async function JSONSchema2QuicktypeInputData(...args: quicktype.JSONSchem
 
 /**
  * 将 quicktype 输入数据转换为 TypeScript 接口
- * @param inputData: quicktype 输入数据
- * @param options: quicktype 选项
- * @return: quicktype 转换结果
+ * @param inputData quicktype 输入数据
+ * @param options quicktype 选项
+ * @return quicktype 转换结果
  */
-export async function quicktypeInputData2TypeScriptInterface(inputData: quicktype.InputData, options: Partial<quicktype.Options> = QUICKTYPE_OPTIONS): Promise<quicktype.SerializedRenderResult> {
+export async function quicktypeInputData2TypeScriptInterface(
+    inputData: quicktype.InputData,
+    options: Partial<quicktype.Options> = QUICKTYPE_OPTIONS,
+): Promise<quicktype.SerializedRenderResult> {
     return quicktype.quicktype({
         inputData,
         ...options,

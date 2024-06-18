@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import searchDocs from "@/types/kernel/api/filetree/searchDocs";
+import type searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
 const pathname = client.Client.api.filetree.searchDocs.pathname;
 
@@ -71,7 +71,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.searchDocs(payload!),
+            request: payload => client.client.searchDocs(payload!),
             response: {
                 validate: validate_response,
             },

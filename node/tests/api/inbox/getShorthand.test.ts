@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getShorthand from "@/types/kernel/api/inbox/getShorthand";
+import type getShorthand from "@/types/kernel/api/inbox/getShorthand";
 
 const pathname = client.Client.api.inbox.getShorthand.pathname;
 
@@ -41,7 +41,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.getShorthand(payload!),
+        request: payload => client.client.getShorthand(payload!),
         response: {
             validate: validate_response,
         },

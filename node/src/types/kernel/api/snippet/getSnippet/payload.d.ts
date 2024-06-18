@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Get code snippet list
  */
@@ -38,4 +38,4 @@ export interface IPayload {
  */
 export type TSnippetType = "js" | "css" | "all";
 
-//#endregion content
+// #endregion content

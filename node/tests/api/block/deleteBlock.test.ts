@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import deleteBlock from "@/types/kernel/api/block/deleteBlock";
+import type deleteBlock from "@/types/kernel/api/block/deleteBlock";
 
 const pathname = client.Client.api.block.deleteBlock.pathname;
 
@@ -97,7 +97,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.deleteBlock(payload!),
+            request: payload => client.client.deleteBlock(payload!),
             response: {
                 validate: validate_response,
             },

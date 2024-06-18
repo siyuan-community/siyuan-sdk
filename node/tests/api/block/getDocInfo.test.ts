@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getDocInfo from "@/types/kernel/api/block/getDocInfo";
+import type getDocInfo from "@/types/kernel/api/block/getDocInfo";
 
 const pathname = client.Client.api.block.getDocInfo.pathname;
 
@@ -99,11 +99,11 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.getDocInfo(payload!),
+            request: payload => client.client.getDocInfo(payload!),
             response: {
                 validate: validate_response,
                 test: (response, payload) => {
-                    test("test response data", () => {
+                    it("test response data", () => {
                         expect.soft(response.data.id, "data.id").toEqual(payload.id);
                         expect.soft(response.data.rootID, "data.rootID").toEqual(context.document);
                         expect.soft(response.data.name, "data.name").toEqual("getDocInfo");

@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getHistoryItems from "@/types/kernel/api/history/getHistoryItems";
+import type getHistoryItems from "@/types/kernel/api/history/getHistoryItems";
 
 const pathname = client.Client.api.history.getHistoryItems.pathname;
 
@@ -131,7 +131,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.getHistoryItems(payload!),
+            request: payload => client.client.getHistoryItems(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

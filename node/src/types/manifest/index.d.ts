@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 
 /* files */
@@ -25,4 +25,4 @@ export * as plugin from "./plugin";
 export * as template from "./template";
 export * as theme from "./theme";
 export * as widget from "./widget";
-//#endregion content
+// #endregion content

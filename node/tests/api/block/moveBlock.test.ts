@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import moveBlock from "@/types/kernel/api/block/moveBlock";
+import type moveBlock from "@/types/kernel/api/block/moveBlock";
 
 const pathname = client.Client.api.block.moveBlock.pathname;
 
@@ -124,7 +124,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.moveBlock(payload!),
+            request: payload => client.client.moveBlock(payload!),
             response: {
                 validate: validate_response,
             },

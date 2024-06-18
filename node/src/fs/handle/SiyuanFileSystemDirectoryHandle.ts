@@ -17,15 +17,16 @@
 
 import path from "path-browserify";
 
-import { errors } from "@/fs/error";
-import {
-    Client, //
-    KernelError,
-    types,
-} from "@/index";
-
 import { SiyuanFileSystemFileHandle } from "./SiyuanFileSystemFileHandle";
 import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
+import { errors } from "@/fs/error";
+import type {
+    Client,
+    types,
+} from "@/index";
+import { //
+    KernelError,
+} from "@/index";
 
 export type TEntry = types.kernel.api.file.readDir.IDatum;
 export type THandle = SiyuanFileSystemDirectoryHandle | SiyuanFileSystemFileHandle;
@@ -92,7 +93,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         response.data.forEach((entry) => {
             if (entry.isDir) {
                 this._entries.directories.set(entry.name, entry);
-            } else {
+            }
+            else {
                 this._entries.files.set(entry.name, entry);
             }
         });
@@ -102,7 +104,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         if (refresh || !this._entries.Initialized) {
             try {
                 await this.init();
-            } catch (error) {
+            }
+            catch (error) {
                 switch (true) {
                     case error instanceof KernelError:
                         throw new DOMException(...errors.NOT_FOUND(this.relativePath));
@@ -118,7 +121,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
     public get length(): number {
         if (this._entries.Initialized) {
             return this._entries.list.length;
-        } else {
+        }
+        else {
             throw new DOMException(...errors.INVALID_STATE);
         }
     }
@@ -131,7 +135,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
                     this._entry2handle(entry),
                 ];
             }
-        } else {
+        }
+        else {
             throw new DOMException(...errors.INVALID_STATE);
         }
     }
@@ -171,7 +176,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         if (entry) {
             const handle = this._entry2handle(entry) as SiyuanFileSystemDirectoryHandle;
             return handle;
-        } else {
+        }
+        else {
             const relative_path = path.join(this.relativePath, name);
             if (options?.create) {
                 await this._client.putFile({
@@ -180,7 +186,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
                 });
                 await this.init();
                 return this.getDirectoryHandle(name);
-            } else {
+            }
+            else {
                 throw new DOMException(...errors.NOT_FOUND(relative_path));
             }
         }
@@ -197,7 +204,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         if (entry) {
             const handle = this._entry2handle(entry) as SiyuanFileSystemFileHandle;
             return handle;
-        } else {
+        }
+        else {
             const relative_path = path.join(this.relativePath, name);
             if (options?.create) {
                 await this._client.putFile({
@@ -206,7 +214,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
                 });
                 await this.init();
                 return this.getFileHandle(name);
-            } else {
+            }
+            else {
                 throw new DOMException(...errors.NOT_FOUND(relative_path));
             }
         }
@@ -237,7 +246,8 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
                 path: relative_path,
             });
             await this.init();
-        } else {
+        }
+        else {
             throw new DOMException(...errors.NOT_FOUND(relative_path));
         }
     }

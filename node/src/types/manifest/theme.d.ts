@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Theme resource manifest file definition
  */
@@ -123,4 +123,4 @@ export interface IFunding {
  */
 export type TMode = "light" | "dark";
 
-//#endregion content
+// #endregion content

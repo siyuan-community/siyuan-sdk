@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Move a block
  */
@@ -79,4 +79,4 @@ export interface IOperation {
 
 export type Action = "move";
 
-//#endregion content
+// #endregion content

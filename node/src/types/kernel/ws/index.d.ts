@@ -15,9 +15,9 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 
 /* files */
 export * as broadcast from "./broadcast";
-//#endregion content
+// #endregion content

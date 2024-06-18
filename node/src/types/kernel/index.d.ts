@@ -15,11 +15,11 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 export * as api from "./api";
 export * as ws from "./ws";
 
 /* files */
 export * as kernel from "./kernel";
-//#endregion content
+// #endregion content

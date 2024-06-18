@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Open document in repository snapshot
  */
@@ -51,4 +51,4 @@ export interface IData {
     updated: number;
 }
 
-//#endregion content
+// #endregion content

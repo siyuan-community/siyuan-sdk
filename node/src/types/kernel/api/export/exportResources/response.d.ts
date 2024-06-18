@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Packages the specified files and folders as *.zip files and returns their download
  * addresses
@@ -42,4 +42,4 @@ export interface IData {
     path: string;
 }
 
-//#endregion content
+// #endregion content

@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * get the timestamp of the current time of the system on which the kernel resides
  */
@@ -34,4 +34,4 @@ export interface IResponse {
     msg: string;
 }
 
-//#endregion content
+// #endregion content

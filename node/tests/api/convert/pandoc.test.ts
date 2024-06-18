@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import pandoc from "@/types/kernel/api/convert/pandoc";
+import type pandoc from "@/types/kernel/api/convert/pandoc";
 
 const pathname = client.Client.api.convert.pandoc.pathname;
 
@@ -60,7 +60,8 @@ describe.concurrent(pathname, async () => {
                     await client.client.removeFile({
                         path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/`,
                     });
-                } catch (error) {}
+                }
+                catch (error) {}
 
                 /* 写入测试文件 */
                 await client.client.putFile({
@@ -79,7 +80,7 @@ describe.concurrent(pathname, async () => {
                 ],
             },
             after: async () => {
-                test("test the result of pandoc converting", async () => {
+                it("test the result of pandoc converting", async () => {
                     await expect(
                         client.client.getFile(
                             {
@@ -102,7 +103,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.pandoc(payload!),
+            request: payload => client.client.pandoc(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

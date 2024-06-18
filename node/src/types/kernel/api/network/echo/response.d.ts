@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Echo the content of the request
  */
@@ -890,4 +890,4 @@ export interface IUser {
     Username: string;
 }
 
-//#endregion content
+// #endregion content

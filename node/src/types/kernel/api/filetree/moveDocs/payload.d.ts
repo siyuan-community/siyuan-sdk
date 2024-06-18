@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Move documents
  */
@@ -34,4 +34,4 @@ export interface IPayload {
     toPath: string;
 }
 
-//#endregion content
+// #endregion content

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import renameFile from "@/types/kernel/api/file/renameFile";
+import type renameFile from "@/types/kernel/api/file/renameFile";
 
 const pathname = client.Client.api.file.renameFile.pathname;
 
@@ -54,7 +54,8 @@ describe.concurrent(pathname, async () => {
                         await client.client.removeFile({
                             path,
                         });
-                    } catch (error) {}
+                    }
+                    catch (error) {}
                 }
 
                 /* 写入测试文件 */
@@ -68,7 +69,7 @@ describe.concurrent(pathname, async () => {
                 newPath: "/temp/convert/pandoc/test/rename-file/test-new.html",
             },
             after: () => {
-                test("test the result of renaming file", async () => {
+                it("test the result of renaming file", async () => {
                     /* 测试原文件是否存在 */
                     await expect(
                         client.client.getFile(
@@ -106,7 +107,8 @@ describe.concurrent(pathname, async () => {
                         await client.client.removeFile({
                             path,
                         });
-                    } catch (error) {}
+                    }
+                    catch (error) {}
                 }
 
                 /* 写入测试文件 */
@@ -120,7 +122,7 @@ describe.concurrent(pathname, async () => {
                 newPath: "/temp/convert/pandoc/test/rename-dir-new/",
             },
             after: () => {
-                test("test the result of renaming directory", async () => {
+                it("test the result of renaming directory", async () => {
                     /* 测试原目录是否存在 */
                     await expect(
                         client.client.readDir({
@@ -150,7 +152,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.renameFile(payload!),
+            request: payload => client.client.renameFile(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

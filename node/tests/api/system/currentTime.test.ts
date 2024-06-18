@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import currentTime from "@/types/kernel/api/system/currentTime";
+import type currentTime from "@/types/kernel/api/system/currentTime";
 
 const pathname = client.Client.api.system.currentTime.pathname;
 
@@ -37,7 +37,7 @@ describe.concurrent(pathname, async () => {
             validate: validate_response,
             test: (response) => {
                 /* 测试系统时钟误差 */
-                test(`system time error test`, async () => {
+                it(`system time error test`, async () => {
                     const threshold = 10_000; // 时钟误差阈值 (单位: ms)
                     expect(response.data - Date.now(), `time error in threshold (${threshold} ms)`).within(-threshold, threshold, `threshold: ± ${threshold} ms`);
                 });

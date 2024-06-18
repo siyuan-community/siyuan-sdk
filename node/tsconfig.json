@@ -2,24 +2,15 @@
     "$schema": "https://json.schemastore.org/tsconfig.json",
     "compilerOptions": {
         "target": "ESNext",
-        "useDefineForClassFields": true,
-        "module": "ESNext",
         "lib": [
             "ESNext",
             "DOM"
         ],
-        "moduleResolution": "Node",
-        "strict": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true,
+        "useDefineForClassFields": true,
         /* path */
         "baseUrl": "./",
+        "module": "ESNext",
+        "moduleResolution": "Node",
         "paths": {
             "@schemas/*": [
                 "./../schemas/*"
@@ -30,7 +21,16 @@
             "@/*": [
                 "./src/*"
             ]
-        }
+        },
+        "resolveJsonModule": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "skipLibCheck": true
     },
     "ts-node": {
         "esm": true,
@@ -39,6 +39,7 @@
     "include": [
         "cspell.config.cjs",
         "eslint.config.js",
+        "vite.config.ts",
         "src",
         "tests",
         "scripts"

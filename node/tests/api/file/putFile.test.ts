@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import putFile from "@/types/kernel/api/file/putFile";
+import type putFile from "@/types/kernel/api/file/putFile";
 
 const pathname = client.Client.api.file.putFile.pathname;
 
@@ -94,11 +94,11 @@ describe.concurrent(pathname, async () => {
             payload: {
                 data: item.payload,
             },
-            request: (payload) => client.client.putFile(payload!),
+            request: payload => client.client.putFile(payload!),
             response: {
                 validate: validate_response,
                 test: async () => {
-                    test("test the result of put file", async () => {
+                    it("test the result of put file", async () => {
                         if (item.payload.isDir) {
                             /* 测试目录是否存在 */
                             await expect(
@@ -107,7 +107,8 @@ describe.concurrent(pathname, async () => {
                                 }),
                                 `dir path: ${item.payload.path}`,
                             ).resolves.toMatchObject({ code: 0 });
-                        } else {
+                        }
+                        else {
                             /* 测试文件是否存在 */
                             await expect(
                                 client.client.getFile(

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import constants from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import removeFile from "@/types/kernel/api/file/removeFile";
+import type removeFile from "@/types/kernel/api/file/removeFile";
 
 const pathname = client.Client.api.file.removeFile.pathname;
 
@@ -56,7 +56,7 @@ describe.concurrent(pathname, async () => {
                 path: "/temp/convert/test/remove-file/test.html", // 移除文件测试
             },
             after: () => {
-                test("test the result of removing file", async () => {
+                it("test the result of removing file", async () => {
                     await expect(
                         client.client.getFile(
                             {
@@ -82,7 +82,7 @@ describe.concurrent(pathname, async () => {
                 path: "/temp/convert/test/remove-dir/", // 移除目录测试
             },
             after: () => {
-                test("test the result of removing directory", async () => {
+                it("test the result of removing directory", async () => {
                     await expect(
                         client.client.readDir({
                             path: "/temp/convert/test/remove-dir/",
@@ -102,7 +102,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.removeFile(payload!),
+            request: payload => client.client.removeFile(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
+import type getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
 
 const pathname = client.Client.api.attr.getBlockAttrs.pathname;
 
@@ -41,7 +41,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.getBlockAttrs(payload!),
+        request: payload => client.client.getBlockAttrs(payload!),
         response: {
             validate: validate_response,
         },

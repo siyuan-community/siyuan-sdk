@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
+import type getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
 
 const pathname = client.Client.api.attr.getBookmarkLabels.pathname;
 

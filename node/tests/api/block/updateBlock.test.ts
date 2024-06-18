@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import updateBlock from "@/types/kernel/api/block/updateBlock";
+import type updateBlock from "@/types/kernel/api/block/updateBlock";
 
 const pathname = client.Client.api.block.updateBlock.pathname;
 
@@ -97,7 +97,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.updateBlock(payload!),
+            request: payload => client.client.updateBlock(payload!),
             response: {
                 validate: validate_response,
             },

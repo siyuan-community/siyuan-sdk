@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Get the full configuration of the workspace
  */
@@ -916,26 +916,26 @@ export interface IKeymapEditorHeading {
  * SiYuan editor insert shortcut keys
  */
 export interface IKeymapEditorInsert {
-    appearance: IKey;
-    bold: IKey;
-    check: IKey;
-    clearInline: IKey;
-    code: IKey;
+    "appearance": IKey;
+    "bold": IKey;
+    "check": IKey;
+    "clearInline": IKey;
+    "code": IKey;
     "inline-code": IKey;
     "inline-math": IKey;
-    italic: IKey;
-    kbd: IKey;
-    lastUsed: IKey;
-    link: IKey;
-    mark: IKey;
-    memo: IKey;
-    ref: IKey;
-    strike: IKey;
-    sub: IKey;
-    sup: IKey;
-    table: IKey;
-    tag: IKey;
-    underline: IKey;
+    "italic": IKey;
+    "kbd": IKey;
+    "lastUsed": IKey;
+    "link": IKey;
+    "mark": IKey;
+    "memo": IKey;
+    "ref": IKey;
+    "strike": IKey;
+    "sub": IKey;
+    "sup": IKey;
+    "table": IKey;
+    "tag": IKey;
+    "underline": IKey;
 }
 
 /**
@@ -953,14 +953,14 @@ export interface IKeymapEditorList {
 export interface IKeymapEditorTable {
     "delete-column": IKey;
     "delete-row": IKey;
-    insertColumnLeft: IKey;
-    insertColumnRight: IKey;
-    insertRowAbove: IKey;
-    insertRowBelow: IKey;
-    moveToDown: IKey;
-    moveToLeft: IKey;
-    moveToRight: IKey;
-    moveToUp: IKey;
+    "insertColumnLeft": IKey;
+    "insertColumnRight": IKey;
+    "insertRowAbove": IKey;
+    "insertRowBelow": IKey;
+    "moveToDown": IKey;
+    "moveToLeft": IKey;
+    "moveToRight": IKey;
+    "moveToUp": IKey;
 }
 
 /**
@@ -2196,4 +2196,4 @@ export type TUILayout = "Layout" | "Wnd";
 
 export type TUILayoutInstanceLayout = "Layout";
 
-//#endregion content
+// #endregion content

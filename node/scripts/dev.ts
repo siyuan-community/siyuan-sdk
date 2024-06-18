@@ -17,7 +17,7 @@
 
 /* 监听 schemas 目录下文件的变化 */
 
-import fs from "node:fs";
+import type fs from "node:fs";
 import asyncFs from "node:fs/promises";
 import { parse, resolve } from "node:path";
 
@@ -25,14 +25,14 @@ import chokidar from "chokidar";
 
 import * as constants from "./utils/constants";
 import * as logger from "./utils/logger";
-import { json2types, json5Path2jsonPath, json52json, jsonPath2typesPath } from "./utils/schema";
+import { json2types, json52json, json5Path2jsonPath, jsonPath2typesPath } from "./utils/schema";
 import { updateTypeDefinitionFile } from "./utils/types";
 
 /**
  * 处理 *.schema.json5 文件变化
  */
 async function json5SchemasHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
-    console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`);
+    console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (true) {
             case path.endsWith(".schema.json5"): {
@@ -55,7 +55,8 @@ async function json5SchemasHandler(eventName: "add" | "addDir" | "change" | "unl
                 break;
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         logger.error(path, error);
     }
 }
@@ -64,7 +65,7 @@ async function json5SchemasHandler(eventName: "add" | "addDir" | "change" | "unl
  * 处理 *.schema.json 文件变化
  */
 async function jsonSchemasHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
-    console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`);
+    console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (true) {
             case path.endsWith(".schema.json"): {
@@ -87,19 +88,21 @@ async function jsonSchemasHandler(eventName: "add" | "addDir" | "change" | "unli
                 break;
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         logger.error(path, error);
     }
 }
 
 async function typesHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
-    console.debug(`\x1b[4m${eventName}\x1b[0m\t${path}`);
+    console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (eventName) {
             case "addDir": {
                 /* 更新在其目录下的 index.d.ts 文件 */
                 const index_path = await updateTypeDefinitionFile(path);
                 logger.change(index_path);
+                // fallthrough
             }
             case "unlinkDir": {
                 /* 更新其上级目录的 index.d.ts 文件 */
@@ -115,7 +118,8 @@ async function typesHandler(eventName: "add" | "addDir" | "change" | "unlink" | 
                 break;
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         logger.error(path, error);
     }
 }
@@ -125,13 +129,13 @@ async function typesHandler(eventName: "add" | "addDir" | "change" | "unlink" | 
  * REF: https://www.npmjs.com/package/chokidar
  */
 const json5_schemas_watcher = chokidar.watch(constants.SCHEMAS_DIR_PATH, {
-    ignored: /(^|[\/\\])\../, // ignore dotfiles
+    ignored: /(^|[/\\])\../, // ignore dotfiles
 });
 const json_schemas_watcher = chokidar.watch(constants.SCHEMAS_DIR_PATH, {
-    ignored: /(^|[\/\\])\../, // ignore dotfiles
+    ignored: /(^|[/\\])\../, // ignore dotfiles
 });
 const types_watcher = chokidar.watch(constants.TYPES_DIR_PATH, {
-    ignored: /(^|[\/\\])\../, // ignore dotfiles
+    ignored: /(^|[/\\])\../, // ignore dotfiles
 });
 
 json5_schemas_watcher.on("all", json5SchemasHandler);

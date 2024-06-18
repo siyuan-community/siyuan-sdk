@@ -15,10 +15,10 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 export * as getSnippet from "./getSnippet";
 export * as setSnippet from "./setSnippet";
 
 /* files */
-//#endregion content
+// #endregion content

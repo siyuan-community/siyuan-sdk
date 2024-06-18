@@ -15,10 +15,10 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 export * as echo from "./echo";
 export * as forwardProxy from "./forwardProxy";
 
 /* files */
-//#endregion content
+// #endregion content

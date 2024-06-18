@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getHPathByID from "@/types/kernel/api/filetree/getHPathByID";
+import type getHPathByID from "@/types/kernel/api/filetree/getHPathByID";
 
 const pathname = client.Client.api.filetree.getHPathByID.pathname;
 
@@ -54,16 +54,16 @@ describe(pathname, async () => {
                 const response_createDocWithMd = await client.client.createDocWithMd({
                     notebook: options.notebook,
                     path: hpath,
-                    markdown: markdown,
+                    markdown,
                 });
                 payload.id = response_createDocWithMd.data;
             },
         },
-        request: (payload) => client.client.getHPathByID(payload!),
+        request: payload => client.client.getHPathByID(payload!),
         response: {
             validate: validate_response,
             test: async (response, _payload, options) => {
-                test("test the result of creating a document", async () => {
+                it("test the result of creating a document", async () => {
                     expect(response.data).toEqual(hpath);
 
                     /* 删除测试用的笔记本 */

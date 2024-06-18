@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import createDocWithMd from "@/types/kernel/api/filetree/createDocWithMd";
+import type createDocWithMd from "@/types/kernel/api/filetree/createDocWithMd";
 
 const pathname = client.Client.api.filetree.createDocWithMd.pathname;
 
@@ -41,8 +41,8 @@ describe(pathname, async () => {
         payload: {
             data: {
                 notebook: "", // 将使用新创建的笔记本的 ID
-                path: path,
-                markdown: markdown,
+                path,
+                markdown,
             },
             validate: validate_payload,
             test: async (payload) => {
@@ -53,11 +53,11 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: (payload) => client.client.createDocWithMd(payload!),
+        request: payload => client.client.createDocWithMd(payload!),
         response: {
             validate: validate_response,
             test: async (response, payload) => {
-                test("test the result of creating a document", async () => {
+                it("test the result of creating a document", async () => {
                     const res = await client.client.exportMdContent({
                         id: response.data,
                     });

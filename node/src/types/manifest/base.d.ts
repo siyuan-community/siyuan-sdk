@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Basic definition of community resource manifest file
  */
@@ -114,4 +114,4 @@ export interface IFunding {
     patreon?: string;
 }
 
-//#endregion content
+// #endregion content

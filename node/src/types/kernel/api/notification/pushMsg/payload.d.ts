@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * push alert information
  */
@@ -30,4 +30,4 @@ export interface IPayload {
     timeout?: number;
 }
 
-//#endregion content
+// #endregion content

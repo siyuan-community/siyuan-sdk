@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Exports the specified document block as HTML
  */
@@ -42,4 +42,4 @@ export interface IPayload {
     savePath: string;
 }
 
-//#endregion content
+// #endregion content

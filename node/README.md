@@ -108,7 +108,6 @@ const client = new Client({
      * REF: https://www.axios-http.cn/docs/req_config
      */
 });
-
 ```
 
 #### Configure as a XHR client
@@ -208,7 +207,7 @@ client._updateOptions(
 ### Call Kernel API (async)
 
 ```javascript
-import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
+import { HTTPError, KernelError } from "@siyuan-community/siyuan-sdk";
 
 async function func() {
     try {
@@ -237,13 +236,12 @@ async function func() {
         /* ... */
     }
 }
-
 ```
 
 ### Call Kernel API (Promise)
 
 ```javascript
-import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
+import { HTTPError, KernelError } from "@siyuan-community/siyuan-sdk";
 
 function func() {
     /**
@@ -273,7 +271,6 @@ function func() {
             /* ... */
         });
 }
-
 ```
 
 ### Use type definitions
@@ -285,7 +282,6 @@ const payload: types.kernel.api.notification.pushMsg.IPayload = {
     msg: "This is a notification message", // Notification content
     timeout: 7_000, // Notification display time
 };
-
 ```
 
 ```typescript
@@ -295,7 +291,6 @@ const payload: pushMsg.IPayload = {
     msg: "This is a notification message", // Notification content
     timeout: 7_000, // Notification display time
 };
-
 ```
 
 ## References

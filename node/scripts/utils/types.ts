@@ -22,8 +22,8 @@ import * as constants from "./constants";
 
 /**
  * 更新指定目录的类型定义文件 index.d.ts
- * @param path: 指定目录的路径
- * @return: 该目录的类型定义文件名
+ * @param path 指定目录的路径
+ * @return 该目录的类型定义文件名
  */
 export async function updateTypeDefinitionFile(path: string): Promise<string> {
     if (path.endsWith("src")) {
@@ -34,12 +34,12 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
         constants.LICENSE,
     ]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
-    const dirs = children.filter((child) => child.isDirectory()); // 下级目录列表
+    const dirs = children.filter(child => child.isDirectory()); // 下级目录列表
     const files = children.filter(
-        (child) =>
-            child.isFile() && //
-            child.name.endsWith(".d.ts") &&
-            child.name !== "index.d.ts",
+        child =>
+            child.isFile() //
+            && child.name.endsWith(".d.ts")
+            && child.name !== "index.d.ts",
     ); // 下级文件列表
 
     ts.push(constants.REGION_BEGIN_CONTENT); // 代码内容首

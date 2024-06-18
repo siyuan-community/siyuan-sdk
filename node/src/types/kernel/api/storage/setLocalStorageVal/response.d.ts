@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Persist a piece of local storage data
  */
@@ -31,4 +31,4 @@ export interface IResponse {
     msg: string;
 }
 
-//#endregion content
+// #endregion content

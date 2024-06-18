@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import exportMdContent from "@/types/kernel/api/export/exportMdContent";
+import type exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
 const pathname = client.Client.api.export.exportMdContent.pathname;
 
@@ -41,7 +41,7 @@ describe.concurrent(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.exportMdContent(payload!),
+        request: payload => client.client.exportMdContent(payload!),
         response: {
             validate: validate_response,
         },

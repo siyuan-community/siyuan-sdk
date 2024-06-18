@@ -17,6 +17,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import process from "node:process";
 
 import TOML from "@ltd/j-toml";
 import quicktype from "quicktype-core";

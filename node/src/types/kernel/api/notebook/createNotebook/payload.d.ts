@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Create a notebook
  */
@@ -26,4 +26,4 @@ export interface IPayload {
     name: string;
 }
 
-//#endregion content
+// #endregion content

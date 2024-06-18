@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import createDailyNote from "@/types/kernel/api/filetree/createDailyNote";
+import type createDailyNote from "@/types/kernel/api/filetree/createDailyNote";
 
 const pathname = client.Client.api.filetree.createDailyNote.pathname;
 
 /* 测试环境上下文 */
 const context = {
     notebook: "", // 测试用笔记本的 ID
-    template: '/daily note/{{now | date "2006/01"}}/{{now | date "2006-01-02"}}', // 测试用文档的路径模板
+    template: "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}", // 测试用文档的路径模板
     hpath: "", // 测试用文档的路径
 };
 
@@ -45,7 +45,7 @@ async function initContext() {
         notebook: context.notebook,
     });
     response_getNotebookConf.data.conf.dailyNoteSavePath = context.template;
-    const response_setNotebookConf = await client.client.setNotebookConf({
+    await client.client.setNotebookConf({
         notebook: context.notebook,
         conf: response_getNotebookConf.data.conf,
     });
@@ -61,7 +61,7 @@ async function initContext() {
 interface ICase {
     name: string;
     payload: createDailyNote.IPayload;
-    after?: (response: createDailyNote.IResponse, payload: createDailyNote.IPayload) => void;
+    after?: (response: createDailyNote.IResponse, payload?: createDailyNote.IPayload) => void;
     debug: boolean;
 }
 
@@ -83,7 +83,7 @@ describe.concurrent(pathname, async () => {
             notebook: context.notebook,
         },
         after: (response) => {
-            test("test Daily Note document hpath", async () => {
+            it("test Daily Note document hpath", async () => {
                 const response_getHPathByID = await client.client.getHPathByID({
                     id: response.data.id,
                 });
@@ -103,7 +103,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.createDailyNote(payload!),
+            request: payload => client.client.createDailyNote(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

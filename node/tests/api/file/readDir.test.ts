@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { KernelError } from "~/src";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import readDir from "@/types/kernel/api/file/readDir";
+import type readDir from "@/types/kernel/api/file/readDir";
 
 const pathname = client.Client.api.file.readDir.pathname;
 
@@ -71,7 +71,7 @@ describe.concurrent(pathname, async () => {
             { path: "./.././", debug: false },
         ].map((item: ICase) => {
             item.catch = (error) => {
-                test("KernelError: 403", () => {
+                it("kernelError: 403", () => {
                     expect(
                         error, //
                         "test error's type",
@@ -92,7 +92,7 @@ describe.concurrent(pathname, async () => {
             { path: "789", debug: false },
         ].map((item: ICase) => {
             item.catch = (error) => {
-                test("KernelError: 404", () => {
+                it("kernelError: 404", () => {
                     expect(
                         error, //
                         "test error's type",
@@ -115,7 +115,7 @@ describe.concurrent(pathname, async () => {
             { path: "conf/appearance/langs/zh_CHT.json", debug: false },
         ].map((item: ICase) => {
             item.catch = (error) => {
-                test("KernelError: 405", () => {
+                it("kernelError: 405", () => {
                     expect(error, "test error's type").toBeInstanceOf(KernelError);
                     expect((error as KernelError).code, "test error's code").toEqual(405);
                 });
@@ -132,7 +132,7 @@ describe.concurrent(pathname, async () => {
                 },
                 validate: validate_payload,
             },
-            request: (payload) => client.client.readDir(payload!),
+            request: payload => client.client.readDir(payload!),
             catch: item.catch,
             response: {
                 validate: validate_response,

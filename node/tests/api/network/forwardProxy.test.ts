@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI, testResponse } from "~/tests/utils/test";
+import { testKernelAPI } from "~/tests/utils/test";
 
-import forwardProxy from "@/types/kernel/api/network/forwardProxy";
+import type forwardProxy from "@/types/kernel/api/network/forwardProxy";
 
 const pathname = client.Client.api.network.forwardProxy.pathname;
 const pathname_version = client.Client.api.system.version.pathname;
@@ -30,7 +30,7 @@ interface ICase {
     name: string;
     before?: () => void;
     payload: forwardProxy.IPayload;
-    after?: (response: forwardProxy.IResponse, payload: forwardProxy.IPayload) => void;
+    after?: (response: forwardProxy.IResponse, payload?: forwardProxy.IPayload) => void;
     debug: boolean;
 }
 
@@ -59,8 +59,8 @@ describe(pathname, async () => {
                     },
                 ],
             },
-            after: (response, payload) => {
-                test("test response.data.body", async () => {
+            after: (response, _payload) => {
+                it("test response.data.body", async () => {
                     expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual("text");
                 });
             },
@@ -79,8 +79,9 @@ describe(pathname, async () => {
                 responseEncoding: "text",
             },
             after: (response, payload) => {
-                test("test response.data.body", async () => {
-                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload.responseEncoding);
+                // eslint-disable-next-line test/no-identical-title
+                it("test response.data.body", async () => {
+                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload?.responseEncoding);
 
                     expect.soft(validate_response_version(JSON.parse(response.data.body)), `verify response using JSON Schema`).toBeTruthy(); // 校验响应体
                 });
@@ -100,8 +101,9 @@ describe(pathname, async () => {
                 responseEncoding: "base64",
             },
             after: (response, payload) => {
-                test("test response.data.body", async () => {
-                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload.responseEncoding);
+                // eslint-disable-next-line test/no-identical-title
+                it("test response.data.body", async () => {
+                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload?.responseEncoding);
                     expect.soft(validate_response_version(JSON.parse(atob(response.data.body))), `verify response using JSON Schema`).toBeTruthy(); // 校验响应体
                 });
             },
@@ -131,7 +133,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.forwardProxy(payload!),
+            request: payload => client.client.forwardProxy(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

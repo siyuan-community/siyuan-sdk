@@ -23,7 +23,7 @@ import * as ofetch from "ofetch";
 import constants from "@/constants";
 import { HTTPError } from "@/errors/http";
 import { KernelError } from "@/errors/kernel";
-import { kernel } from "@/types";
+import type { kernel } from "@/types";
 
 /* 基础设置选项 */
 export interface IBaseOptions {
@@ -67,13 +67,13 @@ export type ResponseType = axios.ResponseType | FetchResponseType;
 /* 全局设置选项 */
 export type GlobalOptions =
     | {
-          type: "fetch";
-          options: FetchOptions;
-      }
+        type: "fetch";
+        options: FetchOptions;
+    }
     | {
-          type: "xhr";
-          options: AxiosOptions;
-      };
+        type: "xhr";
+        options: AxiosOptions;
+    };
 
 /* 临时设置选项 */
 export interface TempFetchOptions {
@@ -245,7 +245,7 @@ export class Client implements IFetch {
                 key,
                 values,
             ]) => {
-                values.forEach((value) =>
+                values.forEach(value =>
                     entries.push([
                         key,
                         value,
@@ -269,11 +269,11 @@ export class Client implements IFetch {
 
     protected _type: ClientType = "xhr";
 
-    protected _baseURL: string =
-        globalThis.top?.document?.baseURI ?? //
-        globalThis.parent?.document?.baseURI ??
-        globalThis.location?.origin ??
-        constants.SIYUAN_DEFAULT_BASE_URL;
+    protected _baseURL: string
+        = globalThis.top?.document?.baseURI //
+        ?? globalThis.parent?.document?.baseURI
+        ?? globalThis.location?.origin
+        ?? constants.SIYUAN_DEFAULT_BASE_URL;
 
     protected _token: string | null = null;
 
@@ -281,6 +281,7 @@ export class Client implements IFetch {
         baseURL: this._baseURL,
         headers: this._headers,
     };
+
     protected _axios_options: axios.CreateAxiosDefaults = {
         baseURL: this._baseURL,
         timeout: constants.REQUEST_TIMEOUT,
@@ -407,9 +408,9 @@ export class Client implements IFetch {
                         }
                         case typeof axios_options.headers === "object": {
                             switch (true) {
-                                case "common" in axios_options.headers || //
-                                    "get" in axios_options.headers ||
-                                    "post" in axios_options.headers: {
+                                case "common" in axios_options.headers //
+                                    || "get" in axios_options.headers
+                                    || "post" in axios_options.headers: {
                                     if ("common" in axios_options.headers) {
                                         if (!(HeaderKey.Authorization in (axios_options.headers as axios.HeadersDefaults).get)) {
                                             (axios_options.headers as axios.HeadersDefaults).get[HeaderKey.Authorization] = this._authorization;
@@ -441,7 +442,8 @@ export class Client implements IFetch {
                             break;
                         }
                     }
-                } else {
+                }
+                else {
                     axios_options.headers = this._headers;
                 }
                 this._axios_options = axios_options as axios.CreateAxiosDefaults;
@@ -455,7 +457,7 @@ export class Client implements IFetch {
      * 兼容 fetch 接口的 forwardProxy 调用方案
      * @param input - {@link fetch} 的第一个参数
      * @param init - {@link fetch} 的第二个参数
-     * @returns Response: {@link fetch} 的返回值
+     * @returns Response {@link fetch} 的返回值
      */
     public async $fetch(
         input: URL | RequestInfo, //
@@ -501,7 +503,6 @@ export class Client implements IFetch {
             : `${url.pathname}${Client.ws.broadcast.pathname}`;
         url.search = searchParams.toString();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         return new Websocket(url, protocols);
     }
 
@@ -513,7 +514,7 @@ export class Client implements IFetch {
     ): Promise<kernel.api.asset.upload.IResponse> {
         const formdata = new FormData();
         formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
-        payload.files.forEach((file) => formdata.append("file[]", file));
+        payload.files.forEach(file => formdata.append("file[]", file));
 
         const response: kernel.api.asset.upload.IResponse = await this._request(
             Client.api.asset.upload.pathname, //
@@ -954,7 +955,8 @@ export class Client implements IFetch {
         ] of Object.entries(payload)) {
             if (value instanceof Blob) {
                 formdata.append(key, value);
-            } else {
+            }
+            else {
                 formdata.append(key, String(value));
             }
         }
@@ -1226,7 +1228,8 @@ export class Client implements IFetch {
                     }
                     if (config.options) {
                         Object.assign(options, config.options);
-                    } else {
+                    }
+                    else {
                         config.options = options;
                     }
                     break;
@@ -1241,7 +1244,8 @@ export class Client implements IFetch {
                     }
                     if (config.options) {
                         Object.assign(options, config.options);
-                    } else {
+                    }
+                    else {
                         config.options = options;
                     }
                     break;
@@ -1651,8 +1655,8 @@ export class Client implements IFetch {
     }
 
     public async _request<
-        R, //
-        P extends kernel.kernel.IPayload,
+        R,
+P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1662,8 +1666,8 @@ export class Client implements IFetch {
         responseType?: "json",
     ): Promise<R>;
     public async _request<
-        R, //
-        P extends kernel.kernel.IPayload,
+        R,
+P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1673,8 +1677,8 @@ export class Client implements IFetch {
         responseType?: ResponseType,
     ): Promise<R>;
     public async _request<
-        R, //
-        P extends kernel.kernel.IPayload,
+        R,
+P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1732,12 +1736,13 @@ export class Client implements IFetch {
                     },
                 );
                 if (
-                    normal && //
-                    responseType === "json" &&
-                    typeof response === "object"
+                    normal //
+                    && responseType === "json"
+                    && typeof response === "object"
                 ) {
                     return this._parseFetchResponse(response as kernel.kernel.IResponse) as R;
-                } else {
+                }
+                else {
                     return response as R;
                 }
             }
@@ -1763,7 +1768,8 @@ export class Client implements IFetch {
                     case axios.HttpStatusCode.Ok:
                         if (normal && responseType === "json" && typeof response.data === "object") {
                             return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
-                        } else {
+                        }
+                        else {
                             switch (responseType) {
                                 case "blob":
                                     if ("content-type" in response.headers) {
@@ -1780,7 +1786,8 @@ export class Client implements IFetch {
                         /* api/file/getFile */
                         if (pathname === Client.api.file.getFile.pathname) {
                             return this._parseAxiosResponse(response as axios.AxiosResponse<kernel.kernel.IResponse>) as R;
-                        } else {
+                        }
+                        else {
                             return response.data;
                         }
 
@@ -1800,7 +1807,8 @@ export class Client implements IFetch {
         if (response.code === 0) {
             // 内核正常响应
             return response;
-        } else {
+        }
+        else {
             // 内核异常响应
             const error = new KernelError(response);
             throw error;
@@ -1814,7 +1822,8 @@ export class Client implements IFetch {
         if (response.data.code === 0) {
             // 内核正常响应
             return response.data;
-        } else {
+        }
+        else {
             // 内核异常响应
             const error = new KernelError(response.data, response);
             throw error;

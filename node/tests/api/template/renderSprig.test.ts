@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import renderSprig from "@/types/kernel/api/template/renderSprig";
+import type renderSprig from "@/types/kernel/api/template/renderSprig";
 
 const pathname = client.Client.api.template.renderSprig.pathname;
 
@@ -37,15 +37,15 @@ describe(pathname, async () => {
         name: "main",
         payload: {
             data: {
-                template: '/{{now | date "2006/01"}}/{{now | date "2006-01-02"}}',
+                template: "/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.renderSprig(payload!),
+        request: payload => client.client.renderSprig(payload!),
         response: {
             validate: validate_response,
             test: (response) => {
-                test("test the result of Sprig template", () => {
+                it("test the result of Sprig template", () => {
                     expect(response.data).toMatch(/^\/\d{4}\/\d{2}\/\d{4}-\d{2}-\d{2}$/);
                 });
             },

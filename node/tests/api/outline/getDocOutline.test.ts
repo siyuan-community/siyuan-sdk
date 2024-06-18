@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getDocOutline from "@/types/kernel/api/outline/getDocOutline";
+import type getDocOutline from "@/types/kernel/api/outline/getDocOutline";
 
 const pathname = client.Client.api.outline.getDocOutline.pathname;
 
@@ -41,7 +41,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.getDocOutline(payload!),
+        request: payload => client.client.getDocOutline(payload!),
         response: {
             validate: validate_response,
         },

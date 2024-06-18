@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Gets the document outline
  */
@@ -140,4 +140,4 @@ export type NodeTypeEnum = "NodeHeading";
  */
 export type PurpleType = "outline";
 
-//#endregion content
+// #endregion content

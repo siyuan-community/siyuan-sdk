@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getSnippet from "@/types/kernel/api/snippet/getSnippet";
-import setSnippet from "@/types/kernel/api/snippet/setSnippet";
+import type getSnippet from "@/types/kernel/api/snippet/getSnippet";
+import type setSnippet from "@/types/kernel/api/snippet/setSnippet";
 
 const pathname = client.Client.api.snippet.getSnippet.pathname;
 
@@ -71,9 +71,9 @@ describe.concurrent(pathname, async () => {
                 enabled: 2,
             },
             after: async (response) => {
-                test("test the result of get snippet", async () => {
+                it("test the result of get snippet", async () => {
                     for (const snippet of response.data.snippets) {
-                        const s = snippets.find((s) => s.name === snippet.name);
+                        const s = snippets.find(s => s.name === snippet.name);
                         expect(s).not.toBeUndefined();
                         if (s) {
                             if (s.id !== "") {
@@ -99,7 +99,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.getSnippet(payload!),
+            request: payload => client.client.getSnippet(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

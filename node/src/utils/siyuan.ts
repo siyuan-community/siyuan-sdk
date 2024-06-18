@@ -1,3 +1,4 @@
+/* eslint-disable ts/prefer-literal-enum-member */
 /* 块级节点类型 */
 export enum NodeType {
     NodeNotebook = "NodeNotebook",

@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * query the database using SQL
  */
@@ -26,4 +26,4 @@ export interface IPayload {
     stmt: string;
 }
 
-//#endregion content
+// #endregion content

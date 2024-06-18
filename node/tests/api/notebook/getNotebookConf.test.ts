@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getNotebookConf from "@/types/kernel/api/notebook/getNotebookConf";
+import type getNotebookConf from "@/types/kernel/api/notebook/getNotebookConf";
 
 const pathname = client.Client.api.notebook.getNotebookConf.pathname;
 
@@ -49,7 +49,7 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: (payload) => client.client.getNotebookConf(payload!),
+        request: payload => client.client.getNotebookConf(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {

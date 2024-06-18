@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import openNotebook from "@/types/kernel/api/notebook/openNotebook";
+import type openNotebook from "@/types/kernel/api/notebook/openNotebook";
 
 const pathname = client.Client.api.notebook.openNotebook.pathname;
 
@@ -49,11 +49,11 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: (payload) => client.client.openNotebook(payload!),
+        request: payload => client.client.openNotebook(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {
-                test("test the status of notebook", async () => {
+                it("test the status of notebook", async () => {
                     const response = await client.client.getNotebookConf({
                         notebook: payload!.notebook,
                     });

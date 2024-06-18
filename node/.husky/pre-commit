@@ -1,10 +1,9 @@
+#!/bin/sh
+
 # REF: https://typicode.github.io/husky/how-to.html#project-not-in-git-root-directory
 
 cd node
 
-pnpm run spell
-pnpm run lint
-pnpm run format
-pnpm run build
+pnpm run check
 
 exit 0

@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import exportHTML from "@/types/kernel/api/export/exportHTML";
+import type exportHTML from "@/types/kernel/api/export/exportHTML";
 
 const pathname = client.Client.api.export.exportHTML.pathname;
 
@@ -51,7 +51,7 @@ describe.concurrent(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.exportHTML(payload!),
+        request: payload => client.client.exportHTML(payload!),
         response: {
             validate: validate_response,
         },

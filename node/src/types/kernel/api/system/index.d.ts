@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 export * as bootProgress from "./bootProgress";
 export * as currentTime from "./currentTime";
@@ -25,4 +25,4 @@ export * as logoutAuth from "./logoutAuth";
 export * as version from "./version";
 
 /* files */
-//#endregion content
+// #endregion content

@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * List sub docs by path
  */
@@ -153,4 +153,4 @@ export interface IFile {
     subFileCount: number;
 }
 
-//#endregion content
+// #endregion content

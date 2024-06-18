@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Copyright (C) 2023 SiYuan Community
  *
@@ -15,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ValidateFunction } from "ajv";
+import type { ValidateFunction } from "ajv";
 import { describe, expect, test } from "vitest";
 
-import { IResponse } from "~/src/types/kernel/kernel";
+import type { IResponse } from "~/src/types/kernel/kernel";
 
 /**
  * 添加额外的断言
@@ -40,21 +41,20 @@ interface ITestKernelAPIOptions<P, R> {
     payload?: {
         data?: P;
         validate?: ValidateFunction;
-        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void;
+        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
     };
     request: (payload?: P) => Promise<R>;
-    catch?: (error: unknown, payload: P, options: ITestKernelAPIOptions<P, R>) => void;
+    catch?: (error: unknown, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
     response?: {
         validate?: ValidateFunction;
-        test?: (response: R, payload: P, options: ITestKernelAPIOptions<P, R>) => void;
+        test?: (response: R, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
     };
     debug?: boolean;
     [key: string]: any;
 }
 /**
  * 校验内核 API
- * @param payload: 请求体对象
- * @param validate: ajv 校验函数
+ * @param options 测试配置项
  */
 export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
     describe.sequential(options.name, async () => {
@@ -75,17 +75,19 @@ export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) 
             }
 
             /* 测试请求过程 */
-            var response: R;
+            let response: R;
             try {
                 response = await options.request(options.payload?.data);
-            } catch (error) {
+            }
+            catch (error) {
                 if (options.catch) {
                     if (options.debug) {
                         console.debug("error:", error);
                     }
-                    await options.catch(error, options.payload?.data!, options);
+                    await options.catch(error, options.payload?.data, options);
                     return;
-                } else {
+                }
+                else {
                     throw error;
                 }
             }
@@ -102,9 +104,10 @@ export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) 
                 }
 
                 /* 其他测试 */
-                await options.response.test?.(response, options.payload?.data!, options);
+                await options.response.test?.(response, options.payload?.data, options);
             }
-        } catch (error) {
+        }
+        catch (error) {
             if (options.debug) {
                 console.error(error);
             }
@@ -115,8 +118,8 @@ export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) 
 
 /**
  * 校验请求体
- * @param payload: 请求体对象
- * @param validate: ajv 校验函数
+ * @param payload 请求体对象
+ * @param validate ajv 校验函数
  */
 export function testPayload<T>(payload: T, validate: ValidateFunction) {
     test("payload verify", async () => {
@@ -135,18 +138,24 @@ export async function testPromise<T>(
     // func: () => Promise<T>,
     promise: Promise<T>,
 ): Promise<T> {
-    return new Promise((resolve) => {
+    return new Promise<T>((resolve) => {
         // REF https://cn.vitest.dev/api/expect.html#resolves
         test("promise verify", async () => {
-            await expect.soft(promise, `verify promise resolve`).resolves.toResolve(resolve);
+            await expect
+                .soft(promise, `verify promise resolve`)
+                .resolves
+                .toSatisfy((value) => {
+                    resolve(value as T);
+                    return true;
+                });
         });
     });
 }
 
 /**
  * 校验响应体
- * @param payload: 响应体对象
- * @param validate: ajv 校验函数
+ * @param response 响应体对象
+ * @param validate ajv 校验函数
  */
 export function testResponse<T extends IResponse = IResponse>(response: T, validate: ValidateFunction) {
     test("response verify", () => {
@@ -162,10 +171,10 @@ export function testResponse<T extends IResponse = IResponse>(response: T, valid
 
 /**
  * 测试抛出异常
- * @param error: 异常对象
+ * @param error 异常对象
  */
 export function testThrowError(error: unknown) {
-    test(`\x1b[31;1m${(error as object).constructor.name}`, () => {
+    test(`\x1B[31;1m${(error as object).constructor.name}`, () => {
         expect(() => {
             throw error;
         }).not.toThrowError(); // 输出运行时错误

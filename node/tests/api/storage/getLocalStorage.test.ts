@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import getLocalStorage from "@/types/kernel/api/storage/getLocalStorage";
+import type getLocalStorage from "@/types/kernel/api/storage/getLocalStorage";
 
 const pathname = client.Client.api.storage.getLocalStorage.pathname;
 

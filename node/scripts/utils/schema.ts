@@ -21,22 +21,31 @@ import path from "node:path";
 
 import JSON5 from "json5";
 
-import { LICENSE, REGION_BEGIN_CONTENT, REGION_END_CONTENT, SCHEMAS_DIR_PATH, TYPES_DIR_PATH } from "./constants";
-import { JSONSchema2QuicktypeInputData, quicktypeInputData2TypeScriptInterface } from "./quicktype";
+import {
+    LICENSE,
+    REGION_BEGIN_CONTENT,
+    REGION_END_CONTENT,
+    SCHEMAS_DIR_PATH,
+    TYPES_DIR_PATH,
+} from "./constants";
+import {
+    JSONSchema2QuicktypeInputData,
+    quicktypeInputData2TypeScriptInterface,
+} from "./quicktype";
 
 /**
- * 将 *.json5 路径转换为 *.json 路径
- * @param json5FilePath: *.schema.json5 文件路径
- * @return: *.schema.json 文件路径
+ * 将 `*.json5` 路径转换为 `*.json` 路径
+ * @param json5FilePath `*.schema.json5` 文件路径
+ * @return `*.schema.json` 文件路径
  */
 export function json5Path2jsonPath(json5FilePath: string): string {
     return json5FilePath.replace(/\.json5$/i, ".json");
 }
 
 /**
- * 将 *.schema.json5 转换为 *.schema.json
- * @param json5FilePath: *.schema.json5 文件路径
- * @return: *.schema.json 文件路径
+ * 将 `*.schema.json5` 转换为 `*.schema.json`
+ * @param json5FilePath `*.schema.json5` 文件路径
+ * @return `*.schema.json` 文件路径
  */
 export async function json52json(json5FilePath: string): Promise<string> {
     const json5 = await asyncFs.readFile(json5FilePath, "utf-8"); // 读取 *.schema.json5 文件
@@ -52,8 +61,8 @@ export async function json52json(json5FilePath: string): Promise<string> {
 
 /**
  * 获取文件主文件名
- * @param filePath: 文件路径
- * @return: 主文件名
+ * @param filePath 文件路径
+ * @return 主文件名
  */
 export function fileMainName(filePath: string): string {
     const file = path.parse(filePath); // 文件目录信息
@@ -62,9 +71,9 @@ export function fileMainName(filePath: string): string {
 }
 
 /**
- * 将 *.schema.json 路径转换为 *.d.ts 路径
- * @param jsonFilePath: *.schema.json 文件路径
- * @return: *.d.ts 文件路径
+ * 将 `*.schema.json` 路径转换为 `*.d.ts` 路径
+ * @param jsonFilePath `*.schema.json` 文件路径
+ * @return `*.d.ts` 文件路径
  */
 export function jsonPath2typesPath(jsonFilePath: string): string {
     const file_main_name = fileMainName(jsonFilePath); // 主文件名
@@ -74,9 +83,9 @@ export function jsonPath2typesPath(jsonFilePath: string): string {
 }
 
 /**
- * 将 *.schema.json 转换为 *.d.ts
- * @param jsonFilePath: *.schema.json 文件路径
- * @return: *.d.ts 文件路径
+ * 将 `*.schema.json` 转换为 `*.d.ts`
+ * @param jsonFilePath `*.schema.json` 文件路径
+ * @return `*.d.ts` 文件路径
  */
 export async function json2types(jsonFilePath: string): Promise<string> {
     const file_main_name = fileMainName(jsonFilePath); // 主文件名

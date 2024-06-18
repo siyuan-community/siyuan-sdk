@@ -15,10 +15,10 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /* directories */
 
 /* files */
 export * from "./payload";
 export * from "./response";
-//#endregion content
+// #endregion content

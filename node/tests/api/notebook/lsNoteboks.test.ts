@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
+import type lsNotebooks from "@/types/kernel/api/notebook/lsNotebooks";
 
 const pathname = client.Client.api.notebook.lsNotebooks.pathname;
 

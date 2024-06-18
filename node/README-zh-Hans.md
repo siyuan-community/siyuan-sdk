@@ -84,7 +84,6 @@ $ yarn add @siyuan-community/siyuan-sdk
 
 ### 初始化客户端
 
-
 #### 默认配置
 
 ```javascript
@@ -209,7 +208,7 @@ client._updateOptions(
 ### 调用内核 API (async)
 
 ```javascript
-import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
+import { HTTPError, KernelError } from "@siyuan-community/siyuan-sdk";
 
 async function func() {
     try {
@@ -238,13 +237,12 @@ async function func() {
         /* ... */
     }
 }
-
 ```
 
 ### 调用内核 API (Promise)
 
 ```javascript
-import { KernelError, HTTPError } from "@siyuan-community/siyuan-sdk";
+import { HTTPError, KernelError } from "@siyuan-community/siyuan-sdk";
 
 function func() {
     /**
@@ -274,7 +272,6 @@ function func() {
             /* ... */
         });
 }
-
 ```
 
 ### 使用类型定义
@@ -286,7 +283,6 @@ const payload: types.kernel.api.notification.pushMsg.IPayload = {
     msg: "这是一条通知消息", // 通知内容
     timeout: 7_000, // 通知显示时间
 };
-
 ```
 
 ```typescript
@@ -296,7 +292,6 @@ const payload: pushMsg.IPayload = {
     msg: "这是一条通知消息", // 通知内容
     timeout: 7_000, // 通知显示时间
 };
-
 ```
 
 ## 参考

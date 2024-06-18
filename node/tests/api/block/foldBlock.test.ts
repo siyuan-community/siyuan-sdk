@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import foldBlock from "@/types/kernel/api/block/foldBlock";
+import type foldBlock from "@/types/kernel/api/block/foldBlock";
 
 const pathname = client.Client.api.block.foldBlock.pathname;
 
@@ -90,7 +90,7 @@ describe.concurrent(pathname, async () => {
             },
             after: async (response, payload) => {
                 const response_getBlockAttrs = await client.client.getBlockAttrs({ id: payload.id });
-                test("Block IAL > fold", () => {
+                it("block IAL > fold", () => {
                     expect.soft(response_getBlockAttrs.data.fold).toEqual("1");
                 });
             },
@@ -105,7 +105,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: (payload) => client.client.foldBlock(payload!),
+            request: payload => client.client.foldBlock(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

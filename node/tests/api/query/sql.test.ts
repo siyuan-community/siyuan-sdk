@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import sql from "@/types/kernel/api/query/sql";
+import type sql from "@/types/kernel/api/query/sql";
 
 const pathname = client.Client.api.query.sql.pathname;
 
@@ -34,8 +34,8 @@ interface ICase {
 
 /**
  * 校验查询结果记录
- * @param records: 查询结果列表
- * @param fields: 待校验的字段列表
+ * @param records 查询结果列表
+ * @param fields 待校验的字段列表
  */
 function verifyRecords<T>(
     records: sql.IResponse["data"], // 查询结果列表
@@ -49,12 +49,12 @@ function verifyRecords<T>(
     fields.forEach((field) => {
         if (field.expected === undefined) {
             field.expected = [];
-            field.expectedValues.forEach((value) => field.expected!.push(expect.objectContaining({ [field.name]: value })));
+            field.expectedValues.forEach(value => field.expected!.push(expect.objectContaining({ [field.name]: value })));
         }
     });
 
     /* 校验查询结果长度 */
-    const expected_length = Math.max(...fields.map((field) => field.expected!.length));
+    const expected_length = Math.max(...fields.map(field => field.expected!.length));
     // REF: https://cn.vitest.dev/api/expect.html#tohavelength
     expect(records, `records count`).toHaveLength(expected_length);
 
@@ -79,7 +79,7 @@ function buildTableFieldsTestCase(
             stmt: `PRAGMA table_info('${tableName}');`,
         },
         after: async (response) => {
-            test("verify all fields' name", () => {
+            it("verify all fields' name", () => {
                 verifyRecords(response.data, [
                     {
                         name: "name",
@@ -108,7 +108,7 @@ describe(pathname, async () => {
                 stmt: `SELECT * FROM sqlite_master WHERE type = 'table' ORDER BY name;`,
             },
             after: async (response) => {
-                test("verify all tables' name", () => {
+                it("verify all tables' name", () => {
                     verifyRecords(response.data, [
                         {
                             name: "name",
@@ -234,7 +234,7 @@ describe(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.sql(payload!),
+            request: payload => client.client.sql(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

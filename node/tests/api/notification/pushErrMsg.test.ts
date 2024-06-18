@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
+import type pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 
 const pathname = client.Client.api.notification.pushErrMsg.pathname;
 
@@ -42,7 +42,7 @@ describe.concurrent(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: (payload) => client.client.pushErrMsg(payload!),
+        request: payload => client.client.pushErrMsg(payload!),
         response: {
             validate: validate_response,
         },

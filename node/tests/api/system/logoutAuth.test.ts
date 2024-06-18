@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { KernelError } from "~/src";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import logoutAuth from "@/types/kernel/api/system/logoutAuth";
+import type logoutAuth from "@/types/kernel/api/system/logoutAuth";
 
 const pathname = client.Client.api.system.logoutAuth.pathname;
 
@@ -36,7 +36,7 @@ describe(pathname, async () => {
         request: () => client.client.logoutAuth(),
         catch: (error) => {
             /* 测试错误信息 (未设置访问鉴权码) */
-            test(`test error info (No authentication code)`, async () => {
+            it(`test error info (No authentication code)`, async () => {
                 expect(error, "error instance of KernelError").instanceOf(KernelError);
                 expect((error as KernelError).data, "response data include closeTimeout property").toHaveProperty("closeTimeout", 5000);
             });

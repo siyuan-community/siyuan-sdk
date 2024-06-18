@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import upload from "@/types/kernel/api/asset/upload";
+import type upload from "@/types/kernel/api/asset/upload";
 
 const pathname = client.Client.api.asset.upload.pathname;
 
@@ -108,21 +108,21 @@ describe.concurrent(pathname, async () => {
             payload: {
                 data: item.payload,
             },
-            request: (payload) => client.client.upload(payload!),
+            request: payload => client.client.upload(payload!),
             response: {
                 validate: validate_response,
                 test: async (response, payload) => {
-                    test("test the result of updating file", async () => {
+                    it("test the result of updating file", async () => {
                         /* 测试响应体中的结果 */
                         payload.files
-                            .map((file) => file.name)
+                            .map(file => file.name)
                             .forEach((filename) => {
                                 expect.soft(response.data.succMap[filename], `uploaded file "${filename}" failed`).not.toBeUndefined();
                             });
                     });
 
                     /* 测试文件是是否能正常获取到 */
-                    test("test the file is accessible", async () => {
+                    it("test the file is accessible", async () => {
                         for (const [
                             filename,
                             filepath,

@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-import { Client } from "@/index";
+import type { Client } from "@/index";
 
 /**
  * @see {@link https://fs.spec.whatwg.org/#api-filesystemhandle}

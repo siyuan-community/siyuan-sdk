@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { afterAll, describe, expect, test } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
+import type listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
 
 const pathname = client.Client.api.filetree.listDocsByPath.pathname;
 
@@ -75,7 +75,7 @@ describe.concurrent(pathname, async () => {
             path: "/",
         },
         after: (response, payload) => {
-            test("docs", () => {
+            it("docs", () => {
                 expect.soft(response.data.box, "box").toEqual(payload.notebook);
                 expect.soft(response.data.path, "path").toEqual(payload.path);
                 expect(response.data.files, "files.length").toHaveLength(1);
@@ -107,7 +107,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: (payload) => client.client.listDocsByPath(payload!),
+            request: payload => client.client.listDocsByPath(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

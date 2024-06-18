@@ -21,7 +21,7 @@ import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import flushTransaction from "@/types/kernel/api/sqlite/flushTransaction";
+import type flushTransaction from "@/types/kernel/api/sqlite/flushTransaction";
 
 const pathname = client.Client.api.sqlite.flushTransaction.pathname;
 
@@ -32,7 +32,7 @@ describe(pathname, async () => {
 
     testKernelAPI<never, flushTransaction.IResponse>({
         name: "main",
-        request: (payload) => client.client.flushTransaction(payload!),
+        request: payload => client.client.flushTransaction(payload!),
         response: {
             validate: validate_response,
         },

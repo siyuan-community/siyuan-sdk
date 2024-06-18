@@ -15,21 +15,19 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
+import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
+import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";
 import { KernelError } from "~/src/errors";
 
 import { errors } from "@/fs/error";
-import { Client } from "@/index";
-
-import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
-import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";
+import type { Client } from "@/index";
 
 /**
  * @see {@link https://fs.spec.whatwg.org/#api-filesystemfilehandle}
  */
 export class SiyuanFileSystemFileHandle //
     extends SiyuanFileSystemHandle
-    implements FileSystemFileHandle
-{
+    implements FileSystemFileHandle {
     public readonly kind = "file";
 
     constructor(
@@ -83,7 +81,8 @@ export class SiyuanFileSystemFileHandle //
                 },
             );
             return file;
-        } catch (error) {
+        }
+        catch (error) {
             if (error instanceof KernelError) {
                 switch (error.code) {
                     case 404:
@@ -161,7 +160,8 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                     }
                     if ("data" in chunk) {
                         chunk = chunk.data as BlobPart;
-                    } else {
+                    }
+                    else {
                         throw new DOMException(...errors.SYNTAX("write requires a data argument"));
                     }
                     break;
@@ -173,35 +173,37 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                         }
                         this.position = chunk.position;
                         return;
-                    } else {
+                    }
+                    else {
                         throw new DOMException(...errors.SYNTAX("seek requires a position argument"));
                     }
                 }
                 case "truncate": {
                     if (Number.isInteger(chunk.size) && chunk.size && chunk.size >= 0) {
-                        this.file =
-                            chunk.size < this.size
+                        this.file
+                            = chunk.size < this.size
                                 ? new File(
-                                      [
-                                          this.file.slice(0, chunk.size),
-                                      ],
-                                      this.file.name,
-                                      this.file,
-                                  )
+                                    [
+                                        this.file.slice(0, chunk.size),
+                                    ],
+                                    this.file.name,
+                                    this.file,
+                                )
                                 : new File(
-                                      [
-                                          this.file,
-                                          new Uint8Array(chunk.size - this.size),
-                                      ],
-                                      this.file.name,
-                                  );
+                                    [
+                                        this.file,
+                                        new Uint8Array(chunk.size - this.size),
+                                    ],
+                                    this.file.name,
+                                );
 
                         this.size = this.file.size;
                         if (this.position > this.file.size) {
                             this.position = this.file.size;
                         }
                         return;
-                    } else {
+                    }
+                    else {
                         throw new DOMException(...errors.SYNTAX("truncate requires a size argument"));
                     }
                 }

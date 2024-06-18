@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import CONSTANTS from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
 
-import postMessage from "@/types/kernel/api/broadcast/postMessage";
+import type postMessage from "@/types/kernel/api/broadcast/postMessage";
 
 const pathname = client.Client.api.broadcast.postMessage.pathname;
 
@@ -56,15 +56,15 @@ describe(pathname, async () => {
                 });
             },
         },
-        request: (payload) => client.client.postMessage(payload!),
+        request: payload => client.client.postMessage(payload!),
         response: {
             validate: validate_response,
             test: (response, payload, options) => {
-                test("test channel message", async () => {
+                it("test channel message", async () => {
                     await expect.soft(options.promise, "listen message").resolves.toEqual(message);
                 });
 
-                test("test channel info", () => {
+                it("test channel info", () => {
                     expect.soft(response.data.channel.name, "channel name").toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
 
                     expect.soft(response.data.channel.count, "channel count").toBeGreaterThanOrEqual(1);

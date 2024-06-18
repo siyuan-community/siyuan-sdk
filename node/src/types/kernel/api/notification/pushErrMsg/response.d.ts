@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * push error information
  */
@@ -41,4 +41,4 @@ export interface IData {
     id: string;
 }
 
-//#endregion content
+// #endregion content

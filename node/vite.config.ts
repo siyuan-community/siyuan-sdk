@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import { resolve } from "path";
+import { resolve } from "node:path";
 
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";

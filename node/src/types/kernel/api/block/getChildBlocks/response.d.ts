@@ -15,7 +15,7 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-//#region content
+// #region content
 /**
  * Get child blocks
  */
@@ -61,4 +61,4 @@ export type TBlockSubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "u" | "o" 
  */
 export type TBlockType = "d" | "s" | "b" | "l" | "i" | "h" | "p" | "m" | "t" | "c" | "html" | "query_embed" | "tb" | "audio" | "video" | "iframe" | "widget";
 
-//#endregion content
+// #endregion content

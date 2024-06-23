@@ -1,7 +1,8 @@
 // cSpell Settings
 // REF https://cspell.org/configuration/
 
-module.exports = {
+/** @type { import("@cspell/cspell-types").CSpellUserSettings } */
+const config = {
     $schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
     // Version of the setting file.
     version: "0.0.2",
@@ -81,3 +82,5 @@ module.exports = {
         "./tests/constants.ts",
     ],
 };
+
+export default config;

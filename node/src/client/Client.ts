@@ -1656,7 +1656,7 @@ export class Client implements IFetch {
 
     public async _request<
         R,
-P extends kernel.kernel.IPayload,
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1667,7 +1667,7 @@ P extends kernel.kernel.IPayload,
     ): Promise<R>;
     public async _request<
         R,
-P extends kernel.kernel.IPayload,
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,
@@ -1678,7 +1678,7 @@ P extends kernel.kernel.IPayload,
     ): Promise<R>;
     public async _request<
         R,
-P extends kernel.kernel.IPayload,
+        P extends kernel.kernel.IPayload,
     >(
         pathname: string, //
         method: string,

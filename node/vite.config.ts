@@ -5,17 +5,13 @@ import { resolve } from "node:path";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { defineConfig } from "vitest/config";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
     base: `./`,
-    resolve: {
-        alias: {
-            "@schemas": resolve(__dirname, "./../schemas"),
-            "~": resolve(__dirname, "./"),
-            "@": resolve(__dirname, "./src"),
-        },
-    },
     plugins: [
+        // REF: https://www.npmjs.com/package/vite-tsconfig-paths
+        tsconfigPaths(),
         // REF https://github.com/qmhc/vite-plugin-dts/blob/HEAD/README.zh-CN.md
         dts({
             insertTypesEntry: true,

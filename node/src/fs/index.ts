@@ -1,6 +1,7 @@
 import path from "path-browserify";
 
 import { SiyuanFileSystemDirectoryHandle } from "./handle/SiyuanFileSystemDirectoryHandle";
+
 import type { Client } from "@/index";
 
 /**

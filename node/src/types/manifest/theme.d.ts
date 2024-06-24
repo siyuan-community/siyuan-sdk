@@ -121,6 +121,6 @@ export interface IFunding {
 /**
  * The mode supported by the theme
  */
-export type TMode = "light" | "dark";
+export type TMode = "dark" | "light";
 
 // #endregion content

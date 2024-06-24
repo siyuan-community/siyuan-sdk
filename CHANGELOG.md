@@ -11,6 +11,7 @@
 - 添加 `tsdoc` 语法检查 | Add `tsdoc` syntax check
 - 使用 `@antfu/eslint-config` 作为 eslint 基础配置 | Use `@antfu/eslint-config` as the basic eslint configuration
 - 改进解析 `tsconfig.json` 中定义的路径别名的方式 | Improve the way to resolve path aliases defined in `tsconfig.json`
+- 调整 `eslint` 格式化配置 | Adjust `eslint` formatting configuration
 
 ## v0.3.11 / 2024-05-14
 

@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { ValidateFunction } from "ajv";
 import { describe, expect, test } from "vitest";
+
+import type { ValidateFunction } from "ajv";
 
 import type { IResponse } from "~/src/types/kernel/kernel";
 
@@ -41,13 +42,13 @@ interface ITestKernelAPIOptions<P, R> {
     payload?: {
         data?: P;
         validate?: ValidateFunction;
-        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
+        test?: (payload: P, options: ITestKernelAPIOptions<P, R>) => Promise<void> | void;
     };
     request: (payload?: P) => Promise<R>;
-    catch?: (error: unknown, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
+    catch?: (error: unknown, payload?: P, options?: ITestKernelAPIOptions<P, R>) => Promise<void> | void;
     response?: {
         validate?: ValidateFunction;
-        test?: (response: R, payload?: P, options?: ITestKernelAPIOptions<P, R>) => void | Promise<void>;
+        test?: (response: R, payload?: P, options?: ITestKernelAPIOptions<P, R>) => Promise<void> | void;
     };
     debug?: boolean;
     [key: string]: any;

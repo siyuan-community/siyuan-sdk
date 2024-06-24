@@ -34,6 +34,7 @@ const config = {
         "docpath",
         "docsize",
         "dotfiles",
+        "dprint",
         "endregion",
         "enxa",
         "fcontent",

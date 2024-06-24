@@ -23,7 +23,7 @@ export interface IPayload extends object {}
 export interface IResponse {
     code: number;
     msg: string;
-    data: object | string | number | boolean | null | any[];
+    data: any[] | boolean | number | object | string | null;
 }
 
 // #endregion content

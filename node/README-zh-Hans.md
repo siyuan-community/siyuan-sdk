@@ -3,6 +3,7 @@
 <h1>思源开发工具包</h1>
 
 <!-- 仓库相关 -->
+
 [![GitHub 许可证](https://img.shields.io/github/license/siyuan-community/siyuan-sdk?style=flat-square)](https://github.com/siyuan-community/siyuan-sdk/blob/main/LICENSE)
 [![GitHub 仓库大小](https://img.shields.io/github/repo-size/siyuan-community/siyuan-sdk?style=flat-square)](https://github.com/siyuan-community/siyuan-sdk)
 [![GitHub 代码大小](https://img.shields.io/github/languages/code-size/siyuan-community/siyuan-sdk)](https://github.com/siyuan-community/siyuan-sdk)
@@ -25,6 +26,7 @@
 <br/> -->
 
 <!-- NPM 相关 -->
+
 [![NPM 版本](https://img.shields.io/npm/v/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk?activeTab=versions)
 [![NPM 依赖 (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk?activeTab=dependents)
 [![NPM 类型定义](https://img.shields.io/npm/types/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk)
@@ -34,29 +36,31 @@
 [![NPM 每周下载次数](https://img.shields.io/npm/dw/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk)
 
 ---
+
 **简体中文** \| [English](./README.md)
 
 ---
+
 </div>
 
 > 一个简单易用的 [思源笔记](https://github.com/siyuan-note/siyuan) 开发工具包 (SDK)。
 > 完整文档请参考 [siyuan-SDK | 思源开发者文档](https://docs.siyuan-note.club/zh-Hans/reference/community/siyuan-sdk/)
 
-* [开始](#开始)
-  * [安装](#安装)
-* [示例](#示例)
-  * [初始化客户端](#初始化客户端)
-    * [默认配置](#默认配置)
-    * [配置为 XHR 客户端](#配置为-xhr-客户端)
-    * [配置为 Fetch 客户端](#配置为-fetch-客户端)
-  * [更改 HTTP 客户端模式](#更改-http-客户端模式)
-  * [更新客户端全局配置](#更新客户端全局配置)
-  * [调用内核 API (async)](#调用内核-api-async)
-  * [调用内核 API (Promise)](#调用内核-api-promise)
-  * [使用类型定义](#使用类型定义)
-* [参考](#参考)
-  * [API 参考](#api-参考)
-* [更改日志](#更改日志)
+- [开始](#开始)
+  - [安装](#安装)
+- [示例](#示例)
+  - [初始化客户端](#初始化客户端)
+    - [默认配置](#默认配置)
+    - [配置为 XHR 客户端](#配置为-xhr-客户端)
+    - [配置为 Fetch 客户端](#配置为-fetch-客户端)
+  - [更改 HTTP 客户端模式](#更改-http-客户端模式)
+  - [更新客户端全局配置](#更新客户端全局配置)
+  - [调用内核 API (async)](#调用内核-api-async)
+  - [调用内核 API (Promise)](#调用内核-api-promise)
+  - [使用类型定义](#使用类型定义)
+- [参考](#参考)
+  - [API 参考](#api-参考)
+- [更改日志](#更改日志)
 
 ## 开始
 

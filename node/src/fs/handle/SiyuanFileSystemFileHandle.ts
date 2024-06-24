@@ -15,11 +15,13 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
-import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";
+import { errors } from "@/fs/error";
+
 import { KernelError } from "~/src/errors";
 
-import { errors } from "@/fs/error";
+import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
+import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";
+
 import type { Client } from "@/index";
 
 /**
@@ -141,7 +143,7 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
     write(
         chunk: FileSystemWriteChunkType, //
         _controller: WritableStreamDefaultController,
-    ): void | PromiseLike<void> {
+    ): PromiseLike<void> | void {
         if (typeof chunk === "object" && "type" in chunk) {
             switch (chunk.type) {
                 case "write": {

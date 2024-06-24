@@ -18,12 +18,13 @@
 import { resolve } from "node:path";
 import process from "node:process";
 
+import constants from "@/constants";
 import addFormats from "ajv-formats";
-import type { Options, Schema, ValidateFunction } from "ajv/dist/2020";
 import Ajv2020 from "ajv/dist/2020";
 
 import { loadJSON5 } from "./json5";
-import constants from "@/constants";
+
+import type { Options, Schema, ValidateFunction } from "ajv/dist/2020";
 
 export class SchemaJSON {
     public static resolveSchemaPath(

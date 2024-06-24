@@ -20,7 +20,7 @@
  * Set block attributes
  */
 export interface IPayload {
-    attrs: { [key: string]: null | string };
+    attrs: { [key: string]: string | null };
     /**
      * block ID
      */

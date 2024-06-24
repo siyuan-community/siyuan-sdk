@@ -182,8 +182,8 @@ export interface Ial {
     [property: string]: string;
 }
 
-export type SubTypeEnum = "" | "u" | "o" | "t" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+export type SubTypeEnum = "" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "o" | "t" | "u";
 
-export type TypeEnum = "NodeDocument" | "NodeSuperBlock" | "NodeBlockquote" | "NodeHeading" | "NodeParagraph" | "NodeTable" | "NodeCodeBlock" | "NodeHTMLBlock" | "NodeThematicBreak" | "NodeAudio" | "NodeVideo" | "NodeIFrame" | "NodeWidget" | "NodeBlockQueryEmbed" | "NodeAttributeView" | "NodeList" | "NodeListItem";
+export type TypeEnum = "NodeAttributeView" | "NodeAudio" | "NodeBlockQueryEmbed" | "NodeBlockquote" | "NodeCodeBlock" | "NodeDocument" | "NodeHeading" | "NodeHTMLBlock" | "NodeIFrame" | "NodeList" | "NodeListItem" | "NodeParagraph" | "NodeSuperBlock" | "NodeTable" | "NodeThematicBreak" | "NodeVideo" | "NodeWidget";
 
 // #endregion content

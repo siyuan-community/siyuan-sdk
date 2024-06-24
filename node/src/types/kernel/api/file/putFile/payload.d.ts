@@ -32,7 +32,7 @@ export interface IDirectory {
     /**
      * the uploaded file
      */
-    file?: File | BlobPart;
+    file?: BlobPart | File;
     /**
      * last access and modification time, Unix time (ms)
      */
@@ -47,7 +47,7 @@ export interface IFile {
     /**
      * the uploaded file
      */
-    file: File | BlobPart;
+    file: BlobPart | File;
     /**
      * whether to create a folder, when true only create a folder, ignore file
      */

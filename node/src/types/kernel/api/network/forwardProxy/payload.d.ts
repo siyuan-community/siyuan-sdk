@@ -63,7 +63,7 @@ export interface IPayload {
  * HTTP method to request
  * @defaultValue "GET"
  */
-export type TRequestMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "TRACE" | "CONNECT";
+export type TRequestMethod = "CONNECT" | "DELETE" | "GET" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT" | "TRACE";
 
 /**
  * request body
@@ -77,6 +77,6 @@ export type Payload = { [key: string]: any } | string;
  * Encoding schema for response body
  * @defaultValue "text"
  */
-export type TEncodeSchema = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
+export type TEncodeSchema = "base32-hex" | "base32-std" | "base32" | "base64-std" | "base64-url" | "base64" | "hex" | "text";
 
 // #endregion content

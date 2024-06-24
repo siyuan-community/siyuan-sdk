@@ -18,8 +18,8 @@
 // #region content
 /* directories */
 export * as api from "./api";
-export * as ws from "./ws";
-
 /* files */
 export * as kernel from "./kernel";
+
+export * as ws from "./ws";
 // #endregion content

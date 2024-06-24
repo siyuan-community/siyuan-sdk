@@ -17,7 +17,6 @@
 
 /* 监听 schemas 目录下文件的变化 */
 
-import type fs from "node:fs";
 import asyncFs from "node:fs/promises";
 import { parse, resolve } from "node:path";
 
@@ -27,6 +26,8 @@ import * as constants from "./utils/constants";
 import * as logger from "./utils/logger";
 import { json2types, json52json, json5Path2jsonPath, jsonPath2typesPath } from "./utils/schema";
 import { updateTypeDefinitionFile } from "./utils/types";
+
+import type fs from "node:fs";
 
 /**
  * 处理 *.schema.json5 文件变化

@@ -74,7 +74,7 @@ export interface IPlugin {
 /**
  * The back-end environment that the plugin is compatible with
  */
-export type TBackEnd = "all" | "windows" | "linux" | "darwin" | "docker" | "android" | "ios";
+export type TBackEnd = "all" | "android" | "darwin" | "docker" | "ios" | "linux" | "windows";
 
 /**
  * The description of the resource
@@ -108,7 +108,7 @@ export interface ILocalizedText {
 /**
  * The front-end environment that the plugin is compatible with
  */
-export type TFrontEnd = "all" | "desktop" | "desktop-window" | "mobile" | "browser-desktop" | "browser-mobile";
+export type TFrontEnd = "all" | "browser-desktop" | "browser-mobile" | "desktop-window" | "desktop" | "mobile";
 
 /**
  * The funding of the resource

@@ -51,6 +51,6 @@ export interface IPayload {
  * Operation type
  * Filter based on the reason established by the history
  */
-export type TOperationType = "all" | "clean" | "update" | "delete" | "format" | "sync" | "replace";
+export type TOperationType = "all" | "clean" | "delete" | "format" | "replace" | "sync" | "update";
 
 // #endregion content

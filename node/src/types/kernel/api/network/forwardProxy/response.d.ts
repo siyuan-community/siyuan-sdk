@@ -68,6 +68,6 @@ export interface IData {
 /**
  * response body encoding schema
  */
-export type TEncodeSchema = "text" | "base64" | "base64-std" | "base64-url" | "base32" | "base32-std" | "base32-hex" | "hex";
+export type TEncodeSchema = "base32-hex" | "base32-std" | "base32" | "base64-std" | "base64-url" | "base64" | "hex" | "text";
 
 // #endregion content

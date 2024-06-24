@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "dotenv/config";
-
 import { describe, expect, it } from "vitest";
+
+import "dotenv/config";
 
 describe("environment Variable Test", async () => {
     it(`vITE_SIYUAN_SERVE`, async () => {

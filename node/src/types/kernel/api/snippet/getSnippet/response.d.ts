@@ -71,6 +71,6 @@ export interface ISnippet {
 /**
  * snippet type
  */
-export type TSnippetType = "js" | "css";
+export type TSnippetType = "css" | "js";
 
 // #endregion content

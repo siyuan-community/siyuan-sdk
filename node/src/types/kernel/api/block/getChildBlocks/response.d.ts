@@ -54,11 +54,11 @@ export interface IBlock {
 /**
  * block subtype
  */
-export type TBlockSubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "u" | "o" | "t";
+export type TBlockSubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "o" | "t" | "u";
 
 /**
  * block type
  */
-export type TBlockType = "d" | "s" | "b" | "l" | "i" | "h" | "p" | "m" | "t" | "c" | "html" | "query_embed" | "tb" | "audio" | "video" | "iframe" | "widget";
+export type TBlockType = "audio" | "b" | "c" | "d" | "h" | "html" | "i" | "iframe" | "l" | "m" | "p" | "query_embed" | "s" | "t" | "tb" | "video" | "widget";
 
 // #endregion content

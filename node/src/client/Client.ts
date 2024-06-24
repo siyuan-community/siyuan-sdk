@@ -15,14 +15,14 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
+import constants from "@/constants";
+import { HTTPError } from "@/errors/http";
+import { KernelError } from "@/errors/kernel";
 import * as axios from "axios";
 import Websocket from "isomorphic-ws";
 import * as base64 from "js-base64";
 import * as ofetch from "ofetch";
 
-import constants from "@/constants";
-import { HTTPError } from "@/errors/http";
-import { KernelError } from "@/errors/kernel";
 import type { kernel } from "@/types";
 
 /* 基础设置选项 */
@@ -44,13 +44,13 @@ export interface IBlob extends Blob {
 }
 
 /* 扩展设置选项 */
-export type ExtendOptions = ofetch.FetchOptions | axios.CreateAxiosDefaults;
+export type ExtendOptions = axios.CreateAxiosDefaults | ofetch.FetchOptions;
 
 /* 完整设置选项 */
 // export type IOptions = (IBaseOptions & axios.CreateAxiosDefaults) | (IBaseOptions & ofetch.FetchOptions);
 export type FetchOptions = IBaseOptions & ofetch.FetchOptions;
 export type AxiosOptions = IBaseOptions & axios.CreateAxiosDefaults;
-export type Options = FetchOptions | AxiosOptions;
+export type Options = AxiosOptions | FetchOptions;
 
 /* HTTP 请求客户端类型 */
 export type ClientType = "fetch" | "xhr";
@@ -84,7 +84,7 @@ export interface TempAxiosOptions {
     type: "xhr";
     options?: axios.AxiosRequestConfig;
 }
-export type TempOptions = TempFetchOptions | TempAxiosOptions;
+export type TempOptions = TempAxiosOptions | TempFetchOptions;
 
 export interface IFetch {
     $fetch: typeof fetch;
@@ -256,7 +256,7 @@ export class Client implements IFetch {
         return entries;
     }
 
-    public static entries2record(entries: IterableIterator<[string, string]> | Array<[string, string]>): Record<string, string> {
+    public static entries2record(entries: Array<[string, string]> | IterableIterator<[string, string]>): Record<string, string> {
         const record: Record<string, string> = {};
         for (const [
             key,
@@ -460,7 +460,7 @@ export class Client implements IFetch {
      * @returns Response {@link fetch} 的返回值
      */
     public async $fetch(
-        input: URL | RequestInfo, //
+        input: RequestInfo | URL, //
         init?: RequestInit,
     ): Promise<Response> {
         // REF: https://developer.mozilla.org/zh-CN/docs/Web/API/Request/Request
@@ -872,7 +872,7 @@ export class Client implements IFetch {
     /* 获取文件 */
     public async getFile(
         payload: kernel.api.file.getFile.IPayload, //
-        responseType: Extract<ResponseType, "arrayBuffer" | "arraybuffer">,
+        responseType: Extract<ResponseType, "arraybuffer" | "arrayBuffer">,
         config?: TempOptions,
     ): Promise<ArrayBuffer>;
     public async getFile(
@@ -906,8 +906,8 @@ export class Client implements IFetch {
         config?: TempOptions,
     ): Promise<
         | ArrayBuffer //
-        | IBlob
         | Document
+        | IBlob
         | object
         | ReadableStream
         | string

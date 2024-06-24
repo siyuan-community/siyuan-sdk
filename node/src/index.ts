@@ -15,10 +15,10 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-export type * as types from "./types";
-
-export * from "./fs";
 export * from "./client/Client";
-export * from "./errors";
-export * as siyuan from "./utils/siyuan";
+
 export { default as CONSTANTS } from "./constants";
+export * from "./errors";
+export * from "./fs";
+export type * as types from "./types";
+export * as siyuan from "./utils/siyuan";

@@ -197,7 +197,7 @@ export interface IOpenAI {
 /**
  * API Provider
  */
-export type TOpenAIAPIProvider = "OpenAI" | "Azure";
+export type TOpenAIAPIProvider = "Azure" | "OpenAI";
 
 /**
  * SiYuan API related configuration
@@ -1042,7 +1042,7 @@ export interface ILang {
 /**
  * Log level
  */
-export type TLogLevel = "off" | "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+export type TLogLevel = "debug" | "error" | "fatal" | "info" | "off" | "trace" | "warn";
 
 /**
  * Snapshot repository related configuration
@@ -1465,7 +1465,7 @@ export interface ISystem {
  * - `ios`: iOS device
  * - `std`: Desktop Electron environment
  */
-export type TSystemContainer = "docker" | "android" | "ios" | "std";
+export type TSystemContainer = "android" | "docker" | "ios" | "std";
 
 /**
  * SiYuan Network proxy configuration
@@ -2143,14 +2143,14 @@ export interface IUILayoutTabSearchConfigTypes {
     widgetBlock?: boolean;
 }
 
-export type TUILayoutTabContentInstance = "Editor" | "Asset" | "Custom" | "Backlink" | "Bookmark" | "Files" | "Graph" | "Outline" | "Tag" | "Search";
+export type TUILayoutTabContentInstance = "Asset" | "Backlink" | "Bookmark" | "Custom" | "Editor" | "Files" | "Graph" | "Outline" | "Search" | "Tag";
 
 /**
  * (Editor) Editor mode
  * - `wysiwyg`: WYSIWYG mode
  * - `preview`: Export preview mode
  */
-export type TUILayoutTabEditorMode = "wysiwyg" | "preview";
+export type TUILayoutTabEditorMode = "preview" | "wysiwyg";
 
 /**
  * (Backlink) Tab type
@@ -2166,7 +2166,7 @@ export type TUILayoutTabEditorMode = "wysiwyg" | "preview";
  * - `pin`: Pinned outline panel
  * - `local`: The outline panel of the current editor
  */
-export type TuiLayoutTabType = "pin" | "local" | "global";
+export type TuiLayoutTabType = "global" | "local" | "pin";
 
 /**
  * Panel content layout direction
@@ -2177,9 +2177,9 @@ export type TuiLayoutTabType = "pin" | "local" | "global";
  * - `tb`: Can adjust the size up and down
  * - `lr`: Can adjust the size left and right
  */
-export type TUILayoutDirection = "tb" | "lr";
+export type TUILayoutDirection = "lr" | "tb";
 
-export type TUILayoutInstance = "Layout" | "Wnd" | "Tab";
+export type TUILayoutInstance = "Layout" | "Tab" | "Wnd";
 
 /**
  * Layout type
@@ -2190,7 +2190,7 @@ export type TUILayoutInstance = "Layout" | "Wnd" | "Tab";
  * - `left`: Left panel
  * - `right`: Right panel
  */
-export type TUILayoutType = "normal" | "center" | "top" | "bottom" | "left" | "right";
+export type TUILayoutType = "bottom" | "center" | "left" | "normal" | "right" | "top";
 
 export type TUILayout = "Layout" | "Wnd";
 

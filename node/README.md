@@ -3,6 +3,7 @@
 <h1>SiYuan SDK</h1>
 
 <!-- 仓库相关 -->
+
 [![GitHub LICENSE](https://img.shields.io/github/license/siyuan-community/siyuan-sdk?style=flat-square)](https://github.com/siyuan-community/siyuan-sdk/blob/main/LICENSE)
 [![GitHub repo size](https://img.shields.io/github/repo-size/siyuan-community/siyuan-sdk?style=flat-square)](https://github.com/siyuan-community/siyuan-sdk)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/siyuan-community/siyuan-sdk)](https://github.com/siyuan-community/siyuan-sdk)
@@ -25,6 +26,7 @@
 <br/> -->
 
 <!-- NPM 相关 -->
+
 [![NPM version](https://img.shields.io/npm/v/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk?activeTab=versions)
 [![NPM dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk?activeTab=dependents)
 [![NPM type definition](https://img.shields.io/npm/types/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk)
@@ -34,28 +36,30 @@
 [![NPM downloads (weekly)](https://img.shields.io/npm/dw/%40siyuan-community/siyuan-sdk?style=flat-square)](https://www.npmjs.com/package/@siyuan-community/siyuan-sdk)
 
 ---
+
 [简体中文](./README-zh-Hans.md) \| **English**
 
 ---
+
 </div>
 
 > A simple and easy to use SDK for [SiYuan Note](https://github.com/siyuan-note/siyuan).
 
-* [Getting Started](#getting-started)
-  * [Installation](#installation)
-* [Examples](#examples)
-  * [Initialize the client](#initialize-the-client)
-    * [Default configuration](#default-configuration)
-    * [Configure as a XHR client](#configure-as-a-xhr-client)
-    * [Configure as a Fetch client](#configure-as-a-fetch-client)
-  * [Update the model of HTTP client](#update-the-model-of-http-client)
-  * [Update client global configuration](#update-client-global-configuration)
-  * [Call Kernel API (async)](#call-kernel-api-async)
-  * [Call Kernel API (Promise)](#call-kernel-api-promise)
-  * [Use type definitions](#use-type-definitions)
-* [References](#references)
-  * [API References](#api-references)
-* [Changelog](#changelog)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+- [Examples](#examples)
+  - [Initialize the client](#initialize-the-client)
+    - [Default configuration](#default-configuration)
+    - [Configure as a XHR client](#configure-as-a-xhr-client)
+    - [Configure as a Fetch client](#configure-as-a-fetch-client)
+  - [Update the model of HTTP client](#update-the-model-of-http-client)
+  - [Update client global configuration](#update-client-global-configuration)
+  - [Call Kernel API (async)](#call-kernel-api-async)
+  - [Call Kernel API (Promise)](#call-kernel-api-promise)
+  - [Use type definitions](#use-type-definitions)
+- [References](#references)
+  - [API References](#api-references)
+- [Changelog](#changelog)
 
 ## Getting Started
 
@@ -297,8 +301,8 @@ const payload: pushMsg.IPayload = {
 
 ### API References
 
-* [SiYuan API Documentation](https://github.com/siyuan-note/siyuan/blob/master/API_en-US.md)
-* [JSON Schema Definitions](https://github.com/siyuan-community/siyuan-sdk/tree/main/schemas)
+- [SiYuan API Documentation](https://github.com/siyuan-note/siyuan/blob/master/API_en-US.md)
+- [JSON Schema Definitions](https://github.com/siyuan-community/siyuan-sdk/tree/main/schemas)
 
 ## Changelog
 

@@ -15,13 +15,14 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-import constants from "@/constants";
-import { HTTPError } from "@/errors/http";
-import { KernelError } from "@/errors/kernel";
 import * as axios from "axios";
 import Websocket from "isomorphic-ws";
 import * as base64 from "js-base64";
 import * as ofetch from "ofetch";
+
+import constants from "@/constants";
+import { HTTPError } from "@/errors/http";
+import { KernelError } from "@/errors/kernel";
 
 import type { kernel } from "@/types";
 

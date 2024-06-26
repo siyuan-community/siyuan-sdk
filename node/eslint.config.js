@@ -38,42 +38,63 @@ export default antfu({
                 "warn",
                 {
                     "groups": [
+                        "side-effect-style", // import "style.css";
+                        "side-effect", // import "module";
+
                         [
-                            "node",
-                            "builtin",
+                            "$node", // import path from "node:path";
+                            "builtin", // import path from "path";
                         ],
-                        "external",
-                        "repo",
-                        "internal",
-                        "parent",
-                        "sibling",
-                        "index",
-                        "side-effect",
+                        "external", // import axios from "axios";
+                        [
+                            "$repo", // import module from "@repo/module";
+                            "$workspace", // import module from "@workspace/module";
+                        ],
+                        "$root", // import module from "~/module";
+                        "internal", // import module from "@/module";
+                        [
+                            "parent", // import module from "../module";
+                            "sibling", // import module from "./module";
+                            "index", // import module from ".";
+                        ],
                         "unknown",
+
                         [
-                            "node-type",
-                            "builtin-type",
+                            "$node-type", // import type path from "node:path";
+                            "builtin-type", // import type path from "path";
                         ],
-                        "external-type",
-                        "repo-type",
-                        "internal-type",
-                        "parent-type",
-                        "sibling-type",
-                        "index-type",
+                        "external-type", // import type axios from "axios";
+                        [
+                            "$repo-type", // import type module from "@repo/module";
+                            "$workspace-type", // import type module from "@workspace/module";
+                        ],
+                        "$root-type", // import type module from "~/module";
+                        "internal-type", // import type module from "@/module";
+                        [
+                            "parent-type", // import type module from "../module";
+                            "sibling-type", // import type module from "./module";
+                            "index-type", // import type module from ".";
+                        ],
                         "type",
 
-                        "style",
-                        "side-effect-style",
-                        "object",
+                        "style", // import styles from "./index.module.css";
+                        "object", // import log = console.log;
+                    ],
+                    "internal-pattern": [
+                        "@/**",
                     ],
                     "custom-groups": {
                         value: {
-                            node: "node:**",
-                            repo: "@repo/**",
+                            $node: "node:**",
+                            $repo: "@repo/**",
+                            $workspace: "@workspace/**",
+                            $root: "~/**",
                         },
                         type: {
-                            "node-style": "node:**",
-                            "repo-style": "@repo/**",
+                            "$node-type": "node:**",
+                            "$repo-type": "@repo/**",
+                            "$workspace-type": "@workspace/**",
+                            "$root-type": "~/**",
                         },
                     },
                 },

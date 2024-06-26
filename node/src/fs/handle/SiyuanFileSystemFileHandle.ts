@@ -15,9 +15,9 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
-import { errors } from "@/fs/error";
-
 import { KernelError } from "~/src/errors";
+
+import { errors } from "@/fs/error";
 
 import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";
 import { SiyuanFileSystemWritableFileStream } from "./SiyuanFileSystemWritableFileStream";

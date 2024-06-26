@@ -15,11 +15,12 @@
  * along with this program.  If not, see {@link http://www.gnu.org/licenses/}.
  */
 
+import path from "path-browserify";
+
 import { errors } from "@/fs/error";
 import { //
     KernelError,
 } from "@/index";
-import path from "path-browserify";
 
 import { SiyuanFileSystemFileHandle } from "./SiyuanFileSystemFileHandle";
 import { SiyuanFileSystemHandle } from "./SiyuanFileSystemHandle";

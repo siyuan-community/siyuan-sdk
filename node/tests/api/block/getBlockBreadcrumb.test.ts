@@ -15,12 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { BlockSubType, NodeType } from "@/utils/siyuan";
 import { afterAll, describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
+
+import { BlockSubType, NodeType } from "@/utils/siyuan";
 
 import type getBlockBreadcrumb from "@/types/kernel/api/block/getBlockBreadcrumb";
 

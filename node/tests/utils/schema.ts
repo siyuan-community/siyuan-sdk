@@ -18,9 +18,10 @@
 import { resolve } from "node:path";
 import process from "node:process";
 
-import constants from "@/constants";
 import addFormats from "ajv-formats";
 import Ajv2020 from "ajv/dist/2020";
+
+import constants from "@/constants";
 
 import { loadJSON5 } from "./json5";
 

@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import process from "node:process";
+import "dotenv/config";
 
-import { Client } from "@/client/Client";
+import process from "node:process";
 
 import CONSTANTS from "~/tests/constants";
 
-import "dotenv/config";
+import { Client } from "@/client/Client";
 
 const client = new Client(
     {

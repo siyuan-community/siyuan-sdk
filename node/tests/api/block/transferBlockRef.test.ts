@@ -221,7 +221,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: payload => client.client.transferBlockRef(payload!),
+            request: (payload) => client.client.transferBlockRef(payload!),
             response: {
                 validate: validate_response,
             },

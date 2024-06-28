@@ -60,7 +60,7 @@ describe(pathname, async () => {
                 payload.path = `/${response_createDocWithMd.data}.sy`;
             },
         },
-        request: payload => client.client.getHPathByPath(payload!),
+        request: (payload) => client.client.getHPathByPath(payload!),
         response: {
             validate: validate_response,
             test: async (response, payload) => {

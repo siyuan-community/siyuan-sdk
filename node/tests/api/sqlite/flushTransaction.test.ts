@@ -32,7 +32,7 @@ describe(pathname, async () => {
 
     testKernelAPI<never, flushTransaction.IResponse>({
         name: "main",
-        request: payload => client.client.flushTransaction(payload!),
+        request: (payload) => client.client.flushTransaction(payload!),
         response: {
             validate: validate_response,
         },

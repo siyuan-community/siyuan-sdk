@@ -105,7 +105,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: payload => client.client.exportResources(payload!),
+            request: (payload) => client.client.exportResources(payload!),
             response: {
                 validate: validate_response,
                 test: (response) => {

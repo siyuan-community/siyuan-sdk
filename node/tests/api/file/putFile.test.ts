@@ -94,7 +94,7 @@ describe.concurrent(pathname, async () => {
             payload: {
                 data: item.payload,
             },
-            request: payload => client.client.putFile(payload!),
+            request: (payload) => client.client.putFile(payload!),
             response: {
                 validate: validate_response,
                 test: async () => {

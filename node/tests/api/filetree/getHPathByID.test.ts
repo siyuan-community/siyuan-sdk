@@ -59,7 +59,7 @@ describe(pathname, async () => {
                 payload.id = response_createDocWithMd.data;
             },
         },
-        request: payload => client.client.getHPathByID(payload!),
+        request: (payload) => client.client.getHPathByID(payload!),
         response: {
             validate: validate_response,
             test: async (response, _payload, options) => {

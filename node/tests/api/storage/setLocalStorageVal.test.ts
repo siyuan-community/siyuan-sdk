@@ -48,7 +48,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.setLocalStorageVal(payload!),
+        request: (payload) => client.client.setLocalStorageVal(payload!),
         response: {
             validate: validate_response,
             test: async () => {

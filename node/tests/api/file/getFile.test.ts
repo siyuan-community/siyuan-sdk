@@ -174,7 +174,7 @@ describe.concurrent(pathname, async () => {
                 },
                 validate: validate_payload,
             },
-            request: payload => client.client.getFile(payload!, item.responseType),
+            request: (payload) => client.client.getFile(payload!, item.responseType),
             catch: item.catch,
             response: {
                 test: (body) => {

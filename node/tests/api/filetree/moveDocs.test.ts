@@ -70,7 +70,7 @@ describe(pathname, async () => {
                 payload.fromPaths.push(`/${options.ids.join("/")}.sy`);
             },
         },
-        request: payload => client.client.moveDocs(payload!),
+        request: (payload) => client.client.moveDocs(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload, options) => {

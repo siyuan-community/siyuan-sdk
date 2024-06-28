@@ -73,7 +73,7 @@ describe(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: payload => client.client.openRepoSnapshotDoc(payload!),
+            request: (payload) => client.client.openRepoSnapshotDoc(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

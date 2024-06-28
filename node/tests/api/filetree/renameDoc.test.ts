@@ -63,7 +63,7 @@ describe(pathname, async () => {
                 payload.path = `/${response_createDocWithMd.data}.sy`;
             },
         },
-        request: payload => client.client.renameDoc(payload!),
+        request: (payload) => client.client.renameDoc(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {

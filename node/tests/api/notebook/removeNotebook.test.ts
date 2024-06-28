@@ -51,7 +51,7 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: payload => client.client.removeNotebook(payload!),
+        request: (payload) => client.client.removeNotebook(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {

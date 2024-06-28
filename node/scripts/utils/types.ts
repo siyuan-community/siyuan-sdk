@@ -34,9 +34,9 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
         constants.LICENSE,
     ]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
-    const dirs = children.filter(child => child.isDirectory()); // 下级目录列表
+    const dirs = children.filter((child) => child.isDirectory()); // 下级目录列表
     const files = children.filter(
-        child =>
+        (child) =>
             child.isFile() //
             && child.name.endsWith(".d.ts")
             && child.name !== "index.d.ts",

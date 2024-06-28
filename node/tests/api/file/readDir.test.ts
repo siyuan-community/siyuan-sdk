@@ -132,7 +132,7 @@ describe.concurrent(pathname, async () => {
                 },
                 validate: validate_payload,
             },
-            request: payload => client.client.readDir(payload!),
+            request: (payload) => client.client.readDir(payload!),
             catch: item.catch,
             response: {
                 validate: validate_response,

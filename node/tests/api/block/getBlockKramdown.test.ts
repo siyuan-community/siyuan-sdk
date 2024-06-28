@@ -177,7 +177,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: payload => client.client.getBlockKramdown(payload!),
+            request: (payload) => client.client.getBlockKramdown(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

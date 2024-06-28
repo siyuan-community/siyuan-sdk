@@ -49,7 +49,7 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: payload => client.client.openNotebook(payload!),
+        request: (payload) => client.client.openNotebook(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {

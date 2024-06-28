@@ -37,7 +37,7 @@
         "experimentalSpecifierResolution": "node"
     },
     "include": [
-        "cspell.config.cjs",
+        "cspell.config.js",
         "eslint.config.js",
         "vite.config.ts",
         "src",

@@ -49,12 +49,12 @@ function verifyRecords<T>(
     fields.forEach((field) => {
         if (field.expected === undefined) {
             field.expected = [];
-            field.expectedValues.forEach(value => field.expected!.push(expect.objectContaining({ [field.name]: value })));
+            field.expectedValues.forEach((value) => field.expected!.push(expect.objectContaining({ [field.name]: value })));
         }
     });
 
     /* 校验查询结果长度 */
-    const expected_length = Math.max(...fields.map(field => field.expected!.length));
+    const expected_length = Math.max(...fields.map((field) => field.expected!.length));
     // REF: https://cn.vitest.dev/api/expect.html#tohavelength
     expect(records, `records count`).toHaveLength(expected_length);
 
@@ -234,7 +234,7 @@ describe(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: payload => client.client.sql(payload!),
+            request: (payload) => client.client.sql(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

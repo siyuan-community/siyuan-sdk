@@ -41,7 +41,7 @@ describe.concurrent(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.exportMdContent(payload!),
+        request: (payload) => client.client.exportMdContent(payload!),
         response: {
             validate: validate_response,
         },

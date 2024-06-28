@@ -41,7 +41,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.getBlockAttrs(payload!),
+        request: (payload) => client.client.getBlockAttrs(payload!),
         response: {
             validate: validate_response,
         },

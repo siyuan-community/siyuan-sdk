@@ -103,7 +103,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: payload => client.client.pandoc(payload!),
+            request: (payload) => client.client.pandoc(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

@@ -122,7 +122,7 @@ describe(pathname, async () => {
                 data: item.payload,
                 test: item.before,
             },
-            request: payload => client.client.echo(payload!),
+            request: (payload) => client.client.echo(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

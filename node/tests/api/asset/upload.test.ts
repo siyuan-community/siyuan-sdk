@@ -108,14 +108,14 @@ describe.concurrent(pathname, async () => {
             payload: {
                 data: item.payload,
             },
-            request: payload => client.client.upload(payload!),
+            request: (payload) => client.client.upload(payload!),
             response: {
                 validate: validate_response,
                 test: async (response, payload) => {
                     it("test the result of updating file", async () => {
                         /* 测试响应体中的结果 */
                         payload.files
-                            .map(file => file.name)
+                            .map((file) => file.name)
                             .forEach((filename) => {
                                 expect.soft(response.data.succMap[filename], `uploaded file "${filename}" failed`).not.toBeUndefined();
                             });

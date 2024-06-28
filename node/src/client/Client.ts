@@ -246,7 +246,7 @@ export class Client implements IFetch {
                 key,
                 values,
             ]) => {
-                values.forEach(value =>
+                values.forEach((value) =>
                     entries.push([
                         key,
                         value,
@@ -515,7 +515,7 @@ export class Client implements IFetch {
     ): Promise<kernel.api.asset.upload.IResponse> {
         const formdata = new FormData();
         formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
-        payload.files.forEach(file => formdata.append("file[]", file));
+        payload.files.forEach((file) => formdata.append("file[]", file));
 
         const response: kernel.api.asset.upload.IResponse = await this._request(
             Client.api.asset.upload.pathname, //

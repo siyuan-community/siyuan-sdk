@@ -62,7 +62,7 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: payload => client.client.setNotebookConf(payload!),
+        request: (payload) => client.client.setNotebookConf(payload!),
         response: {
             validate: validate_response,
             test: async (response, payload) => {

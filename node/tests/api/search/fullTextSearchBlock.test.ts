@@ -108,7 +108,7 @@ describe.concurrent(pathname, async () => {
                 }
             }
         }
-        return payloads.map(payload => ({
+        return payloads.map((payload) => ({
             name: `method: ${payload.method} groupBy: ${payload.groupBy} orderBy: ${payload.orderBy}`,
             payload,
             debug: false,
@@ -122,7 +122,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: payload => client.client.fullTextSearchBlock(payload!),
+            request: (payload) => client.client.fullTextSearchBlock(payload!),
             response: {
                 validate: validate_response,
             },

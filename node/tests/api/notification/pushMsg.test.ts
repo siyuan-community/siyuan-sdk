@@ -42,7 +42,7 @@ describe.concurrent(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.pushMsg(payload!),
+        request: (payload) => client.client.pushMsg(payload!),
         response: {
             validate: validate_response,
         },

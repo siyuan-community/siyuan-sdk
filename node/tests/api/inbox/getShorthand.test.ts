@@ -41,7 +41,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.getShorthand(payload!),
+        request: (payload) => client.client.getShorthand(payload!),
         response: {
             validate: validate_response,
         },

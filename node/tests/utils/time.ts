@@ -20,5 +20,5 @@
  * REF: https://www.zhihu.com/question/591024312/answer/2963301131
  */
 export async function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }

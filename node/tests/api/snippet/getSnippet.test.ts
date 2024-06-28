@@ -73,7 +73,7 @@ describe.concurrent(pathname, async () => {
             after: async (response) => {
                 it("test the result of get snippet", async () => {
                     for (const snippet of response.data.snippets) {
-                        const s = snippets.find(s => s.name === snippet.name);
+                        const s = snippets.find((s) => s.name === snippet.name);
                         expect(s).not.toBeUndefined();
                         if (s) {
                             if (s.id !== "") {
@@ -99,7 +99,7 @@ describe.concurrent(pathname, async () => {
                 validate: validate_payload,
                 test: item.before,
             },
-            request: payload => client.client.getSnippet(payload!),
+            request: (payload) => client.client.getSnippet(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

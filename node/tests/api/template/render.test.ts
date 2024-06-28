@@ -48,7 +48,7 @@ describe(pathname, async () => {
                 });
             },
         },
-        request: payload => client.client.render(payload!),
+        request: (payload) => client.client.render(payload!),
         response: {
             validate: validate_response,
             test: (response) => {

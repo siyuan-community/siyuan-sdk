@@ -56,7 +56,7 @@ describe(pathname, async () => {
                 });
             },
         },
-        request: payload => client.client.postMessage(payload!),
+        request: (payload) => client.client.postMessage(payload!),
         response: {
             validate: validate_response,
             test: (response, payload, options) => {

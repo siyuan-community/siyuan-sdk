@@ -60,7 +60,7 @@ describe(pathname, async () => {
                 payload.path = `/${response_createDocWithMd.data}.sy`;
             },
         },
-        request: payload => client.client.removeDoc(payload!),
+        request: (payload) => client.client.removeDoc(payload!),
         response: {
             validate: validate_response,
             test: async (_response, payload) => {

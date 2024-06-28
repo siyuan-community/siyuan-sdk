@@ -168,7 +168,7 @@ describe.concurrent(pathname, async () => {
                 data: item.payload,
                 validate: validate_payload,
             },
-            request: payload => client.client.getBlockInfo(payload!),
+            request: (payload) => client.client.getBlockInfo(payload!),
             response: {
                 validate: validate_response,
                 test: item.after,

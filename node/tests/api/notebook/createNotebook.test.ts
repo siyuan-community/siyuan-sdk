@@ -42,7 +42,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.createNotebook(payload!),
+        request: (payload) => client.client.createNotebook(payload!),
         response: {
             validate: validate_response,
             test: async (response) => {

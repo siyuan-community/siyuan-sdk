@@ -42,7 +42,7 @@ describe(pathname, async () => {
             },
             validate: validate_payload,
         },
-        request: payload => client.client.getChannelInfo(payload!),
+        request: (payload) => client.client.getChannelInfo(payload!),
         response: {
             validate: validate_response,
             test: (response) => {

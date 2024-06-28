@@ -53,7 +53,7 @@ describe(pathname, async () => {
                 payload.notebook = response.data.notebook.id;
             },
         },
-        request: payload => client.client.createDocWithMd(payload!),
+        request: (payload) => client.client.createDocWithMd(payload!),
         response: {
             validate: validate_response,
             test: async (response, payload) => {

@@ -29,7 +29,7 @@ import { updateTypeDefinitionFile } from "./utils/types";
 fsWalk.walk(
     SCHEMAS_DIR_PATH,
     {
-        entryFilter: entry => entry.name.endsWith(".schema.json5"), // 仅处理 *.schema.json5 文件
+        entryFilter: (entry) => entry.name.endsWith(".schema.json5"), // 仅处理 *.schema.json5 文件
     },
     (_error, entries) => {
         /* 将 *.schema.json5 转换为 *.schema.json */
@@ -45,7 +45,7 @@ fsWalk.walk(
                 fsWalk.walk(
                     SCHEMAS_DIR_PATH,
                     {
-                        entryFilter: entry => entry.name.endsWith(".schema.json"), // 仅处理 *.schema.json 文件
+                        entryFilter: (entry) => entry.name.endsWith(".schema.json"), // 仅处理 *.schema.json 文件
                     },
                     (_error, entries) => {
                         /* 将 *.schema.json 转换为 *.d.ts */
@@ -61,7 +61,7 @@ fsWalk.walk(
                                 fsWalk.walk(
                                     TYPES_DIR_PATH,
                                     {
-                                        entryFilter: entry => entry.dirent.isDirectory(), // 仅处理目录
+                                        entryFilter: (entry) => entry.dirent.isDirectory(), // 仅处理目录
                                     },
                                     (_error, entries) => {
                                         /* 更新目录下的 index.d.ts 文件 */

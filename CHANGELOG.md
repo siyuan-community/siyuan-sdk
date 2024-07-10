@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.12 / 2024-07-11
+
+- [v0.3.11 ... v0.3.12](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.11...v0.3.12)
 - 改进 eslint 配置 | Improve eslint configuration
 - 改进构建流程 | Improve the build process
 - 优化 Prettier 配置 | Optimize Prettier configuration

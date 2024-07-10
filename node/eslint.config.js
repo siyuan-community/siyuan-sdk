@@ -13,6 +13,12 @@ export default antfu(
                     "warn",
                     "always",
                 ],
+                "style/no-trailing-spaces": [
+                    "warn",
+                    {
+                        ignoreComments: true,
+                    },
+                ],
                 "style/linebreak-style": [
                     "error",
                     "unix",
@@ -30,6 +36,14 @@ export default antfu(
                 trailingComma: "all",
                 bracketSameLine: false,
                 singleAttributePerLine: true,
+            },
+        },
+        jsonc: {
+            overrides: {
+                "jsonc/comma-dangle": [
+                    "warn",
+                    "only-multiline",
+                ],
             },
         },
         typescript: {

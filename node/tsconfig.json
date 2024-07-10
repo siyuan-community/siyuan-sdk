@@ -23,6 +23,7 @@
             ]
         },
         "resolveJsonModule": true,
+        "allowJs": true,
         "strict": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,

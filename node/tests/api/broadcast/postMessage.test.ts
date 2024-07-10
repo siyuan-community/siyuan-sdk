@@ -21,6 +21,7 @@ import CONSTANTS from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
+import { broadcast } from "~/tests/utils/websocket";
 
 import type postMessage from "@/types/kernel/api/broadcast/postMessage";
 
@@ -48,26 +49,31 @@ describe(pathname, async () => {
                 options.promise = new Promise((resolve: (msg: string) => void) => {
                     const listener = (e: WebSocketEventMap["message"]) => {
                         if (e.data === message) {
-                            client.broadcast.removeEventListener("message", listener);
+                            broadcast.removeEventListener("message", listener);
                             resolve(e.data);
                         }
                     };
-                    client.broadcast.addEventListener("message", listener);
+                    broadcast.addEventListener("message", listener);
                 });
             },
         },
         request: (payload) => client.client.postMessage(payload!),
         response: {
             validate: validate_response,
-            test: (response, payload, options) => {
+            test: (response, _payload, options) => {
                 it("test channel message", async () => {
-                    await expect.soft(options.promise, "listen message").resolves.toEqual(message);
+                    await expect.soft(options!.promise, "listen message").resolves.toEqual(message);
                 });
 
                 it("test channel info", () => {
-                    expect.soft(response.data.channel.name, "channel name").toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
-
-                    expect.soft(response.data.channel.count, "channel count").toBeGreaterThanOrEqual(1);
+                    expect.soft(
+                        response.data.channel.name,
+                        "channel name",
+                    ).toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
+                    expect.soft(
+                        response.data.channel.count,
+                        "channel count",
+                    ).toBeGreaterThanOrEqual(1);
                 });
             },
         },

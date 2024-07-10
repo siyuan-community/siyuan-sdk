@@ -21,6 +21,7 @@ import CONSTANTS from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
+import "~/tests/utils/websocket";
 
 import type getChannelInfo from "@/types/kernel/api/broadcast/getChannelInfo";
 
@@ -47,9 +48,15 @@ describe(pathname, async () => {
             validate: validate_response,
             test: (response) => {
                 it("channel info", () => {
-                    expect.soft(response.data.channel.name, "channel name").toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
+                    expect.soft(
+                        response.data.channel.name,
+                        "channel name",
+                    ).toEqual(CONSTANTS.BROADCAST_CHANNEL_NAME);
 
-                    expect.soft(response.data.channel.count, "channel count").toBeGreaterThanOrEqual(1);
+                    expect.soft(
+                        response.data.channel.count,
+                        "channel count",
+                    ).toBeGreaterThanOrEqual(1);
                 });
             },
         },

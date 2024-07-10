@@ -61,7 +61,9 @@ describe.concurrent(pathname, async () => {
                         path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/`,
                     });
                 }
-                catch (error) {}
+                catch (error) {
+                    void error;
+                }
 
                 /* 写入测试文件 */
                 await client.client.putFile({

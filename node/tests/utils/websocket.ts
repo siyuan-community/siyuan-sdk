@@ -17,19 +17,14 @@
 
 import "dotenv/config";
 
-import process from "node:process";
+import CONSTANTS from "~/tests/constants";
 
-import { Client } from "@/client/Client";
+import { client } from "./client";
 
-export const client = new Client(
-    {
-        baseURL: process.env.VITE_SIYUAN_SERVE,
-        token: process.env.VITE_SIYUAN_TOKEN,
-    },
-    "fetch",
-);
+export const broadcast = client.broadcast({
+    channel: CONSTANTS.BROADCAST_CHANNEL_NAME,
+});
 
 export default {
-    Client,
-    client,
+    broadcast,
 };

@@ -93,17 +93,17 @@
         "ws": "^8.18.0"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^2.21.2",
+        "@antfu/eslint-config": "^2.22.0",
         "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
         "@ltd/j-toml": "^1.38.0",
         "@nodelib/fs.walk": "^2.0.0",
-        "@types/node": "^20.14.9",
-        "@vitest/coverage-istanbul": "^1.6.0",
-        "@vitest/ui": "^1.6.0",
+        "@types/node": "^20.14.10",
+        "@vitest/coverage-istanbul": "^2.0.1",
+        "@vitest/ui": "^2.0.1",
         "ajv": "^8.16.0",
         "ajv-formats": "^3.0.1",
         "chokidar": "^3.6.0",
-        "cspell": "^8.10.1",
+        "cspell": "^8.10.4",
         "dotenv": "^16.4.5",
         "eslint": "^9.6.0",
         "eslint-plugin-format": "^0.1.2",
@@ -121,6 +121,6 @@
         "vite-plugin-dts": "^3.9.1",
         "vite-plugin-static-copy": "^1.0.6",
         "vite-tsconfig-paths": "^4.3.2",
-        "vitest": "^1.6.0"
+        "vitest": "^2.0.1"
     }
 }

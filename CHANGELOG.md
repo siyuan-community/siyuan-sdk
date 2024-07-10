@@ -12,6 +12,7 @@
 - 使用 `@antfu/eslint-config` 作为 eslint 基础配置 | Use `@antfu/eslint-config` as the basic eslint configuration
 - 改进解析 `tsconfig.json` 中定义的路径别名的方式 | Improve the way to resolve path aliases defined in `tsconfig.json`
 - 调整 `eslint` 格式化配置 | Adjust `eslint` formatting configuration
+- 优化 `broadcast` 相关测试用例 | Optimize `broadcast` related test cases
 
 ## v0.3.11 / 2024-05-14
 

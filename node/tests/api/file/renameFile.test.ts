@@ -55,7 +55,9 @@ describe.concurrent(pathname, async () => {
                             path,
                         });
                     }
-                    catch (error) {}
+                    catch (error) {
+                        void error;
+                    }
                 }
 
                 /* 写入测试文件 */
@@ -108,7 +110,9 @@ describe.concurrent(pathname, async () => {
                             path,
                         });
                     }
-                    catch (error) {}
+                    catch (error) {
+                        void error;
+                    }
                 }
 
                 /* 写入测试文件 */

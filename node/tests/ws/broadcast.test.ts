@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import client from "~/tests/utils/client";
 
@@ -29,8 +29,8 @@ describe(pathname, async () => {
         const ws = client.client.broadcast({
             channel,
         });
-        // await expect.soft(
-        await new Promise((resolve, rejects) => {
+
+        const data = await new Promise((resolve, rejects) => {
             const listener = (e: WebSocketEventMap["message"]) => {
                 ws.removeEventListener("message", listener);
                 resolve(e.data);
@@ -45,6 +45,11 @@ describe(pathname, async () => {
                 });
             });
         });
+
+        expect(
+            data,
+            "listen message",
+        ).toEqual(message);
 
         ws.close();
     });

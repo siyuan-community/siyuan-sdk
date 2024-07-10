@@ -15,11 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 
+import CONSTANTS from "~/tests/constants";
 import client from "~/tests/utils/client";
 import { SchemaJSON } from "~/tests/utils/schema";
 import { testKernelAPI } from "~/tests/utils/test";
+import "~/tests/utils/websocket";
 
 import type getChannels from "@/types/kernel/api/broadcast/getChannels";
 
@@ -35,6 +37,16 @@ describe(pathname, async () => {
         request: () => client.client.getChannels(),
         response: {
             validate: validate_response,
+            test: (response) => {
+                it("channel info", () => {
+                    const channel = response.data.channels.find((c) => c.name === CONSTANTS.BROADCAST_CHANNEL_NAME);
+
+                    expect.soft(
+                        channel?.count,
+                        "channel count",
+                    ).toBeGreaterThanOrEqual(1);
+                });
+            },
         },
     });
 });

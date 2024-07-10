@@ -13,6 +13,7 @@
 - 改进解析 `tsconfig.json` 中定义的路径别名的方式 | Improve the way to resolve path aliases defined in `tsconfig.json`
 - 调整 `eslint` 格式化配置 | Adjust `eslint` formatting configuration
 - 优化 `broadcast` 相关测试用例 | Optimize `broadcast` related test cases
+- 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 
 ## v0.3.11 / 2024-05-14
 

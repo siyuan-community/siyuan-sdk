@@ -83,13 +83,13 @@
                 'localIPs',
                 'logLevel',
                 'openHelp',
+                'publish',
                 'readonly',
                 'repo',
                 'search',
                 'showChangelog',
                 'snippet',
                 'stat',
-                'state',
                 'sync',
                 'system',
                 'tag',
@@ -218,6 +218,10 @@
                     type: 'boolean',
                     description: 'Whether to open the user guide after startup',
                 },
+                publish: {
+                    // 发布服务相关设置项
+                    $ref: '#/$defs/publish',
+                },
                 readonly: {
                     // 是否是以只读模式运行
                     type: 'boolean',
@@ -243,17 +247,6 @@
                 stat: {
                     // 工作空间内容统计
                     $ref: '#/$defs/stat',
-                },
-                state: {
-                    // 闪卡状态
-                    type: 'integer',
-                    description: 'Flashcard status\n- `0`: New\n- `1`: Learning\n- `2`: Review\n- `3`: Relearn',
-                    enum: [
-                        0, // 新建
-                        1, // 学习
-                        2, // 复习
-                        3, // 重新学习
-                    ],
                 },
                 sync: {
                     // 同步相关设置项
@@ -2203,6 +2196,90 @@
                         'zh_CHT',
                         'en_US',
                     ],
+                },
+            },
+        },
+        publish: {
+            title: 'IPublish',
+            type: 'object',
+
+            description: 'Publish service related configuration',
+            additionalProperties: false,
+            required: [
+                'auth',
+                'enable',
+                'port',
+            ],
+            properties: {
+                auth: {
+                    // 发布服务 Basic 认证配置
+                    description: 'Publish service basic auth configuration',
+                    $ref: '#/$defs/publish_auth',
+                },
+                enable: {
+                    // 是否开启发布服务
+                    type: 'boolean',
+                    description: 'Whether to enable the publishing service',
+                },
+                port: {
+                    // 发布服务所使用的端口
+                    type: 'integer',
+                    description: 'The port used by the publishing service',
+                },
+            },
+        },
+        publish_auth: {
+            title: 'IPublishAuth',
+            type: 'object',
+
+            description: 'Publish service basic auth related configuration',
+            additionalProperties: false,
+            required: [
+                'accounts',
+                'enable',
+            ],
+            properties: {
+                accounts: {
+                    // 发布服务 Basic 认证用户名/密码列表
+                    type: 'array',
+                    description: 'Publish service Basic authentication username/password list',
+                    items: {
+                        $ref: '#/$defs/publish_auth_account',
+                    },
+                },
+                enable: {
+                    // 是否开启发布服务 Basic 认证
+                    type: 'boolean',
+                    description: 'Whether to enable publishing service basic authentication',
+                },
+            },
+        },
+        publish_auth_account: {
+            title: 'IPublishAuthAccount',
+            type: 'object',
+
+            description: 'Publish service basic auth account',
+            additionalProperties: false,
+            required: [
+                'memo',
+                'password',
+                'username',
+            ],
+            properties: {
+                memo: {
+                    // 备注信息
+                    type: 'string',
+                    description: 'Remarks information',
+                },
+                password: {
+                    // Basic 认证密码
+                    type: 'string',
+                    description: 'Basic authentication password',
+                },
+                username: {
+                    // Basic 认证用户名
+                    type: 'string',
+                    description: 'Basic authentication username',
                 },
             },
         },

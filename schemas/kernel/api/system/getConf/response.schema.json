@@ -71,13 +71,13 @@
                 "localIPs",
                 "logLevel",
                 "openHelp",
+                "publish",
                 "readonly",
                 "repo",
                 "search",
                 "showChangelog",
                 "snippet",
                 "stat",
-                "state",
                 "sync",
                 "system",
                 "tag",
@@ -188,6 +188,9 @@
                     "type": "boolean",
                     "description": "Whether to open the user guide after startup"
                 },
+                "publish": {
+                    "$ref": "#/$defs/publish"
+                },
                 "readonly": {
                     "type": "boolean",
                     "description": "Whether it is running in read-only mode"
@@ -207,16 +210,6 @@
                 },
                 "stat": {
                     "$ref": "#/$defs/stat"
-                },
-                "state": {
-                    "type": "integer",
-                    "description": "Flashcard status\n- `0`: New\n- `1`: Learning\n- `2`: Review\n- `3`: Relearn",
-                    "enum": [
-                        0,
-                        1,
-                        2,
-                        3
-                    ]
                 },
                 "sync": {
                     "$ref": "#/$defs/sync"
@@ -1981,6 +1974,79 @@
                         "zh_CHT",
                         "en_US"
                     ]
+                }
+            }
+        },
+        "publish": {
+            "title": "IPublish",
+            "type": "object",
+            "description": "Publish service related configuration",
+            "additionalProperties": false,
+            "required": [
+                "auth",
+                "enable",
+                "port"
+            ],
+            "properties": {
+                "auth": {
+                    "description": "Publish service basic auth configuration",
+                    "$ref": "#/$defs/publish_auth"
+                },
+                "enable": {
+                    "type": "boolean",
+                    "description": "Whether to enable the publishing service"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port used by the publishing service"
+                }
+            }
+        },
+        "publish_auth": {
+            "title": "IPublishAuth",
+            "type": "object",
+            "description": "Publish service basic auth related configuration",
+            "additionalProperties": false,
+            "required": [
+                "accounts",
+                "enable"
+            ],
+            "properties": {
+                "accounts": {
+                    "type": "array",
+                    "description": "Publish service Basic authentication username/password list",
+                    "items": {
+                        "$ref": "#/$defs/publish_auth_account"
+                    }
+                },
+                "enable": {
+                    "type": "boolean",
+                    "description": "Whether to enable publishing service basic authentication"
+                }
+            }
+        },
+        "publish_auth_account": {
+            "title": "IPublishAuthAccount",
+            "type": "object",
+            "description": "Publish service basic auth account",
+            "additionalProperties": false,
+            "required": [
+                "memo",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "memo": {
+                    "type": "string",
+                    "description": "Remarks information"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Basic authentication password"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Basic authentication username"
                 }
             }
         },

@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,12 +38,12 @@ export interface IData {
     /**
      * notebook ID
      */
-    box: string;
-    files: IFile[];
+    readonly box: string;
+    readonly files: IFile[];
     /**
      * document file/folder path
      */
-    path: string;
+    readonly path: string;
 }
 
 /**
@@ -53,79 +53,79 @@ export interface IFile {
     /**
      * document alias
      */
-    alias: string;
+    readonly alias: string;
     /**
      * document bookmark
      */
-    bookmark: string;
+    readonly bookmark: string;
     /**
      * document reference count
      */
-    count: number;
+    readonly count: number;
     /**
      * document created time (Unix timestamp, unit: s)
      */
-    ctime: number;
+    readonly ctime: number;
     /**
      * due flashcard count
      */
-    dueFlashcardCount: number;
+    readonly dueFlashcardCount: number;
     /**
      * flashcard count
      */
-    flashcardCount: number;
+    readonly flashcardCount: number;
     /**
      * human readable document created time
      */
-    hCtime: string;
+    readonly hCtime: string;
     /**
      * is hidden
      */
-    hidden: boolean;
+    readonly hidden: boolean;
     /**
      * human readable document modified time
      */
-    hMtime: string;
+    readonly hMtime: string;
     /**
      * human readable document size
      */
-    hSize: string;
+    readonly hSize: string;
     /**
      * document icon
      */
-    icon: string;
+    readonly icon: string;
     /**
      * document ID
      */
-    id: string;
+    readonly id: string;
     /**
      * document memo
      */
-    memo: string;
+    readonly memo: string;
     /**
      * document modified time (Unix timestamp, unit: s)
      */
-    mtime: number;
+    readonly mtime: number;
     /**
      * document title
      */
-    name: string;
+    readonly name: string;
     /**
      * document name
      */
-    name1: string;
+    readonly name1: string;
     /**
      * new flashcard count
      */
-    newFlashcardCount: number;
+    readonly newFlashcardCount: number;
     /**
      * file path of document
      */
-    path: string;
+    readonly path: string;
     /**
      * document size (unit: Byte)
      */
-    size: number;
+    readonly size: number;
     /**
      * document sort rule
      * 0: Name Alphabet ASC
@@ -146,11 +146,11 @@ export interface IFile {
      * 15: Use doc tree sorting rule
      * 256: (default) Use notebook sorting rule
      */
-    sort: number;
+    readonly sort: number;
     /**
      * sub file count
      */
-    subFileCount: number;
+    readonly subFileCount: number;
 }
 
 // #endregion content

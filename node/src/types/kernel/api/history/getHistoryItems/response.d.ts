@@ -23,19 +23,19 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * Response information
  */
 export interface IData {
-    items: IItem[];
+    readonly items: IItem[];
 }
 
 /**
@@ -45,11 +45,11 @@ export interface IItem {
     /**
      * Absolute path of the historical document file
      */
-    path: string;
+    readonly path: string;
     /**
      * Historical document title
      */
-    title: string;
+    readonly title: string;
 }
 
 // #endregion content

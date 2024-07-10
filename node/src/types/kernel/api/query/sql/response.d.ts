@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: { [key: string]: any }[];
+    readonly code: number;
+    readonly data: { [key: string]: any }[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 // #endregion content

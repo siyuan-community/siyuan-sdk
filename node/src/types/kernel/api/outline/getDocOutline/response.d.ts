@@ -23,15 +23,15 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * Outline item list
      */
-    data: IOutlineTopNode[];
+    readonly data: IOutlineTopNode[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -41,39 +41,39 @@ export interface IOutlineTopNode {
     /**
      * Outline Lover node list
      */
-    blocks?: IOutlineLowerNode[];
+    readonly blocks?: IOutlineLowerNode[];
     /**
      * Notebook ID
      */
-    box: string;
+    readonly box: string;
     /**
      * Number of child nodes
      */
-    count: number;
+    readonly count: number;
     /**
      * Outline depth
      */
-    depth: number;
+    readonly depth: number;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * The HTML content of Heading block
      */
-    name: string;
+    readonly name: string;
     /**
      * Block type
      */
-    nodeType: NodeTypeEnum;
+    readonly nodeType: "NodeHeading";
     /**
      * Block sub-type
      */
-    subType: SubType;
+    readonly subType: SubType;
     /**
      * Outline item type
      */
-    type: PurpleType;
+    readonly type: "outline";
     [property: string]: any;
 }
 
@@ -84,44 +84,44 @@ export interface IOutlineLowerNode {
     /**
      * Notebook ID
      */
-    box: string;
+    readonly box: string;
     /**
      * Outline Lover node list
      */
-    children: IOutlineLowerNode[] | null;
+    readonly children: IOutlineLowerNode[] | null;
     /**
      * The HTML content of Heading block
      */
-    content: string;
+    readonly content: string;
     /**
      * Number of child nodes
      */
-    count: number;
+    readonly count: number;
     /**
      * Outline depth
      */
-    depth: number;
+    readonly depth: number;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field
      */
-    path: string;
+    readonly path: string;
     /**
      * Document block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * Block sub-type
      */
-    subType: SubType;
+    readonly subType: SubType;
     /**
      * Block type
      */
-    type: NodeTypeEnum;
+    readonly type: "NodeHeading";
     [property: string]: any;
 }
 
@@ -133,11 +133,9 @@ export type SubType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 /**
  * Block type
  */
-export type NodeTypeEnum = "NodeHeading";
 
 /**
  * Outline item type
  */
-export type PurpleType = "outline";
 
 // #endregion content

@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * the new file/dir path under the workspace path
      */
-    newPath: string;
+    readonly newPath: string;
     /**
      * the file/dir path under the workspace path
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

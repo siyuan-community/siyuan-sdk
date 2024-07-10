@@ -23,15 +23,15 @@ export interface IPayload {
     /**
      * Block ID to move
      */
-    id: string;
+    readonly id: string;
     /**
      * block ID: insert into this block head
      */
-    parentID?: string;
+    readonly parentID?: string;
     /**
      * block ID: insert after this block
      */
-    previousID?: string;
+    readonly previousID?: string;
 }
 
 // #endregion content

@@ -23,22 +23,22 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * Response information
  */
 export interface IData {
-    Context: IContext;
-    Request: IRequest;
-    URL: IURL;
-    User: IUser;
+    readonly Context: IContext;
+    readonly Request: IRequest;
+    readonly URL: IURL;
+    readonly User: IUser;
 }
 
 /**
@@ -59,13 +59,13 @@ export interface IContext {
      * If the headers are not syntactically valid OR the remote IP does not correspond to a
      * trusted proxy, the remote IP (coming from Request.RemoteAddr) is returned.
      */
-    ClientIP: string;
+    readonly ClientIP: string;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.ContentType}
      *
      * ContentType returns the Content-Type header of the request.
      */
-    ContentType: string;
+    readonly ContentType: string;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.FullPath}
      *
@@ -73,21 +73,21 @@ export interface IContext {
      *
      * For not found routes returns an empty string.
      */
-    FullPath: string;
+    readonly FullPath: string;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.HandlerNames}
      *
      * HandlerNames returns a list of all registered handlers for this context in descending
      * order, following the semantics of HandlerName()
      */
-    HandlerNames: string[];
+    readonly HandlerNames: string[];
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.IsWebsocket}
      *
      * IsWebsocket returns true if the request headers indicate that a websocket handshake is
      * being initiated by the client.
      */
-    IsWebsocket: boolean;
+    readonly IsWebsocket: boolean;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Params}
      *
@@ -97,7 +97,7 @@ export interface IContext {
      *
      * It is therefore safe to read values by the index.
      */
-    Params: IParam[] | null;
+    readonly Params: IParam[] | null;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.GetRawData}
      *
@@ -105,14 +105,14 @@ export interface IContext {
      *
      * Use base64 encoding.
      */
-    RawData: string;
+    readonly RawData: string;
     /**
      * {@link https://pkg.go.dev/github.com/gin-gonic/gin@v1.9.1#Context.RemoteIP}
      *
      * RemoteIP parses the IP from Request.RemoteAddr, normalizes and returns the IP (without
      * the port).
      */
-    RemoteIP: string;
+    readonly RemoteIP: string;
 }
 
 /**
@@ -122,11 +122,11 @@ export interface IParam {
     /**
      * key name
      */
-    Key: string;
+    readonly Key: string;
     /**
      * key value
      */
-    Value: string;
+    readonly Value: string;
 }
 
 /**
@@ -144,7 +144,7 @@ export interface IRequest {
      * For client requests, setting this field prevents re-use of TCP connections between
      * requests to the same hosts, as if Transport.DisableKeepAlives were set.
      */
-    Close: boolean;
+    readonly Close: boolean;
     /**
      * {@link https://pkg.go.dev/net/http#Request.ContentLength}
      *
@@ -156,13 +156,13 @@ export interface IRequest {
      *
      * For client requests, a value of 0 with a non-nil Body is also treated as unknown.
      */
-    ContentLength: number;
+    readonly ContentLength: number;
     /**
      * {@link https://pkg.go.dev/net/http#Request.CookiesP}
      *
      * Cookies parses and returns the HTTP cookies sent with the request.
      */
-    Cookies: ICookie[];
+    readonly Cookies: ICookie[];
     /**
      * {@link https://pkg.go.dev/net/http#Request.Form}
      *
@@ -173,7 +173,7 @@ export interface IRequest {
      *
      * The HTTP client ignores Form and uses Body instead.
      */
-    Form: { [key: string]: string[] };
+    readonly Form: { [key: string]: string[] };
     /**
      * {@link https://pkg.go.dev/net/http#Request.Header}
      *
@@ -181,7 +181,7 @@ export interface IRequest {
      *
      * The keys should be in canonical form, as returned by CanonicalHeaderKey.
      */
-    Header: { [key: string]: string[] };
+    readonly Header: { [key: string]: string[] };
     /**
      * {@link https://pkg.go.dev/net/http#Request.Host}
      *
@@ -204,7 +204,7 @@ export interface IRequest {
      * Request.Write method uses the value of URL.Host. Host may contain an international domain
      * name.
      */
-    Host: string;
+    readonly Host: string;
     /**
      * {@link https://pkg.go.dev/net/http#Request.Method}
      *
@@ -215,7 +215,7 @@ export interface IRequest {
      * Go's HTTP client does not support sending a request with the CONNECT method. See the
      * documentation on Transport for details.
      */
-    Method: string;
+    readonly Method: string;
     /**
      * {@link https://pkg.go.dev/mime/multipart#Form}
      *
@@ -229,7 +229,7 @@ export interface IRequest {
      *
      * Both are keyed by field name.
      */
-    MultipartForm: IMultipartForm | null;
+    readonly MultipartForm: IMultipartForm | null;
     /**
      * {@link https://pkg.go.dev/net/http#Request.PostForm}
      *
@@ -239,7 +239,7 @@ export interface IRequest {
      *
      * The HTTP client ignores PostForm and uses Body instead.
      */
-    PostForm: { [key: string]: string[] };
+    readonly PostForm: { [key: string]: string[] };
     /**
      * {@link https://pkg.go.dev/net/http#Request.Proto}
      *
@@ -250,15 +250,15 @@ export interface IRequest {
      *
      * See the docs on Transport for details.
      */
-    Proto: string;
+    readonly Proto: string;
     /**
      * {@link https://pkg.go.dev/net/http#Request.ProtoMajor}
      */
-    ProtoMajor: number;
+    readonly ProtoMajor: number;
     /**
      * {@link https://pkg.go.dev/net/http#Request.ProtoMinor}
      */
-    ProtoMinor: number;
+    readonly ProtoMinor: number;
     /**
      * {@link https://pkg.go.dev/net/http#Request.RemoteAddr}
      *
@@ -270,7 +270,7 @@ export interface IRequest {
      * that use the alternate (correct English) spelling req.Referrer() but cannot diagnose
      * programs that use Header["Referrer"].
      */
-    Referer: string;
+    readonly Referer: string;
     /**
      * {@link https://pkg.go.dev/net/http#Request.RemoteAddr}
      *
@@ -281,7 +281,7 @@ export interface IRequest {
      *
      * This field is ignored by the HTTP client.
      */
-    RemoteAddr: string;
+    readonly RemoteAddr: string;
     /**
      * {@link https://pkg.go.dev/net/http#Request.TLS}
      *
@@ -293,7 +293,7 @@ export interface IRequest {
      *
      * This field is ignored by the HTTP client.
      */
-    TLS: Itls | null;
+    readonly TLS: Itls | null;
     /**
      * {@link https://pkg.go.dev/net/http#Request.Trailer}
      *
@@ -314,7 +314,7 @@ export interface IRequest {
      *
      * Few HTTP clients, servers, or proxies support HTTP trailers.
      */
-    Trailer: { [key: string]: string[] } | null;
+    readonly Trailer: { [key: string]: string[] } | null;
     /**
      * {@link https://pkg.go.dev/net/http#Request.TransferEncoding}
      *
@@ -324,7 +324,7 @@ export interface IRequest {
      * TransferEncoding can usually be ignored; chunked encoding is automatically added and
      * removed as necessary when sending and receiving requests.
      */
-    TransferEncoding: string[] | null;
+    readonly TransferEncoding: string[] | null;
     /**
      * {@link https://pkg.go.dev/net/http#Request.URL}
      *
@@ -339,13 +339,13 @@ export interface IRequest {
      * Request's Host field optionally specifies the Host header value to send in the HTTP
      * request.
      */
-    URL: IRequestURL;
+    readonly URL: IRequestURL;
     /**
      * {@link https://pkg.go.dev/net/http#Request.UserAgent}
      *
      * UserAgent returns the client's User-Agent, if sent in the request.
      */
-    UserAgent: string;
+    readonly UserAgent: string;
 }
 
 /**
@@ -362,19 +362,19 @@ export interface ICookie {
      *
      * Cookie efficient URL hostname
      */
-    Domain: string;
+    readonly Domain: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Expires}
      *
      * Cookie expiration time (ISO 8601)
      */
-    Expires: string;
+    readonly Expires: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.HttpOnly}
      *
      * Cookie HttpOnly flag
      */
-    HttpOnly: boolean;
+    readonly HttpOnly: boolean;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.MaxAge}
      *
@@ -382,31 +382,31 @@ export interface ICookie {
      * - `MaxAge<0` means delete cookie now, equivalently 'Max-Age: 0'
      * - `MaxAge>0` means 'Max-Age' attribute present and given in seconds
      */
-    MaxAge: number;
+    readonly MaxAge: number;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Name}
      *
      * Cookie name
      */
-    Name: string;
+    readonly Name: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Path}
      *
      * Cookie efficient URL path
      */
-    Path: string;
+    readonly Path: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Raw}
      *
      * Raw text of this cookie
      */
-    Raw: string;
+    readonly Raw: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.RawExpires}
      *
      * for reading cookies only
      */
-    RawExpires: string;
+    readonly RawExpires: string;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.SameSite}
      *
@@ -417,33 +417,33 @@ export interface ICookie {
      * - `3`: Strict mode
      * - `4`: None mode
      */
-    SameSite: number;
+    readonly SameSite: number;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Secure}
      *
      * Cookie Secure flag
      */
-    Secure: boolean;
+    readonly Secure: boolean;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Unparsed}
      *
      * Raw text of unparsed attribute-value pairs
      */
-    Unparsed: string[] | null;
+    readonly Unparsed: string[] | null;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Value}
      *
      * Cookie value
      */
-    Value: string;
+    readonly Value: string;
 }
 
 /**
  * multipart form data
  */
 export interface IMultipartForm {
-    File: { [key: string]: IFile[] };
-    Value: { [key: string]: string[] };
+    readonly File: { [key: string]: IFile[] };
+    readonly Value: { [key: string]: string[] };
 }
 
 /**
@@ -453,21 +453,21 @@ export interface IFile {
     /**
      * File data encoded using base64
      */
-    Content: string;
+    readonly Content: string;
     /**
      * File name
      */
-    Filename: string;
+    readonly Filename: string;
     /**
      * {@link https://pkg.go.dev/net/http#Header}
      *
      * A MIMEHeader represents a MIME-style header mapping keys to sets of values.
      */
-    Header: { [key: string]: string[] };
+    readonly Header: { [key: string]: string[] };
     /**
      * File size (unit: byte)
      */
-    Size: number;
+    readonly Size: number;
 }
 
 /**
@@ -482,26 +482,26 @@ export interface Itls {
      * CipherSuite is the cipher suite negotiated for the connection (e.g.
      * TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_AES_128_GCM_SHA256).
      */
-    CipherSuite: number;
+    readonly CipherSuite: number;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.DidResume}
      *
      * DidResume is true if this connection was successfully resumed from a previous session
      * with a session ticket or similar mechanism.
      */
-    DidResume: boolean;
+    readonly DidResume: boolean;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.HandshakeComplete}
      *
      * HandshakeComplete is true if the handshake has concluded.
      */
-    HandshakeComplete: boolean;
+    readonly HandshakeComplete: boolean;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.NegotiatedProtocol}
      *
      * NegotiatedProtocol is the application protocol negotiated with ALPN.
      */
-    NegotiatedProtocol: string;
+    readonly NegotiatedProtocol: string;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.NegotiatedProtocolIsMutual}
      *
@@ -509,14 +509,14 @@ export interface Itls {
      *
      * Deprecated: this value is always true.
      */
-    NegotiatedProtocolIsMutual: boolean;
+    readonly NegotiatedProtocolIsMutual: boolean;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.OCSPResponse}
      *
      * OCSPResponse is a stapled Online Certificate Status Protocol (OCSP) response provided by
      * the peer for the leaf certificate, if any.
      */
-    OCSPResponse: any;
+    readonly OCSPResponse: any;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.PeerCertificates}
      *
@@ -529,21 +529,21 @@ export interface Itls {
      *
      * PeerCertificates and its contents should not be modified.
      */
-    PeerCertificates: ICertificate[];
+    readonly PeerCertificates: ICertificate[];
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.NegotiatedProtocolIsMutual}
      *
      * ServerName is the value of the Server Name Indication extension sent by the client. It's
      * available both on the server and on the client side.
      */
-    ServerName: string;
+    readonly ServerName: string;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.SignedCertificateTimestamps}
      *
      * SignedCertificateTimestamps is a list of SCTs provided by the peer through the TLS
      * handshake for the leaf certificate, if any.
      */
-    SignedCertificateTimestamps: any;
+    readonly SignedCertificateTimestamps: any;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.TLSUnique}
      *
@@ -551,7 +551,7 @@ export interface Itls {
      * This value will be nil for TLS 1.3 connections and for resumed connections that don't
      * support Extended Master Secret (RFC 7627).
      */
-    TLSUnique: any;
+    readonly TLSUnique: any;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.VerifiedChains}
      *
@@ -565,13 +565,13 @@ export interface Itls {
      *
      * VerifiedChains and its contents should not be modified.
      */
-    VerifiedChains: Array<ICertificate[]>;
+    readonly VerifiedChains: Array<ICertificate[]>;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.Version}
      *
      * Version is the TLS version used by the connection (e.g. VersionTLS12).
      */
-    Version: number;
+    readonly Version: number;
 }
 
 /**
@@ -580,49 +580,49 @@ export interface Itls {
  * A Certificate represents an X.509 certificate.
  */
 export interface ICertificate {
-    Raw: any;
-    RawTBSCertificate: any;
-    RawSubjectPublicKeyInfo: any;
-    RawSubject: any;
-    RawIssuer: any;
-    Signature: any;
-    SignatureAlgorithm: any;
-    PublicKeyAlgorithm: any;
-    PublicKey: any;
-    Version: any;
-    SerialNumber: any;
-    Issuer: any;
-    Subject: any;
-    NotBefore: any;
-    KeyUsage: any;
-    Extensions: any;
-    ExtraExtensions: any;
-    UnhandledCriticalExtensions: any;
-    ExtKeyUsage: any;
-    UnknownExtKeyUsage: any;
-    BasicConstraintsValid: any;
-    IsCA: any;
-    MaxPathLen: any;
-    MaxPathLenZero: any;
-    SubjectKeyId: any;
-    AuthorityKeyId: any;
-    OCSPServer: any;
-    IssuingCertificateURL: any;
-    DNSNames: any;
-    EmailAddresses: any;
-    IPAddresses: any;
-    URIs: any;
-    PermittedDNSDomainsCritical: any;
-    PermittedDNSDomains: any;
-    ExcludedDNSDomains: any;
-    PermittedIPRanges: any;
-    ExcludedIPRanges: any;
-    PermittedEmailAddresses: any;
-    ExcludedEmailAddresses: any;
-    PermittedURIDomains: any;
-    ExcludedURIDomains: any;
-    CRLDistributionPoints: any;
-    PolicyIdentifiers: any;
+    readonly Raw: any;
+    readonly RawTBSCertificate: any;
+    readonly RawSubjectPublicKeyInfo: any;
+    readonly RawSubject: any;
+    readonly RawIssuer: any;
+    readonly Signature: any;
+    readonly SignatureAlgorithm: any;
+    readonly PublicKeyAlgorithm: any;
+    readonly PublicKey: any;
+    readonly Version: any;
+    readonly SerialNumber: any;
+    readonly Issuer: any;
+    readonly Subject: any;
+    readonly NotBefore: any;
+    readonly KeyUsage: any;
+    readonly Extensions: any;
+    readonly ExtraExtensions: any;
+    readonly UnhandledCriticalExtensions: any;
+    readonly ExtKeyUsage: any;
+    readonly UnknownExtKeyUsage: any;
+    readonly BasicConstraintsValid: any;
+    readonly IsCA: any;
+    readonly MaxPathLen: any;
+    readonly MaxPathLenZero: any;
+    readonly SubjectKeyId: any;
+    readonly AuthorityKeyId: any;
+    readonly OCSPServer: any;
+    readonly IssuingCertificateURL: any;
+    readonly DNSNames: any;
+    readonly EmailAddresses: any;
+    readonly IPAddresses: any;
+    readonly URIs: any;
+    readonly PermittedDNSDomainsCritical: any;
+    readonly PermittedDNSDomains: any;
+    readonly ExcludedDNSDomains: any;
+    readonly PermittedIPRanges: any;
+    readonly ExcludedIPRanges: any;
+    readonly PermittedEmailAddresses: any;
+    readonly ExcludedEmailAddresses: any;
+    readonly PermittedURIDomains: any;
+    readonly ExcludedURIDomains: any;
+    readonly CRLDistributionPoints: any;
+    readonly PolicyIdentifiers: any;
     [property: string]: any;
 }
 
@@ -669,67 +669,67 @@ export interface IRequestURL {
      *
      * append a query ('?') even if RawQuery is empty
      */
-    ForceQuery: boolean;
+    readonly ForceQuery: boolean;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Fragment}
      *
      * fragment for references, without '#'
      */
-    Fragment: string;
+    readonly Fragment: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Host}
      *
      * host or host:port
      */
-    Host: string;
+    readonly Host: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.OmitHost}
      *
      * do not emit empty host (authority)
      */
-    OmitHost: boolean;
+    readonly OmitHost: boolean;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Opaque}
      *
      * encoded opaque data
      */
-    Opaque: string;
+    readonly Opaque: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Path}
      *
      * path (relative paths may omit leading slash)
      */
-    Path: string;
+    readonly Path: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.RawFragment}
      *
      * encoded fragment hint (see EscapedFragment method)
      */
-    RawFragment: string;
+    readonly RawFragment: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.RawPath}
      *
      * encoded path hint (see EscapedPath method)
      */
-    RawPath: string;
+    readonly RawPath: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.RawQuery}
      *
      * encoded query values, without '?'
      */
-    RawQuery: string;
+    readonly RawQuery: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Scheme}
      *
      * URL schema
      */
-    Scheme: string;
+    readonly Scheme: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.User}
      *
      * username and password information
      */
-    User: null;
+    readonly User: null;
     [property: string]: any;
 }
 
@@ -763,7 +763,7 @@ export interface IURL {
      *
      * In general, code should call EscapedFragment instead of reading u.RawFragment directly.
      */
-    EscapedFragment: string;
+    readonly EscapedFragment: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.EscapedPath}
      *
@@ -779,7 +779,7 @@ export interface IURL {
      *
      * In general, code should call EscapedPath instead of reading u.RawPath directly.
      */
-    EscapedPath: string;
+    readonly EscapedPath: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Hostname}
      *
@@ -788,7 +788,7 @@ export interface IURL {
      * If the result is enclosed in square brackets, as literal IPv6 addresses are, the square
      * brackets are removed from the result.
      */
-    Hostname: string;
+    readonly Hostname: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.IsAbs}
      *
@@ -796,7 +796,7 @@ export interface IURL {
      *
      * Absolute means that it has a non-empty scheme.
      */
-    IsAbs: boolean;
+    readonly IsAbs: boolean;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Port}
      *
@@ -804,7 +804,7 @@ export interface IURL {
      *
      * If u.Host doesn't contain a valid numeric port, Port returns an empty string.
      */
-    Port: string;
+    readonly Port: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.Query}
      *
@@ -814,7 +814,7 @@ export interface IURL {
      *
      * To check errors use ParseQuery.
      */
-    Query: { [key: string]: string[] };
+    readonly Query: { [key: string]: string[] };
     /**
      * {@link https://pkg.go.dev/net/url#URL.Redacted}
      *
@@ -822,14 +822,14 @@ export interface IURL {
      *
      * Only the password in u.User is redacted.
      */
-    Redacted: string;
+    readonly Redacted: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.RequestURI}
      *
      * RequestURI returns the encoded path?query or opaque?query string that would be used in an
      * HTTP request for u.
      */
-    RequestURI: string;
+    readonly RequestURI: string;
     /**
      * {@link https://pkg.go.dev/net/url#URL.String}
      *
@@ -849,14 +849,14 @@ export interface IURL {
      * - if u.Scheme is empty, `scheme:` is omitted.
      * - if u.User is nil, `userinfo@` is omitted.
      * - if u.Host is empty, `host/` is omitted.
-     * - if u.Scheme and u.Host are empty and u.User is nil, the entire `scheme://userinfo@host/`
-     * is omitted.
-     * - if u.Host is non-empty and u.Path begins with a /, the form host/path does not add its
-     * own /.
-     * - if u.RawQuery is empty, ?query is omitted.
-     * - if u.Fragment is empty, #fragment is omitted.
+     * - if u.Scheme and u.Host are empty and u.User is nil, the entire
+     * `scheme://userinfo@host/` is omitted.
+     * - if u.Host is non-empty and u.Path begins with a /, the form `host/path` does not add
+     * its own /.
+     * - if u.RawQuery is empty, `?query` is omitted.
+     * - if u.Fragment is empty, `#fragment` is omitted.
      */
-    String: string;
+    readonly String: string;
 }
 
 /**
@@ -868,26 +868,26 @@ export interface IUser {
      *
      * Password returns the password in case it is set.
      */
-    Password: string;
+    readonly Password: string;
     /**
      * {@link https://pkg.go.dev/net/url#Userinfo.Password}
      *
      * Password returns the password whether it is set.
      */
-    PasswordSet: boolean;
+    readonly PasswordSet: boolean;
     /**
      * {@link https://pkg.go.dev/net/url#Userinfo.String}
      *
      * String returns the encoded userinfo information in the standard form of
      * "username[:password]".
      */
-    String: string;
+    readonly String: string;
     /**
      * {@link https://pkg.go.dev/net/url#Userinfo.Username}
      *
      * Username returns the username.
      */
-    Username: string;
+    readonly Username: string;
 }
 
 // #endregion content

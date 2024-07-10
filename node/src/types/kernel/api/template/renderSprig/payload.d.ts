@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * sprig template
      */
-    template: string;
+    readonly template: string;
 }
 
 // #endregion content

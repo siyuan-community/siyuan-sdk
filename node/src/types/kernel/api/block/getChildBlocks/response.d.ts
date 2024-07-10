@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IBlock[];
+    readonly code: number;
+    readonly data: IBlock[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -40,15 +40,15 @@ export interface IBlock {
     /**
      * block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * block subtype
      */
-    subType?: TBlockSubType;
+    readonly subType?: TBlockSubType;
     /**
      * block type
      */
-    type: TBlockType;
+    readonly type: TBlockType;
 }
 
 /**

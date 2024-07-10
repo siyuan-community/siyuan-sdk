@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * The block types that needs to be excluded
      */
-    excludeTypes?: TBlockType[];
+    readonly excludeTypes?: TBlockType[];
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
 }
 
 /**

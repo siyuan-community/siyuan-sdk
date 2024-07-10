@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * Absolute path of history document file
      */
-    historyPath: string;
+    readonly historyPath: string;
     /**
      * Highlight keyword
      */
-    k?: string;
+    readonly k?: string;
 }
 
 // #endregion content

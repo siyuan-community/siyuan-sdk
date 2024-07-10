@@ -24,12 +24,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface IData {
     /**
      * the path of *.zip exported under the workspace
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

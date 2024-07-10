@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * SQL query statements
      */
-    stmt: string;
+    readonly stmt: string;
 }
 
 // #endregion content

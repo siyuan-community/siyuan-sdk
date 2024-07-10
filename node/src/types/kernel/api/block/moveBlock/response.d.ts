@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: ITransaction[];
+    readonly code: number;
+    readonly data: ITransaction[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -37,15 +37,15 @@ export interface IResponse {
  * Move transaction
  */
 export interface ITransaction {
-    doOperations: IOperation[];
+    readonly doOperations: IOperation[];
     /**
      * timestamp
      */
-    timestamp: number;
+    readonly timestamp: number;
     /**
      * undo operation list
      */
-    undoOperations: null;
+    readonly undoOperations: null;
 }
 
 /**
@@ -57,26 +57,24 @@ export interface IOperation {
     /**
      * operation action type
      */
-    action: Action;
+    readonly action: "move";
     /**
      * HTML DOM of inserting blocks
      */
-    data: null;
+    readonly data: null;
     /**
      * Block ID to move
      */
-    id: string;
+    readonly id: string;
     /**
      * block ID: insert into this block
      */
-    parentID: string;
+    readonly parentID: string;
     /**
      * block ID: insert after this block
      */
-    previousID: string;
+    readonly previousID: string;
     [property: string]: any;
 }
-
-export type Action = "move";
 
 // #endregion content

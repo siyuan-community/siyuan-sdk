@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,31 +38,31 @@ export interface IData {
     /**
      * response body
      */
-    body: string;
+    readonly body: string;
     /**
      * response body encoding schema
      */
-    bodyEncoding: TEncodeSchema;
+    readonly bodyEncoding: TEncodeSchema;
     /**
      * response content-type
      */
-    contentType: string;
+    readonly contentType: string;
     /**
      * response elapsed
      */
-    elapsed: number;
+    readonly elapsed: number;
     /**
      * response headers
      */
-    headers: { [key: string]: string[] };
+    readonly headers: { [key: string]: string[] };
     /**
      * HTTP status code
      */
-    status: number;
+    readonly status: number;
     /**
      * URL to request
      */
-    url: string;
+    readonly url: string;
 }
 
 /**

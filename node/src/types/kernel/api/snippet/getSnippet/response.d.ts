@@ -23,19 +23,19 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * response data
  */
 export interface IData {
-    snippets: ISnippet[];
+    readonly snippets: ISnippet[];
 }
 
 /**
@@ -45,27 +45,27 @@ export interface ISnippet {
     /**
      * snippet content
      */
-    content: string;
+    readonly content: string;
     /**
      * snippet enable status
      */
-    enabled: boolean;
+    readonly enabled: boolean;
     /**
      * snippet ID
      */
-    id: string;
+    readonly id: string;
     /**
      * snippet memo
      */
-    memo?: string;
+    readonly memo?: string;
     /**
      * snippet name
      */
-    name: string;
+    readonly name: string;
     /**
      * snippet type
      */
-    type: TSnippetType;
+    readonly type: TSnippetType;
 }
 
 /**

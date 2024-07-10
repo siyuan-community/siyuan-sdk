@@ -23,23 +23,23 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * response data
  */
 export interface IData {
-    conf: IConf;
+    readonly conf: IConf;
     /**
      * Whether the user interface is not loaded
      */
-    start: boolean;
+    readonly start: boolean;
 }
 
 /**
@@ -49,73 +49,66 @@ export interface IConf {
     /**
      * Access authorization code
      */
-    accessAuthCode: TAccessAuthCode;
-    account: IAccount;
-    ai: Iai;
-    api: IAPI;
-    appearance: IAppearance;
-    bazaar: IBazaar;
+    readonly accessAuthCode: TAccessAuthCode;
+    readonly account: IAccount;
+    readonly ai: Iai;
+    readonly api: IAPI;
+    readonly appearance: IAppearance;
+    readonly bazaar: IBazaar;
     /**
      * Cloud Service Provider Region
      * - `0`: Chinese mainland
      * - `1`: North America
      */
-    cloudRegion: number;
-    editor: IEditor;
-    export: IExport;
-    fileTree: IFileTree;
-    flashcard: IFlashCard;
-    graph: IGraph;
-    keymap: IKeymap;
+    readonly cloudRegion: number;
+    readonly editor: IEditor;
+    readonly export: IExport;
+    readonly fileTree: IFileTree;
+    readonly flashcard: IFlashCard;
+    readonly graph: IGraph;
+    readonly keymap: IKeymap;
     /**
      * User interface language
      * Same as {@link IAppearance.lang}
      */
-    lang: TLang;
+    readonly lang: TLang;
     /**
      * List of supported languages
      */
-    langs: ILang[];
+    readonly langs: ILang[];
     /**
      * A list of the IP addresses of the devices on which the kernel resides
      */
-    localIPs: string[];
+    readonly localIPs: string[];
     /**
      * Log level
      */
-    logLevel: TLogLevel;
+    readonly logLevel: TLogLevel;
     /**
      * Whether to open the user guide after startup
      */
-    openHelp: boolean;
+    readonly openHelp: boolean;
+    readonly publish: IPublish;
     /**
      * Whether it is running in read-only mode
      */
-    readonly: boolean;
-    repo: IRepo;
-    search: ISearch;
+    readonly readonly: boolean;
+    readonly repo: IRepo;
+    readonly search: ISearch;
     /**
      * Whether to display the changelog for this release version
      */
-    showChangelog: boolean;
-    snippet: ISnippet;
-    stat: IStat;
-    /**
-     * Flashcard status
-     * - `0`: New
-     * - `1`: Learning
-     * - `2`: Review
-     * - `3`: Relearn
-     */
-    state: number;
-    sync: ISync;
-    system: ISystem;
-    tag: ITag;
-    uiLayout: IUILayout;
+    readonly showChangelog: boolean;
+    readonly snippet: ISnippet;
+    readonly stat: IStat;
+    readonly sync: ISync;
+    readonly system: ISystem;
+    readonly tag: ITag;
+    readonly uiLayout: IUILayout;
     /**
      * Community user data (Encrypted)
      */
-    userData: string;
+    readonly userData: string;
 }
 
 /**
@@ -130,18 +123,18 @@ export interface IAccount {
     /**
      * Display the title icon
      */
-    displayTitle: boolean;
+    readonly displayTitle: boolean;
     /**
      * Display the VIP icon
      */
-    displayVIP: boolean;
+    readonly displayVIP: boolean;
 }
 
 /**
  * Artificial Intelligence (AI) related configuration
  */
 export interface Iai {
-    openAI: IOpenAI;
+    readonly openAI: IOpenAI;
 }
 
 /**
@@ -151,47 +144,47 @@ export interface IOpenAI {
     /**
      * API base URL
      */
-    apiBaseURL: string;
+    readonly apiBaseURL: string;
     /**
      * API key
      */
-    apiKey: string;
+    readonly apiKey: string;
     /**
      * The maximum number of contexts passed when requesting the API
      */
-    apiMaxContexts: number;
+    readonly apiMaxContexts: number;
     /**
      * Maximum number of tokens (0 means no limit)
      */
-    apiMaxTokens: number;
+    readonly apiMaxTokens: number;
     /**
      * The model name called by the API
      */
-    apiModel: string;
+    readonly apiModel: string;
     /**
      * API Provider
      */
-    apiProvider: TOpenAIAPIProvider;
+    readonly apiProvider: TOpenAIAPIProvider;
     /**
      * API request proxy address
      */
-    apiProxy: string;
+    readonly apiProxy: string;
     /**
      * Parameter `temperature` that controls the randomness of the generated text
      */
-    apiTemperature: number;
+    readonly apiTemperature: number;
     /**
      * API request timeout (unit: seconds)
      */
-    apiTimeout: number;
+    readonly apiTimeout: number;
     /**
      * API request additional user agent field
      */
-    apiUserAgent: string;
+    readonly apiUserAgent: string;
     /**
      * API version number
      */
-    apiVersion: string;
+    readonly apiVersion: string;
 }
 
 /**
@@ -206,7 +199,7 @@ export interface IAPI {
     /**
      * API Token
      */
-    token: string;
+    readonly token: string;
 }
 
 /**
@@ -218,69 +211,69 @@ export interface IAppearance {
      * - `0`: Exit application
      * - `1`: Minimize to pallets
      */
-    closeButtonBehavior: number;
+    readonly closeButtonBehavior: number;
     /**
      * Dark code block theme
      */
-    codeBlockThemeDark: string;
+    readonly codeBlockThemeDark: string;
     /**
      * Light code block theme
      */
-    codeBlockThemeLight: string;
+    readonly codeBlockThemeLight: string;
     /**
      * List of installed dark themes
      */
-    darkThemes: string[];
+    readonly darkThemes: string[];
     /**
      * Whether to hide status bar
      */
-    hideStatusBar: boolean;
+    readonly hideStatusBar: boolean;
     /**
      * The name of the icon currently in use
      */
-    icon: string;
+    readonly icon: string;
     /**
      * List of installed icon names
      */
-    icons: string[];
+    readonly icons: string[];
     /**
      * The version number of the icon currently in use
      */
-    iconVer: string;
+    readonly iconVer: string;
     /**
      * The language used by the current user
      */
-    lang: TLang;
+    readonly lang: TLang;
     /**
      * List of installed light themes
      */
-    lightThemes: string[];
+    readonly lightThemes: string[];
     /**
      * The current theme mode
      * - `0`: Light theme
      * - `1`: Dark theme
      */
-    mode: number;
+    readonly mode: number;
     /**
      * Whether the theme mode follows the system theme
      */
-    modeOS: boolean;
+    readonly modeOS: boolean;
     /**
      * The name of the dark theme currently in use
      */
-    themeDark: string;
+    readonly themeDark: string;
     /**
      * Whether the current theme has enabled theme JavaScript
      */
-    themeJS: boolean;
+    readonly themeJS: boolean;
     /**
      * The name of the light theme currently in use
      */
-    themeLight: string;
+    readonly themeLight: string;
     /**
      * The version number of the theme currently in use
      */
-    themeVer: string;
+    readonly themeVer: string;
 }
 
 /**
@@ -298,11 +291,11 @@ export interface IBazaar {
     /**
      * Whether to disable all plug-ins
      */
-    petalDisabled: boolean;
+    readonly petalDisabled: boolean;
     /**
      * Whether to trust (enable) the resources for the bazaar
      */
-    trust: boolean;
+    readonly trust: boolean;
 }
 
 /**
@@ -312,137 +305,137 @@ export interface IEditor {
     /**
      * Allow HTML blocks to run scripts
      */
-    allowHTMLBLockScript: boolean;
+    readonly allowHTMLBLockScript: boolean;
     /**
      * The default number of backlinks to expand
      */
-    backlinkExpandCount: number;
+    readonly backlinkExpandCount: number;
     /**
      * The default number of backlinks to mention
      */
-    backmentionExpandCount: number;
+    readonly backmentionExpandCount: number;
     /**
      * The maximum length of the dynamic anchor text for block references
      */
-    blockRefDynamicAnchorTextMaxLen: number;
+    readonly blockRefDynamicAnchorTextMaxLen: number;
     /**
      * Whether the code block has enabled ligatures
      */
-    codeLigatures: boolean;
+    readonly codeLigatures: boolean;
     /**
      * Whether the code block is automatically wrapped
      */
-    codeLineWrap: boolean;
+    readonly codeLineWrap: boolean;
     /**
      * Whether the code block displays line numbers
      */
-    codeSyntaxHighlightLineNum: boolean;
+    readonly codeSyntaxHighlightLineNum: boolean;
     /**
      * The number of spaces generated by the Tab key in the code block, configured as 0 means no
      * conversion to spaces
      */
-    codeTabSpaces: number;
+    readonly codeTabSpaces: number;
     /**
      * Whether to display the bookmark icon
      */
-    displayBookmarkIcon: boolean;
+    readonly displayBookmarkIcon: boolean;
     /**
      * Whether to display the network image mark
      */
-    displayNetImgMark: boolean;
+    readonly displayNetImgMark: boolean;
     /**
      * The number of blocks loaded each time they are dynamically loaded
      */
-    dynamicLoadBlocks: number;
+    readonly dynamicLoadBlocks: number;
     /**
      * Whether the embedded block displays breadcrumbs
      */
-    embedBlockBreadcrumb: boolean;
+    readonly embedBlockBreadcrumb: boolean;
     /**
      * Common emoji icons
      */
-    emoji: string[];
+    readonly emoji: string[];
     /**
      * The trigger mode of the preview window
      * - `0`: Hover over the cursor
      * - `1`: Hover over the cursor while holding down Ctrl
      * - `2`: Do not trigger the floating window
      */
-    floatWindowMode: number;
+    readonly floatWindowMode: number;
     /**
      * The font used in the editor
      */
-    fontFamily: string;
+    readonly fontFamily: string;
     /**
      * The font size used in the editor
      */
-    fontSize: number;
+    readonly fontSize: number;
     /**
      * Whether to enable the use of the mouse wheel to adjust the font size of the editor
      */
-    fontSizeScrollZoom: boolean;
+    readonly fontSizeScrollZoom: boolean;
     /**
      * Whether the editor uses maximum width
      */
-    fullWidth: boolean;
+    readonly fullWidth: boolean;
     /**
      * The time interval for generating document history, set to 0 to disable document history
      * (unit: minutes)
      */
-    generateHistoryInterval: number;
+    readonly generateHistoryInterval: number;
     /**
      * History retention days
      */
-    historyRetentionDays: number;
+    readonly historyRetentionDays: number;
     /**
      * Whether to enable text justification
      */
-    justify: boolean;
+    readonly justify: boolean;
     /**
      * KeTex macro definition (JSON string)
      */
-    katexMacros: string;
+    readonly katexMacros: string;
     /**
      * Whether to enable single-click list item mark focus
      */
-    listItemDotNumberClickFocus: boolean;
+    readonly listItemDotNumberClickFocus: boolean;
     /**
      * Whether to enable the list logical reverse indentation scheme
      */
-    listLogicalOutdent: boolean;
-    markdown: IEditorMarkdown;
+    readonly listLogicalOutdent: boolean;
+    readonly markdown: IEditorMarkdown;
     /**
      * Whether to enable the `[[` symbol to search only for document blocks
      */
-    onlySearchForDoc: boolean;
+    readonly onlySearchForDoc: boolean;
     /**
      * PlantUML rendering service address
      */
-    plantUMLServePath: string;
+    readonly plantUMLServePath: string;
     /**
      * Whether to enable read-only mode
      */
-    readOnly: boolean;
+    readonly readOnly: boolean;
     /**
      * Whether to enable RTL (left-to-right chirography) mode
      */
-    rtl: boolean;
+    readonly rtl: boolean;
     /**
      * Whether to enable spell checking
      */
-    spellcheck: boolean;
+    readonly spellcheck: boolean;
     /**
      * Whether to enable virtual references
      */
-    virtualBlockRef: boolean;
+    readonly virtualBlockRef: boolean;
     /**
      * Virtual reference keyword exclusion list (separated by commas `,`)
      */
-    virtualBlockRefExclude: string;
+    readonly virtualBlockRefExclude: string;
     /**
      * Virtual reference keyword inclusion list (separated by commas `,`)
      */
-    virtualBlockRefInclude: string;
+    readonly virtualBlockRefInclude: string;
 }
 
 /**
@@ -452,19 +445,19 @@ export interface IEditorMarkdown {
     /**
      * Whether to enable inline formula syntax $foo$
      */
-    inlineMath: boolean;
+    readonly inlineMath: boolean;
     /**
      * Whether to enable subscript syntax ~foo~
      */
-    inlineSub: boolean;
+    readonly inlineSub: boolean;
     /**
      * Whether to enable superscript syntax ^foo^
      */
-    inlineSup: boolean;
+    readonly inlineSup: boolean;
     /**
      * Whether to enable tag syntax #foo#
      */
-    inlineTag: boolean;
+    readonly inlineTag: boolean;
 }
 
 /**
@@ -475,13 +468,13 @@ export interface IExport {
      * Add article title (insert the article title as a first-level title at the beginning of
      * the document)
      */
-    addTitle: boolean;
+    readonly addTitle: boolean;
     /**
      * Embedded block export mode
      * - `0`: Original block content
      * - `1`: Quotation block
      */
-    blockEmbedMode: number;
+    readonly blockEmbedMode: number;
     /**
      * Content block reference export mode
      * - `0`: Original text (deprecated)
@@ -491,66 +484,66 @@ export interface IExport {
      * - `4`: Footnote
      * - `5`: Anchor hash
      */
-    blockRefMode: number;
+    readonly blockRefMode: number;
     /**
      * The symbol on the left side of the block reference anchor text during export
      */
-    blockRefTextLeft: string;
+    readonly blockRefTextLeft: string;
     /**
      * The symbol on the right side of the block reference anchor text during export
      */
-    blockRefTextRight: string;
+    readonly blockRefTextRight: string;
     /**
      * The path of the template file used when exporting to Docx
      */
-    docxTemplate: string;
+    readonly docxTemplate: string;
     /**
      * File annotation reference export mode
      * - `0`: File name - page number - anchor text
      * - `1`: Anchor text only
      */
-    fileAnnotationRefMode: number;
+    readonly fileAnnotationRefMode: number;
     /**
      * Custom watermark position, size, style, etc. when exporting to an image
      */
-    imageWatermarkDesc: string;
+    readonly imageWatermarkDesc: string;
     /**
      * The watermark text or watermark file path used when exporting to an image
      */
-    imageWatermarkStr: string;
+    readonly imageWatermarkStr: string;
     /**
      * Whether to add YAML Front Matter when exporting to Markdown
      */
-    markdownYFM: boolean;
+    readonly markdownYFM: boolean;
     /**
      * Pandoc executable file path
      */
-    pandocBin: string;
+    readonly pandocBin: string;
     /**
      * Whether the beginning of the paragraph is empty two spaces.
      * Insert two full-width spaces `U+3000` at the beginning of the paragraph.
      */
-    paragraphBeginningSpace: boolean;
+    readonly paragraphBeginningSpace: boolean;
     /**
      * Custom footer content when exporting to PDF
      */
-    pdfFooter: string;
+    readonly pdfFooter: string;
     /**
      * Custom watermark position, size, style, etc. when exporting to PDF
      */
-    pdfWatermarkDesc: string;
+    readonly pdfWatermarkDesc: string;
     /**
      * The watermark text or watermark file path used when exporting to PDF
      */
-    pdfWatermarkStr: string;
+    readonly pdfWatermarkStr: string;
     /**
      * Tag close marker symbol
      */
-    tagCloseMarker: string;
+    readonly tagCloseMarker: string;
     /**
      * Tag start marker symbol
      */
-    tagOpenMarker: string;
+    readonly tagOpenMarker: string;
 }
 
 /**
@@ -560,47 +553,47 @@ export interface IFileTree {
     /**
      * Whether to allow the creation of sub-documents deeper than 7 levels
      */
-    allowCreateDeeper: boolean;
+    readonly allowCreateDeeper: boolean;
     /**
      * Whether to automatically locate the currently open document in the document tree
      */
-    alwaysSelectOpenedFile: boolean;
+    readonly alwaysSelectOpenedFile: boolean;
     /**
      * Whether to close all tabs when starting
      */
-    closeTabsOnStart: boolean;
+    readonly closeTabsOnStart: boolean;
     /**
      * The notebook to storage the new document
      */
-    docCreateSaveBox: string;
+    readonly docCreateSaveBox: string;
     /**
      * The storage path of the new document
      */
-    docCreateSavePath: string;
+    readonly docCreateSavePath: string;
     /**
      * The maximum number of documents listed
      */
-    maxListCount: number;
+    readonly maxListCount: number;
     /**
      * The maximum number of open tabs
      */
-    maxOpenTabCount: number;
+    readonly maxOpenTabCount: number;
     /**
      * Whether to open the file in the current tab
      */
-    openFilesUseCurrentTab: boolean;
+    readonly openFilesUseCurrentTab: boolean;
     /**
      * The notebook to storage the new document created using block references
      */
-    refCreateSaveBox: string;
+    readonly refCreateSaveBox: string;
     /**
      * The storage path of the new document created using block references
      */
-    refCreateSavePath: string;
+    readonly refCreateSavePath: string;
     /**
      * Close the secondary confirmation when deleting a document
      */
-    removeDocWithoutConfirm: boolean;
+    readonly removeDocWithoutConfirm: boolean;
     /**
      * Document sorting method
      * - `0`: File name ascending
@@ -622,11 +615,11 @@ export interface IFileTree {
      * - `256`: Unspecified sorting rules, according to the notebook priority over the document
      * tree to obtain sorting rules
      */
-    sort: number;
+    readonly sort: number;
     /**
      * Whether to save the content of the .sy file as a single-line JSON object
      */
-    useSingleLineSave: boolean;
+    readonly useSingleLineSave: boolean;
 }
 
 /**
@@ -636,78 +629,78 @@ export interface IFlashCard {
     /**
      * Whether to enable deck card making
      */
-    deck: boolean;
+    readonly deck: boolean;
     /**
      * Whether to enable heading block card making
      */
-    heading: boolean;
+    readonly heading: boolean;
     /**
      * Whether to enable list block card making
      */
-    list: boolean;
+    readonly list: boolean;
     /**
      * Whether to enable mark element card making
      */
-    mark: boolean;
+    readonly mark: boolean;
     /**
      * Maximum interval days
      */
-    maximumInterval: number;
+    readonly maximumInterval: number;
     /**
      * New card limit
      */
-    newCardLimit: number;
+    readonly newCardLimit: number;
     /**
      * FSRS request retention parameter
      */
-    requestRetention: number;
+    readonly requestRetention: number;
     /**
      * Review card limit
      */
-    reviewCardLimit: number;
+    readonly reviewCardLimit: number;
     /**
      * Review mode
      * - `0`: New and old mixed
      * - `1`: New card priority
      * - `2`: Old card priority
      */
-    reviewMode: number;
+    readonly reviewMode: number;
     /**
      * Whether to enable super block card making
      */
-    superBlock: boolean;
+    readonly superBlock: boolean;
     /**
      * FSRS weight parameter list
      */
-    weights: string;
+    readonly weights: string;
 }
 
 /**
  * SiYuan graph related configuration
  */
 export interface IGraph {
-    global: IGraphGlobal;
-    local: IGraphLocal;
+    readonly global: IGraphGlobal;
+    readonly local: IGraphLocal;
     /**
      * Maximum number of content blocks displayed
      */
-    maxBlocks: number;
+    readonly maxBlocks: number;
 }
 
 /**
  * Global graph configuration
  */
 export interface IGraphGlobal {
-    d3: IGraphD3;
+    readonly d3: IGraphD3;
     /**
      * Whether to display nodes in daily notes
      */
-    dailyNote: boolean;
+    readonly dailyNote: boolean;
     /**
      * The minimum number of references to the displayed node
      */
-    minRefs: number;
-    type: IGraphType;
+    readonly minRefs: number;
+    readonly type: IGraphType;
 }
 
 /**
@@ -717,35 +710,35 @@ export interface IGraphD3 {
     /**
      * Whether to display the arrow
      */
-    arrow: boolean;
+    readonly arrow: boolean;
     /**
      * Central gravity intensity
      */
-    centerStrength: number;
+    readonly centerStrength: number;
     /**
      * Repulsion radius
      */
-    collideRadius: number;
+    readonly collideRadius: number;
     /**
      * Repulsion intensity
      */
-    collideStrength: number;
+    readonly collideStrength: number;
     /**
      * Line opacity
      */
-    lineOpacity: number;
+    readonly lineOpacity: number;
     /**
      * Link distance
      */
-    linkDistance: number;
+    readonly linkDistance: number;
     /**
      * Line width
      */
-    linkWidth: number;
+    readonly linkWidth: number;
     /**
      * Node size
      */
-    nodeSize: number;
+    readonly nodeSize: number;
 }
 
 /**
@@ -755,134 +748,134 @@ export interface IGraphType {
     /**
      * Display quote block
      */
-    blockquote: boolean;
+    readonly blockquote: boolean;
     /**
      * Display code block
      */
-    code: boolean;
+    readonly code: boolean;
     /**
      * Display heading block
      */
-    heading: boolean;
+    readonly heading: boolean;
     /**
      * Display list block
      */
-    list: boolean;
+    readonly list: boolean;
     /**
      * Display list item
      */
-    listItem: boolean;
+    readonly listItem: boolean;
     /**
      * Display formula block
      */
-    math: boolean;
+    readonly math: boolean;
     /**
      * Display paragraph block
      */
-    paragraph: boolean;
+    readonly paragraph: boolean;
     /**
      * Display super block
      */
-    super: boolean;
+    readonly super: boolean;
     /**
      * Display table block
      */
-    table: boolean;
+    readonly table: boolean;
     /**
      * Display tag
      */
-    tag: boolean;
+    readonly tag: boolean;
 }
 
 /**
  * Local graph configuration
  */
 export interface IGraphLocal {
-    d3: IGraphD3;
+    readonly d3: IGraphD3;
     /**
      * Whether to display nodes in daily notes
      */
-    dailyNote: boolean;
-    type: IGraphType;
+    readonly dailyNote: boolean;
+    readonly type: IGraphType;
 }
 
 /**
  * SiYuan keymap related configuration
  */
 export interface IKeymap {
-    editor: IKeymapEditor;
-    general: IKeymapGeneral;
-    plugin: { [key: string]: { [key: string]: IKey } };
+    readonly editor: IKeymapEditor;
+    readonly general: IKeymapGeneral;
+    readonly plugin: { [key: string]: { [key: string]: IKey } };
 }
 
 /**
  * SiYuan editor shortcut keys
  */
 export interface IKeymapEditor {
-    general: IKeymapEditorGeneral;
-    heading: IKeymapEditorHeading;
-    insert: IKeymapEditorInsert;
-    list: IKeymapEditorList;
-    table: IKeymapEditorTable;
+    readonly general: IKeymapEditorGeneral;
+    readonly heading: IKeymapEditorHeading;
+    readonly insert: IKeymapEditorInsert;
+    readonly list: IKeymapEditorList;
+    readonly table: IKeymapEditorTable;
 }
 
 /**
  * SiYuan editor general shortcut keys
  */
 export interface IKeymapEditorGeneral {
-    ai: IKey;
-    alignCenter: IKey;
-    alignLeft: IKey;
-    alignRight: IKey;
-    attr: IKey;
-    backlinks: IKey;
-    collapse: IKey;
-    copyBlockEmbed: IKey;
-    copyBlockRef: IKey;
-    copyHPath: IKey;
-    copyID: IKey;
-    copyPlainText: IKey;
-    copyProtocol: IKey;
-    copyProtocolInMd: IKey;
-    copyText: IKey;
-    duplicate: IKey;
-    exitFocus: IKey;
-    expand: IKey;
-    expandDown: IKey;
-    expandUp: IKey;
-    fullscreen: IKey;
-    graphView: IKey;
-    hLayout: IKey;
-    insertAfter: IKey;
-    insertBefore: IKey;
-    insertBottom: IKey;
-    insertRight: IKey;
-    jumpToParent: IKey;
-    jumpToParentNext: IKey;
-    jumpToParentPrev: IKey;
-    moveToDown: IKey;
-    moveToUp: IKey;
-    netAssets2LocalAssets: IKey;
-    netImg2LocalAsset: IKey;
-    newContentFile: IKey;
-    newNameFile: IKey;
-    newNameSettingFile: IKey;
-    openBy: IKey;
-    optimizeTypography: IKey;
-    outline: IKey;
-    preview: IKey;
-    quickMakeCard: IKey;
-    redo: IKey;
-    refPopover: IKey;
-    refresh: IKey;
-    refTab: IKey;
-    rename: IKey;
-    showInFolder: IKey;
-    spaceRepetition: IKey;
-    switchReadonly: IKey;
-    undo: IKey;
-    vLayout: IKey;
-    wysiwyg: IKey;
+    readonly ai: IKey;
+    readonly alignCenter: IKey;
+    readonly alignLeft: IKey;
+    readonly alignRight: IKey;
+    readonly attr: IKey;
+    readonly backlinks: IKey;
+    readonly collapse: IKey;
+    readonly copyBlockEmbed: IKey;
+    readonly copyBlockRef: IKey;
+    readonly copyHPath: IKey;
+    readonly copyID: IKey;
+    readonly copyPlainText: IKey;
+    readonly copyProtocol: IKey;
+    readonly copyProtocolInMd: IKey;
+    readonly copyText: IKey;
+    readonly duplicate: IKey;
+    readonly exitFocus: IKey;
+    readonly expand: IKey;
+    readonly expandDown: IKey;
+    readonly expandUp: IKey;
+    readonly fullscreen: IKey;
+    readonly graphView: IKey;
+    readonly hLayout: IKey;
+    readonly insertAfter: IKey;
+    readonly insertBefore: IKey;
+    readonly insertBottom: IKey;
+    readonly insertRight: IKey;
+    readonly jumpToParent: IKey;
+    readonly jumpToParentNext: IKey;
+    readonly jumpToParentPrev: IKey;
+    readonly moveToDown: IKey;
+    readonly moveToUp: IKey;
+    readonly netAssets2LocalAssets: IKey;
+    readonly netImg2LocalAsset: IKey;
+    readonly newContentFile: IKey;
+    readonly newNameFile: IKey;
+    readonly newNameSettingFile: IKey;
+    readonly openBy: IKey;
+    readonly optimizeTypography: IKey;
+    readonly outline: IKey;
+    readonly preview: IKey;
+    readonly quickMakeCard: IKey;
+    readonly redo: IKey;
+    readonly refPopover: IKey;
+    readonly refresh: IKey;
+    readonly refTab: IKey;
+    readonly rename: IKey;
+    readonly showInFolder: IKey;
+    readonly spaceRepetition: IKey;
+    readonly switchReadonly: IKey;
+    readonly undo: IKey;
+    readonly vLayout: IKey;
+    readonly wysiwyg: IKey;
 }
 
 /**
@@ -892,137 +885,137 @@ export interface IKey {
     /**
      * Custom shortcut key
      */
-    custom: string;
+    readonly custom: string;
     /**
      * Default shortcut key
      */
-    default: string;
+    readonly default: string;
 }
 
 /**
  * SiYuan editor heading shortcut keys
  */
 export interface IKeymapEditorHeading {
-    heading1: IKey;
-    heading2: IKey;
-    heading3: IKey;
-    heading4: IKey;
-    heading5: IKey;
-    heading6: IKey;
-    paragraph: IKey;
+    readonly heading1: IKey;
+    readonly heading2: IKey;
+    readonly heading3: IKey;
+    readonly heading4: IKey;
+    readonly heading5: IKey;
+    readonly heading6: IKey;
+    readonly paragraph: IKey;
 }
 
 /**
  * SiYuan editor insert shortcut keys
  */
 export interface IKeymapEditorInsert {
-    "appearance": IKey;
-    "bold": IKey;
-    "check": IKey;
-    "clearInline": IKey;
-    "code": IKey;
-    "inline-code": IKey;
-    "inline-math": IKey;
-    "italic": IKey;
-    "kbd": IKey;
-    "lastUsed": IKey;
-    "link": IKey;
-    "mark": IKey;
-    "memo": IKey;
-    "ref": IKey;
-    "strike": IKey;
-    "sub": IKey;
-    "sup": IKey;
-    "table": IKey;
-    "tag": IKey;
-    "underline": IKey;
+    readonly "appearance": IKey;
+    readonly "bold": IKey;
+    readonly "check": IKey;
+    readonly "clearInline": IKey;
+    readonly "code": IKey;
+    readonly "inline-code": IKey;
+    readonly "inline-math": IKey;
+    readonly "italic": IKey;
+    readonly "kbd": IKey;
+    readonly "lastUsed": IKey;
+    readonly "link": IKey;
+    readonly "mark": IKey;
+    readonly "memo": IKey;
+    readonly "ref": IKey;
+    readonly "strike": IKey;
+    readonly "sub": IKey;
+    readonly "sup": IKey;
+    readonly "table": IKey;
+    readonly "tag": IKey;
+    readonly "underline": IKey;
 }
 
 /**
  * SiYuan editor list shortcut keys
  */
 export interface IKeymapEditorList {
-    checkToggle: IKey;
-    indent: IKey;
-    outdent: IKey;
+    readonly checkToggle: IKey;
+    readonly indent: IKey;
+    readonly outdent: IKey;
 }
 
 /**
  * SiYuan editor table shortcut keys
  */
 export interface IKeymapEditorTable {
-    "delete-column": IKey;
-    "delete-row": IKey;
-    "insertColumnLeft": IKey;
-    "insertColumnRight": IKey;
-    "insertRowAbove": IKey;
-    "insertRowBelow": IKey;
-    "moveToDown": IKey;
-    "moveToLeft": IKey;
-    "moveToRight": IKey;
-    "moveToUp": IKey;
+    readonly "delete-column": IKey;
+    readonly "delete-row": IKey;
+    readonly "insertColumnLeft": IKey;
+    readonly "insertColumnRight": IKey;
+    readonly "insertRowAbove": IKey;
+    readonly "insertRowBelow": IKey;
+    readonly "moveToDown": IKey;
+    readonly "moveToLeft": IKey;
+    readonly "moveToRight": IKey;
+    readonly "moveToUp": IKey;
 }
 
 /**
  * SiYuan general shortcut keys
  */
 export interface IKeymapGeneral {
-    addToDatabase: IKey;
-    backlinks: IKey;
-    bookmark: IKey;
-    closeAll: IKey;
-    closeLeft: IKey;
-    closeOthers: IKey;
-    closeRight: IKey;
-    closeTab: IKey;
-    closeUnmodified: IKey;
-    commandPanel: IKey;
-    config: IKey;
-    dailyNote: IKey;
-    dataHistory: IKey;
-    editReadonly: IKey;
-    enter: IKey;
-    enterBack: IKey;
-    fileTree: IKey;
-    globalGraph: IKey;
-    globalSearch: IKey;
-    goBack: IKey;
-    goForward: IKey;
-    goToEditTabNext: IKey;
-    goToEditTabPrev: IKey;
-    goToTab1: IKey;
-    goToTab2: IKey;
-    goToTab3: IKey;
-    goToTab4: IKey;
-    goToTab5: IKey;
-    goToTab6: IKey;
-    goToTab7: IKey;
-    goToTab8: IKey;
-    goToTab9: IKey;
-    goToTabNext: IKey;
-    goToTabPrev: IKey;
-    graphView: IKey;
-    inbox: IKey;
-    lockScreen: IKey;
-    mainMenu: IKey;
-    move: IKey;
-    newFile: IKey;
-    outline: IKey;
-    recentDocs: IKey;
-    replace: IKey;
-    riffCard: IKey;
-    search: IKey;
-    selectOpen1: IKey;
-    splitLR: IKey;
-    splitMoveB: IKey;
-    splitMoveR: IKey;
-    splitTB: IKey;
-    stickSearch: IKey;
-    syncNow: IKey;
-    tabToWindow: IKey;
-    tag: IKey;
-    toggleDock: IKey;
-    toggleWin: IKey;
+    readonly addToDatabase: IKey;
+    readonly backlinks: IKey;
+    readonly bookmark: IKey;
+    readonly closeAll: IKey;
+    readonly closeLeft: IKey;
+    readonly closeOthers: IKey;
+    readonly closeRight: IKey;
+    readonly closeTab: IKey;
+    readonly closeUnmodified: IKey;
+    readonly commandPanel: IKey;
+    readonly config: IKey;
+    readonly dailyNote: IKey;
+    readonly dataHistory: IKey;
+    readonly editReadonly: IKey;
+    readonly enter: IKey;
+    readonly enterBack: IKey;
+    readonly fileTree: IKey;
+    readonly globalGraph: IKey;
+    readonly globalSearch: IKey;
+    readonly goBack: IKey;
+    readonly goForward: IKey;
+    readonly goToEditTabNext: IKey;
+    readonly goToEditTabPrev: IKey;
+    readonly goToTab1: IKey;
+    readonly goToTab2: IKey;
+    readonly goToTab3: IKey;
+    readonly goToTab4: IKey;
+    readonly goToTab5: IKey;
+    readonly goToTab6: IKey;
+    readonly goToTab7: IKey;
+    readonly goToTab8: IKey;
+    readonly goToTab9: IKey;
+    readonly goToTabNext: IKey;
+    readonly goToTabPrev: IKey;
+    readonly graphView: IKey;
+    readonly inbox: IKey;
+    readonly lockScreen: IKey;
+    readonly mainMenu: IKey;
+    readonly move: IKey;
+    readonly newFile: IKey;
+    readonly outline: IKey;
+    readonly recentDocs: IKey;
+    readonly replace: IKey;
+    readonly riffCard: IKey;
+    readonly search: IKey;
+    readonly selectOpen1: IKey;
+    readonly splitLR: IKey;
+    readonly splitMoveB: IKey;
+    readonly splitMoveR: IKey;
+    readonly splitTB: IKey;
+    readonly stickSearch: IKey;
+    readonly syncNow: IKey;
+    readonly tabToWindow: IKey;
+    readonly tag: IKey;
+    readonly toggleDock: IKey;
+    readonly toggleWin: IKey;
 }
 
 /**
@@ -1032,11 +1025,11 @@ export interface ILang {
     /**
      * Language name
      */
-    label: string;
+    readonly label: string;
     /**
      * Language identifier
      */
-    name: string;
+    readonly name: string;
 }
 
 /**
@@ -1045,18 +1038,70 @@ export interface ILang {
 export type TLogLevel = "debug" | "error" | "fatal" | "info" | "off" | "trace" | "warn";
 
 /**
+ * Publish service related configuration
+ */
+export interface IPublish {
+    /**
+     * Publish service basic auth configuration
+     */
+    readonly auth: IPublishAuth;
+    /**
+     * Whether to enable the publishing service
+     */
+    readonly enable: boolean;
+    /**
+     * The port used by the publishing service
+     */
+    readonly port: number;
+}
+
+/**
+ * Publish service basic auth configuration
+ *
+ * Publish service basic auth related configuration
+ */
+export interface IPublishAuth {
+    /**
+     * Publish service Basic authentication username/password list
+     */
+    readonly accounts: IPublishAuthAccount[];
+    /**
+     * Whether to enable publishing service basic authentication
+     */
+    readonly enable: boolean;
+}
+
+/**
+ * Publish service basic auth account
+ */
+export interface IPublishAuthAccount {
+    /**
+     * Remarks information
+     */
+    readonly memo: string;
+    /**
+     * Basic authentication password
+     */
+    readonly password: string;
+    /**
+     * Basic authentication username
+     */
+    readonly username: string;
+}
+
+/**
  * Snapshot repository related configuration
  */
 export interface IRepo {
     /**
      * Snapshot encryption key (base64 encoded 256-bit key)
      */
-    key: string;
+    readonly key: string;
     /**
      * Synchronous index timing, if it exceeds this time, the user is prompted that the index
      * performance is degraded (unit: milliseconds)
      */
-    syncIndexTiming: number;
+    readonly syncIndexTiming: number;
 }
 
 /**
@@ -1066,135 +1111,135 @@ export interface ISearch {
     /**
      * Whether to search in block aliases
      */
-    alias: boolean;
+    readonly alias: boolean;
     /**
      * Whether to search in audio blocks
      */
-    audioBlock: boolean;
+    readonly audioBlock: boolean;
     /**
      * Extract backlink mention keywords from block aliases
      */
-    backlinkMentionAlias: boolean;
+    readonly backlinkMentionAlias: boolean;
     /**
      * Extract backlink mention keywords from block reference anchor text
      */
-    backlinkMentionAnchor: boolean;
+    readonly backlinkMentionAnchor: boolean;
     /**
      * Extract backlink mention keywords from document names
      */
-    backlinkMentionDoc: boolean;
+    readonly backlinkMentionDoc: boolean;
     /**
      * Maximum number of backlink mention keywords
      */
-    backlinkMentionKeywordsLimit: number;
+    readonly backlinkMentionKeywordsLimit: number;
     /**
      * Extract backlink mention keywords from block names
      */
-    backlinkMentionName: boolean;
+    readonly backlinkMentionName: boolean;
     /**
      * Whether to search quote blocks
      */
-    blockquote: boolean;
+    readonly blockquote: boolean;
     /**
      * Whether to distinguish between uppercase and lowercase letters when searching
      */
-    caseSensitive: boolean;
+    readonly caseSensitive: boolean;
     /**
      * Whether to search code blocks
      */
-    codeBlock: boolean;
+    readonly codeBlock: boolean;
     /**
      * Whether to search database blocks
      */
-    databaseBlock: boolean;
+    readonly databaseBlock: boolean;
     /**
      * Whether to search document blocks
      */
-    document: boolean;
+    readonly document: boolean;
     /**
      * Whether to search embedded blocks
      */
-    embedBlock: boolean;
+    readonly embedBlock: boolean;
     /**
      * Whether to search heading blocks
      */
-    heading: boolean;
+    readonly heading: boolean;
     /**
      * Whether to search HTML blocks
      */
-    htmlBlock: boolean;
+    readonly htmlBlock: boolean;
     /**
      * Whether to search block attributes
      */
-    ial: boolean;
+    readonly ial: boolean;
     /**
      * Whether to search in iframe blocks
      */
-    iframeBlock: boolean;
+    readonly iframeBlock: boolean;
     /**
      * Whether to search resource file paths
      */
-    indexAssetPath: boolean;
+    readonly indexAssetPath: boolean;
     /**
      * Number of search results displayed
      */
-    limit: number;
+    readonly limit: number;
     /**
      * Whether to search list blocks
      */
-    list: boolean;
+    readonly list: boolean;
     /**
      * Whether to search list items
      */
-    listItem: boolean;
+    readonly listItem: boolean;
     /**
      * Whether to search formula blocks
      */
-    mathBlock: boolean;
+    readonly mathBlock: boolean;
     /**
      * Whether to search block notes
      */
-    memo: boolean;
+    readonly memo: boolean;
     /**
      * Whether to search block names
      */
-    name: boolean;
+    readonly name: boolean;
     /**
      * Whether to search paragraph blocks
      */
-    paragraph: boolean;
+    readonly paragraph: boolean;
     /**
      * Whether to search super blocks
      */
-    superBlock: boolean;
+    readonly superBlock: boolean;
     /**
      * Whether to search table blocks
      */
-    table: boolean;
+    readonly table: boolean;
     /**
      * Whether to search in video blocks
      */
-    videoBlock: boolean;
+    readonly videoBlock: boolean;
     /**
      * Whether to get virtual reference keywords from block aliases
      */
-    virtualRefAlias: boolean;
+    readonly virtualRefAlias: boolean;
     /**
      * Whether to get virtual reference keywords from block reference anchor text
      */
-    virtualRefAnchor: boolean;
+    readonly virtualRefAnchor: boolean;
     /**
      * Whether to get virtual reference keywords from document names
      */
-    virtualRefDoc: boolean;
+    readonly virtualRefDoc: boolean;
     /**
      * Whether to get virtual reference keywords from block names
      */
-    virtualRefName: boolean;
+    readonly virtualRefName: boolean;
     /**
      * Whether to search in widget blocks
      */
-    widgetBlock: boolean;
+    readonly widgetBlock: boolean;
 }
 
 /**
@@ -1204,11 +1249,11 @@ export interface ISnippet {
     /**
      * Whether to enable CSS code snippets
      */
-    enabledCSS: boolean;
+    readonly enabledCSS: boolean;
     /**
      * Whether to enable JavaScript code snippets
      */
-    enabledJS: boolean;
+    readonly enabledJS: boolean;
 }
 
 /**
@@ -1218,35 +1263,35 @@ export interface IStat {
     /**
      * Asset file size (unit: bytes)
      */
-    assetsSize: number;
+    readonly assetsSize: number;
     /**
      * Number of content blocks
      */
-    blockCount: number;
+    readonly blockCount: number;
     /**
      * Size of resource files after chunk encryption (unit: bytes)
      */
-    cAssetsSize: number;
+    readonly cAssetsSize: number;
     /**
      * Number of content blocks after chunk encryption
      */
-    cBlockCount: number;
+    readonly cBlockCount: number;
     /**
      * Size of the data directory after chunk encryption (unit: bytes)
      */
-    cDataSize: number;
+    readonly cDataSize: number;
     /**
      * Number of content block trees after chunk encryption (number of documents)
      */
-    cTreeCount: number;
+    readonly cTreeCount: number;
     /**
      * Data directory size (unit: bytes)
      */
-    dataSize: number;
+    readonly dataSize: number;
     /**
      * Number of content block trees (number of documents)
      */
-    treeCount: number;
+    readonly treeCount: number;
 }
 
 /**
@@ -1256,15 +1301,15 @@ export interface ISync {
     /**
      * Cloud workspace name
      */
-    cloudName: string;
+    readonly cloudName: string;
     /**
      * Whether to enable synchronization
      */
-    enabled: boolean;
+    readonly enabled: boolean;
     /**
      * Whether to create a conflict document when a conflict occurs during synchronization
      */
-    generateConflictDoc: boolean;
+    readonly generateConflictDoc: boolean;
     /**
      * Synchronization mode
      * - `0`: Not set
@@ -1272,28 +1317,28 @@ export interface ISync {
      * - `2`: Manual synchronization
      * - `3`: Completely manual synchronization
      */
-    mode: number;
+    readonly mode: number;
     /**
      * Whether to enable synchronization perception
      */
-    perception: boolean;
+    readonly perception: boolean;
     /**
      * Cloud storage service provider
      * - `0`: SiYuan official cloud storage service
      * - `2`: Object storage service compatible with S3 protocol
      * - `3`: Network storage service using WebDAV protocol
      */
-    provider: number;
-    s3: ISyncS3;
+    readonly provider: number;
+    readonly s3: ISyncS3;
     /**
      * The prompt information of the last synchronization
      */
-    stat: string;
+    readonly stat: string;
     /**
      * The time of the last synchronization (Unix timestamp)
      */
-    synced: number;
-    webdav: ISyncWebDAV;
+    readonly synced: number;
+    readonly webdav: ISyncWebDAV;
 }
 
 /**
@@ -1303,35 +1348,35 @@ export interface ISyncS3 {
     /**
      * Access key
      */
-    accessKey: string;
+    readonly accessKey: string;
     /**
      * Bucket name
      */
-    bucket: string;
+    readonly bucket: string;
     /**
      * Service endpoint address
      */
-    endpoint: string;
+    readonly endpoint: string;
     /**
      * Whether to use path-style URLs
      */
-    pathStyle: boolean;
+    readonly pathStyle: boolean;
     /**
      * Storage region
      */
-    region: string;
+    readonly region: string;
     /**
      * Security key
      */
-    secretKey: string;
+    readonly secretKey: string;
     /**
      * Whether to skip TLS verification
      */
-    skipTlsVerify: boolean;
+    readonly skipTlsVerify: boolean;
     /**
      * Timeout (unit: seconds)
      */
-    timeout: number;
+    readonly timeout: number;
 }
 
 /**
@@ -1341,23 +1386,23 @@ export interface ISyncWebDAV {
     /**
      * Service endpoint
      */
-    endpoint: string;
+    readonly endpoint: string;
     /**
      * Password
      */
-    password: string;
+    readonly password: string;
     /**
      * Whether to skip TLS verification
      */
-    skipTlsVerify: boolean;
+    readonly skipTlsVerify: boolean;
     /**
      * Timeout (unit: seconds)
      */
-    timeout: number;
+    readonly timeout: number;
     /**
      * Username
      */
-    username: string;
+    readonly username: string;
 }
 
 /**
@@ -1367,18 +1412,18 @@ export interface ISystem {
     /**
      * The absolute path of the `resources` directory under the SiYuan installation directory
      */
-    appDir: string;
+    readonly appDir: string;
     /**
      * Boot automatically mode
      * - `0`: Close automatically start
      * - `1`: Auto start
      * - `2`: Silent auto start
      */
-    autoLaunch2: number;
+    readonly autoLaunch2: number;
     /**
      * The absolute path of the `conf` directory of the current workspace
      */
-    confDir: string;
+    readonly confDir: string;
     /**
      * Kernel operating environment
      * - `docker`: Docker container
@@ -1386,54 +1431,54 @@ export interface ISystem {
      * - `ios`: iOS device
      * - `std`: Desktop Electron environment
      */
-    container: TSystemContainer;
+    readonly container: TSystemContainer;
     /**
      * The absolute path of the `data` directory of the current workspace
      */
-    dataDir: string;
+    readonly dataDir: string;
     /**
      * Whether to disable Google Analytics
      */
-    disableGoogleAnalytics: boolean;
+    readonly disableGoogleAnalytics: boolean;
     /**
      * Whether to automatically download the installation package for the new version
      */
-    downloadInstallPkg: boolean;
+    readonly downloadInstallPkg: boolean;
     /**
      * The absolute path of the user's home directory for the current operating system user
      */
-    homeDir: string;
+    readonly homeDir: string;
     /**
      * The UUID of the current session
      */
-    id: string;
+    readonly id: string;
     /**
      * Whether the current version is an internal test version
      */
-    isInsider: boolean;
+    readonly isInsider: boolean;
     /**
      * Whether the current version is a Microsoft Store version
      */
-    isMicrosoftStore: boolean;
+    readonly isMicrosoftStore: boolean;
     /**
      * Kernel version number
      */
-    kernelVersion: string;
+    readonly kernelVersion: string;
     /**
      * Lock screen mode
      * - `0`: Manual
      * - `1`: Manual + Follow the operating system
      */
-    lockScreenMode: number;
+    readonly lockScreenMode: number;
     /**
      * The name of the current device
      */
-    name: string;
-    networkProxy: INetworkProxy;
+    readonly name: string;
+    readonly networkProxy: INetworkProxy;
     /**
      * Whether to enable network serve (whether to allow connections from other devices)
      */
-    networkServe: boolean;
+    readonly networkServe: boolean;
     /**
      * The operating system name determined at compile time
      * (obtained using the command `go tool dist list`)
@@ -1443,19 +1488,19 @@ export interface ISystem {
      * - `linux`: Linux
      * - `windows`: Windows
      */
-    os: TSystemOS;
+    readonly os: TSystemOS;
     /**
      * Operating system platform name
      */
-    osPlatform: string;
+    readonly osPlatform: string;
     /**
      * Whether to upload error logs
      */
-    uploadErrLog: boolean;
+    readonly uploadErrLog: boolean;
     /**
      * The absolute path of the workspace directory
      */
-    workspaceDir: string;
+    readonly workspaceDir: string;
 }
 
 /**
@@ -1474,11 +1519,11 @@ export interface INetworkProxy {
     /**
      * Host name or host address
      */
-    host: string;
+    readonly host: string;
     /**
      * Proxy server port number
      */
-    port: string;
+    readonly port: string;
     /**
      * The protocol used by the proxy server
      * - Empty String: Use the system proxy settings
@@ -1486,7 +1531,7 @@ export interface INetworkProxy {
      * - `https`: HTTPS
      * - `socks5`: SOCKS5
      */
-    scheme: TSystemNetworkProxyScheme;
+    readonly scheme: TSystemNetworkProxyScheme;
 }
 
 /**
@@ -1522,21 +1567,21 @@ export interface ITag {
      * - `7`: Reference count ascending
      * - `8`: Reference count descending
      */
-    sort: number;
+    readonly sort: number;
 }
 
 /**
  * SiYuan UI layout related configuration
  */
 export interface IUILayout {
-    bottom: IUILayoutDock;
+    readonly bottom: IUILayoutDock;
     /**
      * Whether to hide the sidebar
      */
-    hideDock: boolean;
-    layout: IUILayoutLayout;
-    left: IUILayoutDock;
-    right: IUILayoutDock;
+    readonly hideDock: boolean;
+    readonly layout: IUILayoutLayout;
+    readonly left: IUILayoutDock;
+    readonly right: IUILayoutDock;
 }
 
 /**
@@ -1546,11 +1591,11 @@ export interface IUILayoutDock {
     /**
      * Dock area list
      */
-    data: Array<IUILayoutDockTab[]>;
+    readonly data: Array<IUILayoutDockTab[]>;
     /**
      * Whether to pin the dock
      */
-    pin: boolean;
+    readonly pin: boolean;
 }
 
 /**
@@ -1560,28 +1605,28 @@ export interface IUILayoutDockTab {
     /**
      * Dock tab hotkey
      */
-    hotkey: string;
+    readonly hotkey: string;
     /**
      * Hotkey description ID
      */
-    hotkeyLangId?: string;
+    readonly hotkeyLangId?: string;
     /**
      * Tab icon ID
      */
-    icon: string;
+    readonly icon: string;
     /**
      * Whether to display the tab
      */
-    show: boolean;
-    size: IUILayoutDockPanelSize;
+    readonly show: boolean;
+    readonly size: IUILayoutDockPanelSize;
     /**
      * Tab title
      */
-    title: string;
+    readonly title: string;
     /**
      * Tab type
      */
-    type: string;
+    readonly type: string;
 }
 
 /**
@@ -1591,11 +1636,11 @@ export interface IUILayoutDockPanelSize {
     /**
      * Tab height (unit: px)
      */
-    height: number | null;
+    readonly height: number | null;
     /**
      * Tab width (unit: px)
      */
-    width: number | null;
+    readonly width: number | null;
 }
 
 /**
@@ -1605,27 +1650,27 @@ export interface IUILayoutLayout {
     /**
      * Internal elements
      */
-    children: IUILayoutLayoutChild[];
+    readonly children: IUILayoutLayoutChild[];
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: TUILayoutDirection;
+    readonly direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: TUILayoutInstanceLayout;
+    readonly instance: "Layout";
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: TUILayoutDirection;
+    readonly resize?: TUILayoutDirection;
     /**
      * Panel size
      */
-    size?: string;
+    readonly size?: string;
     /**
      * Layout type
      * - `normal`: Normal panel
@@ -1635,7 +1680,7 @@ export interface IUILayoutLayout {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: TUILayoutType;
+    readonly type?: TUILayoutType;
 }
 
 /**
@@ -1647,27 +1692,27 @@ export interface IUILayoutLayoutChild {
     /**
      * Internal elements
      */
-    children: ChildElement[];
+    readonly children: ChildElement[];
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: TUILayoutDirection;
+    readonly direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: TUILayout;
+    readonly instance: TUILayout;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: TUILayoutDirection;
+    readonly resize?: TUILayoutDirection;
     /**
      * Panel size
      */
-    size?: string;
+    readonly size?: string;
     /**
      * Layout type
      * - `normal`: Normal panel
@@ -1677,15 +1722,15 @@ export interface IUILayoutLayoutChild {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: TUILayoutType;
+    readonly type?: TUILayoutType;
     /**
      * Panel height
      */
-    height?: string;
+    readonly height?: string;
     /**
      * Panel width
      */
-    width?: string;
+    readonly width?: string;
 }
 
 export type Children = ChildElement[] | IUILayoutTabContent;
@@ -1703,27 +1748,27 @@ export interface ChildElement {
      *
      * Tab content
      */
-    children: Children;
+    readonly children: Children;
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
      * - `lr`: Left and right layout
      */
-    direction?: TUILayoutDirection;
+    readonly direction?: TUILayoutDirection;
     /**
      * Object name
      */
-    instance: TUILayoutInstance;
+    readonly instance: TUILayoutInstance;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
      * - `lr`: Can adjust the size left and right
      */
-    resize?: TUILayoutDirection;
+    readonly resize?: TUILayoutDirection;
     /**
      * Panel size
      */
-    size?: string;
+    readonly size?: string;
     /**
      * Layout type
      * - `normal`: Normal panel
@@ -1733,39 +1778,39 @@ export interface ChildElement {
      * - `left`: Left panel
      * - `right`: Right panel
      */
-    type?: TUILayoutType;
+    readonly type?: TUILayoutType;
     /**
      * Panel height
      */
-    height?: string;
+    readonly height?: string;
     /**
      * Panel width
      */
-    width?: string;
+    readonly width?: string;
     /**
      * Whether the tab is active
      */
-    active?: boolean;
+    readonly active?: boolean;
     /**
      * Tab icon
      */
-    docIcon?: string;
+    readonly docIcon?: string;
     /**
      * Icon reference ID
      */
-    icon?: string;
+    readonly icon?: string;
     /**
      * Localization field key name
      */
-    lang?: string;
+    readonly lang?: string;
     /**
      * Whether the tab is pinned
      */
-    pin?: boolean;
+    readonly pin?: boolean;
     /**
      * Tab title
      */
-    title?: string;
+    readonly title?: string;
 }
 
 /**
@@ -1795,7 +1840,7 @@ export interface IUILayoutTabContent {
     /**
      * (Editor) Actions to be performed after the tab is loaded
      */
-    action?: string;
+    readonly action?: string;
     /**
      * (Editor) Block ID
      *
@@ -1805,21 +1850,21 @@ export interface IUILayoutTabContent {
      *
      * (Outline) Block ID
      */
-    blockId?: string;
+    readonly blockId?: string;
     /**
      * Object name
      */
-    instance: TUILayoutTabContentInstance;
+    readonly instance: TUILayoutTabContentInstance;
     /**
      * (Editor) Editor mode
      * - `wysiwyg`: WYSIWYG mode
      * - `preview`: Export preview mode
      */
-    mode?: TUILayoutTabEditorMode;
+    readonly mode?: TUILayoutTabEditorMode;
     /**
      * (Editor) Notebook ID
      */
-    notebookId?: string;
+    readonly notebookId?: string;
     /**
      * (Editor) Document block ID
      *
@@ -1827,23 +1872,23 @@ export interface IUILayoutTabContent {
      *
      * (Graph) Document block ID
      */
-    rootId?: string;
+    readonly rootId?: string;
     /**
      * (Asset) PDF file page number
      */
-    page?: number;
+    readonly page?: number;
     /**
      * (Asset) Asset reference path
      */
-    path?: string;
+    readonly path?: string;
     /**
      * (Custom) Data of the custom tab
      */
-    customModelData?: any;
+    readonly customModelData?: any;
     /**
      * (Custom) Type of the custom tab
      */
-    customModelType?: string;
+    readonly customModelType?: string;
     /**
      * (Backlink) Tab type
      * - `pin`: Pinned backlink panel
@@ -1858,12 +1903,12 @@ export interface IUILayoutTabContent {
      * - `pin`: Pinned outline panel
      * - `local`: The outline panel of the current editor
      */
-    type?: TuiLayoutTabType;
+    readonly type?: TuiLayoutTabType;
     /**
      * (Outline) Whether the associated editor is in preview mode
      */
-    isPreview?: boolean;
-    config?: IUILayoutTabSearchConfig;
+    readonly isPreview?: boolean;
+    readonly config?: IUILayoutTabSearchConfig;
 }
 
 /**
@@ -1875,20 +1920,20 @@ export interface IUILayoutTabSearchConfig {
      * - `0`: No grouping
      * - `1`: Group by document
      */
-    group: number;
-    hasReplace: any;
+    readonly group: number;
+    readonly hasReplace: any;
     /**
      * Readable path list
      */
-    hPath: string;
+    readonly hPath: string;
     /**
      * Search in the specified paths
      */
-    idPath: string[];
+    readonly idPath: string[];
     /**
      * Search content
      */
-    k: string;
+    readonly k: string;
     /**
      * Search scheme
      * - `0`: Keyword (default)
@@ -1897,24 +1942,24 @@ export interface IUILayoutTabSearchConfig {
      * - `3`: Regular expression
      * @defaultValue 0
      */
-    method: number;
+    readonly method: number;
     /**
      * Custom name of the query condition group
      */
-    name?: string;
+    readonly name?: string;
     /**
      * Current page number
      */
-    page: number;
+    readonly page: number;
     /**
      * Replace content
      */
-    r: string;
+    readonly r: string;
     /**
      * Whether to clear the search box after removing the currently used query condition group
      */
-    removed?: boolean;
-    replaceTypes: IUILayoutTabSearchConfigReplaceTypes;
+    readonly removed?: boolean;
+    readonly replaceTypes: IUILayoutTabSearchConfigReplaceTypes;
     /**
      * Search result sorting scheme
      * - `0`: Block type (default)
@@ -1927,8 +1972,8 @@ export interface IUILayoutTabSearchConfig {
      * - `7`: Descending by relevance
      * @defaultValue 0
      */
-    sort: number;
-    types: IUILayoutTabSearchConfigTypes;
+    readonly sort: number;
+    readonly types: IUILayoutTabSearchConfigTypes;
 }
 
 /**
@@ -1939,117 +1984,117 @@ export interface IUILayoutTabSearchConfigReplaceTypes {
      * Replace hyperlinks
      * @defaultValue false
      */
-    aHref?: boolean;
+    readonly aHref?: boolean;
     /**
      * Replace hyperlink anchor text
      * @defaultValue true
      */
-    aText?: boolean;
+    readonly aText?: boolean;
     /**
      * Replace hyperlink title
      * @defaultValue true
      */
-    aTitle?: boolean;
+    readonly aTitle?: boolean;
     /**
      * Replace inline code
      * @defaultValue false
      */
-    code?: boolean;
+    readonly code?: boolean;
     /**
      * Replace code blocks
      * @defaultValue false
      */
-    codeBlock?: boolean;
+    readonly codeBlock?: boolean;
     /**
      * Replace document title
      * @defaultValue true
      */
-    docTitle?: boolean;
+    readonly docTitle?: boolean;
     /**
      * Replace italic elements
      * @defaultValue true
      */
-    em?: boolean;
+    readonly em?: boolean;
     /**
      * Replace HTML blocks
      * @defaultValue false
      */
-    htmlBlock?: boolean;
+    readonly htmlBlock?: boolean;
     /**
      * Replace image addresses
      * @defaultValue false
      */
-    imgSrc?: boolean;
+    readonly imgSrc?: boolean;
     /**
      * Replace image anchor text
      * @defaultValue true
      */
-    imgText?: boolean;
+    readonly imgText?: boolean;
     /**
      * Replace image titles
      * @defaultValue true
      */
-    imgTitle?: boolean;
+    readonly imgTitle?: boolean;
     /**
      * Replace inline formulas
      * @defaultValue false
      */
-    inlineMath?: boolean;
+    readonly inlineMath?: boolean;
     /**
      * Replace inline memos
      * @defaultValue true
      */
-    inlineMemo?: boolean;
+    readonly inlineMemo?: boolean;
     /**
      * Replace kdb elements
      * @defaultValue true
      */
-    kbd?: boolean;
+    readonly kbd?: boolean;
     /**
      * Replace mark elements
      * @defaultValue true
      */
-    mark?: boolean;
+    readonly mark?: boolean;
     /**
      * Replace formula blocks
      * @defaultValue false
      */
-    mathBlock?: boolean;
+    readonly mathBlock?: boolean;
     /**
      * Replace delete elements
      * @defaultValue true
      */
-    s?: boolean;
+    readonly s?: boolean;
     /**
      * Replace bold elements
      * @defaultValue true
      */
-    strong?: boolean;
+    readonly strong?: boolean;
     /**
      * Replace subscript elements
      * @defaultValue true
      */
-    sub?: boolean;
+    readonly sub?: boolean;
     /**
      * Replace superscript elements
      * @defaultValue true
      */
-    sup?: boolean;
+    readonly sup?: boolean;
     /**
      * Replace tag elements
      * @defaultValue true
      */
-    tag?: boolean;
+    readonly tag?: boolean;
     /**
      * Replace rich text elements
      * @defaultValue true
      */
-    text?: boolean;
+    readonly text?: boolean;
     /**
      * Replace underline elements
      * @defaultValue true
      */
-    u?: boolean;
+    readonly u?: boolean;
 }
 
 /**
@@ -2060,87 +2105,87 @@ export interface IUILayoutTabSearchConfigTypes {
      * Search results contain audio blocks
      * @defaultValue false
      */
-    audioBlock?: boolean;
+    readonly audioBlock?: boolean;
     /**
      * Search results contain blockquote blocks
      * @defaultValue false
      */
-    blockquote: boolean;
+    readonly blockquote: boolean;
     /**
      * Search results contain code blocks
      * @defaultValue false
      */
-    codeBlock: boolean;
+    readonly codeBlock: boolean;
     /**
      * Search results contain database blocks
      * @defaultValue false
      */
-    databaseBlock: boolean;
+    readonly databaseBlock: boolean;
     /**
      * Search results contain document blocks
      * @defaultValue false
      */
-    document: boolean;
+    readonly document: boolean;
     /**
      * Search results contain embed blocks
      * @defaultValue false
      */
-    embedBlock: boolean;
+    readonly embedBlock: boolean;
     /**
      * Search results contain heading blocks
      * @defaultValue false
      */
-    heading: boolean;
+    readonly heading: boolean;
     /**
      * Search results contain html blocks
      * @defaultValue false
      */
-    htmlBlock: boolean;
+    readonly htmlBlock: boolean;
     /**
      * Search results contain iframe blocks
      * @defaultValue false
      */
-    iframeBlock?: boolean;
+    readonly iframeBlock?: boolean;
     /**
      * Search results contain list blocks
      * @defaultValue false
      */
-    list: boolean;
+    readonly list: boolean;
     /**
      * Search results contain list item blocks
      * @defaultValue false
      */
-    listItem: boolean;
+    readonly listItem: boolean;
     /**
      * Search results contain math blocks
      * @defaultValue false
      */
-    mathBlock: boolean;
+    readonly mathBlock: boolean;
     /**
      * Search results contain paragraph blocks
      * @defaultValue false
      */
-    paragraph: boolean;
+    readonly paragraph: boolean;
     /**
      * Search results contain super blocks
      * @defaultValue false
      */
-    superBlock: boolean;
+    readonly superBlock: boolean;
     /**
      * Search results contain table blocks
      * @defaultValue false
      */
-    table: boolean;
+    readonly table: boolean;
     /**
      * Search results contain video blocks
      * @defaultValue false
      */
-    videoBlock?: boolean;
+    readonly videoBlock?: boolean;
     /**
      * Search results contain widget blocks
      * @defaultValue false
      */
-    widgetBlock?: boolean;
+    readonly widgetBlock?: boolean;
 }
 
 export type TUILayoutTabContentInstance = "Asset" | "Backlink" | "Bookmark" | "Custom" | "Editor" | "Files" | "Graph" | "Outline" | "Search" | "Tag";
@@ -2193,7 +2238,5 @@ export type TUILayoutInstance = "Layout" | "Tab" | "Wnd";
 export type TUILayoutType = "bottom" | "center" | "left" | "normal" | "right" | "top";
 
 export type TUILayout = "Layout" | "Wnd";
-
-export type TUILayoutInstanceLayout = "Layout";
 
 // #endregion content

@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
 }
 
 // #endregion content

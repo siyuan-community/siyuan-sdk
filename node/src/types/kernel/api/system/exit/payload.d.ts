@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * Whether to automatically install the new version of the installation package
      */
-    execInstallPkg?: number;
+    readonly execInstallPkg?: number;
     /**
      * Whether to force quit the kernel
      */
-    force?: boolean;
+    readonly force?: boolean;
 }
 
 // #endregion content

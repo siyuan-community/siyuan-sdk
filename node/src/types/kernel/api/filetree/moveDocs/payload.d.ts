@@ -23,15 +23,15 @@ export interface IPayload {
     /**
      * document paths list
      */
-    fromPaths: string[];
+    readonly fromPaths: string[];
     /**
      * target notebook ID
      */
-    toNotebook: string;
+    readonly toNotebook: string;
     /**
      * target path
      */
-    toPath: string;
+    readonly toPath: string;
 }
 
 // #endregion content

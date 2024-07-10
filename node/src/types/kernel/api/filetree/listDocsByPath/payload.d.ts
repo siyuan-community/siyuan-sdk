@@ -23,20 +23,20 @@ export interface IPayload {
     /**
      * whether to list flashcard count
      */
-    flashcard?: boolean;
+    readonly flashcard?: boolean;
     /**
      * max list count of docs
      * `<= 0`: unlimited
      */
-    maxListCount?: number;
+    readonly maxListCount?: number;
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
     /**
      * document file/folder path
      */
-    path: string;
+    readonly path: string;
     /**
      * document sort rule
      * 0: Name Alphabet ASC
@@ -57,7 +57,7 @@ export interface IPayload {
      * 15: Use doc tree sorting rule
      * 256: (default) Use notebook sorting rule
      */
-    sort?: number;
+    readonly sort?: number;
 }
 
 // #endregion content

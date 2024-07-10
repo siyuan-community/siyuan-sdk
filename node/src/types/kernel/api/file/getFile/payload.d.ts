@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * the file path under the workspace path
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

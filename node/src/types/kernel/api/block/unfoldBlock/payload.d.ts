@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * ID of the block to be unfolded
      */
-    id: string;
+    readonly id: string;
 }
 
 // #endregion content

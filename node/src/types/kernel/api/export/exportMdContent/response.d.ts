@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,11 +38,11 @@ export interface IData {
     /**
      * Markdown content
      */
-    content: string;
+    readonly content: string;
     /**
      * human friendly path (relative to the notebook directory)
      */
-    hPath: string;
+    readonly hPath: string;
 }
 
 // #endregion content

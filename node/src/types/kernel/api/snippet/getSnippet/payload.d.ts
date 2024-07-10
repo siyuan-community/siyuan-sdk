@@ -26,11 +26,11 @@ export interface IPayload {
      * 1: enabled
      * 2: all
      */
-    enabled: number;
+    readonly enabled: number;
     /**
      * Get code snippets of a specified type
      */
-    type: TSnippetType;
+    readonly type: TSnippetType;
 }
 
 /**

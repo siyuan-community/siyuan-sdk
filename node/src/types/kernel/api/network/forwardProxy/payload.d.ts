@@ -24,39 +24,39 @@ export interface IPayload {
      * Content-Type for request body
      * @defaultValue "application/json"
      */
-    contentType?: string;
+    readonly contentType?: string;
     /**
      * request headers list
      */
-    headers: { [key: string]: string }[];
+    readonly headers: { [key: string]: string }[];
     /**
      * HTTP method to request
      * @defaultValue "GET"
      */
-    method?: TRequestMethod;
+    readonly method?: TRequestMethod;
     /**
      * request body
      */
-    payload?: Payload;
+    readonly payload?: Payload;
     /**
      * Encoding schema for request payload
      * @defaultValue "text"
      */
-    payloadEncoding?: TEncodeSchema;
+    readonly payloadEncoding?: TEncodeSchema;
     /**
      * Encoding schema for response body
      * @defaultValue "text"
      */
-    responseEncoding?: TEncodeSchema;
+    readonly responseEncoding?: TEncodeSchema;
     /**
      * timeout to request (ms)
      * @defaultValue 7000
      */
-    timeout?: number;
+    readonly timeout?: number;
     /**
      * URL to request
      */
-    url: string;
+    readonly url: string;
 }
 
 /**

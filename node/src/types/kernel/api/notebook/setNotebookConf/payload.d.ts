@@ -20,11 +20,11 @@
  * Set notebook configuration
  */
 export interface IPayload {
-    conf: IConf;
+    readonly conf: IConf;
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
 }
 
 /**
@@ -34,47 +34,47 @@ export interface IConf {
     /**
      * notebook open state
      */
-    closed: boolean;
+    readonly closed: boolean;
     /**
      * the path of new daily note
      */
-    dailyNoteSavePath: string;
+    readonly dailyNoteSavePath: string;
     /**
      * the template file path of new daily note
      */
-    dailyNoteTemplatePath: string;
+    readonly dailyNoteTemplatePath: string;
     /**
      * New document save notebook
      */
-    docCreateSaveBox: string;
+    readonly docCreateSaveBox: string;
     /**
      * New document save location
      */
-    docCreateSavePath: string;
+    readonly docCreateSavePath: string;
     /**
      * notebook icon
      */
-    icon: string;
+    readonly icon: string;
     /**
      * notebook name
      */
-    name: string;
+    readonly name: string;
     /**
      * The notebook that was stored when a new document was created using block references
      */
-    refCreateSaveBox: string;
+    readonly refCreateSaveBox: string;
     /**
      * The document path that was stored when a new document was created using block references
      */
-    refCreateSavePath: string;
+    readonly refCreateSavePath: string;
     /**
      * sequence number
      */
-    sort: number;
+    readonly sort: number;
     /**
      * document sorting mode
      */
-    sortMode: number;
+    readonly sortMode: number;
 }
 
 // #endregion content

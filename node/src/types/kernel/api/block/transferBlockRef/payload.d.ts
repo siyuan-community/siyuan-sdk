@@ -23,16 +23,16 @@ export interface IPayload {
     /**
      * Def block ID
      */
-    fromID: string;
-    refIDs?: string[] | null;
+    readonly fromID: string;
+    readonly refIDs?: string[] | null;
     /**
      * Whether to refresh the UI
      */
-    reloadUI?: boolean;
+    readonly reloadUI?: boolean;
     /**
      * Target block ID
      */
-    toID: string;
+    readonly toID: string;
 }
 
 // #endregion content

@@ -23,19 +23,19 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * response data
  */
 export interface IData {
-    notebook: INotebook;
+    readonly notebook: INotebook;
 }
 
 /**
@@ -45,39 +45,39 @@ export interface INotebook {
     /**
      * notebook open state
      */
-    closed: boolean;
+    readonly closed: boolean;
     /**
      * the count of due flash card
      */
-    dueFlashcardCount: number;
+    readonly dueFlashcardCount: number;
     /**
      * the count of flash card
      */
-    flashcardCount: number;
+    readonly flashcardCount: number;
     /**
      * notebook icon
      */
-    icon: string;
+    readonly icon: string;
     /**
      * notebook ID
      */
-    id: string;
+    readonly id: string;
     /**
      * notebook name
      */
-    name: string;
+    readonly name: string;
     /**
      * the count of new flash card
      */
-    newFlashcardCount: number;
+    readonly newFlashcardCount: number;
     /**
      * sequence number
      */
-    sort: number;
+    readonly sort: number;
     /**
      * document sorting mode
      */
-    sortMode: number;
+    readonly sortMode: number;
 }
 
 // #endregion content

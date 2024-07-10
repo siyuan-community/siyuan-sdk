@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * whether is flashcard
      */
-    flashcard?: boolean;
+    readonly flashcard?: boolean;
     /**
      * keyword
      */
-    k: string;
+    readonly k: string;
 }
 
 // #endregion content

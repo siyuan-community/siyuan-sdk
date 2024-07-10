@@ -23,16 +23,16 @@ export interface IPayload {
     /**
      * block data content
      */
-    data: string;
+    readonly data: string;
     /**
      * block data format
      */
-    dataType: TDataType;
+    readonly dataType: TDataType;
     /**
      * block ID: insert into this block tail
      * The ID of the parent block, used to anchor the insertion position
      */
-    parentID: string;
+    readonly parentID: string;
 }
 
 /**

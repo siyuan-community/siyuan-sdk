@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * file/directory path relative to the SiYuan workspace directory
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

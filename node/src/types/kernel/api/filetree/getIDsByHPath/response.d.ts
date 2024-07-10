@@ -23,15 +23,15 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * document block ID list
      */
-    data: string[];
+    readonly data: string[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 // #endregion content

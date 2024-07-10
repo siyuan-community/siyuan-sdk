@@ -495,7 +495,9 @@ export class Client implements IFetch {
         const token = config?.token ?? this._token;
 
         const searchParams = new URLSearchParams(params);
-        token && searchParams.set("token", token);
+        if (token) {
+            searchParams.set("token", token);
+        }
 
         const url = new URL(baseURL, globalThis.location?.href);
         url.protocol = url.protocol.replace(/^http/, "ws");

@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,11 +38,11 @@ export interface IData {
     /**
      * the DOM string of template rendering result
      */
-    content: string;
+    readonly content: string;
     /**
      * the absolute path of Kramdown template file
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IDatum[];
+    readonly code: number;
+    readonly data: IDatum[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -40,19 +40,19 @@ export interface IDatum {
     /**
      * whether the item is a directory
      */
-    isDir: boolean;
+    readonly isDir: boolean;
     /**
      * whether the item is a symbolic link
      */
-    isSymlink: boolean;
+    readonly isSymlink: boolean;
     /**
      * file/directory name
      */
-    name: string;
+    readonly name: string;
     /**
      * file/directory last modified time (Unix timestamp, seconds)
      */
-    updated: number;
+    readonly updated: number;
 }
 
 // #endregion content

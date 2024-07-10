@@ -23,40 +23,40 @@ export interface IPayload {
     /**
      * The end block ID
      */
-    endID?: string;
+    readonly endID?: string;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Block index
      */
-    index?: number;
+    readonly index?: number;
     /**
      * Whether it is a reverse link
      */
-    isBacklink?: boolean;
+    readonly isBacklink?: boolean;
     /**
      * Load mode
      */
-    mode?: number;
+    readonly mode?: number;
     /**
      * Query statements
      */
-    query?: string;
+    readonly query?: string;
     /**
      * Query method
      */
-    queryMethod?: number;
-    queryTypes?: IQueryTypes;
+    readonly queryMethod?: number;
+    readonly queryTypes?: IQueryTypes;
     /**
      * Maximum number of loaded blocks
      */
-    size?: number;
+    readonly size?: number;
     /**
      * The starting block ID
      */
-    startID?: string;
+    readonly startID?: string;
 }
 
 /**
@@ -66,51 +66,51 @@ export interface IQueryTypes {
     /**
      * Quote block
      */
-    blockquote?: boolean;
+    readonly blockquote?: boolean;
     /**
      * Code block
      */
-    codeBlock?: boolean;
+    readonly codeBlock?: boolean;
     /**
      * Document block
      */
-    document?: boolean;
+    readonly document?: boolean;
     /**
      * Embed block
      */
-    embedBlock?: boolean;
+    readonly embedBlock?: boolean;
     /**
      * Heading block
      */
-    heading?: boolean;
+    readonly heading?: boolean;
     /**
      * HTML block
      */
-    htmlBlock?: boolean;
+    readonly htmlBlock?: boolean;
     /**
      * List block
      */
-    list?: boolean;
+    readonly list?: boolean;
     /**
      * List item block
      */
-    listItem?: boolean;
+    readonly listItem?: boolean;
     /**
      * Math formula block
      */
-    mathBlock?: boolean;
+    readonly mathBlock?: boolean;
     /**
      * Paragraph block
      */
-    paragraph?: boolean;
+    readonly paragraph?: boolean;
     /**
      * Super blok
      */
-    superBlock?: boolean;
+    readonly superBlock?: boolean;
     /**
      * Table block
      */
-    table?: boolean;
+    readonly table?: boolean;
 }
 
 // #endregion content

@@ -74,7 +74,7 @@ async function jsonSchemasHandler(eventName: "add" | "addDir" | "change" | "unli
                     case "add": // 添加 *.schema.json 文件
                     case "change": {
                         // 修改 *.schema.json 文件
-                        const types_path = await json2types(path); // 更新对应的 *.schema.json 文件
+                        const types_path = await json2types(path); // 更新对应的 *.d.ts 文件
                         logger.change(types_path);
                         break;
                     }

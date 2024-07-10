@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * message content
      */
-    msg: string;
+    readonly msg: string;
     /**
      * message timeout (ms)
      */
-    timeout?: number;
+    readonly timeout?: number;
 }
 
 // #endregion content

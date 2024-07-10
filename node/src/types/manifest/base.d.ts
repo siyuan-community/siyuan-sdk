@@ -23,43 +23,43 @@ export interface IBase {
     /**
      * The name of the author
      */
-    author: string;
+    readonly author: string;
     /**
      * The description of the resource
      */
-    description?: ILocalizedText;
+    readonly description?: ILocalizedText;
     /**
      * The display name of the resource
      */
-    displayName?: ILocalizedText;
+    readonly displayName?: ILocalizedText;
     /**
      * The funding of the resource
      */
-    funding?: IFunding;
+    readonly funding?: IFunding;
     /**
      * The keywords of the resource used for search
      */
-    keywords?: string[];
+    readonly keywords?: string[];
     /**
      * The minimum version of SiYuan that the resource is compatible with
      */
-    minAppVersion?: string;
+    readonly minAppVersion?: string;
     /**
      * The name of the resource
      */
-    name: string;
+    readonly name: string;
     /**
      * The readme file name of the resource
      */
-    readme?: ILocalizedText;
+    readonly readme?: ILocalizedText;
     /**
      * The GitHub repository URL of the resource
      */
-    url: string;
+    readonly url: string;
     /**
      * The version of the resource
      */
-    version: string;
+    readonly version: string;
     [property: string]: any;
 }
 
@@ -76,19 +76,19 @@ export interface ILocalizedText {
     /**
      * The default text
      */
-    default: string;
+    readonly default: string;
     /**
      * The English text
      */
-    en_US?: string;
+    readonly en_US?: string;
     /**
      * The Traditional Chinese text
      */
-    zh_CHT?: string;
+    readonly zh_CHT?: string;
     /**
      * The Simplified Chinese text
      */
-    zh_CN?: string;
+    readonly zh_CN?: string;
     [property: string]: any;
 }
 
@@ -99,19 +99,19 @@ export interface IFunding {
     /**
      * The custom funding URLs
      */
-    custom?: string[];
+    readonly custom?: string[];
     /**
      * The GitHub sponsors username, such as https://github.com/sponsors/<username>
      */
-    github?: string;
+    readonly github?: string;
     /**
      * The Open Collective username, such as https://opencollective.com/<username>
      */
-    openCollective?: string;
+    readonly openCollective?: string;
     /**
      * The Patreon username, such as https://www.patreon.com/<username>
      */
-    patreon?: string;
+    readonly patreon?: string;
 }
 
 // #endregion content

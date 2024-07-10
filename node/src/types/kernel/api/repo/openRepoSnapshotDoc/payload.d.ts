@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * Snapshot file object ID
      */
-    id: string;
+    readonly id: string;
 }
 
 // #endregion content

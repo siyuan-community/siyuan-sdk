@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * document block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * the absolute path of Kramdown template file
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

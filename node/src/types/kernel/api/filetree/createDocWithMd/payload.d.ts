@@ -24,16 +24,16 @@ export interface IPayload {
      * Markdown text (GitLab Flavored Markdown, GFM)
      * REF: https://github.github.com/gfm/
      */
-    markdown: string;
+    readonly markdown: string;
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database hpath field
      */
-    path: string;
+    readonly path: string;
 }
 
 // #endregion content

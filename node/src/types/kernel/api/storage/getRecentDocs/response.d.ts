@@ -23,30 +23,30 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * document info list
      */
-    data: IDocInfo[] | null;
+    readonly data: IDocInfo[] | null;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 export interface IDocInfo {
     /**
      * Document icon
      */
-    icon: string;
+    readonly icon: string;
     /**
      * Document Block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * Document title
      */
-    title: string;
+    readonly title: string;
 }
 
 // #endregion content

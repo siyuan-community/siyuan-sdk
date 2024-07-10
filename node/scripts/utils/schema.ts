@@ -28,6 +28,7 @@ import {
     SCHEMAS_DIR_PATH,
     TYPES_DIR_PATH,
 } from "./constants";
+import { format } from "./eslint";
 import {
     JSONSchema2QuicktypeInputData,
     quicktypeInputData2TypeScriptInterface,
@@ -100,17 +101,22 @@ export async function json2types(jsonFilePath: string): Promise<string> {
 
     const ts_path = jsonPath2typesPath(jsonFilePath); // *.d.ts 文件路径
     if (!fs.existsSync(ts_path)) {
-        fs.mkdirSync(path.parse(ts_path).dir, { recursive: true }); // 目录不存在则创建目录
+        await asyncFs.mkdir(path.parse(ts_path).dir, { recursive: true }); // 目录不存在则创建目录
     }
-    fs.writeFileSync(
+
+    const code = [
+        LICENSE,
+        REGION_BEGIN_CONTENT,
+        ...ts.lines,
+        REGION_END_CONTENT,
+        "",
+    ].join("\n");
+
+    const code_formatted = await format(code, ts_path); // 格式化代码
+
+    await asyncFs.writeFile(
         ts_path,
-        [
-            LICENSE,
-            REGION_BEGIN_CONTENT,
-            ...ts.lines,
-            REGION_END_CONTENT,
-            "",
-        ].join("\n"),
+        code_formatted ?? code,
     );
     return ts_path;
 }

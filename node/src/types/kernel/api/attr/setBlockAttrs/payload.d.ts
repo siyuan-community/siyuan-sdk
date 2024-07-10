@@ -20,11 +20,11 @@
  * Set block attributes
  */
 export interface IPayload {
-    attrs: { [key: string]: string | null };
+    readonly attrs: { [key: string]: string | null };
     /**
      * block ID
      */
-    id: string;
+    readonly id: string;
 }
 
 // #endregion content

@@ -23,20 +23,20 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
  * the result of uploading assets
  */
 export interface IData {
-    errFiles: string[] | null;
-    succMap: { [key: string]: string };
+    readonly errFiles: string[] | null;
+    readonly succMap: { [key: string]: string };
 }
 
 // #endregion content

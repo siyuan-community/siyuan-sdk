@@ -62,21 +62,23 @@ export const LICENSE = `/**
  */
 `; // 注释
 
-export const REGION_BEGIN_CONTENT = `//#region content`; // #region 自动生成的代码，请勿手动修改
-export const REGION_END_CONTENT = `//#endregion content`; // #region 自动生成的代码，请勿手动修改
+export const REGION_BEGIN_CONTENT = `// #region content`; // #region 自动生成的代码，请勿手动修改
+export const REGION_END_CONTENT = `// #endregion content`; // #region 自动生成的代码，请勿手动修改
 
 /* quicktype 相关配置 */
 export const QUICKTYPE_OPTIONS: Partial<quicktype.Options> = {
     lang: new quicktype.TypeScriptTargetLanguage(), // 目标语言
     alphabetizeProperties: false, // 是否按照属性名排序
     allPropertiesOptional: false, // 是否将所有属性设置为可选项
-    // REF https://github.com/quicktype/quicktype/blob/master/packages/quicktype-core/src/language/TypeScriptFlow.ts
+    // REF: https://github.com/glideapps/quicktype/blob/master/packages/quicktype-core/src/language/TypeScriptFlow/language.ts
     rendererOptions: {
         "just-types": true, // 仅生成类型定义
         "nice-property-names": false, // 优化属性名
         "explicit-unions": true, // 显式命名联合类型
-        "prefer-unions": true, // 使用联合类型替代 enum
+        "prefer-unions": true, // 使用联合字面量类型替代 enum
         "prefer-types": false, // 使用类型替代接口
+        "prefer-const-values": true, // 对于具有单值的字符串枚举，使用 string 字面量类型替代 enum
+        "readonly": true, // 使用只读类型成员
     }, // 渲染器选项
     indentation: " ".repeat(PRETTIER.tabWidth as number), // 缩进
 } as const;

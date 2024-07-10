@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,36 +38,36 @@ export interface IData {
     /**
      * Attribute view reference list
      */
-    attrViews: IAttrView[];
-    ial: Ial;
+    readonly attrViews: IAttrView[];
+    readonly ial: Ial;
     /**
      * document icon
      */
-    icon: string;
+    readonly icon: string;
     /**
      * block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * document name
      */
-    name: string;
+    readonly name: string;
     /**
      * The number of references to the document
      */
-    refCount: number;
+    readonly refCount: number;
     /**
      * ID of the block referencing the document
      */
-    refIDs: string[];
+    readonly refIDs: string[];
     /**
      * document block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * The number of sub-documents
      */
-    subFileCount: number;
+    readonly subFileCount: number;
 }
 
 /**
@@ -77,11 +77,11 @@ export interface IAttrView {
     /**
      * Attribute view ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Attribute view name
      */
-    name: ID;
+    readonly name: ID;
 }
 
 export type ID = "未命名" | "Sans titre" | "Sin título" | "Untitled";
@@ -93,15 +93,15 @@ export interface Ial {
     /**
      * document block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * document title
      */
-    title: string;
+    readonly title: string;
     /**
      * The last time the block was updated
      */
-    updated: string;
+    readonly updated: string;
     [property: string]: string;
 }
 

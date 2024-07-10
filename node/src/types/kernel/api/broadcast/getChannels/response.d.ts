@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,7 +38,7 @@ export interface IData {
     /**
      * channels list
      */
-    channels: IChannel[];
+    readonly channels: IChannel[];
 }
 
 /**
@@ -48,11 +48,11 @@ export interface IChannel {
     /**
      * The count of broadcast channel listener
      */
-    count: number;
+    readonly count: number;
     /**
      * channel name
      */
-    name: string;
+    readonly name: string;
 }
 
 // #endregion content

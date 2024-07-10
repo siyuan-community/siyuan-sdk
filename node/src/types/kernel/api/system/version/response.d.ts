@@ -23,15 +23,15 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * semantic version number of siyuan kernel
      */
-    data: string;
+    readonly data: string;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 // #endregion content

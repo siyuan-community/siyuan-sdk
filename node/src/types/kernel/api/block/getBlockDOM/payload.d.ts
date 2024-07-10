@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
 }
 
 // #endregion content

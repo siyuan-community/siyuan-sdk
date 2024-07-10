@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: ITransaction[];
+    readonly code: number;
+    readonly data: ITransaction[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -37,15 +37,15 @@ export interface IResponse {
  * Delete transaction
  */
 export interface ITransaction {
-    doOperations: IOperation[];
+    readonly doOperations: IOperation[];
     /**
      * timestamp
      */
-    timestamp: number;
+    readonly timestamp: number;
     /**
      * undo operation list
      */
-    undoOperations: null;
+    readonly undoOperations: null;
 }
 
 /**
@@ -57,19 +57,17 @@ export interface IOperation {
     /**
      * operation action type
      */
-    action: Action;
+    readonly action: "delete";
     /**
      * HTML DOM of updating blocks
      */
-    data: null;
+    readonly data: null;
     /**
      * ID of the block to be deleted
      */
-    id: string;
-    parentID: any;
+    readonly id: string;
+    readonly parentID: any;
     [property: string]: any;
 }
-
-export type Action = "delete";
 
 // #endregion content

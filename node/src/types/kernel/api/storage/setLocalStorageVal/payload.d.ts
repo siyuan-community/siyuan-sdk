@@ -23,15 +23,15 @@ export interface IPayload {
     /**
      * App ID
      */
-    app?: string;
+    readonly app?: string;
     /**
      * The key of the key-value pair
      */
-    key?: string;
+    readonly key?: string;
     /**
      * The value of the key-value pair
      */
-    val: any;
+    readonly val: any;
 }
 
 // #endregion content

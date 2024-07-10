@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,35 +38,35 @@ export interface IData {
     /**
      * Human-friendly creation time
      */
-    hCreated: string;
+    readonly hCreated: string;
     /**
      * shorthand object ID
      */
-    oId: string;
+    readonly oId: string;
     /**
      * shorthand article content (HTML)
      */
-    shorthandContent: string;
+    readonly shorthandContent: string;
     /**
      * shorthand article description
      */
-    shorthandDesc: string;
+    readonly shorthandDesc: string;
     /**
      * shorthand source type
      */
-    shorthandFrom: number;
+    readonly shorthandFrom: number;
     /**
      * shorthand article content (Markdown)
      */
-    shorthandMd: string;
+    readonly shorthandMd: string;
     /**
      * shorthand article title
      */
-    shorthandTitle: string;
+    readonly shorthandTitle: string;
     /**
      * shorthand original URL address
      */
-    shorthandURL: string;
+    readonly shorthandURL: string;
 }
 
 // #endregion content

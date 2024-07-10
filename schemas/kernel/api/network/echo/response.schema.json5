@@ -629,13 +629,13 @@ Any non-ASCII characters in host are escaped.\
 To obtain the path, String uses u.EscapedPath().\
 \n\n\
 In the second form, the following rules apply:\
-\n- if u.Scheme is empty, scheme: is omitted.\
-\n- if u.User is nil, userinfo@ is omitted.\
-\n- if u.Host is empty, host/ is omitted.\
-\n- if u.Scheme and u.Host are empty and u.User is nil, the entire scheme://userinfo@host/ is omitted.\
-\n- if u.Host is non-empty and u.Path begins with a /, the form host/path does not add its own /.\
-\n- if u.RawQuery is empty, ?query is omitted.\
-\n- if u.Fragment is empty, #fragment is omitted.\
+\n- if u.Scheme is empty, `scheme:` is omitted.\
+\n- if u.User is nil, `userinfo@` is omitted.\
+\n- if u.Host is empty, `host/` is omitted.\
+\n- if u.Scheme and u.Host are empty and u.User is nil, the entire `scheme://userinfo@host/` is omitted.\
+\n- if u.Host is non-empty and u.Path begins with a /, the form `host/path` does not add its own /.\
+\n- if u.RawQuery is empty, `?query` is omitted.\
+\n- if u.Fragment is empty, `#fragment` is omitted.\
 ',
                 },
             },

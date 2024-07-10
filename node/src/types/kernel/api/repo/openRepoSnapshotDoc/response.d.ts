@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,17 +38,17 @@ export interface IData {
     /**
      * snapshot file content
      */
-    content: string;
+    readonly content: string;
     /**
      * Whether the content is original
      * true: json file original text / other file path
      * false: block DOM string
      */
-    isProtyleDoc: boolean;
+    readonly isProtyleDoc: boolean;
     /**
      * update time (Unix timestamp, ms)
      */
-    updated: number;
+    readonly updated: number;
 }
 
 // #endregion content

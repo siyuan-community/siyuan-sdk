@@ -23,11 +23,11 @@ export interface IPayload {
     /**
      * notebook name
      */
-    name: string;
+    readonly name: string;
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
 }
 
 // #endregion content

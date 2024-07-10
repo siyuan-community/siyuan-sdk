@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * snippet list
      */
-    snippets: ISnippet[];
+    readonly snippets: ISnippet[];
 }
 
 /**
@@ -33,23 +33,23 @@ export interface ISnippet {
     /**
      * snippet content
      */
-    content: string;
+    readonly content: string;
     /**
      * snippet enable status
      */
-    enabled: boolean;
+    readonly enabled: boolean;
     /**
      * snippet ID
      */
-    id: string;
+    readonly id: string;
     /**
      * snippet name
      */
-    name: string;
+    readonly name: string;
     /**
      * snippet type
      */
-    type: TSnippetType;
+    readonly type: TSnippetType;
 }
 
 /**

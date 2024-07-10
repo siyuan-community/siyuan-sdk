@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,11 +38,11 @@ export interface IData {
     /**
      * HTML DOM string
      */
-    dom: string;
+    readonly dom: string;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
 }
 
 // #endregion content

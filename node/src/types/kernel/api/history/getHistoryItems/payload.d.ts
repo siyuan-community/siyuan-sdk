@@ -23,20 +23,20 @@ export interface IPayload {
     /**
      * The timestamp of history item creation
      */
-    created: string;
+    readonly created: string;
     /**
      * The notebook ID of the query
      */
-    notebook?: string;
+    readonly notebook?: string;
     /**
      * Operation type
      * Filter based on the reason established by the history
      */
-    op?: TOperationType;
+    readonly op?: TOperationType;
     /**
      * Query keywords, which can be document block IDs
      */
-    query: string;
+    readonly query: string;
     /**
      * Query scheme
      * 0: Search docs by doc name
@@ -44,7 +44,7 @@ export interface IPayload {
      * 2: Search assets
      * 3: Search docs by doc id
      */
-    type?: number;
+    readonly type?: number;
 }
 
 /**

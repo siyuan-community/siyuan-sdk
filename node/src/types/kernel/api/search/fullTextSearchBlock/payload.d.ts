@@ -26,7 +26,7 @@ export interface IPayload {
      * - `1`: Group by document
      * @defaultValue 0
      */
-    groupBy?: number;
+    readonly groupBy?: number;
     /**
      * Search scheme
      * - `0`: Keyword (default)
@@ -35,7 +35,7 @@ export interface IPayload {
      * - `3`: Regular expression
      * @defaultValue 0
      */
-    method?: number;
+    readonly method?: number;
     /**
      * Search result sorting scheme
      * - `0`: Block type (default)
@@ -48,32 +48,32 @@ export interface IPayload {
      * - `7`: Descending by relevance
      * @defaultValue 0
      */
-    orderBy?: number;
+    readonly orderBy?: number;
     /**
      * Current page number
      * Starts from `1`
      * @defaultValue 1
      */
-    page?: number;
+    readonly page?: number;
     /**
      * Number of search results per page
      * minimum: 32
      * @defaultValue 32
      */
-    pageSize?: number;
+    readonly pageSize?: number;
     /**
      * Search range (document path list)
      * @defaultValue []
      */
-    paths?: string[];
+    readonly paths?: string[];
     /**
      * Query statement
      */
-    query?: string;
+    readonly query?: string;
     /**
      * The type of block that the search results contain
      */
-    types?: ITypes;
+    readonly types?: ITypes;
 }
 
 /**
@@ -86,67 +86,67 @@ export interface ITypes {
      * Search results contain blockquote blocks
      * @defaultValue false
      */
-    blockquote?: boolean;
+    readonly blockquote?: boolean;
     /**
      * Search results contain code blocks
      * @defaultValue false
      */
-    codeBlock?: boolean;
+    readonly codeBlock?: boolean;
     /**
      * Search results contain database blocks
      * @defaultValue false
      */
-    databaseBlock?: boolean;
+    readonly databaseBlock?: boolean;
     /**
      * Search results contain document blocks
      * @defaultValue false
      */
-    document?: boolean;
+    readonly document?: boolean;
     /**
      * Search results contain embed blocks
      * @defaultValue false
      */
-    embedBlock?: boolean;
+    readonly embedBlock?: boolean;
     /**
      * Search results contain heading blocks
      * @defaultValue false
      */
-    heading?: boolean;
+    readonly heading?: boolean;
     /**
      * Search results contain html blocks
      * @defaultValue false
      */
-    htmlBlock?: boolean;
+    readonly htmlBlock?: boolean;
     /**
      * Search results contain list blocks
      * @defaultValue false
      */
-    list?: boolean;
+    readonly list?: boolean;
     /**
      * Search results contain list item blocks
      * @defaultValue false
      */
-    listItem?: boolean;
+    readonly listItem?: boolean;
     /**
      * Search results contain math blocks
      * @defaultValue false
      */
-    mathBlock?: boolean;
+    readonly mathBlock?: boolean;
     /**
      * Search results contain paragraph blocks
      * @defaultValue false
      */
-    paragraph?: boolean;
+    readonly paragraph?: boolean;
     /**
      * Search results contain super blocks
      * @defaultValue false
      */
-    superBlock?: boolean;
+    readonly superBlock?: boolean;
     /**
      * Search results contain table blocks
      * @defaultValue false
      */
-    table?: boolean;
+    readonly table?: boolean;
 }
 
 // #endregion content

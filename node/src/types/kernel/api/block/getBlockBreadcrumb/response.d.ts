@@ -23,38 +23,38 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * breadcrumb item list
      */
-    data: IBreadcrumbItem[];
+    readonly data: IBreadcrumbItem[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 export interface IBreadcrumbItem {
     /**
      * Block children
      */
-    children: null;
+    readonly children: null;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Block text content
      */
-    name: string;
+    readonly name: string;
     /**
      * Block subtype
      */
-    subType: SubTypeEnum;
+    readonly subType: SubTypeEnum;
     /**
      * Block type
      */
-    type: TypeEnum;
+    readonly type: TypeEnum;
 }
 
 export type SubTypeEnum = "" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "o" | "t" | "u";

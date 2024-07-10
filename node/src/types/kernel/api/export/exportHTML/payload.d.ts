@@ -23,23 +23,23 @@ export interface IPayload {
     /**
      * doc block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Whether to keep the folding state
      */
-    keepFold?: boolean;
+    readonly keepFold?: boolean;
     /**
      * Whether to merge the content of the sub-document
      */
-    merge?: boolean;
+    readonly merge?: boolean;
     /**
      * Whether the export format is PDF
      */
-    pdf: boolean;
+    readonly pdf: boolean;
     /**
      * The location where the file is saved
      */
-    savePath: string;
+    readonly savePath: string;
 }
 
 // #endregion content

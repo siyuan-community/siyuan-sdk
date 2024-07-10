@@ -23,23 +23,23 @@ export interface IPayload {
     /**
      * block data content
      */
-    data: string;
+    readonly data: string;
     /**
      * block data format
      */
-    dataType: TDataType;
+    readonly dataType: TDataType;
     /**
      * block ID: insert before this block
      */
-    nextID?: string;
+    readonly nextID?: string;
     /**
      * block ID: insert into this block head
      */
-    parentID?: string;
+    readonly parentID?: string;
     /**
      * block ID: insert after this block
      */
-    previousID?: string;
+    readonly previousID?: string;
 }
 
 /**

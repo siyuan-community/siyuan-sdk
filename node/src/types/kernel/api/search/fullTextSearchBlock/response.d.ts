@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,19 +38,19 @@ export interface IData {
     /**
      * Search results
      */
-    blocks: IBlock[];
+    readonly blocks: IBlock[];
     /**
      * The number of blocks in the full search results
      */
-    matchedBlockCount: number;
+    readonly matchedBlockCount: number;
     /**
      * The number of documents in the full search results
      */
-    matchedRootCount: number;
+    readonly matchedRootCount: number;
     /**
      * Current page number
      */
-    pageCount: number;
+    readonly pageCount: number;
 }
 
 /**
@@ -60,107 +60,107 @@ export interface IBlock {
     /**
      * Block alias
      */
-    alias: string;
+    readonly alias: string;
     /**
      * notebook ID
      */
-    box: string;
+    readonly box: string;
     /**
      * Grouped search results
      */
-    children: IBlock[] | null;
+    readonly children: IBlock[] | null;
     /**
      * Block content
      */
-    content: string;
-    count: number;
+    readonly content: string;
+    readonly count: number;
     /**
      * Creation time
      */
-    created: string;
-    defID: string;
-    defPath: string;
-    depth: number;
+    readonly created: string;
+    readonly defID: string;
+    readonly defPath: string;
+    readonly depth: number;
     /**
      * The first block content in the container block
      */
-    fcontent: string;
+    readonly fcontent: string;
     /**
      * Whether to fold
      */
-    folded: boolean;
+    readonly folded: boolean;
     /**
      * The readable path of the document where it is located
      */
-    hPath: string;
+    readonly hPath: string;
     /**
      * Inline Attribute List (IAL) of block
      */
-    ial: Ial;
+    readonly ial: Ial;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * Block Markdown content
      */
-    markdown: string;
+    readonly markdown: string;
     /**
      * Block memo
      */
-    memo: string;
+    readonly memo: string;
     /**
      * Block name
      */
-    name: string;
+    readonly name: string;
     /**
      * Parent block ID
      */
-    parentID: string;
+    readonly parentID: string;
     /**
      * The path of the document where it is located
      */
-    path: string;
+    readonly path: string;
     /**
      * The block ID list of the block reference (the current block is referenced by these blocks)
      */
-    refs: string[] | null;
+    readonly refs: string[] | null;
     /**
      * Block reference text
      */
-    refText: string;
+    readonly refText: string;
     /**
      * Flash card ID
      */
-    riffCardID: string;
+    readonly riffCardID: string;
     /**
      * Flash card review count
      */
-    riffCardReps: number;
+    readonly riffCardReps: number;
     /**
      * Document block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * Block sort priority
      */
-    sort: number;
+    readonly sort: number;
     /**
      * Block subtype
      */
-    subType: SubTypeEnum;
+    readonly subType: SubTypeEnum;
     /**
      * Block tags
      */
-    tag: string;
+    readonly tag: string;
     /**
      * Block type
      */
-    type: TypeEnum;
+    readonly type: TypeEnum;
     /**
      * Update time
      */
-    updated: string;
+    readonly updated: string;
 }
 
 /**
@@ -170,15 +170,15 @@ export interface Ial {
     /**
      * document block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * document title
      */
-    title?: string;
+    readonly title?: string;
     /**
      * The last time the block was updated
      */
-    updated: string;
+    readonly updated: string;
     [property: string]: string;
 }
 

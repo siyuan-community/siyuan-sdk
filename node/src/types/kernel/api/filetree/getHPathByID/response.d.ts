@@ -23,16 +23,16 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database hpath field
      */
-    data: string;
+    readonly data: string;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 // #endregion content

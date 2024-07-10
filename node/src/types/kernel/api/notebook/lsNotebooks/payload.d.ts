@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * Whether to return information about the flash card
      */
-    flashcard?: boolean;
+    readonly flashcard?: boolean;
 }
 
 // #endregion content

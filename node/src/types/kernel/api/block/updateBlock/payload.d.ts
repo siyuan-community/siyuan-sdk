@@ -23,15 +23,15 @@ export interface IPayload {
     /**
      * Data to be updated
      */
-    data: string;
+    readonly data: string;
     /**
      * block data format
      */
-    dataType: TDataType;
+    readonly dataType: TDataType;
     /**
      * ID of the block to be updated
      */
-    id: string;
+    readonly id: string;
 }
 
 /**

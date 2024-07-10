@@ -24,11 +24,11 @@ export interface IPayload {
     /**
      * main name of the zip file created
      */
-    name?: string;
+    readonly name?: string;
     /**
      * path list of files and folders
      */
-    paths: string[];
+    readonly paths: string[];
 }
 
 // #endregion content

@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,62 +38,62 @@ export interface IData {
     /**
      * Block count
      */
-    blockCount: number;
+    readonly blockCount: number;
     /**
      * Notebook ID
      */
-    box: string;
+    readonly box: string;
     /**
      * HTML DOM string
      */
-    content: string;
+    readonly content: string;
     /**
      * End Of File
      */
-    eof: boolean;
+    readonly eof: boolean;
     /**
      * Block ID
      */
-    id: string;
+    readonly id: string;
     /**
      * is backlink detail?
      */
-    isBacklinkExpand: boolean;
+    readonly isBacklinkExpand: boolean;
     /**
      * is syncing?
      */
-    isSyncing: boolean;
+    readonly isSyncing: boolean;
     /**
      * Load mode
      */
-    mode: number;
+    readonly mode: number;
     /**
      * Logic parent block ID
      * if heading exists, it is heading block ID
      * else equal parentID
      */
-    parent2ID: string;
+    readonly parent2ID: string;
     /**
      * Parent block ID
      */
-    parentID: string;
+    readonly parentID: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field
      */
-    path: string;
+    readonly path: string;
     /**
      * Document block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * is dynamic loading?
      */
-    scroll: boolean;
+    readonly scroll: boolean;
     /**
      * Block type
      */
-    type: TBlockType;
+    readonly type: TBlockType;
 }
 
 /**

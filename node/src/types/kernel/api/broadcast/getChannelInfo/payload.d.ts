@@ -23,7 +23,7 @@ export interface IPayload {
     /**
      * broadcast channel name
      */
-    name: string;
+    readonly name: string;
 }
 
 // #endregion content

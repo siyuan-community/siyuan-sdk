@@ -23,46 +23,46 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
+    readonly code: number;
     /**
      * document info list
      */
-    data: IDocInfo[];
+    readonly data: IDocInfo[];
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 export interface IDocInfo {
     /**
      * Document Block ID
      */
-    box: string;
+    readonly box: string;
     /**
      * Notebook icon
      */
-    boxIcon: string;
+    readonly boxIcon: string;
     /**
      * Number of expired cards
      */
-    dueFlashcardCount?: number;
+    readonly dueFlashcardCount?: number;
     /**
      * Total number of cards
      */
-    flashcardCount?: number;
+    readonly flashcardCount?: number;
     /**
      * The readable path that contains the name of the notebook
      */
-    hPath: string;
+    readonly hPath: string;
     /**
      * Number of new cards
      */
-    newFlashcardCount?: number;
+    readonly newFlashcardCount?: number;
     /**
      * Directory path
      */
-    path: string;
+    readonly path: string;
     [property: string]: any;
 }
 

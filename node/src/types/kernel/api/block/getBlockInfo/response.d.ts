@@ -23,12 +23,12 @@ export interface IResponse {
     /**
      * status code
      */
-    code: number;
-    data: IData;
+    readonly code: number;
+    readonly data: IData;
     /**
      * status message
      */
-    msg: string;
+    readonly msg: string;
 }
 
 /**
@@ -38,28 +38,28 @@ export interface IData {
     /**
      * Notebook ID
      */
-    box: string;
+    readonly box: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field
      */
-    path: string;
+    readonly path: string;
     /**
      * Block ID without parent block
      */
-    rootChildID: string;
+    readonly rootChildID: string;
     /**
      * Document icon
      */
-    rootIcon: string;
+    readonly rootIcon: string;
     /**
      * Document block ID
      */
-    rootID: string;
+    readonly rootID: string;
     /**
      * Document title
      */
-    rootTitle: string;
+    readonly rootTitle: string;
 }
 
 // #endregion content

@@ -23,16 +23,16 @@ export interface IPayload {
     /**
      * notebook ID
      */
-    notebook: string;
+    readonly notebook: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field
      */
-    path: string;
+    readonly path: string;
     /**
      * new document title
      */
-    title: string;
+    readonly title: string;
 }
 
 // #endregion content

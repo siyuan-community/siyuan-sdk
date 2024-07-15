@@ -30,7 +30,7 @@ import type { Client } from "@/index";
 export class SiyuanFileSystemFileHandle //
     extends SiyuanFileSystemHandle
     implements FileSystemFileHandle {
-    public readonly kind = "file";
+    public override readonly kind = "file";
 
     constructor(
         name: string, // 节点名

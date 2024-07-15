@@ -33,10 +33,7 @@ export class SiyuanFileSystemWritableFileStream<W extends FileSystemWriteChunkTy
         this._closed = false;
     }
 
-    /**
-     * @override
-     */
-    public async close(): Promise<void> {
+    public override async close(): Promise<void> {
         this._closed = true;
         const writer = this.getWriter();
         const result = writer.close();

@@ -40,10 +40,7 @@ export interface IEntries {
 }
 
 export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle implements FileSystemDirectoryHandle {
-    /**
-     * @override
-     */
-    readonly kind = "directory";
+    public override readonly kind = "directory";
 
     protected readonly _entries: IEntries = {
         Initialized: false,

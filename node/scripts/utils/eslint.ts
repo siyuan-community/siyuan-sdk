@@ -33,8 +33,8 @@ export async function format(code: string, filename?: string): Promise<string | 
         const result = linter.verifyAndFix(code, config, filename);
         return result.output;
     }
-    catch (_error) {
-        void _error;
+    catch (error) {
+        void error;
         return null;
     }
 }

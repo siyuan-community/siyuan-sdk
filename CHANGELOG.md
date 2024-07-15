@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 调整 `tsconfig.json` 配置文件 | Adjust `tsconfig.json` configuration file
+
 ## v0.3.12 / 2024-07-11
 
 - [v0.3.11 ... v0.3.12](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.11...v0.3.12)

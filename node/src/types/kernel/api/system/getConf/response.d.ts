@@ -61,6 +61,13 @@ export interface IConf {
      * - `1`: North America
      */
     readonly cloudRegion: number;
+    readonly community?: { [key: string]: any };
+    /**
+     * Data index status
+     * - `0`: Indexed
+     * - `1`: Not indexed
+     */
+    readonly dataIndexState: number;
     readonly editor: IEditor;
     readonly export: IExport;
     readonly fileTree: IFileTree;
@@ -839,6 +846,7 @@ export interface IKeymapEditorGeneral {
     readonly copyProtocolInMd: IKey;
     readonly copyText: IKey;
     readonly duplicate: IKey;
+    readonly duplicateCompletely: IKey;
     readonly exitFocus: IKey;
     readonly expand: IKey;
     readonly expandDown: IKey;
@@ -920,8 +928,10 @@ export interface IKeymapEditorInsert {
     readonly "kbd": IKey;
     readonly "lastUsed": IKey;
     readonly "link": IKey;
+    readonly "list": IKey;
     readonly "mark": IKey;
     readonly "memo": IKey;
+    readonly "ordered-list": IKey;
     readonly "ref": IKey;
     readonly "strike": IKey;
     readonly "sub": IKey;
@@ -1016,6 +1026,8 @@ export interface IKeymapGeneral {
     readonly tag: IKey;
     readonly toggleDock: IKey;
     readonly toggleWin: IKey;
+    readonly unsplit: IKey;
+    readonly unsplitAll: IKey;
 }
 
 /**

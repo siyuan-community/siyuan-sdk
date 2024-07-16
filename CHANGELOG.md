@@ -2,6 +2,7 @@
 
 - 调整 `tsconfig.json` 配置文件 | Adjust `tsconfig.json` configuration file
 - 更新依赖版本 | Update dependency versions
+- 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 
 ## v0.3.12 / 2024-07-11
 

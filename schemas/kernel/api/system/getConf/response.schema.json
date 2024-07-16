@@ -60,6 +60,7 @@
                 "appearance",
                 "bazaar",
                 "cloudRegion",
+                "dataIndexState",
                 "editor",
                 "export",
                 "fileTree",
@@ -113,6 +114,17 @@
                 "cloudRegion": {
                     "type": "integer",
                     "description": "Cloud Service Provider Region\n- `0`: Chinese mainland\n- `1`: North America",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "community": {
+                    "type": "object"
+                },
+                "dataIndexState": {
+                    "type": "integer",
+                    "description": "Data index status\n- `0`: Indexed\n- `1`: Not indexed",
                     "enum": [
                         0,
                         1
@@ -1267,6 +1279,7 @@
                 "copyProtocolInMd",
                 "copyText",
                 "duplicate",
+                "duplicateCompletely",
                 "exitFocus",
                 "expand",
                 "expandDown",
@@ -1279,8 +1292,8 @@
                 "insertBottom",
                 "insertRight",
                 "jumpToParent",
-                "jumpToParentPrev",
                 "jumpToParentNext",
+                "jumpToParentPrev",
                 "moveToDown",
                 "moveToUp",
                 "netAssets2LocalAssets",
@@ -1352,6 +1365,9 @@
                     "$ref": "#/$defs/key"
                 },
                 "duplicate": {
+                    "$ref": "#/$defs/key"
+                },
+                "duplicateCompletely": {
                     "$ref": "#/$defs/key"
                 },
                 "exitFocus": {
@@ -1522,8 +1538,10 @@
                 "kbd",
                 "lastUsed",
                 "link",
+                "list",
                 "mark",
                 "memo",
+                "ordered-list",
                 "ref",
                 "strike",
                 "sub",
@@ -1566,7 +1584,13 @@
                 "link": {
                     "$ref": "#/$defs/key"
                 },
+                "list": {
+                    "$ref": "#/$defs/key"
+                },
                 "mark": {
+                    "$ref": "#/$defs/key"
+                },
+                "ordered-list": {
                     "$ref": "#/$defs/key"
                 },
                 "memo": {
@@ -1728,7 +1752,9 @@
                 "tabToWindow",
                 "tag",
                 "toggleDock",
-                "toggleWin"
+                "toggleWin",
+                "unsplit",
+                "unsplitAll"
             ],
             "properties": {
                 "addToDatabase": {
@@ -1897,6 +1923,12 @@
                     "$ref": "#/$defs/key"
                 },
                 "toggleWin": {
+                    "$ref": "#/$defs/key"
+                },
+                "unsplit": {
+                    "$ref": "#/$defs/key"
+                },
+                "unsplitAll": {
                     "$ref": "#/$defs/key"
                 }
             }
@@ -2827,7 +2859,6 @@
             "description": "SiYuan tab",
             "additionalProperties": false,
             "required": [
-                "active",
                 "children",
                 "instance",
                 "pin",

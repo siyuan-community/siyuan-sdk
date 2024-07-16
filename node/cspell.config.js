@@ -61,6 +61,7 @@ const config = {
         "succ",
         "tsdoc",
         "título",
+        "unsplit",
         "userinfo",
         "webdav",
     ],

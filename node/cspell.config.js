@@ -1,11 +1,11 @@
 // cSpell Settings
 // REF https://cspell.org/configuration/
 
-/** @type { import("@cspell/cspell-types").CSpellUserSettings } */
+/** @type { import("cspell").CSpellUserSettings } */
 const config = {
     $schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
     // Version of the setting file.
-    version: "0.0.2",
+    version: "0.2",
     // language - current active spelling language
     language: "en",
     // words - list of words to be always considered correct

@@ -17,7 +17,7 @@
 
 import { Linter } from "eslint";
 
-import eslintConfig from "./../../eslint.config";
+import eslintConfig from "./../../eslint.config.js";
 
 export const linter = new Linter();
 

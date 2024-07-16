@@ -17,7 +17,7 @@
 
 import quicktype from "quicktype-core";
 
-import { QUICKTYPE_OPTIONS } from "./constants";
+import { QUICKTYPE_OPTIONS } from "./constants.ts";
 
 /**
  * 通过 JSON Schema 构造 quicktype 输入数据

@@ -27,12 +27,12 @@ import {
     REGION_END_CONTENT,
     SCHEMAS_DIR_PATH,
     TYPES_DIR_PATH,
-} from "./constants";
-import { format } from "./eslint";
+} from "./constants.ts";
+import { format } from "./eslint.ts";
 import {
     JSONSchema2QuicktypeInputData,
     quicktypeInputData2TypeScriptInterface,
-} from "./quicktype";
+} from "./quicktype.ts";
 
 /**
  * 将 `*.json5` 路径转换为 `*.json` 路径

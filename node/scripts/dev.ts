@@ -22,10 +22,10 @@ import { parse, resolve } from "node:path";
 
 import chokidar from "chokidar";
 
-import * as constants from "./utils/constants";
-import * as logger from "./utils/logger";
-import { json2types, json52json, json5Path2jsonPath, jsonPath2typesPath } from "./utils/schema";
-import { updateTypeDefinitionFile } from "./utils/types";
+import * as constants from "./utils/constants.ts";
+import * as logger from "./utils/logger.ts";
+import { json2types, json52json, json5Path2jsonPath, jsonPath2typesPath } from "./utils/schema.ts";
+import { updateTypeDefinitionFile } from "./utils/types.ts";
 
 import type fs from "node:fs";
 

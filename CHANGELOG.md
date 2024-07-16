@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 调整 `tsconfig.json` 配置文件 | Adjust `tsconfig.json` configuration file
+- 更新依赖版本 | Update dependency versions
 
 ## v0.3.12 / 2024-07-11
 

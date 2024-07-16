@@ -27,7 +27,7 @@ export const PRETTIERRC_PATH = path.resolve(process.cwd(), "./../.prettierrc.tom
 /* prettier 配置文件文本 */
 export const PRETTIERRC = fs.readFileSync(PRETTIERRC_PATH, "utf-8");
 /* prettier 配置 */
-export const PRETTIER = TOML.parse(PRETTIERRC, { bigint: false });
+export const PRETTIER = TOML.parse(PRETTIERRC, { bigint: false }) as Record<string, unknown>;
 // console.log(prettier);
 
 /* schema 目录路径 */

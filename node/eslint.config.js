@@ -6,8 +6,6 @@ export default antfu(
             indent: 4,
             quotes: "double",
             semi: true,
-            arrowParens: true,
-            quoteProps: "as-needed",
             overrides: {
                 "style/arrow-parens": [
                     "warn",

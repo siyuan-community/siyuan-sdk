@@ -18,7 +18,7 @@
 import asyncFs from "node:fs/promises";
 import { resolve } from "node:path";
 
-import * as constants from "./constants";
+import * as constants from "./constants.ts";
 
 /**
  * 更新指定目录的类型定义文件 index.d.ts

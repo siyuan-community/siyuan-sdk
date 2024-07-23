@@ -36,6 +36,14 @@ export default antfu(
                 singleAttributePerLine: true,
             },
         },
+        yaml: {
+            overrides: {
+                "yaml/indent": [
+                    "error",
+                    2,
+                ],
+            },
+        },
         jsonc: {
             overrides: {
                 "jsonc/comma-dangle": [

@@ -4,6 +4,8 @@
 
 cd node
 
+pnpm run format:lint-staged
+
 pnpm run check
 
 exit 0

@@ -4,6 +4,7 @@
 - 更新依赖版本 | Update dependency versions
 - 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 - 配置 `lint-staged` | Configure `lint-staged`
+- 优化 `ESLint` 配置 | Optimize `ESLint` configuration
 
 ## v0.3.12 / 2024-07-11
 

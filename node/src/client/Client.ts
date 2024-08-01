@@ -37,11 +37,11 @@ export interface IBaseOptions {
      * 思源 API Token
      * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Authentication
      */
-    token?: string | null;
+    token?: null | string;
 }
 
 export interface IBlob extends Blob {
-    contentType: string | null;
+    contentType: null | string;
 }
 
 /* 扩展设置选项 */
@@ -276,7 +276,7 @@ export class Client implements IFetch {
         ?? globalThis.location?.origin
         ?? constants.SIYUAN_DEFAULT_BASE_URL;
 
-    protected _token: string | null = null;
+    protected _token: null | string = null;
 
     protected _ofetch_options: ofetch.FetchOptions = {
         baseURL: this._baseURL,

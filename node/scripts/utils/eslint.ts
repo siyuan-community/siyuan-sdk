@@ -23,11 +23,11 @@ export const linter = new Linter();
 
 /**
  * 格式化代码
- * @param code 代码文本
- * @param filename 代码文件名
+ * @param code - 代码文本
+ * @param filename - 代码文件名
  * @returns 格式化后的代码文本, 若格式化失败则返回 null
  */
-export async function format(code: string, filename?: string): Promise<string | null> {
+export async function format(code: string, filename?: string): Promise<null | string> {
     try {
         const config = await eslintConfig.toConfigs();
         const result = linter.verifyAndFix(code, config, filename);

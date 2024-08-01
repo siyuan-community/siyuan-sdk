@@ -256,7 +256,7 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
      * @see
      * {@link https://fs.spec.whatwg.org/#api-filesystemdirectoryhandle-resolve}
      */
-    async resolve(possibleDescendant: SiyuanFileSystemHandle): Promise<string[] | null> {
+    async resolve(possibleDescendant: SiyuanFileSystemHandle): Promise<null | string[]> {
         switch (true) {
             case this.path === possibleDescendant.path:
                 return Promise.resolve([]);

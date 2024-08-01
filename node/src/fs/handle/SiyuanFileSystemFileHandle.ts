@@ -109,6 +109,7 @@ export class SiyuanFileSystemFileHandle //
             ? await this.getFile()
             : new File([], this.name, { lastModified: this.lastModified * 1_000 });
         return new SiyuanFileSystemWritableFileStream(
+            // eslint-disable-next-line ts/no-use-before-define
             new Sink(
                 file, //
                 this.relativePath,

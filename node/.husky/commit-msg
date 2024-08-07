@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd node
+
+commitlint --edit $1
+
+exit 0

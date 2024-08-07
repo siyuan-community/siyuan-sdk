@@ -5,6 +5,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
 - 配置 `lint-staged` | Configure `lint-staged`
 - 优化 `ESLint` 配置 | Optimize `ESLint` configuration
+- 配置 `commitlint` | Configure `commitlint`
 
 ## v0.3.12 / 2024-07-11
 

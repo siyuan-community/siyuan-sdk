@@ -4,8 +4,10 @@
 
 cd node
 
-pnpm run format:lint-staged
+pnpm run lint-staged
 
 pnpm run check
+
+pnpm run build
 
 exit 0

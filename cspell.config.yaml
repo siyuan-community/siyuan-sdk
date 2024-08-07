@@ -1,0 +1,34 @@
+# REF https://cspell.org/configuration/
+
+$schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json"
+
+# Version of the setting file.
+version: "0.2"
+
+# Current active spelling language
+language: en
+
+dictionaryDefinitions:
+  - name: cspell-words
+    path: ./cspell-words.txt
+    addWords: true
+dictionaries:
+  - cspell-words
+
+ignoreRegExpList:
+  - \d{14}-[0-9a-z]{7}
+
+# flagWords - list of words to be always considered incorrect
+# This is useful for offensive words and common spelling errors.
+# For example "hte" should be "the"
+flagWords: []
+
+ignorePaths:
+  - ./node/package.json
+  - ./node/pnpm-lock.yaml
+  - ./node/tests/constants.ts
+
+  - "./node/coverage/**"
+  - "./node/dist/**"
+  - "./node/node_modules/**"
+  - "./node/temp/**"

@@ -40,8 +40,9 @@
         "skipLibCheck": true,
     },
     "include": [
-        "cspell.config.js",
+        "commitlint.config.ts",
         "eslint.config.js",
+        "lint-staged.config.js",
         "vite.config.ts",
         "src",
         "tests",

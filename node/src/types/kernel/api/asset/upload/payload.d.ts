@@ -21,8 +21,14 @@
  */
 export interface IPayload {
     /**
-     * The folder path where assets are stored
-     * with the data folder as the root path
+     * Block ID
+     *
+     * If set, the assets folder in the document directory where the block is located will be used
+     */
+    id?: string;
+
+    /**
+     * The folder path where assets are stored with the data folder as the root path
      * @defaultValue "assets"
      *
      * @example "assets": workspace/data/assets/
@@ -36,6 +42,13 @@ export interface IPayload {
      * @example "/assets/sub/": workspace/data/assets/sub/
      */
     assetsDirPath?: string;
+
+    /**
+     * If skip the file if it already exists
+     * @defaultValue false
+     */
+    skipIfDuplicated?: boolean;
+
     /**
      * Uploaded file list
      */

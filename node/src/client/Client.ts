@@ -516,7 +516,17 @@ export class Client implements IFetch {
         config?: TempOptions,
     ): Promise<kernel.api.asset.upload.IResponse> {
         const formdata = new FormData();
-        formdata.append("assetsDirPath", payload.assetsDirPath ?? "/assets/");
+
+        if (payload.id != null) {
+            formdata.append("id", payload.id);
+        }
+        if (payload.assetsDirPath != null) {
+            formdata.append("assetsDirPath", payload.assetsDirPath);
+        }
+        if (payload.skipIfDuplicated != null) {
+            formdata.append("skipIfDuplicated", String(payload.skipIfDuplicated));
+        }
+
         payload.files.forEach((file) => formdata.append("file[]", file));
 
         const response: kernel.api.asset.upload.IResponse = await this._request(

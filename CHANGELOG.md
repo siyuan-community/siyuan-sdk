@@ -2,11 +2,12 @@
 
 - 调整 `tsconfig.json` 配置文件 | Adjust `tsconfig.json` configuration file
 - 更新依赖版本 | Update dependency versions
-- 调整 API `/api/system/getConf` | Adjust API `/api/notebook/getConf`
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 配置 `lint-staged` | Configure `lint-staged`
 - 优化 `ESLint` 配置 | Optimize `ESLint` configuration
 - 配置 `commitlint` | Configure `commitlint`
 - 优化 `types/**/index.d.ts` 文件 | Optimize `types/**/index.d.ts` files
+- 调整 API `/api/asset/upload` | Adjust API `/api/asset/upload`
 
 ## v0.3.12 / 2024-07-11
 

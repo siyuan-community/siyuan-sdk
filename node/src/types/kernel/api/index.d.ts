@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as asset from "./asset";
 export * as attr from "./attr";
@@ -39,4 +40,5 @@ export * as system from "./system";
 export * as template from "./template";
 
 /* files */
+
 // #endregion content

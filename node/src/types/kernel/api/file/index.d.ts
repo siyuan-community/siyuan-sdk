@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as getFile from "./getFile";
 export * as putFile from "./putFile";
@@ -22,4 +23,5 @@ export * as removeFile from "./removeFile";
 export * as renameFile from "./renameFile";
 
 /* files */
+
 // #endregion content

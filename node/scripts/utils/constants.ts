@@ -58,8 +58,14 @@ export const LICENSE = `// Copyright (C) 2023 SiYuan Community
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 `; // 注释
 
-export const REGION_BEGIN_CONTENT = `// #region content`; // #region 自动生成的代码，请勿手动修改
-export const REGION_END_CONTENT = `// #endregion content`; // #region 自动生成的代码，请勿手动修改
+export const REGION_BEGIN_CONTENT = `
+// #region content
+/* eslint-disable perfectionist/sort-exports */
+`; // #region 自动生成的代码，请勿手动修改
+export const REGION_END_CONTENT = `
+/* eslint-enable perfectionist/sort-exports */
+// #endregion content
+`; // #region 自动生成的代码，请勿手动修改
 
 /* quicktype 相关配置 */
 export const QUICKTYPE_OPTIONS: Partial<quicktype.Options> = {

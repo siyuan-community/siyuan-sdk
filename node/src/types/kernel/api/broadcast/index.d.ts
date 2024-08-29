@@ -14,10 +14,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as getChannelInfo from "./getChannelInfo";
 export * as getChannels from "./getChannels";
 export * as postMessage from "./postMessage";
 
 /* files */
+
 // #endregion content

@@ -17,6 +17,7 @@ import asyncFs from "node:fs/promises";
 import { resolve } from "node:path";
 
 import * as constants from "./constants.ts";
+import { format } from "./eslint.ts";
 
 /**
  * 更新指定目录的类型定义文件 index.d.ts
@@ -28,9 +29,6 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
         throw new Error("Cannot update src directory.");
     }
 
-    const ts: string[] = [
-        constants.LICENSE,
-    ]; // index.d.ts 要写入的内容
     const children = await asyncFs.readdir(path, { withFileTypes: true }); // 该目录下级内容
     const dirs = children.filter((child) => child.isDirectory()); // 下级目录列表
     const files = children.filter(
@@ -39,6 +37,10 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
             && child.name.endsWith(".d.ts")
             && child.name !== "index.d.ts",
     ); // 下级文件列表
+
+    const ts: string[] = [
+        constants.LICENSE,
+    ]; // index.d.ts 要写入的内容
 
     ts.push(constants.REGION_BEGIN_CONTENT); // 代码内容首
 
@@ -67,7 +69,12 @@ export async function updateTypeDefinitionFile(path: string): Promise<string> {
     ts.push(constants.REGION_END_CONTENT); // 代码内容尾
     ts.push(""); // 文件末尾空行
 
-    const index_path = resolve(path, "index.d.ts");
-    await asyncFs.writeFile(index_path, ts.join("\n"));
+    const file_name = "index.d.ts";
+    const index_path = resolve(path, file_name);
+
+    const code = ts.join("\n");
+    const code_formatted = await format(code, file_name); // 格式化代码
+
+    await asyncFs.writeFile(index_path, code_formatted ?? code);
     return index_path;
 }

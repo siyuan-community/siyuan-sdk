@@ -15,9 +15,9 @@
 
 import fsWalk from "@nodelib/fs.walk";
 
-import { SCHEMAS_DIR_PATH, TYPES_DIR_PATH } from "./utils/constants";
-import { json2types, json52json } from "./utils/schema";
-import { updateTypeDefinitionFile } from "./utils/types";
+import { SCHEMAS_DIR_PATH, TYPES_DIR_PATH } from "./utils/constants.ts";
+import { json2types, json52json } from "./utils/schema.ts";
+import { updateTypeDefinitionFile } from "./utils/types.ts";
 
 /**
  * 将 *.schema.json5 转换为 *.schema.json

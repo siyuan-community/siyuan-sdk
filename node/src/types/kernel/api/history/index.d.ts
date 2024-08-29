@@ -14,9 +14,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as getDocHistoryContent from "./getDocHistoryContent";
 export * as getHistoryItems from "./getHistoryItems";
 
 /* files */
+
 // #endregion content

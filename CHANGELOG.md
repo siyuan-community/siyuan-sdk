@@ -6,6 +6,7 @@
 - 配置 `lint-staged` | Configure `lint-staged`
 - 优化 `ESLint` 配置 | Optimize `ESLint` configuration
 - 配置 `commitlint` | Configure `commitlint`
+- 优化 `types/**/index.d.ts` 文件 | Optimize `types/**/index.d.ts` files
 
 ## v0.3.12 / 2024-07-11
 

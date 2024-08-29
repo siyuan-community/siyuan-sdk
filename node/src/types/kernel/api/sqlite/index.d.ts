@@ -14,8 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as flushTransaction from "./flushTransaction";
 
 /* files */
+
 // #endregion content

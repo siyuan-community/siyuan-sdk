@@ -4,7 +4,7 @@
  */
 const config = {
     // REF: https://github.com/sudo-suhas/lint-staged-django-react-demo
-    "*": "cspell",
+    "*": "cspell lint --no-must-find-files",
     "./../schemas/**/*.json5": "prettier --ignore-unknown -w",
     "*.{js,ts,md}": "eslint --fix",
 };

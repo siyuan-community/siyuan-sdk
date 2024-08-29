@@ -21,6 +21,8 @@ import eslintConfig from "./../../eslint.config.js";
 
 export const linter = new Linter();
 
+export const config = eslintConfig.toConfigs();
+
 /**
  * 格式化代码
  * @param code - 代码文本
@@ -29,8 +31,7 @@ export const linter = new Linter();
  */
 export async function format(code: string, filename?: string): Promise<null | string> {
     try {
-        const config = await eslintConfig.toConfigs();
-        const result = linter.verifyAndFix(code, config, filename);
+        const result = linter.verifyAndFix(code, await config, filename);
         return result.output;
     }
     catch (error) {

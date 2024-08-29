@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as createDailyNote from "./createDailyNote";
 export * as createDocWithMd from "./createDocWithMd";
@@ -28,4 +29,5 @@ export * as renameDoc from "./renameDoc";
 export * as searchDocs from "./searchDocs";
 
 /* files */
+
 // #endregion content

@@ -14,9 +14,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as getSnippet from "./getSnippet";
 export * as setSnippet from "./setSnippet";
 
 /* files */
+
 // #endregion content

@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // #region content
+
 /* directories */
 export * as appendBlock from "./appendBlock";
 export * as deleteBlock from "./deleteBlock";
@@ -32,4 +33,5 @@ export * as unfoldBlock from "./unfoldBlock";
 export * as updateBlock from "./updateBlock";
 
 /* files */
+
 // #endregion content

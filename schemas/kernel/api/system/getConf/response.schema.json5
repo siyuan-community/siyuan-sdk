@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.13/kernel/api/system.go#L206-L225
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.1.6/kernel/api/system.go#L206-L225
  * @pathname: /api/system/getConf
- * @version: 3.0.13
+ * @version: 3.1.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
-    $comment: 'v3.0.13',
+    $comment: 'v3.1.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -1753,6 +1753,7 @@
                 'mark',
                 'memo',
                 'ordered-list',
+                'quote',
                 'ref',
                 'strike',
                 'sub',
@@ -1802,6 +1803,9 @@
                     $ref: '#/$defs/key',
                 },
                 'ordered-list': {
+                    $ref: '#/$defs/key',
+                },
+                quote: {
                     $ref: '#/$defs/key',
                 },
                 memo: {

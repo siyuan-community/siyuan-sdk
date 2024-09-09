@@ -8,6 +8,7 @@
 - 配置 `commitlint` | Configure `commitlint`
 - 优化 `types/**/index.d.ts` 文件 | Optimize `types/**/index.d.ts` files
 - 调整 API `/api/asset/upload` | Adjust API `/api/asset/upload`
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 
 ## v0.3.12 / 2024-07-11
 

@@ -112,10 +112,17 @@ describe.concurrent(pathname, async () => {
                 test: async (response, payload) => {
                     it("test the result of updating file", async () => {
                         /* 测试响应体中的结果 */
-                        payload!.files
+                        payload!
+                            .files
                             .map((file) => file.name)
                             .forEach((filename) => {
-                                expect.soft(response.data.succMap[filename], `uploaded file "${filename}" failed`).not.toBeUndefined();
+                                expect
+                                    .soft(
+                                        response.data.succMap[filename],
+                                        `uploaded file "${filename}" failed`,
+                                    )
+                                    .not
+                                    .toBeUndefined();
                             });
                     });
 
@@ -135,7 +142,8 @@ describe.concurrent(pathname, async () => {
                                         "text",
                                     ),
                                 )
-                                .resolves.toEqual(filename);
+                                .resolves
+                                .toEqual(filename);
 
                             /* 删除测试文件 */
                             await client.client.removeFile({

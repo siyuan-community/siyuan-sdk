@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json",
-    "$comment": "v3.0.13",
+    "$comment": "v3.1.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -1542,6 +1542,7 @@
                 "mark",
                 "memo",
                 "ordered-list",
+                "quote",
                 "ref",
                 "strike",
                 "sub",
@@ -1591,6 +1592,9 @@
                     "$ref": "#/$defs/key"
                 },
                 "ordered-list": {
+                    "$ref": "#/$defs/key"
+                },
+                "quote": {
                     "$ref": "#/$defs/key"
                 },
                 "memo": {

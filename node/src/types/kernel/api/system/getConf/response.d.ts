@@ -931,6 +931,7 @@ export interface IKeymapEditorInsert {
     readonly "mark": IKey;
     readonly "memo": IKey;
     readonly "ordered-list": IKey;
+    readonly "quote": IKey;
     readonly "ref": IKey;
     readonly "strike": IKey;
     readonly "sub": IKey;

@@ -1,5 +1,8 @@
 # 更改日志 | Change Log
 
+## v0.3.13 / 2024-09-10
+
+- [v0.3.12 ... v0.3.13](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.12...v0.3.13)
 - 调整 `tsconfig.json` 配置文件 | Adjust `tsconfig.json` configuration file
 - 更新依赖版本 | Update dependency versions
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`

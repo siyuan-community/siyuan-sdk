@@ -1,5 +1,7 @@
 # 更改日志 | Change Log
 
+- 修复类型定义文件入口路径错误问题 | Fix the issue of incorrect entry path of type definition file
+
 ## v0.3.13 / 2024-09-10
 
 - [v0.3.12 ... v0.3.13](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.12...v0.3.13)

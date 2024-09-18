@@ -28,7 +28,7 @@ export default defineConfig({
                 },
                 {
                     src: "./src/types/",
-                    dest: "./",
+                    dest: "./src/",
                 },
             ],
         }),

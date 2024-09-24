@@ -722,27 +722,37 @@
             "description": "Markdown syntax configuration",
             "additionalProperties": false,
             "required": [
+                "inlineAsterisk",
                 "inlineMath",
                 "inlineSub",
                 "inlineSup",
-                "inlineTag"
+                "inlineTag",
+                "inlineUnderscore"
             ],
             "properties": {
+                "inlineAsterisk": {
+                    "type": "boolean",
+                    "description": "Whether to enable asterisk syntax `*foo*` `**bar**`"
+                },
                 "inlineMath": {
                     "type": "boolean",
-                    "description": "Whether to enable inline formula syntax $foo$"
+                    "description": "Whether to enable inline formula syntax `$foo$`"
                 },
                 "inlineSub": {
                     "type": "boolean",
-                    "description": "Whether to enable subscript syntax ~foo~"
+                    "description": "Whether to enable subscript syntax `~foo~`"
                 },
                 "inlineSup": {
                     "type": "boolean",
-                    "description": "Whether to enable superscript syntax ^foo^"
+                    "description": "Whether to enable superscript syntax `^foo^`"
                 },
                 "inlineTag": {
                     "type": "boolean",
-                    "description": "Whether to enable tag syntax #foo#"
+                    "description": "Whether to enable tag syntax `#foo#`"
+                },
+                "inlineUnderscore": {
+                    "type": "boolean",
+                    "description": "Whether to enable underscore syntax `_foo_` `__bar__`"
                 }
             }
         },

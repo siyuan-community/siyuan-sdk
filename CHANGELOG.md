@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 修复类型定义文件入口路径错误问题 | Fix the issue of incorrect entry path of type definition file
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 
 ## v0.3.13 / 2024-09-10
 

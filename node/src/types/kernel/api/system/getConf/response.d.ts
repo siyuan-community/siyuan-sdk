@@ -449,21 +449,29 @@ export interface IEditor {
  */
 export interface IEditorMarkdown {
     /**
-     * Whether to enable inline formula syntax $foo$
+     * Whether to enable asterisk syntax `*foo*` `**bar**`
+     */
+    readonly inlineAsterisk: boolean;
+    /**
+     * Whether to enable inline formula syntax `$foo$`
      */
     readonly inlineMath: boolean;
     /**
-     * Whether to enable subscript syntax ~foo~
+     * Whether to enable subscript syntax `~foo~`
      */
     readonly inlineSub: boolean;
     /**
-     * Whether to enable superscript syntax ^foo^
+     * Whether to enable superscript syntax `^foo^`
      */
     readonly inlineSup: boolean;
     /**
-     * Whether to enable tag syntax #foo#
+     * Whether to enable tag syntax `#foo#`
      */
     readonly inlineTag: boolean;
+    /**
+     * Whether to enable underscore syntax `_foo_` `__bar__`
+     */
+    readonly inlineUnderscore: boolean;
 }
 
 /**

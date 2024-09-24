@@ -839,31 +839,43 @@
             description: 'Markdown syntax configuration',
             additionalProperties: false,
             required: [
+                'inlineAsterisk',
                 'inlineMath',
                 'inlineSub',
                 'inlineSup',
                 'inlineTag',
+                'inlineUnderscore',
             ],
             properties: {
+                inlineAsterisk: {
+                    // 是否启用星号语法 *foo* **bar**
+                    type: 'boolean',
+                    description: 'Whether to enable asterisk syntax `*foo*` `**bar**`',
+                },
                 inlineMath: {
                     // 是否启用行内公式语法 $foo$
                     type: 'boolean',
-                    description: 'Whether to enable inline formula syntax $foo$',
+                    description: 'Whether to enable inline formula syntax `$foo$`',
                 },
                 inlineSub: {
                     // 是否启用下标语法 ~foo~
                     type: 'boolean',
-                    description: 'Whether to enable subscript syntax ~foo~',
+                    description: 'Whether to enable subscript syntax `~foo~`',
                 },
                 inlineSup: {
                     // 是否启用上标语法 ^foo^
                     type: 'boolean',
-                    description: 'Whether to enable superscript syntax ^foo^',
+                    description: 'Whether to enable superscript syntax `^foo^`',
                 },
                 inlineTag: {
                     // 是否启用标签语法 #foo#
                     type: 'boolean',
-                    description: 'Whether to enable tag syntax #foo#',
+                    description: 'Whether to enable tag syntax `#foo#`',
+                },
+                inlineUnderscore: {
+                    // 是否启用下划线语法 _foo_ __bar__
+                    type: 'boolean',
+                    description: 'Whether to enable underscore syntax `_foo_` `__bar__`',
                 },
             },
         },

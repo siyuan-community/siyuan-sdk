@@ -229,7 +229,7 @@ export interface IAppearance {
     /**
      * List of installed dark themes
      */
-    readonly darkThemes: string[];
+    readonly darkThemes: IAppearanceThemeItem[];
     /**
      * Whether to hide status bar
      */
@@ -253,7 +253,7 @@ export interface IAppearance {
     /**
      * List of installed light themes
      */
-    readonly lightThemes: string[];
+    readonly lightThemes: IAppearanceThemeItem[];
     /**
      * The current theme mode
      * - `0`: Light theme
@@ -280,6 +280,20 @@ export interface IAppearance {
      * The version number of the theme currently in use
      */
     readonly themeVer: string;
+}
+
+/**
+ * Theme item
+ */
+export interface IAppearanceThemeItem {
+    /**
+     * Appearance theme label
+     */
+    readonly label: string;
+    /**
+     * Appearance theme name
+     */
+    readonly name: string;
 }
 
 /**

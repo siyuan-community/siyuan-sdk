@@ -498,8 +498,7 @@
                     type: 'array',
                     description: 'List of installed dark themes',
                     items: {
-                        type: 'string',
-                        description: 'Dark theme name',
+                        $ref: '#/$defs/appearance_theme_item',
                     },
                 },
                 hideStatusBar: {
@@ -544,8 +543,7 @@
                     type: 'array',
                     description: 'List of installed light themes',
                     items: {
-                        type: 'string',
-                        description: 'Light theme name',
+                        $ref: '#/$defs/appearance_theme_item',
                     },
                 },
                 mode: {
@@ -581,6 +579,29 @@
                     // 当前使用的主题的版本号
                     type: 'string',
                     description: 'The version number of the theme currently in use',
+                },
+            },
+        },
+        appearance_theme_item: {
+            title: 'IAppearanceThemeItem',
+            description: 'Theme item',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'label',
+                'name',
+            ],
+            properties: {
+                label: {
+                    // 外观主题标注
+                    type: 'string',
+                    description: 'Appearance theme label',
+                },
+                name: {
+                    // 外观主题名称
+                    type: 'string',
+                    description: 'Appearance theme name',
                 },
             },
         },

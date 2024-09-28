@@ -431,8 +431,7 @@
                     "type": "array",
                     "description": "List of installed dark themes",
                     "items": {
-                        "type": "string",
-                        "description": "Dark theme name"
+                        "$ref": "#/$defs/appearance_theme_item"
                     }
                 },
                 "hideStatusBar": {
@@ -471,8 +470,7 @@
                     "type": "array",
                     "description": "List of installed light themes",
                     "items": {
-                        "type": "string",
-                        "description": "Light theme name"
+                        "$ref": "#/$defs/appearance_theme_item"
                     }
                 },
                 "mode": {
@@ -502,6 +500,26 @@
                 "themeVer": {
                     "type": "string",
                     "description": "The version number of the theme currently in use"
+                }
+            }
+        },
+        "appearance_theme_item": {
+            "title": "IAppearanceThemeItem",
+            "description": "Theme item",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "label",
+                "name"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string",
+                    "description": "Appearance theme label"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Appearance theme name"
                 }
             }
         },

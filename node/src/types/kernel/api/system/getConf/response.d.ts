@@ -327,6 +327,10 @@ export interface IEditor {
      */
     readonly allowHTMLBLockScript: boolean;
     /**
+     * Whether the backlink panel contains children
+     */
+    readonly backlinkContainChildren: boolean;
+    /**
      * The default number of backlinks to expand
      */
     readonly backlinkExpandCount: number;
@@ -470,6 +474,10 @@ export interface IEditorMarkdown {
      * Whether to enable inline formula syntax `$foo$`
      */
     readonly inlineMath: boolean;
+    /**
+     * Whether to enable strikethrough syntax `~~foo~~`
+     */
+    readonly inlineStrikethrough: boolean;
     /**
      * Whether to enable subscript syntax `~foo~`
      */
@@ -1388,7 +1396,11 @@ export interface ISyncS3 {
      */
     readonly bucket: string;
     /**
-     * Service endpoint address
+     * Connection concurrency
+     */
+    readonly concurrentReqs: number;
+    /**
+     * Service endpoint
      */
     readonly endpoint: string;
     /**
@@ -1417,6 +1429,10 @@ export interface ISyncS3 {
  * WebDAV related configuration
  */
 export interface ISyncWebDAV {
+    /**
+     * Connection concurrency
+     */
+    readonly concurrentReqs: number;
     /**
      * Service endpoint
      */
@@ -1825,6 +1841,10 @@ export interface ChildElement {
      * Whether the tab is active
      */
     readonly active?: boolean;
+    /**
+     * Tab activation time (Unix timestamp)
+     */
+    readonly activeTime?: string;
     /**
      * Tab icon
      */

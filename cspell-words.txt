@@ -46,7 +46,9 @@ protyle
 Punycode
 quicktype
 Referer
+Reqs
 siyuan
+strikethrough
 succ
 título
 tsdoc

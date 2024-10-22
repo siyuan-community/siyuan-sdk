@@ -636,6 +636,7 @@
             additionalProperties: false,
             required: [
                 'allowHTMLBLockScript',
+                'backlinkContainChildren',
                 'backlinkExpandCount',
                 'backmentionExpandCount',
                 'blockRefDynamicAnchorTextMaxLen',
@@ -674,6 +675,11 @@
                     // 是否允许 HTML 块运行脚本
                     type: 'boolean',
                     description: 'Allow HTML blocks to run scripts',
+                },
+                backlinkContainChildren: {
+                    // 反向链接面板是否包含下级节点
+                    type: 'boolean',
+                    description: 'Whether the backlink panel contains children',
                 },
                 backlinkExpandCount: {
                     // 反向链接默认展开数量
@@ -862,6 +868,7 @@
             required: [
                 'inlineAsterisk',
                 'inlineMath',
+                'inlineStrikethrough',
                 'inlineSub',
                 'inlineSup',
                 'inlineTag',
@@ -877,6 +884,11 @@
                     // 是否启用行内公式语法 $foo$
                     type: 'boolean',
                     description: 'Whether to enable inline formula syntax `$foo$`',
+                },
+                inlineStrikethrough: {
+                    // 是否启用删除线语法 ~~foo~~
+                    type: 'boolean',
+                    description: 'Whether to enable strikethrough syntax `~~foo~~`',
                 },
                 inlineSub: {
                     // 是否启用下标语法 ~foo~
@@ -2761,6 +2773,7 @@
             required: [
                 'accessKey',
                 'bucket',
+                'concurrentReqs',
                 'endpoint',
                 'pathStyle',
                 'region',
@@ -2779,10 +2792,15 @@
                     type: 'string',
                     description: 'Bucket name',
                 },
+                concurrentReqs: {
+                    // 连接并发数
+                    type: 'integer',
+                    description: 'Connection concurrency',
+                },
                 endpoint: {
-                    // 服务端点地址
+                    // 服务端点
                     type: 'string',
-                    description: 'Service endpoint address',
+                    description: 'Service endpoint',
                 },
                 pathStyle: {
                     // 是否使用路径风格的 URL
@@ -2818,13 +2836,20 @@
             description: 'WebDAV related configuration',
             additionalProperties: false,
             required: [
+                'concurrentReqs',
                 'endpoint',
-                'username',
                 'password',
                 'skipTlsVerify',
                 'timeout',
+                'username',
             ],
             properties: {
+                concurrentReqs: {
+                    // 连接并发数
+                    type: 'integer',
+                    description: 'Connection concurrency',
+                    minimum: 1,
+                },
                 endpoint: {
                     // 服务端点
                     type: 'string',
@@ -3269,6 +3294,14 @@ The operating system name determined at compile time\
                 'title',
             ],
             properties: {
+                activeTime: {
+                    // 页签激活时间 (Unix 时间戳)
+                    type: 'string',
+                    description: 'Tab activation time (Unix timestamp)',
+                    examples: [
+                        '1700000000000',
+                    ],
+                },
                 active: {
                     // 该页签是否激活
                     type: 'boolean',

@@ -27,7 +27,7 @@ interface ICase {
     name: string;
     before?: () => void;
     payload: openRepoSnapshotDoc.IPayload;
-    after?: (response: openRepoSnapshotDoc.IResponse, payload: openRepoSnapshotDoc.IPayload) => void;
+    after?: (response: openRepoSnapshotDoc.IResponse, payload?: openRepoSnapshotDoc.IPayload) => void;
     debug: boolean;
 }
 

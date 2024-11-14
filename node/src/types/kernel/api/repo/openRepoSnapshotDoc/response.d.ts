@@ -39,11 +39,15 @@ export interface IData {
      */
     readonly content: string;
     /**
-     * Whether the content is original
-     * true: json file original text / other file path
-     * false: block DOM string
+     * Whether the content is rendered as a string
+     * - `true`: original text/file path
+     * - `false`: block DOM string
      */
-    readonly isProtyleDoc: boolean;
+    readonly displayInText: boolean;
+    /**
+     * title (asset file: file path; document file: document title)
+     */
+    readonly title: string;
     /**
      * update time (Unix timestamp, ms)
      */

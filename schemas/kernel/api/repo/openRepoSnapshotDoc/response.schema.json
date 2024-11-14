@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getDocHistoryContent/response.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v3.1.11",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -34,22 +34,12 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "updated",
-                "isProtyleDoc",
-                "content"
+                "content",
+                "displayInText",
+                "title",
+                "updated"
             ],
             "properties": {
-                "updated": {
-                    "type": "integer",
-                    "description": "update time (Unix timestamp, ms)",
-                    "examples": [
-                        1690296491237
-                    ]
-                },
-                "isProtyleDoc": {
-                    "type": "boolean",
-                    "description": "Whether the content is original\ntrue: json file original text / other file path\nfalse: block DOM string"
-                },
                 "content": {
                     "type": "string",
                     "description": "snapshot file content",
@@ -58,6 +48,21 @@
                         "{}",
                         "/plugins/open-api/README.md",
                         "/plugins/open-api/icon.png"
+                    ]
+                },
+                "displayInText": {
+                    "type": "boolean",
+                    "description": "Whether the content is rendered as a string\n- `true`: original text/file path\n- `false`: block DOM string"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "title (asset file: file path; document file: document title)"
+                },
+                "updated": {
+                    "type": "integer",
+                    "description": "update time (Unix timestamp, ms)",
+                    "examples": [
+                        1690296491237
                     ]
                 }
             }

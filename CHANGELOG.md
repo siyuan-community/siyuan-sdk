@@ -3,6 +3,7 @@
 - 修复类型定义文件入口路径错误问题 | Fix the issue of incorrect entry path of type definition file
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/repo/openRepoSnapshotDoc` | Adjust API `/api/repo/openRepoSnapshotDoc`
+- 调整 API `/api/block/getBlockBreadcrumb` 测试用例 | Adjust API `/api/block/getBlockBreadcrumb` test case
 
 ## v0.3.13 / 2024-09-10
 

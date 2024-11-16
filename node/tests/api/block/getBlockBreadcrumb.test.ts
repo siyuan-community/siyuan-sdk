@@ -56,7 +56,7 @@ async function initContext() {
         data: "{{{\ngetBlockBreadcrumb\n}}}",
         parentID: context.document,
     });
-    context.container = response_container.data[0].doOperations[0].id;
+    context.container = response_container.data[0]!.doOperations[0]!.id;
 
     /* 插入一个测试用标题 */
     const response_heading = await client.client.prependBlock({
@@ -64,7 +64,7 @@ async function initContext() {
         data: "# getBlockBreadcrumb",
         parentID: context.container,
     });
-    context.heading = response_heading.data[0].doOperations[0].id;
+    context.heading = response_heading.data[0]!.doOperations[0]!.id;
 
     /* 插入一个测试用普通块 */
     const response_block = await client.client.appendBlock({
@@ -72,7 +72,7 @@ async function initContext() {
         data: "getBlockBreadcrumb",
         parentID: context.container,
     });
-    context.block = response_block.data[0].doOperations[0].id;
+    context.block = response_block.data[0]!.doOperations[0]!.id;
 
     return context;
 }
@@ -105,7 +105,7 @@ describe.concurrent(pathname, async () => {
             it("document", () => {
                 expect(response.data).toHaveLength(1);
 
-                const document = response.data[0];
+                const document = response.data[0]!;
                 expect.soft(document.id).toEqual(context.document);
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
                 expect.soft(document.subType).toEqual(BlockSubType.none);
@@ -120,12 +120,17 @@ describe.concurrent(pathname, async () => {
         },
         after: (response) => {
             it("document > container", () => {
-                expect(response.data).toHaveLength(1);
+                expect(response.data).toHaveLength(2);
 
-                const document = response.data[0];
+                const document = response.data[0]!;
                 expect.soft(document.id).toEqual(context.document);
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
                 expect.soft(document.subType).toEqual(BlockSubType.none);
+
+                const container = response.data[1]!;
+                expect.soft(container.id).toEqual(context.container);
+                expect.soft(container.type).toEqual(NodeType.NodeSuperBlock);
+                expect.soft(container.subType).toEqual(BlockSubType.none);
             });
         },
         debug: false,
@@ -139,12 +144,12 @@ describe.concurrent(pathname, async () => {
             it("document > container > heading", () => {
                 expect(response.data).toHaveLength(2);
 
-                const document = response.data[0];
+                const document = response.data[0]!;
                 expect.soft(document.id).toEqual(context.document);
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
                 expect.soft(document.subType).toEqual(BlockSubType.none);
 
-                const heading = response.data[1];
+                const heading = response.data[1]!;
                 expect.soft(heading.id).toEqual(context.heading);
                 expect.soft(heading.type).toEqual(NodeType.NodeHeading);
                 expect.soft(heading.subType).toEqual(BlockSubType.h1);
@@ -161,17 +166,17 @@ describe.concurrent(pathname, async () => {
             it("document > container > heading > block", () => {
                 expect(response.data).toHaveLength(3);
 
-                const document = response.data[0];
+                const document = response.data[0]!;
                 expect.soft(document.id).toEqual(context.document);
                 expect.soft(document.type).toEqual(NodeType.NodeDocument);
                 expect.soft(document.subType).toEqual(BlockSubType.none);
 
-                const heading = response.data[1];
+                const heading = response.data[1]!;
                 expect.soft(heading.id).toEqual(context.heading);
                 expect.soft(heading.type).toEqual(NodeType.NodeHeading);
                 expect.soft(heading.subType).toEqual(BlockSubType.h1);
 
-                const block = response.data[2];
+                const block = response.data[2]!;
                 expect.soft(block.id).toEqual(context.block);
                 expect.soft(block.type).toEqual(NodeType.NodeParagraph);
                 expect.soft(block.subType).toEqual(BlockSubType.none);

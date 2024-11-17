@@ -44,6 +44,7 @@
             additionalProperties: false,
             required: [
                 'blocks',
+                'docMode',
                 'matchedBlockCount',
                 'matchedRootCount',
                 'pageCount',
@@ -56,6 +57,11 @@
                     items: {
                         $ref: '#/$defs/block',
                     },
+                },
+                docMode: {
+                    // 是否为当前文档内容搜索模式
+                    type: 'boolean',
+                    description: 'Whether it is the current document content search mode',
                 },
                 matchedBlockCount: {
                     // 完整搜索结果中命中的块数量

@@ -39,6 +39,10 @@ export interface IData {
      */
     readonly blocks: IBlock[];
     /**
+     * Whether it is the current document content search mode
+     */
+    readonly docMode: boolean;
+    /**
      * The number of blocks in the full search results
      */
     readonly matchedBlockCount: number;

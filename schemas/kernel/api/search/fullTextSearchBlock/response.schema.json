@@ -35,6 +35,7 @@
             "additionalProperties": false,
             "required": [
                 "blocks",
+                "docMode",
                 "matchedBlockCount",
                 "matchedRootCount",
                 "pageCount"
@@ -46,6 +47,10 @@
                     "items": {
                         "$ref": "#/$defs/block"
                     }
+                },
+                "docMode": {
+                    "type": "boolean",
+                    "description": "Whether it is the current document content search mode"
                 },
                 "matchedBlockCount": {
                     "type": "integer",

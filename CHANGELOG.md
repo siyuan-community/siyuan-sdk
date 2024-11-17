@@ -4,6 +4,7 @@
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/repo/openRepoSnapshotDoc` | Adjust API `/api/repo/openRepoSnapshotDoc`
 - 调整 API `/api/block/getBlockBreadcrumb` 测试用例 | Adjust API `/api/block/getBlockBreadcrumb` test case
+- 调整 API `/api/search/fullTextSearchBlock` | Adjust API `/api/search/fullTextSearchBlock`
 
 ## v0.3.13 / 2024-09-10
 

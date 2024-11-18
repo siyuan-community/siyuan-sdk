@@ -36,6 +36,10 @@ export interface IResponse {
 export interface IData {
     readonly conf: IConf;
     /**
+     * Whether it is in publish mode
+     */
+    readonly isPublish: boolean;
+    /**
      * Whether the user interface is not loaded
      */
     readonly start: boolean;
@@ -1136,9 +1140,17 @@ export interface IPublishAuthAccount {
  */
 export interface IRepo {
     /**
+     * Snapshot index retention days
+     */
+    readonly indexRetentionDays: number;
+    /**
      * Snapshot encryption key (base64 encoded 256-bit key)
      */
     readonly key: string;
+    /**
+     * Number of snapshot indexes retained daily
+     */
+    readonly retentionIndexesDaily: number;
     /**
      * Synchronous index timing, if it exceeds this time, the user is prompted that the index
      * performance is degraded (unit: milliseconds)
@@ -1486,6 +1498,10 @@ export interface ISystem {
      * The absolute path of the `data` directory of the current workspace
      */
     readonly dataDir: string;
+    /**
+     * List of disabled feature names
+     */
+    readonly disabledFeatures: string[];
     /**
      * Whether to disable Google Analytics
      */
@@ -1870,6 +1886,8 @@ export interface ChildElement {
 /**
  * Tab content
  *
+ * SiYuan tab without content
+ *
  * SiYuan editor tab
  *
  * SiYuan asset file tab
@@ -1908,7 +1926,7 @@ export interface IUILayoutTabContent {
     /**
      * Object name
      */
-    readonly instance: TUILayoutTabContentInstance;
+    readonly instance?: TUILayoutTabContentInstance;
     /**
      * (Editor) Editor mode
      * - `wysiwyg`: WYSIWYG mode

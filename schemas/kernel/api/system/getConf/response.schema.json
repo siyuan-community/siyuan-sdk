@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json",
-    "$comment": "v3.1.6",
+    "$comment": "v3.1.13",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -34,13 +34,18 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "start",
-                "conf"
+                "conf",
+                "isPublish",
+                "start"
             ],
             "properties": {
                 "start": {
                     "type": "boolean",
                     "description": "Whether the user interface is not loaded"
+                },
+                "isPublish": {
+                    "type": "boolean",
+                    "description": "Whether it is in publish mode"
                 },
                 "conf": {
                     "$ref": "#/$defs/conf"
@@ -2130,14 +2135,24 @@
             "description": "Snapshot repository related configuration",
             "additionalProperties": false,
             "required": [
+                "indexRetentionDays",
                 "key",
+                "retentionIndexesDaily",
                 "syncIndexTiming"
             ],
             "properties": {
+                "indexRetentionDays": {
+                    "type": "integer",
+                    "description": "Snapshot index retention days"
+                },
                 "key": {
                     "type": "string",
                     "description": "Snapshot encryption key (base64 encoded 256-bit key)",
                     "pattern": "^[A-Za-z0-9+/]{43}=$"
+                },
+                "retentionIndexesDaily": {
+                    "type": "integer",
+                    "description": "Number of snapshot indexes retained daily"
                 },
                 "syncIndexTiming": {
                     "type": "integer",
@@ -2574,6 +2589,7 @@
                 "container",
                 "dataDir",
                 "disableGoogleAnalytics",
+                "disabledFeatures",
                 "downloadInstallPkg",
                 "homeDir",
                 "id",
@@ -2625,6 +2641,13 @@
                 "disableGoogleAnalytics": {
                     "type": "boolean",
                     "description": "Whether to disable Google Analytics"
+                },
+                "disabledFeatures": {
+                    "type": "array",
+                    "description": "List of disabled feature names",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "downloadInstallPkg": {
                     "type": "boolean",
@@ -2913,9 +2936,7 @@
             "additionalProperties": false,
             "required": [
                 "children",
-                "instance",
-                "pin",
-                "title"
+                "instance"
             ],
             "properties": {
                 "activeTime": {
@@ -2933,6 +2954,9 @@
                     "title": "IUILayoutTabContent",
                     "description": "Tab content",
                     "oneOf": [
+                        {
+                            "$ref": "#/$defs/uiLayout_tab_none"
+                        },
                         {
                             "$ref": "#/$defs/uiLayout_tab_editor"
                         },
@@ -3000,6 +3024,14 @@
                     "description": "Tab title"
                 }
             }
+        },
+        "uiLayout_tab_none": {
+            "title": "IUILayoutTabNone",
+            "type": "object",
+            "description": "SiYuan tab without content",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {}
         },
         "uiLayout_tab_editor": {
             "title": "IUILayoutTabEditor",

@@ -83,7 +83,7 @@ export interface IAttrView {
     readonly name: ID;
 }
 
-export type ID = "未命名" | "Sans titre" | "Sin título" | "Untitled";
+export type ID = "Sans titre" | "Sin título" | "Untitled" | "未命名";
 
 /**
  * Inline Attribute List (IAL) of document block

@@ -1,6 +1,7 @@
 # 更改日志 | Change Log
 
 - 更新 ESLint 配置 | Update ESLint configuration
+- 更新捐助信息 | Update donation information
 
 ## v0.3.14 / 2024-11-20
 

@@ -27,10 +27,21 @@ import { updateTypeDefinitionFile } from "./utils/types.ts";
 
 import type fs from "node:fs";
 
+type EventName =
+    | "add"
+    | "addDir"
+    | "all"
+    | "change"
+    | "error"
+    | "raw"
+    | "ready"
+    | "unlink"
+    | "unlinkDir";
+
 /**
  * 处理 *.schema.json5 文件变化
  */
-async function json5SchemasHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
+async function json5SchemasHandler(eventName: EventName, path: string, _stats?: fs.Stats) {
     console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (true) {
@@ -63,7 +74,7 @@ async function json5SchemasHandler(eventName: "add" | "addDir" | "change" | "unl
 /**
  * 处理 *.schema.json 文件变化
  */
-async function jsonSchemasHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
+async function jsonSchemasHandler(eventName: EventName, path: string, _stats?: fs.Stats) {
     console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (true) {
@@ -93,7 +104,7 @@ async function jsonSchemasHandler(eventName: "add" | "addDir" | "change" | "unli
     }
 }
 
-async function typesHandler(eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir", path: string, _stats?: fs.Stats) {
+async function typesHandler(eventName: EventName, path: string, _stats?: fs.Stats) {
     console.debug(`\x1B[4m${eventName}\x1B[0m\t${path}`);
     try {
         switch (eventName) {

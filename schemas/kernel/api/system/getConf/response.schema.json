@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json",
-    "$comment": "v3.1.13",
+    "$comment": "v3.1.16",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -2414,6 +2414,7 @@
                 "cloudName",
                 "enabled",
                 "generateConflictDoc",
+                "interval",
                 "mode",
                 "perception",
                 "provider",
@@ -2444,6 +2445,10 @@
                         2,
                         3
                     ]
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Automatic synchronization interval"
                 },
                 "perception": {
                     "type": "boolean",
@@ -2602,7 +2607,6 @@
                 "networkServe",
                 "os",
                 "osPlatform",
-                "uploadErrLog",
                 "workspaceDir"
             ],
             "properties": {
@@ -2709,10 +2713,6 @@
                 "osPlatform": {
                     "type": "string",
                     "description": "Operating system platform name"
-                },
-                "uploadErrLog": {
-                    "type": "boolean",
-                    "description": "Whether to upload error logs"
                 },
                 "workspaceDir": {
                     "type": "string",

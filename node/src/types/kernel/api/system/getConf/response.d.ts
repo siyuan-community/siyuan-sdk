@@ -1365,6 +1365,10 @@ export interface ISync {
      */
     readonly generateConflictDoc: boolean;
     /**
+     * Automatic synchronization interval
+     */
+    readonly interval: number;
+    /**
      * Synchronization mode
      * - `0`: Not set
      * - `1`: Automatic synchronization
@@ -1559,10 +1563,6 @@ export interface ISystem {
      * Operating system platform name
      */
     readonly osPlatform: string;
-    /**
-     * Whether to upload error logs
-     */
-    readonly uploadErrLog: boolean;
     /**
      * The absolute path of the workspace directory
      */

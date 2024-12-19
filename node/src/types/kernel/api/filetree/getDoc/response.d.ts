@@ -63,6 +63,10 @@ export interface IData {
      */
     readonly isSyncing: boolean;
     /**
+     * Document keywords
+     */
+    readonly keywords: null | string[];
+    /**
      * Load mode
      */
     readonly mode: number;
@@ -81,6 +85,10 @@ export interface IData {
      * path here corresponds to the database path field
      */
     readonly path: string;
+    /**
+     * Request ID (Unix timestamp)
+     */
+    readonly reqId: null | number;
     /**
      * Document block ID
      */

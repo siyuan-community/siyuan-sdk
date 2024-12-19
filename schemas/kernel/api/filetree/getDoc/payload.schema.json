@@ -87,6 +87,10 @@
                     "type": "boolean",
                     "description": "Whether it is a reverse link",
                     "default": false
+                },
+                "reqId": {
+                    "type": "integer",
+                    "description": "Request ID (Unix timestamp)"
                 }
             }
         },

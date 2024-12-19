@@ -110,6 +110,11 @@
                     description: 'Whether it is a reverse link',
                     default: false,
                 },
+                reqId: {
+                    // 请求 ID
+                    type: 'integer',
+                    description: 'Request ID (Unix timestamp)',
+                },
             },
         },
         queryTypes: {

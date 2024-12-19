@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/getDoc/response.schema.json5
  * 获取块 DOM 与相关信息
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/filetree.go#L663-L752
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.1.16/kernel/api/filetree.go#L1060-L1157
  * @pathname: /api/filetree/getDoc
- * @version: 2.9.5
+ * @version: 3.1.16
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/getDoc/response.schema.json5',
-    $comment: 'v2.9.5',
+    $comment: 'v3.1.16',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -50,10 +50,12 @@
                 'id',
                 'isBacklinkExpand',
                 'isSyncing',
+                'keywords',
                 'mode',
                 'parent2ID',
                 'parentID',
                 'path',
+                'reqId',
                 'rootID',
                 'scroll',
                 'type',
@@ -96,6 +98,21 @@
                     type: 'boolean',
                     description: 'is syncing?',
                 },
+                keywords: {
+                    // 关键字
+                    description: 'Document keywords',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                            },
+                        },
+                    ],
+                },
                 mode: {
                     // 加载模式
                     type: 'integer',
@@ -125,6 +142,18 @@
                     examples: [
                         '/20200812220555-lj3enxa.sy',
                         '/20200812220555-lj3enxa/20210808180320-fqgskfj.sy',
+                    ],
+                },
+                reqId: {
+                    // 请求 ID
+                    description: 'Request ID (Unix timestamp)',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            type: 'integer',
+                        },
                     ],
                 },
                 rootID: {

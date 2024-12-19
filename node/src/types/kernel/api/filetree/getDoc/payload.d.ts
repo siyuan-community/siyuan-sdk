@@ -49,6 +49,10 @@ export interface IPayload {
     readonly queryMethod?: number;
     readonly queryTypes?: IQueryTypes;
     /**
+     * Request ID (Unix timestamp)
+     */
+    readonly reqId?: number;
+    /**
      * Maximum number of loaded blocks
      */
     readonly size?: number;

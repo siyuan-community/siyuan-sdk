@@ -4,6 +4,7 @@
 - 更新捐助信息 | Update donation information
 - 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
 - 调整 API `/api/filetree/getDoc` | Adjust API `/api/filetree/getDoc`
+- 将 `ts-node` 切换为 `tsx` | Switch `ts-node` to `tsx`
 
 ## v0.3.14 / 2024-11-20
 

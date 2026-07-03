@@ -1,0 +1,23 @@
+node/pnpm-workspace.yaml
+  s_ea768f615c9382::t_81f5fde6f07eb1 4-5
+node/src/fs/handle/SiyuanFileSystemDirectoryHandle.ts
+  s_ea768f615c9382::t_078ad000a39957 129-138
+node/.node-version
+  s_ea768f615c9382::t_81f5fde6f07eb1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.28-trip",
+  "base_commit_sha": "5e620bea69c43e842fb97307a327ea63e25344ba",
+  "prompts": {},
+  "sessions": {
+    "s_ea768f615c9382": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "45266186-65f6-4a01-ae77-e498b9a8cfd3",
+        "model": "claude-qwen3.7-max"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

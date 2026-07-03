@@ -1,4 +1,5 @@
 temp
+.DS_Store
 .vscode/*
 !.vscode/extensions.json
 !.vscode/*.code-snippets

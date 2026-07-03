@@ -29,6 +29,8 @@ export default defineConfig({
                 {
                     src: "./src/types/",
                     dest: "./src/",
+                    rename: { stripBase: 1 },
+                    overwrite: true,
                 },
             ],
         }),
@@ -36,6 +38,7 @@ export default defineConfig({
     build: {
         outDir: "./dist",
         sourcemap: true,
+        emptyOutDir: true,
         lib: {
             entry: resolve(__dirname, "src/index.ts"),
             name: "SiyuanSDK",

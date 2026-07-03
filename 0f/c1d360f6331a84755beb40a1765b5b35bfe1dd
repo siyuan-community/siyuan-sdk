@@ -1,0 +1,28 @@
+.gitignore
+  s_d778e68e352f96::t_b0f8711ee7c435 2
+node/.npmrc
+  s_d778e68e352f96::t_b0f8711ee7c435 1
+node/package.json
+  s_d778e68e352f96::t_3b4c56613c300c 74
+  s_d778e68e352f96::t_a35b39fb962c31 78
+node/vite.config.ts
+  s_d778e68e352f96::t_b0f8711ee7c435 32-33,41
+node/.npmignore
+  s_d778e68e352f96::t_b0f8711ee7c435 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.28-trip",
+  "base_commit_sha": "0fc1d360f6331a84755beb40a1765b5b35bfe1dd",
+  "prompts": {},
+  "sessions": {
+    "s_d778e68e352f96": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6b862614-c3e7-4230-b0be-1a860fd3f5ef",
+        "model": "claude-qwen3.7-max"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

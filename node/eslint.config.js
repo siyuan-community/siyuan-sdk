@@ -36,89 +36,92 @@ const rules = {
         "warn",
         {
             groups: [
-                "side-effect-style", // import "style.css";
-                "side-effect", // import "module";
+                "value-side-effect", // import "module";
 
                 [
                     "$node", // import path from "node:path";
-                    "builtin", // import path from "path";
+                    "value-builtin", // import path from "path";
                 ],
-                "external", // import axios from "axios";
+                "value-external", // import axios from "axios";
                 [
                     "$repo", // import module from "@repo/module";
                     "$workspace", // import module from "@workspace/module";
                 ],
+                "value-subpath", // import module from "#module";
                 "$base", // import module from "~/module";
-                "internal", // import module from "@/module";
+                "value-internal", // import module from "@/module";
+                [
+                    "value-parent", // import module from "../module";
+                    "value-sibling", // import module from "./module";
+                    "value-index", // import module from ".";
+                ],
                 [
                     "$vue", // import Component from "Component.vue";
                     "$svelte", // import Component from "Component.svelte";
                 ],
-                [
-                    "parent", // import module from "../module";
-                    "sibling", // import module from "./module";
-                    "index", // import module from ".";
-                ],
+                "$json", // import data from "data.json";
+                "value-import",
                 "unknown",
 
                 [
                     "$node-type", // import type path from "node:path";
-                    "builtin-type", // import type path from "path";
+                    "type-builtin", // import type path from "path";
                 ],
-                "external-type", // import type axios from "axios";
+                "type-external", // import type axios from "axios";
                 [
                     "$repo-type", // import type module from "@repo/module";
                     "$workspace-type", // import type module from "@workspace/module";
                 ],
                 "$base-type", // import type module from "~/module";
-                "internal-type", // import type module from "@/module";
+                "type-internal", // import type module from "@/module";
+                [
+                    "type-parent", // import type module from "../module";
+                    "type-sibling", // import type module from "./module";
+                    "type-index", // import type module from ".";
+                ],
                 [
                     "$vue-type", // import type Component from "Component.vue";
                     "$svelte-type", // import type Component from "Component.svelte";
                 ],
-                [
-                    "parent-type", // import type module from "../module";
-                    "sibling-type", // import type module from "./module";
-                    "index-type", // import type module from ".";
-                ],
-                "type",
+                "$json-type", // import type data from "data.json";
+                "type-import",
 
-                "style", // import styles from "./index.module.css";
-                "object", // import log = console.log;
+                "side-effect-style", // import "style.css";
+                "value-style", // import styles from "./index.module.css";
+                "value-ts-equals-import", // import log = console.log;
             ],
             internalPattern: [
                 "^@/.*",
             ],
-            customGroups: {
-                value: {
-                    $node: "^node:.+",
-                    $repo: "^@repo/.*",
-                    $workspace: "^@workspace/.*",
-                    $base: "^~/.*",
-                    $vue: ".+\\.vue",
-                    $svelte: ".+\\.svelte",
-                },
-                type: {
-                    "$node-type": "^node:.+",
-                    "$repo-type": "^@repo/.*",
-                    "$workspace-type": "^@workspace/.*",
-                    "$base-type": "^~/.*",
-                    "$vue-type": ".+\\.vue",
-                    "$svelte-type": ".+\\.svelte",
-                },
-            },
+            customGroups: [
+                { groupName: "$node-type", elementNamePattern: "^node:.+", selector: "type" },
+                { groupName: "$repo-type", elementNamePattern: "^@repo/.*", selector: "type" },
+                { groupName: "$workspace-type", elementNamePattern: "^@workspace/.*", selector: "type" },
+                { groupName: "$base-type", elementNamePattern: "^~/.*", selector: "type" },
+                { groupName: "$vue-type", elementNamePattern: ".+\\.vue", selector: "type" },
+                { groupName: "$svelte-type", elementNamePattern: ".+\\.svelte(\\.(j|t)s)?", selector: "type" },
+                { groupName: "$json-type", elementNamePattern: ".+\\.json", selector: "type" },
+
+                { groupName: "$node", elementNamePattern: "^node:.+" },
+                { groupName: "$repo", elementNamePattern: "^@repo/.*" },
+                { groupName: "$workspace", elementNamePattern: "^@workspace/.*" },
+                { groupName: "$base", elementNamePattern: "^~/.*" },
+                { groupName: "$vue", elementNamePattern: ".+\\.vue" },
+                { groupName: "$svelte", elementNamePattern: ".+\\.svelte(\\.(j|t)s)?" },
+                { groupName: "$json", elementNamePattern: ".+\\.json" },
+            ],
         },
     ],
     "perfectionist/sort-named-exports": [
         "warn",
         {
-            groupKind: "values-first",
+            groups: ["value-export", "type-export", "unknown"],
         },
     ],
     "perfectionist/sort-named-imports": [
         "warn",
         {
-            groupKind: "values-first",
+            groups: ["value-import", "type-import", "unknown"],
             ignoreAlias: false,
         },
     ],
@@ -130,12 +133,17 @@ const rules = {
 };
 
 // REF: https://www.npmjs.com/package/@antfu/eslint-config
-export default antfu({
+/** @type {import("eslint-flat-config-utils").FlatConfigComposer<import("@antfu/eslint-config").TypedFlatConfigItem, import("@antfu/eslint-config").ConfigNames>} */
+const config = antfu({
     stylistic: {
         indent: 4,
         quotes: "double",
         semi: true,
         overrides: {
+            "style/indent-binary-ops": [
+                "off",
+                "tab",
+            ],
             "style/arrow-parens": [
                 "warn",
                 "always",
@@ -153,7 +161,11 @@ export default antfu({
         },
     },
     formatters: {
+        css: "prettier",
+        html: "prettier",
+        xml: "prettier",
         markdown: "dprint",
+        graphql: "prettier",
         prettierOptions: {
             tabWidth: 4,
             printWidth: Infinity,
@@ -186,6 +198,7 @@ export default antfu({
     ignores: [
         "./dist",
         "./temp",
+        "./pnpm-workspace.yaml",
     ],
 }, {
     plugins: {
@@ -199,3 +212,5 @@ export default antfu({
         GLOB_JSX,
     ],
 });
+
+export default config;

@@ -4,6 +4,8 @@
 
 cd node
 
+fnm use 26
+
 pnpm run lint-staged
 
 pnpm run check

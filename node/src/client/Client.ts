@@ -57,8 +57,8 @@ export type Options = AxiosOptions | FetchOptions;
 export type ClientType = "fetch" | "xhr";
 
 /* 响应类型 */
-export type FetchResponseType =
-    | "arrayBuffer" //
+export type FetchResponseType
+    = | "arrayBuffer" //
     | "blob"
     | "json"
     | "stream"
@@ -66,8 +66,8 @@ export type FetchResponseType =
 export type ResponseType = axios.ResponseType | FetchResponseType;
 
 /* 全局设置选项 */
-export type GlobalOptions =
-    | {
+export type GlobalOptions
+    = | {
         type: "fetch";
         options: FetchOptions;
     }
@@ -477,7 +477,7 @@ export class Client implements IFetch {
             responseEncoding: "base64",
         });
         // REF: https://developer.mozilla.org/zh-CN/docs/Web/API/Response/Response
-        return new Response(base64.toUint8Array(response.data.body), {
+        return new Response(new Uint8Array(base64.toUint8Array(response.data.body)), {
             status: response.data.status,
             statusText: response.msg,
             headers: new Headers(Client.headers2entries(response.data.headers)),

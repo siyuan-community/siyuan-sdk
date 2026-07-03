@@ -186,19 +186,19 @@ export class Sink implements UnderlyingSink<FileSystemWriteChunkType> {
                         this.file
                             = chunk.size < this.size
                                 ? new File(
-                                    [
-                                        this.file.slice(0, chunk.size),
-                                    ],
-                                    this.file.name,
-                                    this.file,
-                                )
-                                : new File(
-                                    [
+                                        [
+                                            this.file.slice(0, chunk.size),
+                                        ],
+                                        this.file.name,
                                         this.file,
-                                        new Uint8Array(chunk.size - this.size),
-                                    ],
-                                    this.file.name,
-                                );
+                                    )
+                                : new File(
+                                        [
+                                            this.file,
+                                            new Uint8Array(chunk.size - this.size),
+                                        ],
+                                        this.file.name,
+                                    );
 
                         this.size = this.file.size;
                         if (this.position > this.file.size) {

@@ -48,7 +48,7 @@ export class SiyuanFileSystem implements Pick<StorageManager, "getDirectory"> {
                 ".",
                 "..",
                 false,
-                new Date().getTime(),
+                Date.now(),
 
                 this._client,
             ),

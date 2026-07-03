@@ -27,8 +27,8 @@ import { updateTypeDefinitionFile } from "./utils/types.ts";
 
 import type fs from "node:fs";
 
-type EventName =
-    | "add"
+type EventName
+    = | "add"
     | "addDir"
     | "all"
     | "change"

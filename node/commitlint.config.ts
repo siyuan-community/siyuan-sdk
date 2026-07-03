@@ -2,8 +2,10 @@
 
 import {
     RuleConfigSeverity,
-    type UserConfig,
+
 } from "@commitlint/types";
+
+import type { UserConfig } from "@commitlint/types";
 
 const Configuration = {
     extends: [
@@ -14,6 +16,11 @@ const Configuration = {
             RuleConfigSeverity.Warning,
             "always",
             72,
+        ],
+        "body-max-line-length": [
+            RuleConfigSeverity.Warning,
+            "always",
+            100,
         ],
     },
 } satisfies UserConfig;

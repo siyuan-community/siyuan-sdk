@@ -4,14 +4,14 @@ import { resolve } from "node:path";
 
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
     base: `./`,
+    resolve: {
+        tsconfigPaths: true,
+    },
     plugins: [
-        // REF: https://www.npmjs.com/package/vite-tsconfig-paths
-        tsconfigPaths(),
         // REF https://github.com/qmhc/vite-plugin-dts/blob/HEAD/README.zh-CN.md
         dts({
             insertTypesEntry: true,
@@ -44,7 +44,7 @@ export default defineConfig({
                 "es",
                 "umd",
                 // "cjs",
-                "iife",
+                // "iife",
             ],
         },
     },

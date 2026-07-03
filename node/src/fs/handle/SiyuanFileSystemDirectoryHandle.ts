@@ -126,7 +126,17 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         }
     }
 
-    *[Symbol.iterator](): IterableIterator<[string, THandle]> {
+    async* [Symbol.asyncIterator](): AsyncGenerator<[string, THandle]> {
+        await this.ls();
+        for (const entry of this._entries.list) {
+            yield [
+                entry.name,
+                this._entry2handle(entry),
+            ];
+        }
+    }
+
+    * [Symbol.iterator](): IterableIterator<[string, THandle]> {
         if (this._entries.Initialized) {
             for (const entry of this._entries.list) {
                 yield [
@@ -140,7 +150,7 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         }
     }
 
-    async *entries(): AsyncGenerator<[string, THandle]> {
+    async* entries(): AsyncGenerator<[string, THandle]> {
         await this.ls();
         for (const entry of this._entries.list) {
             yield [
@@ -150,14 +160,14 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
         }
     }
 
-    async *keys(): AsyncGenerator<string> {
+    async* keys(): AsyncGenerator<string> {
         await this.ls();
         for (const entry of this._entries.list) {
             yield entry.name;
         }
     }
 
-    async *values(): AsyncGenerator<THandle> {
+    async* values(): AsyncGenerator<THandle> {
         await this.ls();
         for (const entry of this._entries.list) {
             yield this._entry2handle(entry);
@@ -209,7 +219,7 @@ export class SiyuanFileSystemDirectoryHandle extends SiyuanFileSystemHandle impl
             if (options?.create) {
                 await this._client.putFile({
                     path: relative_path,
-                    file: new File([], name, { lastModified: new Date().getTime() }),
+                    file: new File([], name, { lastModified: Date.now() }),
                 });
                 await this.init();
                 return this.getFileHandle(name);

@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/system/exit/payload.schema.json5
  * 退出内核
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.4/kernel/api/system.go#L475-L504
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/system.go#L1363-L1380
  * @pathname: /api/system/exit
- * @version: 3.0.4
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/exit/payload.schema.json5',
-    $comment: 'v3.0.4',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -35,6 +35,12 @@
                     type: 'boolean',
                     description: 'Whether to force quit the kernel',
                     default: false,
+                },
+                setCurrentWorkspace: {
+                    // 是否将当前工作空间设为下次启动时默认打开的工作空间
+                    type: 'boolean',
+                    description: 'Whether to make the current workspace the one opened by default on the next launch',
+                    default: true,
                 },
             },
         },

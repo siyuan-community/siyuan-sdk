@@ -27,6 +27,10 @@ export interface IPayload {
      * Whether to force quit the kernel
      */
     readonly force?: boolean;
+    /**
+     * Whether to make the current workspace the one opened by default on the next launch
+     */
+    readonly setCurrentWorkspace?: boolean;
 }
 
 // #endregion content

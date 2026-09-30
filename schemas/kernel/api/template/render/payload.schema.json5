@@ -2,14 +2,14 @@
  * schemas/kernel/api/template/render/payload.schema.json5
  * 渲染模板文件
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#render-a-template
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/template.go#L68-L94
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/template.go#L62-L120
  * @pathname: /api/template/render
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/template/render/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -23,6 +23,11 @@
                 'path',
             ],
             properties: {
+                content: {
+                    // 未保存的模板内容，仅在预览模式下可用（path 仍用于解析同目录下的子模板）
+                    type: 'string',
+                    description: 'Unsaved template content, only available in preview mode (`path` is still used to resolve sub-templates in the same directory)',
+                },
                 id: {
                     /**
                      * 文档块 ID, 用于渲染模板时调用一些文档相关的内置属性与方法
@@ -32,10 +37,26 @@
                     description: 'document block ID',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
+                mode: {
+                    // 渲染模式，未指定时根据 preview 决定
+                    type: 'string',
+                    title: 'TTemplateRenderMode',
+                    description: 'Render mode, determined by `preview` when omitted\n- `preview`: Preview, `createDocTree` is evaluated but not stored\n- `editorInsert`: Insert in the editor, the document tree plan is stored',
+                    enum: [
+                        'editorInsert', // 在编辑器中插入
+                        'preview', // 预览
+                    ],
+                },
                 path: {
                     // Kramdown 模板文件(*.md)的绝对路径
                     type: 'string',
                     description: 'the absolute path of Kramdown template file',
+                },
+                preview: {
+                    // 是否为预览模式（指定 mode 时忽略）
+                    type: 'boolean',
+                    description: 'Whether it is in preview mode (ignored when `mode` is specified)',
+                    default: false,
                 },
             },
         },

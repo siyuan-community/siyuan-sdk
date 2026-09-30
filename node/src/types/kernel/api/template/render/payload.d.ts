@@ -20,13 +20,35 @@
  */
 export interface IPayload {
     /**
+     * Unsaved template content, only available in preview mode (`path` is still used to resolve
+     * sub-templates in the same directory)
+     */
+    readonly content?: string;
+    /**
      * document block ID
      */
     readonly id: string;
     /**
+     * Render mode, determined by `preview` when omitted
+     * - `preview`: Preview, `createDocTree` is evaluated but not stored
+     * - `editorInsert`: Insert in the editor, the document tree plan is stored
+     */
+    readonly mode?: TTemplateRenderMode;
+    /**
      * the absolute path of Kramdown template file
      */
     readonly path: string;
+    /**
+     * Whether it is in preview mode (ignored when `mode` is specified)
+     */
+    readonly preview?: boolean;
 }
+
+/**
+ * Render mode, determined by `preview` when omitted
+ * - `preview`: Preview, `createDocTree` is evaluated but not stored
+ * - `editorInsert`: Insert in the editor, the document tree plan is stored
+ */
+export type TTemplateRenderMode = "editorInsert" | "preview";
 
 // #endregion content

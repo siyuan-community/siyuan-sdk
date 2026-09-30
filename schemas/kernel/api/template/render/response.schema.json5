@@ -2,14 +2,14 @@
  * schemas/kernel/api/template/render/response.schema.json5
  * 渲染模板文件
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#render-a-template
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/template.go#L68-L94
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/template.go#L62-L120
  * @pathname: /api/template/render
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/template/render/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -57,6 +57,84 @@
                     // 模板渲染结果的 DOM 字符串
                     type: 'string',
                     description: 'the DOM string of template rendering result',
+                },
+                docTreePlan: {
+                    // 模板通过 createDocTree 声明的子文档计划，仅在模板创建了文档时返回
+                    $ref: '#/$defs/docTreePlan',
+                },
+            },
+        },
+        docTreePlan: {
+            title: 'IDocTreePlan',
+            description: 'Plan of the sub-documents declared by the template through `createDocTree`',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'count',
+                'id',
+                'nodes',
+            ],
+            properties: {
+                count: {
+                    // 计划创建的文档数量
+                    type: 'integer',
+                    description: 'Number of documents to create',
+                },
+                id: {
+                    // 计划 ID，仅在 editorInsert 模式下生成，预览时为空字符串
+                    type: 'string',
+                    description: 'Plan ID, only generated in `editorInsert` mode, an empty string in preview',
+                },
+                nodes: {
+                    // 计划创建的文档（按先序遍历展开）
+                    type: 'array',
+                    description: 'Documents to create (flattened in pre-order)',
+                    items: {
+                        $ref: '#/$defs/docTreePlan_node',
+                    },
+                },
+            },
+        },
+        docTreePlan_node: {
+            title: 'IDocTreePlanNode',
+            description: 'A document to create',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'depth',
+                'hPath',
+                'id',
+                'parentID',
+                'title',
+            ],
+            properties: {
+                depth: {
+                    // 层级（从 1 开始）
+                    type: 'integer',
+                    description: 'Depth (starting from 1)',
+                    minimum: 1,
+                },
+                hPath: {
+                    // 可读路径
+                    type: 'string',
+                    description: 'Human-readable path',
+                },
+                id: {
+                    // 文档 ID
+                    type: 'string',
+                    description: 'Document ID',
+                },
+                parentID: {
+                    // 上级文档 ID，第一层为渲染模板的目标文档 ID
+                    type: 'string',
+                    description: 'Parent document ID, the target document of the rendering for the first level',
+                },
+                title: {
+                    // 文档标题
+                    type: 'string',
+                    description: 'Document title',
                 },
             },
         },

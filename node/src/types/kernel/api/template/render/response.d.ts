@@ -38,10 +38,55 @@ export interface IData {
      * the DOM string of template rendering result
      */
     readonly content: string;
+    readonly docTreePlan?: IDocTreePlan;
     /**
      * the absolute path of Kramdown template file
      */
     readonly path: string;
+}
+
+/**
+ * Plan of the sub-documents declared by the template through `createDocTree`
+ */
+export interface IDocTreePlan {
+    /**
+     * Number of documents to create
+     */
+    readonly count: number;
+    /**
+     * Plan ID, only generated in `editorInsert` mode, an empty string in preview
+     */
+    readonly id: string;
+    /**
+     * Documents to create (flattened in pre-order)
+     */
+    readonly nodes: IDocTreePlanNode[];
+}
+
+/**
+ * A document to create
+ */
+export interface IDocTreePlanNode {
+    /**
+     * Depth (starting from 1)
+     */
+    readonly depth: number;
+    /**
+     * Human-readable path
+     */
+    readonly hPath: string;
+    /**
+     * Document ID
+     */
+    readonly id: string;
+    /**
+     * Parent document ID, the target document of the rendering for the first level
+     */
+    readonly parentID: string;
+    /**
+     * Document title
+     */
+    readonly title: string;
 }
 
 // #endregion content

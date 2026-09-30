@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/template/render/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -14,14 +14,32 @@
                 "path"
             ],
             "properties": {
+                "content": {
+                    "type": "string",
+                    "description": "Unsaved template content, only available in preview mode (`path` is still used to resolve sub-templates in the same directory)"
+                },
                 "id": {
                     "type": "string",
                     "description": "document block ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
                 },
+                "mode": {
+                    "type": "string",
+                    "title": "TTemplateRenderMode",
+                    "description": "Render mode, determined by `preview` when omitted\n- `preview`: Preview, `createDocTree` is evaluated but not stored\n- `editorInsert`: Insert in the editor, the document tree plan is stored",
+                    "enum": [
+                        "editorInsert",
+                        "preview"
+                    ]
+                },
                 "path": {
                     "type": "string",
                     "description": "the absolute path of Kramdown template file"
+                },
+                "preview": {
+                    "type": "boolean",
+                    "description": "Whether it is in preview mode (ignored when `mode` is specified)",
+                    "default": false
                 }
             }
         }

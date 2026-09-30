@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/template/render/response.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -45,6 +45,73 @@
                 "content": {
                     "type": "string",
                     "description": "the DOM string of template rendering result"
+                },
+                "docTreePlan": {
+                    "$ref": "#/$defs/docTreePlan"
+                }
+            }
+        },
+        "docTreePlan": {
+            "title": "IDocTreePlan",
+            "description": "Plan of the sub-documents declared by the template through `createDocTree`",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "count",
+                "id",
+                "nodes"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "description": "Number of documents to create"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Plan ID, only generated in `editorInsert` mode, an empty string in preview"
+                },
+                "nodes": {
+                    "type": "array",
+                    "description": "Documents to create (flattened in pre-order)",
+                    "items": {
+                        "$ref": "#/$defs/docTreePlan_node"
+                    }
+                }
+            }
+        },
+        "docTreePlan_node": {
+            "title": "IDocTreePlanNode",
+            "description": "A document to create",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "depth",
+                "hPath",
+                "id",
+                "parentID",
+                "title"
+            ],
+            "properties": {
+                "depth": {
+                    "type": "integer",
+                    "description": "Depth (starting from 1)",
+                    "minimum": 1
+                },
+                "hPath": {
+                    "type": "string",
+                    "description": "Human-readable path"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Document ID"
+                },
+                "parentID": {
+                    "type": "string",
+                    "description": "Parent document ID, the target document of the rendering for the first level"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Document title"
                 }
             }
         }

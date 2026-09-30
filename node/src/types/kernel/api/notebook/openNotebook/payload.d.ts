@@ -20,6 +20,11 @@
  */
 export interface IPayload {
     /**
+     * ID of the frontend app sending the request, the start document is opened in this app when
+     * opening a user guide
+     */
+    readonly app?: string;
+    /**
      * notebook ID
      */
     readonly notebook: string;

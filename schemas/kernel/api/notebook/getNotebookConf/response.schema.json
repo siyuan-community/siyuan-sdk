@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/getNotebookConf/response.schema.json",
-    "$comment": "v3.0.12",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -59,11 +59,14 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "boxCrypt",
                 "closed",
                 "dailyNoteSavePath",
                 "dailyNoteTemplatePath",
                 "docCreateSaveBox",
                 "docCreateSavePath",
+                "docCreateTemplatePath",
+                "encrypted",
                 "icon",
                 "name",
                 "refCreateSaveBox",
@@ -72,6 +75,17 @@
                 "sortMode"
             ],
             "properties": {
+                "boxCrypt": {
+                    "description": "Key wrapping parameters of the encrypted notebook, `null` for notebooks that are not encrypted and for non-administrator roles",
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/$defs/boxCrypt"
+                        }
+                    ]
+                },
                 "closed": {
                     "type": "boolean",
                     "description": "notebook open state"
@@ -91,6 +105,14 @@
                 "docCreateSavePath": {
                     "type": "string",
                     "description": "New document save location"
+                },
+                "docCreateTemplatePath": {
+                    "type": "string",
+                    "description": "Template path for new documents (relative to `data/templates/`), the global setting is used when empty"
+                },
+                "encrypted": {
+                    "type": "boolean",
+                    "description": "Whether the notebook is encrypted"
                 },
                 "icon": {
                     "type": "string",
@@ -117,6 +139,46 @@
                     "type": "integer",
                     "description": "document sorting mode",
                     "minimum": 0
+                }
+            }
+        },
+        "boxCrypt": {
+            "title": "IBoxCrypt",
+            "description": "Key wrapping parameters of an encrypted notebook",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "createdAt",
+                "spec",
+                "wrapNonce",
+                "wrappedDEK"
+            ],
+            "properties": {
+                "createdAt": {
+                    "type": "integer",
+                    "description": "Creation time (Unix timestamp, unit: ms)"
+                },
+                "metadata": {
+                    "type": "string",
+                    "description": "Encrypted metadata (base64), omitted when empty"
+                },
+                "spec": {
+                    "type": "integer",
+                    "description": "Version of the key wrapping specification"
+                },
+                "wrapNonce": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Nonce used to wrap the data encryption key (base64)"
+                },
+                "wrappedDEK": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Data encryption key wrapped with the KEK (base64)"
                 }
             }
         }

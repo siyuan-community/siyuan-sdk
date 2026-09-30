@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/setNotebookConf/payload.schema.json",
-    "$comment": "v3.0.12",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -29,19 +29,7 @@
             "description": "notebook configuration",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-                "closed",
-                "dailyNoteSavePath",
-                "dailyNoteTemplatePath",
-                "docCreateSaveBox",
-                "docCreateSavePath",
-                "icon",
-                "name",
-                "refCreateSaveBox",
-                "refCreateSavePath",
-                "sort",
-                "sortMode"
-            ],
+            "required": [],
             "properties": {
                 "closed": {
                     "type": "boolean",
@@ -62,6 +50,10 @@
                 "docCreateSavePath": {
                     "type": "string",
                     "description": "New document save location"
+                },
+                "docCreateTemplatePath": {
+                    "type": "string",
+                    "description": "Template path for new documents (relative to `data/templates/`), the global setting is used when empty"
                 },
                 "icon": {
                     "type": "string",

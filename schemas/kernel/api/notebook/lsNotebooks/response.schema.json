@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/lsNotebooks/response.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -34,9 +34,14 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "boxDocEnabled",
                 "notebooks"
             ],
             "properties": {
+                "boxDocEnabled": {
+                    "type": "boolean",
+                    "description": "Whether notebook documents are enabled (a notebook itself can hold content)"
+                },
                 "notebooks": {
                     "$ref": "#/$defs/notebooks"
                 }
@@ -56,6 +61,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "encrypted",
                 "id",
                 "name",
                 "icon",
@@ -64,7 +70,9 @@
                 "closed",
                 "newFlashcardCount",
                 "dueFlashcardCount",
-                "flashcardCount"
+                "flashcardCount",
+                "subFileCount",
+                "unlocked"
             ],
             "properties": {
                 "id": {
@@ -112,8 +120,36 @@
                     "type": "integer",
                     "description": "the count of flash card",
                     "minimum": 0
+                },
+                "encrypted": {
+                    "type": "boolean",
+                    "description": "Whether the notebook is encrypted"
+                },
+                "state": {
+                    "$ref": "#/$defs/state"
+                },
+                "subFileCount": {
+                    "type": "integer",
+                    "description": "Number of visible documents in the root of the notebook (only counted when notebook documents are enabled, otherwise `0`)",
+                    "minimum": 0
+                },
+                "unlocked": {
+                    "type": "boolean",
+                    "description": "Whether the encrypted notebook is unlocked, `false` for notebooks that are not encrypted"
                 }
             }
+        },
+        "state": {
+            "title": "TNotebookState",
+            "type": "string",
+            "description": "State of the encrypted notebook",
+            "enum": [
+                "Error",
+                "Locked",
+                "Locking",
+                "Unlocked",
+                "Unlocking"
+            ]
         }
     }
 }

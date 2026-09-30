@@ -2,14 +2,14 @@
  * schemas/kernel/api/notebook/lsNotebooks/response.schema.json5
  * 列出所有笔记本
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#list-notebooks
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/notebook.go#L316-L344
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/notebook.go#L379-L440
  * @pathname: /api/notebook/lsNotebooks
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/lsNotebooks/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -44,9 +44,15 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'boxDocEnabled',
                 'notebooks',
             ],
             properties: {
+                boxDocEnabled: {
+                    // 是否启用了笔记本文档（笔记本本身也可以记录内容）
+                    type: 'boolean',
+                    description: 'Whether notebook documents are enabled (a notebook itself can hold content)',
+                },
                 notebooks: {
                     $ref: '#/$defs/notebooks',
                 },
@@ -68,6 +74,7 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'encrypted',
                 'id',
                 'name',
                 'icon',
@@ -77,6 +84,8 @@
                 'newFlashcardCount',
                 'dueFlashcardCount',
                 'flashcardCount',
+                'subFileCount',
+                'unlocked',
             ],
             properties: {
                 id: {
@@ -134,7 +143,40 @@
                     description: 'the count of flash card',
                     minimum: 0,
                 },
+                encrypted: {
+                    // 是否为加密笔记本
+                    type: 'boolean',
+                    description: 'Whether the notebook is encrypted',
+                },
+                state: {
+                    // 加密笔记本的状态，仅加密笔记本包含该字段
+                    $ref: '#/$defs/state',
+                },
+                subFileCount: {
+                    // 笔记本根目录下可见的文档数量（仅启用笔记本文档时计算，否则为 0）
+                    type: 'integer',
+                    description: 'Number of visible documents in the root of the notebook (only counted when notebook documents are enabled, otherwise `0`)',
+                    minimum: 0,
+                },
+                unlocked: {
+                    // 加密笔记本是否已解锁，非加密笔记本为 false
+                    type: 'boolean',
+                    description: 'Whether the encrypted notebook is unlocked, `false` for notebooks that are not encrypted',
+                },
             },
+        },
+        state: {
+            title: 'TNotebookState',
+            type: 'string',
+
+            description: 'State of the encrypted notebook',
+            enum: [
+                'Error', // 加密配置异常或解锁失败
+                'Locked', // 已锁定
+                'Locking', // 锁定中
+                'Unlocked', // 已解锁
+                'Unlocking', // 解锁中
+            ],
         },
     },
 }

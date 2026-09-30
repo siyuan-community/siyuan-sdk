@@ -50,6 +50,10 @@ export interface INotebook {
      */
     readonly dueFlashcardCount: number;
     /**
+     * Whether the notebook is encrypted
+     */
+    readonly encrypted: boolean;
+    /**
      * the count of flash card
      */
     readonly flashcardCount: number;
@@ -77,6 +81,21 @@ export interface INotebook {
      * document sorting mode
      */
     readonly sortMode: number;
+    readonly state?: TNotebookState;
+    /**
+     * Number of visible documents in the root of the notebook (only counted when notebook
+     * documents are enabled, otherwise `0`)
+     */
+    readonly subFileCount: number;
+    /**
+     * Whether the encrypted notebook is unlocked, `false` for notebooks that are not encrypted
+     */
+    readonly unlocked: boolean;
 }
+
+/**
+ * State of the encrypted notebook
+ */
+export type TNotebookState = "Error" | "Locked" | "Locking" | "Unlocked" | "Unlocking";
 
 // #endregion content

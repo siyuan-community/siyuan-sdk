@@ -35,6 +35,11 @@ export interface IResponse {
  */
 export interface IData {
     /**
+     * Key wrapping parameters of the encrypted notebook, `null` for notebooks that are not
+     * encrypted
+     */
+    readonly boxCrypt: IBoxCrypt | null;
+    /**
      * notebook open state
      */
     readonly closed: boolean;
@@ -54,6 +59,15 @@ export interface IData {
      * New document save location
      */
     readonly docCreateSavePath: string;
+    /**
+     * Template path for new documents (relative to `data/templates/`), the global setting is
+     * used when empty
+     */
+    readonly docCreateTemplatePath: string;
+    /**
+     * Whether the notebook is encrypted
+     */
+    readonly encrypted: boolean;
     /**
      * notebook icon
      */
@@ -78,6 +92,32 @@ export interface IData {
      * document sorting mode
      */
     readonly sortMode: number;
+}
+
+/**
+ * Key wrapping parameters of an encrypted notebook
+ */
+export interface IBoxCrypt {
+    /**
+     * Creation time (Unix timestamp, unit: ms)
+     */
+    readonly createdAt: number;
+    /**
+     * Encrypted metadata (base64), omitted when empty
+     */
+    readonly metadata?: string;
+    /**
+     * Version of the key wrapping specification
+     */
+    readonly spec: number;
+    /**
+     * Nonce used to wrap the data encryption key (base64)
+     */
+    readonly wrapNonce: null | string;
+    /**
+     * Data encryption key wrapped with the KEK (base64)
+     */
+    readonly wrappedDEK: null | string;
 }
 
 // #endregion content

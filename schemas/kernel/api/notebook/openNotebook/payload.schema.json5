@@ -2,14 +2,14 @@
  * schemas/kernel/api/notebook/openNotebook/payload.schema.json5
  * 打开笔记本
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#open-a-notebook
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/notebook.go#L165-L204
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/notebook.go#L207-L275
  * @pathname: /api/notebook/openNotebook
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/openNotebook/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -22,6 +22,11 @@
                 'notebook',
             ],
             properties: {
+                app: {
+                    // 发起请求的前端应用 ID，打开用户指南时在该应用中打开起始文档
+                    type: 'string',
+                    description: 'ID of the frontend app sending the request, the start document is opened in this app when opening a user guide',
+                },
                 notebook: {
                     type: 'string',
                     description: 'notebook ID',

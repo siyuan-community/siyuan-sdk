@@ -2,14 +2,14 @@
  * schemas/kernel/api/notebook/setNotebookConf/response.schema.json5
  * 设置笔记本配置
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#save-notebook-configuration
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.12/kernel/api/notebook.go#L264-L332
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/notebook.go#L323-L377
  * @pathname: /api/notebook/setNotebookConf
- * @version: 3.0.12
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/notebook/setNotebookConf/response.schema.json5',
-    $comment: 'v3.0.12',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -44,11 +44,14 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'boxCrypt',
                 'closed',
                 'dailyNoteSavePath',
                 'dailyNoteTemplatePath',
                 'docCreateSaveBox',
                 'docCreateSavePath',
+                'docCreateTemplatePath',
+                'encrypted',
                 'icon',
                 'name',
                 'refCreateSaveBox',
@@ -57,6 +60,18 @@
                 'sortMode',
             ],
             properties: {
+                boxCrypt: {
+                    // 加密笔记本的密钥封装参数，非加密笔记本为 null
+                    description: 'Key wrapping parameters of the encrypted notebook, `null` for notebooks that are not encrypted',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            $ref: '#/$defs/boxCrypt',
+                        },
+                    ],
+                },
                 closed: {
                     // 笔记本是否关闭
                     type: 'boolean',
@@ -81,6 +96,16 @@
                     // 新建文档存放位置
                     type: 'string',
                     description: 'New document save location',
+                },
+                docCreateTemplatePath: {
+                    // 新建文档使用的模板路径（相对于 data/templates/），为空时使用全局设置
+                    type: 'string',
+                    description: 'Template path for new documents (relative to `data/templates/`), the global setting is used when empty',
+                },
+                encrypted: {
+                    // 是否为加密笔记本
+                    type: 'boolean',
+                    description: 'Whether the notebook is encrypted',
                 },
                 icon: {
                     // 笔记本图标
@@ -113,6 +138,52 @@
                     type: 'integer',
                     description: 'document sorting mode',
                     minimum: 0,
+                },
+            },
+        },
+        boxCrypt: {
+            title: 'IBoxCrypt',
+            description: 'Key wrapping parameters of an encrypted notebook',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'createdAt',
+                'spec',
+                'wrapNonce',
+                'wrappedDEK',
+            ],
+            properties: {
+                createdAt: {
+                    // 创建时间（Unix 时间戳，单位: ms）
+                    type: 'integer',
+                    description: 'Creation time (Unix timestamp, unit: ms)',
+                },
+                metadata: {
+                    // 加密的元数据（base64），为空时不返回
+                    type: 'string',
+                    description: 'Encrypted metadata (base64), omitted when empty',
+                },
+                spec: {
+                    // 密钥封装规范版本
+                    type: 'integer',
+                    description: 'Version of the key wrapping specification',
+                },
+                wrapNonce: {
+                    // 封装数据加密密钥使用的 nonce（base64）
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'Nonce used to wrap the data encryption key (base64)',
+                },
+                wrappedDEK: {
+                    // 使用 KEK 封装的数据加密密钥（base64）
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'Data encryption key wrapped with the KEK (base64)',
                 },
             },
         },

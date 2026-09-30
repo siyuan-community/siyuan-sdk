@@ -33,47 +33,52 @@ export interface IConf {
     /**
      * notebook open state
      */
-    readonly closed: boolean;
+    readonly closed?: boolean;
     /**
      * the path of new daily note
      */
-    readonly dailyNoteSavePath: string;
+    readonly dailyNoteSavePath?: string;
     /**
      * the template file path of new daily note
      */
-    readonly dailyNoteTemplatePath: string;
+    readonly dailyNoteTemplatePath?: string;
     /**
      * New document save notebook
      */
-    readonly docCreateSaveBox: string;
+    readonly docCreateSaveBox?: string;
     /**
      * New document save location
      */
-    readonly docCreateSavePath: string;
+    readonly docCreateSavePath?: string;
+    /**
+     * Template path for new documents (relative to `data/templates/`), the global setting is
+     * used when empty
+     */
+    readonly docCreateTemplatePath?: string;
     /**
      * notebook icon
      */
-    readonly icon: string;
+    readonly icon?: string;
     /**
      * notebook name
      */
-    readonly name: string;
+    readonly name?: string;
     /**
      * The notebook that was stored when a new document was created using block references
      */
-    readonly refCreateSaveBox: string;
+    readonly refCreateSaveBox?: string;
     /**
      * The document path that was stored when a new document was created using block references
      */
-    readonly refCreateSavePath: string;
+    readonly refCreateSavePath?: string;
     /**
      * sequence number
      */
-    readonly sort: number;
+    readonly sort?: number;
     /**
      * document sorting mode
      */
-    readonly sortMode: number;
+    readonly sortMode?: number;
 }
 
 // #endregion content

@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/search/fullTextSearchBlock/payload.schema.json",
-    "$comment": "v2.10.5",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -81,6 +81,19 @@
                 "types": {
                     "description": "The type of block that the search results contain",
                     "$ref": "#/$defs/types"
+                },
+                "notebook": {
+                    "type": "string",
+                    "description": "ID of the encrypted notebook to search, required for encrypted notebooks (use `paths` to limit the range to normal notebooks)",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "searchHPath": {
+                    "type": "boolean",
+                    "description": "Whether keyword search also matches document paths\n@defaultValue true",
+                    "default": true
+                },
+                "subTypes": {
+                    "$ref": "#/$defs/subTypes"
                 }
             }
         },
@@ -91,14 +104,29 @@
             "additionalProperties": false,
             "required": [],
             "properties": {
+                "audioBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain audio blocks\n@defaultValue false",
+                    "default": false
+                },
                 "blockquote": {
                     "type": "boolean",
                     "description": "Search results contain blockquote blocks\n@defaultValue false",
                     "default": false
                 },
+                "callout": {
+                    "type": "boolean",
+                    "description": "Search results contain callouts\n@defaultValue false",
+                    "default": false
+                },
                 "codeBlock": {
                     "type": "boolean",
                     "description": "Search results contain code blocks\n@defaultValue false",
+                    "default": false
+                },
+                "customBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain custom blocks\n@defaultValue false",
                     "default": false
                 },
                 "databaseBlock": {
@@ -126,6 +154,11 @@
                     "description": "Search results contain html blocks\n@defaultValue false",
                     "default": false
                 },
+                "iframeBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain IFrame blocks\n@defaultValue false",
+                    "default": false
+                },
                 "list": {
                     "type": "boolean",
                     "description": "Search results contain list blocks\n@defaultValue false",
@@ -141,6 +174,16 @@
                     "description": "Search results contain math blocks\n@defaultValue false",
                     "default": false
                 },
+                "mindmap": {
+                    "type": "boolean",
+                    "description": "Search results contain mind map blocks\n@defaultValue false",
+                    "default": false
+                },
+                "mindmapItem": {
+                    "type": "boolean",
+                    "description": "Search results contain mind map item blocks\n@defaultValue false",
+                    "default": false
+                },
                 "paragraph": {
                     "type": "boolean",
                     "description": "Search results contain paragraph blocks\n@defaultValue false",
@@ -151,10 +194,99 @@
                     "description": "Search results contain super blocks\n@defaultValue false",
                     "default": false
                 },
+                "tabItem": {
+                    "type": "boolean",
+                    "description": "Search results contain tab item blocks\n@defaultValue false",
+                    "default": false
+                },
                 "table": {
                     "type": "boolean",
                     "description": "Search results contain table blocks\n@defaultValue false",
                     "default": false
+                },
+                "tabs": {
+                    "type": "boolean",
+                    "description": "Search results contain tabbed blocks\n@defaultValue false",
+                    "default": false
+                },
+                "videoBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain video blocks\n@defaultValue false",
+                    "default": false
+                },
+                "widgetBlock": {
+                    "type": "boolean",
+                    "description": "Search results contain widget blocks\n@defaultValue false",
+                    "default": false
+                }
+            }
+        },
+        "subTypes": {
+            "title": "ISubTypes",
+            "description": "Block subtype filter, all subtypes of a type match when none of its subtypes is `true`",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "heading": {
+                    "$ref": "#/$defs/subTypes_heading"
+                },
+                "list": {
+                    "$ref": "#/$defs/subTypes_list"
+                },
+                "listItem": {
+                    "$ref": "#/$defs/subTypes_list"
+                }
+            }
+        },
+        "subTypes_heading": {
+            "title": "ISubTypesHeading",
+            "description": "Heading levels",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "h1": {
+                    "type": "boolean",
+                    "description": "Heading 1"
+                },
+                "h2": {
+                    "type": "boolean",
+                    "description": "Heading 2"
+                },
+                "h3": {
+                    "type": "boolean",
+                    "description": "Heading 3"
+                },
+                "h4": {
+                    "type": "boolean",
+                    "description": "Heading 4"
+                },
+                "h5": {
+                    "type": "boolean",
+                    "description": "Heading 5"
+                },
+                "h6": {
+                    "type": "boolean",
+                    "description": "Heading 6"
+                }
+            }
+        },
+        "subTypes_list": {
+            "title": "ISubTypesList",
+            "description": "List types",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "o": {
+                    "type": "boolean",
+                    "description": "Ordered list"
+                },
+                "t": {
+                    "type": "boolean",
+                    "description": "Task list"
+                },
+                "u": {
+                    "type": "boolean",
+                    "description": "Unordered list"
                 }
             }
         }

@@ -117,7 +117,11 @@ export interface IBlock {
      */
     readonly name: string;
     /**
-     * Parent block ID
+     * Heading number, not returned by this API
+     */
+    readonly number?: string;
+    /**
+     * Parent block ID, an empty string for document blocks
      */
     readonly parentID: string;
     /**
@@ -125,27 +129,37 @@ export interface IBlock {
      */
     readonly path: string;
     /**
-     * The block ID list of the block reference (the current block is referenced by these blocks)
+     * Number of references to the block (only set on child blocks when grouped by document)
      */
-    readonly refs: null | string[];
+    readonly refCount: number;
+    /**
+     * Blocks referencing the current block, always `null` in this API
+     */
+    readonly refs: IBlock[] | null;
     /**
      * Block reference text
      */
     readonly refText: string;
     /**
+     * Review state of the flashcard, always `null` in this API
+     */
+    readonly riffCard: IRiffCard | null;
+    /**
      * Flash card ID
      */
     readonly riffCardID: string;
-    /**
-     * Flash card review count
-     */
-    readonly riffCardReps: number;
     /**
      * Document block ID
      */
     readonly rootID: string;
     /**
      * Block sort priority
+     * - `0`: Document block
+     * - `5`: Heading block
+     * - `10`: Paragraph, code, math, table and HTML blocks
+     * - `20`: List, list item, blockquote and callout blocks
+     * - `30`: Super block and database block
+     * - `100`: Other blocks
      */
     readonly sort: number;
     /**
@@ -183,6 +197,36 @@ export interface Ial {
      */
     readonly updated: string;
     [property: string]: string;
+}
+
+/**
+ * Review state of a flashcard
+ */
+export interface IRiffCard {
+    /**
+     * Due time (RFC 3339)
+     */
+    readonly due: string;
+    /**
+     * Number of lapses
+     */
+    readonly lapses: number;
+    /**
+     * Last review time (RFC 3339)
+     */
+    readonly lastReview: string;
+    /**
+     * Number of reviews
+     */
+    readonly reps: number;
+    /**
+     * Card state
+     * - `0`: New
+     * - `1`: Learning
+     * - `2`: Review
+     * - `3`: Relearning
+     */
+    readonly state: number;
 }
 
 export type SubTypeEnum = "" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "o" | "t" | "u";

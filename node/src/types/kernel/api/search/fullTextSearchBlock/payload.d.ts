@@ -36,6 +36,11 @@ export interface IPayload {
      */
     readonly method?: number;
     /**
+     * ID of the encrypted notebook to search, required for encrypted notebooks (use `paths` to
+     * limit the range to normal notebooks)
+     */
+    readonly notebook?: string;
+    /**
      * Search result sorting scheme
      * - `0`: Block type (default)
      * - `1`: Ascending by creation time
@@ -70,9 +75,72 @@ export interface IPayload {
      */
     readonly query?: string;
     /**
+     * Whether keyword search also matches document paths
+     * @defaultValue true
+     */
+    readonly searchHPath?: boolean;
+    readonly subTypes?: ISubTypes;
+    /**
      * The type of block that the search results contain
      */
     readonly types?: ITypes;
+}
+
+/**
+ * Block subtype filter, all subtypes of a type match when none of its subtypes is `true`
+ */
+export interface ISubTypes {
+    readonly heading?: ISubTypesHeading;
+    readonly list?: ISubTypesList;
+    readonly listItem?: ISubTypesList;
+}
+
+/**
+ * Heading levels
+ */
+export interface ISubTypesHeading {
+    /**
+     * Heading 1
+     */
+    readonly h1?: boolean;
+    /**
+     * Heading 2
+     */
+    readonly h2?: boolean;
+    /**
+     * Heading 3
+     */
+    readonly h3?: boolean;
+    /**
+     * Heading 4
+     */
+    readonly h4?: boolean;
+    /**
+     * Heading 5
+     */
+    readonly h5?: boolean;
+    /**
+     * Heading 6
+     */
+    readonly h6?: boolean;
+}
+
+/**
+ * List types
+ */
+export interface ISubTypesList {
+    /**
+     * Ordered list
+     */
+    readonly o?: boolean;
+    /**
+     * Task list
+     */
+    readonly t?: boolean;
+    /**
+     * Unordered list
+     */
+    readonly u?: boolean;
 }
 
 /**
@@ -82,15 +150,30 @@ export interface IPayload {
  */
 export interface ITypes {
     /**
+     * Search results contain audio blocks
+     * @defaultValue false
+     */
+    readonly audioBlock?: boolean;
+    /**
      * Search results contain blockquote blocks
      * @defaultValue false
      */
     readonly blockquote?: boolean;
     /**
+     * Search results contain callouts
+     * @defaultValue false
+     */
+    readonly callout?: boolean;
+    /**
      * Search results contain code blocks
      * @defaultValue false
      */
     readonly codeBlock?: boolean;
+    /**
+     * Search results contain custom blocks
+     * @defaultValue false
+     */
+    readonly customBlock?: boolean;
     /**
      * Search results contain database blocks
      * @defaultValue false
@@ -117,6 +200,11 @@ export interface ITypes {
      */
     readonly htmlBlock?: boolean;
     /**
+     * Search results contain IFrame blocks
+     * @defaultValue false
+     */
+    readonly iframeBlock?: boolean;
+    /**
      * Search results contain list blocks
      * @defaultValue false
      */
@@ -132,6 +220,16 @@ export interface ITypes {
      */
     readonly mathBlock?: boolean;
     /**
+     * Search results contain mind map blocks
+     * @defaultValue false
+     */
+    readonly mindmap?: boolean;
+    /**
+     * Search results contain mind map item blocks
+     * @defaultValue false
+     */
+    readonly mindmapItem?: boolean;
+    /**
      * Search results contain paragraph blocks
      * @defaultValue false
      */
@@ -142,10 +240,30 @@ export interface ITypes {
      */
     readonly superBlock?: boolean;
     /**
+     * Search results contain tab item blocks
+     * @defaultValue false
+     */
+    readonly tabItem?: boolean;
+    /**
      * Search results contain table blocks
      * @defaultValue false
      */
     readonly table?: boolean;
+    /**
+     * Search results contain tabbed blocks
+     * @defaultValue false
+     */
+    readonly tabs?: boolean;
+    /**
+     * Search results contain video blocks
+     * @defaultValue false
+     */
+    readonly videoBlock?: boolean;
+    /**
+     * Search results contain widget blocks
+     * @defaultValue false
+     */
+    readonly widgetBlock?: boolean;
 }
 
 // #endregion content

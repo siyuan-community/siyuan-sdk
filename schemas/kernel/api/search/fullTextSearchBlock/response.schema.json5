@@ -2,13 +2,14 @@
  * schemas/kernel/api/search/fullTextSearchBlock/response.schema.json5
  * 全文搜索
  * REF:
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/search.go#L326-L376
  * @pathname: /api/search/fullTextSearchBlock
- * @version: 2.10.5
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/search/fullTextSearchBlock/response.schema.json5',
-    $comment: 'v2.10.5',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -94,6 +95,8 @@
                 'path',
                 'hPath',
                 'id',
+                'refCount',
+                'riffCard',
                 'rootID',
                 'parentID',
                 'name',
@@ -118,7 +121,6 @@
                 'created',
                 'updated',
                 'riffCardID',
-                'riffCardReps',
             ],
             properties: {
                 box: {
@@ -156,10 +158,17 @@
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
                 parentID: {
-                    // 上级块 ID
+                    // 上级块 ID，文档块为空字符串
                     type: 'string',
-                    description: 'Parent block ID',
-                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                    description: 'Parent block ID, an empty string for document blocks',
+                    oneOf: [
+                        {
+                            const: '',
+                        },
+                        {
+                            pattern: '^\\d{14}-[0-9a-z]{7}$',
+                        },
+                    ],
                 },
                 name: {
                     // 块名称
@@ -225,15 +234,14 @@
                     description: 'Block reference text',
                 },
                 refs: {
-                    // 块引用列表 (当前块被这些块引用)
+                    // 引用当前块的块列表，该 API 始终返回 null
                     type: [
                         'array',
                         'null',
                     ],
-                    description: 'The block ID list of the block reference (the current block is referenced by these blocks)',
+                    description: 'Blocks referencing the current block, always `null` in this API',
                     items: {
-                        type: 'string',
-                        pattern: '^\\d{14}-[0-9a-z]{7}$',
+                        $ref: '#/$defs/block',
                     },
                 },
                 defID: {
@@ -267,14 +275,8 @@
                 sort: {
                     // 块排序优先级
                     type: 'integer',
-                    description: 'Block sort priority',
-                    enum: [
-                        0, // 文档块
-                        5, // 标题块
-                        10, // 段落块 / 代码块 / 数学公式块 / 表格块 / HTML 块
-                        20, // 列表块 / 列表项 / 引述块
-                        30, // 超级块
-                    ],
+                    description: 'Block sort priority\n- `0`: Document block\n- `5`: Heading block\n- `10`: Paragraph, code, math, table and HTML blocks\n- `20`: List, list item, blockquote and callout blocks\n- `30`: Super block and database block\n- `100`: Other blocks',
+                    minimum: 0,
                 },
                 created: {
                     // 创建时间
@@ -291,11 +293,28 @@
                     type: 'string',
                     description: 'Flash card ID',
                 },
-                riffCardReps: {
-                    // 闪卡复习次数
+                refCount: {
+                    // 引用该块的数量（按文档分组时仅下级块中的值有效）
                     type: 'integer',
-                    description: 'Flash card review count',
+                    description: 'Number of references to the block (only set on child blocks when grouped by document)',
                     minimum: 0,
+                },
+                riffCard: {
+                    // 闪卡复习状态，该 API 始终返回 null
+                    description: 'Review state of the flashcard, always `null` in this API',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            $ref: '#/$defs/riffCard',
+                        },
+                    ],
+                },
+                number: {
+                    // 标题编号，该 API 不返回
+                    type: 'string',
+                    description: 'Heading number, not returned by this API',
                 },
             },
             oneOf: [
@@ -370,6 +389,53 @@
                     },
                 },
             ],
+        },
+        riffCard: {
+            title: 'IRiffCard',
+            description: 'Review state of a flashcard',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'due',
+                'lapses',
+                'lastReview',
+                'reps',
+                'state',
+            ],
+            properties: {
+                due: {
+                    // 到期时间（RFC 3339）
+                    type: 'string',
+                    description: 'Due time (RFC 3339)',
+                },
+                lapses: {
+                    // 遗忘次数
+                    type: 'integer',
+                    description: 'Number of lapses',
+                },
+                lastReview: {
+                    // 上次复习时间（RFC 3339）
+                    type: 'string',
+                    description: 'Last review time (RFC 3339)',
+                },
+                reps: {
+                    // 复习次数
+                    type: 'integer',
+                    description: 'Number of reviews',
+                },
+                state: {
+                    // 卡片状态
+                    type: 'integer',
+                    description: 'Card state\n- `0`: New\n- `1`: Learning\n- `2`: Review\n- `3`: Relearning',
+                    enum: [
+                        0, // 新卡
+                        1, // 学习中
+                        2, // 复习中
+                        3, // 重新学习中
+                    ],
+                },
+            },
         },
         ial: {
             // 块内联属性表

@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/search/fullTextSearchBlock/response.schema.json",
-    "$comment": "v2.10.5",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -79,6 +79,8 @@
                 "path",
                 "hPath",
                 "id",
+                "refCount",
+                "riffCard",
                 "rootID",
                 "parentID",
                 "name",
@@ -102,8 +104,7 @@
                 "sort",
                 "created",
                 "updated",
-                "riffCardID",
-                "riffCardReps"
+                "riffCardID"
             ],
             "properties": {
                 "box": {
@@ -137,8 +138,15 @@
                 },
                 "parentID": {
                     "type": "string",
-                    "description": "Parent block ID",
-                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                    "description": "Parent block ID, an empty string for document blocks",
+                    "oneOf": [
+                        {
+                            "const": ""
+                        },
+                        {
+                            "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                        }
+                    ]
                 },
                 "name": {
                     "type": "string",
@@ -197,10 +205,9 @@
                         "array",
                         "null"
                     ],
-                    "description": "The block ID list of the block reference (the current block is referenced by these blocks)",
+                    "description": "Blocks referencing the current block, always `null` in this API",
                     "items": {
-                        "type": "string",
-                        "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                        "$ref": "#/$defs/block"
                     }
                 },
                 "defID": {
@@ -231,14 +238,8 @@
                 },
                 "sort": {
                     "type": "integer",
-                    "description": "Block sort priority",
-                    "enum": [
-                        0,
-                        5,
-                        10,
-                        20,
-                        30
-                    ]
+                    "description": "Block sort priority\n- `0`: Document block\n- `5`: Heading block\n- `10`: Paragraph, code, math, table and HTML blocks\n- `20`: List, list item, blockquote and callout blocks\n- `30`: Super block and database block\n- `100`: Other blocks",
+                    "minimum": 0
                 },
                 "created": {
                     "type": "string",
@@ -252,10 +253,25 @@
                     "type": "string",
                     "description": "Flash card ID"
                 },
-                "riffCardReps": {
+                "refCount": {
                     "type": "integer",
-                    "description": "Flash card review count",
+                    "description": "Number of references to the block (only set on child blocks when grouped by document)",
                     "minimum": 0
+                },
+                "riffCard": {
+                    "description": "Review state of the flashcard, always `null` in this API",
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/$defs/riffCard"
+                        }
+                    ]
+                },
+                "number": {
+                    "type": "string",
+                    "description": "Heading number, not returned by this API"
                 }
             },
             "oneOf": [
@@ -324,6 +340,47 @@
                     }
                 }
             ]
+        },
+        "riffCard": {
+            "title": "IRiffCard",
+            "description": "Review state of a flashcard",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "due",
+                "lapses",
+                "lastReview",
+                "reps",
+                "state"
+            ],
+            "properties": {
+                "due": {
+                    "type": "string",
+                    "description": "Due time (RFC 3339)"
+                },
+                "lapses": {
+                    "type": "integer",
+                    "description": "Number of lapses"
+                },
+                "lastReview": {
+                    "type": "string",
+                    "description": "Last review time (RFC 3339)"
+                },
+                "reps": {
+                    "type": "integer",
+                    "description": "Number of reviews"
+                },
+                "state": {
+                    "type": "integer",
+                    "description": "Card state\n- `0`: New\n- `1`: Learning\n- `2`: Review\n- `3`: Relearning",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ]
+                }
+            }
         },
         "ial": {
             "title": "IAL",

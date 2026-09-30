@@ -21,6 +21,7 @@
 - 按内核 `v3.8.6` 调整 API `/api/block/*`：`moveBlock` 的响应数据改为 `null`，`getBlockInfo` 等 API 新增加密笔记本与发布访问相关的参数和字段 | Adjust API `/api/block/*` to kernel `v3.8.6`: the response data of `moveBlock` is now `null`, and `getBlockInfo` and other APIs gain the parameters and fields for encrypted notebooks and publish access
 - 按内核 `v3.8.6` 调整 API `/api/filetree/*`：`searchDocs` 返回的闪卡数量改为数字字符串，`listDocsByPath` 移除 `hidden` 并新增排序方式字段，`getDoc`、`createDocWithMd` 等 API 新增请求参数 | Adjust API `/api/filetree/*` to kernel `v3.8.6`: the flashcard counts returned by `searchDocs` are numeric strings, `listDocsByPath` drops `hidden` and adds sort mode fields, and `getDoc`, `createDocWithMd` and other APIs accept new parameters
 - 按内核 `v3.8.6` 调整 API `/api/notebook/*`：新增加密笔记本相关字段，`setNotebookConf` 支持只提交需要修改的配置项 | Adjust API `/api/notebook/*` to kernel `v3.8.6`: add the fields of encrypted notebooks, and `setNotebookConf` accepts only the settings to change
+- 按内核 `v3.8.6` 调整 API `/api/search/fullTextSearchBlock`：`riffCardReps` 改为 `riffCard`，新增 `refCount`，支持更多块类型与子类型过滤 | Adjust API `/api/search/fullTextSearchBlock` to kernel `v3.8.6`: `riffCardReps` is replaced by `riffCard`, `refCount` is added, and more block types and subtype filters are supported
 
 ## v0.3.14 / 2024-11-20
 

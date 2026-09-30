@@ -13,6 +13,7 @@
 - 重构文档、笔记本与检索测试 | Refactor document, notebook and search tests
 - 重构文件、资源与存储测试 | Refactor file, asset and storage tests
 - 重构系统、网络与广播测试 | Refactor system, network and broadcast tests
+- 移除旧的测试工具函数 | Remove legacy test helpers
 
 ## v0.3.14 / 2024-11-20
 

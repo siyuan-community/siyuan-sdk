@@ -1,0 +1,61 @@
+node/tests/utils/env.ts
+  s_4c1c5e37e8877b::t_018ff2fd9f1da9 1-50
+node/tests/utils/assert.ts
+  s_4c1c5e37e8877b::t_0411b054b14d55 22-23,76
+  s_4c1c5e37e8877b::t_290b5fee0e35df 91
+  s_4c1c5e37e8877b::t_9ea1ae9ad9d373 1-21,24-75,77-90,92-97
+node/.env.example
+  s_4c1c5e37e8877b::t_aa58bf08f9b6a7 1-2
+  s_4c1c5e37e8877b::t_b1affa2e14a130 3-16
+node/tests/utils/client.ts
+  s_4c1c5e37e8877b::t_fa306a72b7f84f 18-19,22-23
+CHANGELOG.md
+  s_4c1c5e37e8877b::t_ca4f70f0c77eb6 11
+node/tests/utils/fixtures.ts
+  s_4c1c5e37e8877b::t_16b113c9b05f45 118,126-134
+  s_4c1c5e37e8877b::t_f0e2a52b7fed33 27-28
+  s_4c1c5e37e8877b::t_768946ca0db0d5 214
+  s_4c1c5e37e8877b::t_793211859b2cbb 202-213,215-226
+  s_4c1c5e37e8877b::t_e4cad41f590ca7 34
+  s_4c1c5e37e8877b::t_b435a1e2469e5f 253-294
+  s_4c1c5e37e8877b::t_0a5783be76e164 227-252
+  s_4c1c5e37e8877b::t_ec9652ebb613f0 52-60
+  s_4c1c5e37e8877b::t_5ea6cfa185beb3 1-26,29-33,35-51,61-117,119-125,135-201,295-311
+node/tests/utils/schema.ts
+  s_4c1c5e37e8877b::t_0f47176c06ffec 16,29-33
+  s_4c1c5e37e8877b::t_a94d21d90668d9 108-130
+node/tests/utils/cleanup.ts
+  s_4c1c5e37e8877b::t_d4cc9fc71b425f 34-36,122-130
+  s_4c1c5e37e8877b::t_cbbb7f997b0741 37
+  s_4c1c5e37e8877b::t_459dfebe835ca0 31-33,61-66,79-89,111-112,114,116-117,119-121
+  s_4c1c5e37e8877b::t_74e6e39cedbd6e 145
+  s_4c1c5e37e8877b::t_c25e1a0e2db789 38
+  s_4c1c5e37e8877b::t_a1bd6861af7a69 67-78
+  s_4c1c5e37e8877b::t_5c6a3f3522d18c 1-30,39-60,90-110,113,115,118,131-144,146-150
+node/tests/setup/global.ts
+  s_4c1c5e37e8877b::t_140e60602beb01 30-38,42-44
+  s_4c1c5e37e8877b::t_07c64e1a9b7d18 1-29,39-41,45-65
+node/tests/env.test.ts
+  s_4c1c5e37e8877b::t_77785788fe15ef 27-29
+node/tests/constants.ts
+  s_4c1c5e37e8877b::t_1e46a1d56153c6 20-37
+node/vite.config.ts
+  s_4c1c5e37e8877b::t_3812476696485b 60,66
+  s_4c1c5e37e8877b::t_06de8898632bed 61-63,65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "856c0d6f5aea0566c8e582b92ce32f61f952bc41",
+  "prompts": {},
+  "sessions": {
+    "s_4c1c5e37e8877b": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_w976kbuotgju",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

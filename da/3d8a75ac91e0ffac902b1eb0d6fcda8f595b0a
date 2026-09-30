@@ -1,0 +1,56 @@
+node/tests/api/network/forwardProxy.test.ts
+  s_4c1c5e37e8877b::t_9f7f2f60d23213 16,18-25,29-42,44-56,58-62,65-67,70-73,76-79,82-83
+  s_4c1c5e37e8877b::t_186b23ef931972 64,69,75,81
+node/tests/api/broadcast/postMessage.test.ts
+  s_4c1c5e37e8877b::t_236d47d6f0629f 16,18-27,31,33-41,43-48,50-52,54-56
+node/tests/api/network/echo.test.ts
+  s_4c1c5e37e8877b::t_8510ee02ff399c 43,55,71
+  s_4c1c5e37e8877b::t_eb53aa176cdcd9 16,18-20,22,24,26,28-29,31-32,34-42,44-54,56-70,72-79,81-88
+node/tests/ws/broadcast.test.ts
+  s_4c1c5e37e8877b::t_dfc1c27a23a206 16-17,20-23,25,27-28,31-32,34-36,39
+node/tests/api/inbox/getShorthand.test.ts
+  s_4c1c5e37e8877b::t_bb5c3186776f9e 45-46
+  s_4c1c5e37e8877b::t_30f15fab81f438 16-17,19,21-29,33-44,47-49
+  s_4c1c5e37e8877b::t_2531ef2bda336d 18
+node/tests/api/system/bootProgress.test.ts
+  s_4c1c5e37e8877b::t_b8f87d2006e7ae 16,18-20,22,24,26,28-41
+node/tests/api/system/currentTime.test.ts
+  s_4c1c5e37e8877b::t_c8156668df3c2f 16-44
+node/tests/api/system/logoutAuth.test.ts
+  s_4c1c5e37e8877b::t_8edb9503f00b64 16-48
+CHANGELOG.md
+  s_4c1c5e37e8877b::t_8c0b442eded37c 15
+node/tests/api/system/version.test.ts
+  s_4c1c5e37e8877b::t_a510f6f5d91fc6 16,18-20,22,24,26,28-40
+node/tests/api/notification/pushErrMsg.test.ts
+  s_4c1c5e37e8877b::t_69a3353521572c 16,18-24,28-48
+node/tests/api/broadcast/getChannels.test.ts
+  s_4c1c5e37e8877b::t_cf39be51d680f3 16-42
+node/tests/utils/websocket.ts
+  s_4c1c5e37e8877b::t_c7367a35d828ca 45,84,87,92-95
+  s_4c1c5e37e8877b::t_efbf3b2eecfd8e 16,19-44,46-66,68-69,71-83,85-86,88-91,96-98
+node/tests/$fetch.test.ts
+  s_4c1c5e37e8877b::t_7fcbdb8c054d1f 16,18-21,23,25,27,29-34,37,41-42,45-52
+node/tests/api/notification/pushMsg.test.ts
+  s_4c1c5e37e8877b::t_931175d93bd0a1 16,18-24,28-48
+node/tests/api/system/getConf.test.ts
+  s_4c1c5e37e8877b::t_572041d005e885 16,18-20,22,24,26,28-39
+node/tests/api/broadcast/getChannelInfo.test.ts
+  s_4c1c5e37e8877b::t_15da233f6b45be 16,18-25,29-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "da3d8a75ac91e0ffac902b1eb0d6fcda8f595b0a",
+  "prompts": {},
+  "sessions": {
+    "s_4c1c5e37e8877b": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_w976kbuotgju",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

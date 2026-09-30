@@ -35,6 +35,10 @@ export interface IResponse {
 
 export interface IDocInfo {
     /**
+     * Document alias, only present in document entries
+     */
+    readonly alias?: string;
+    /**
      * Document Block ID
      */
     readonly box: string;
@@ -43,21 +47,28 @@ export interface IDocInfo {
      */
     readonly boxIcon: string;
     /**
-     * Number of expired cards
+     * Number of due cards (numeric string), only present when `flashcard` is `true` in the
+     * request
      */
-    readonly dueFlashcardCount?: number;
+    readonly dueFlashcardCount?: string;
     /**
-     * Total number of cards
+     * Total number of cards (numeric string), only present when `flashcard` is `true` in the
+     * request
      */
-    readonly flashcardCount?: number;
+    readonly flashcardCount?: string;
     /**
      * The readable path that contains the name of the notebook
      */
     readonly hPath: string;
     /**
-     * Number of new cards
+     * Document name, only present in document entries
      */
-    readonly newFlashcardCount?: number;
+    readonly name?: string;
+    /**
+     * Number of new cards (numeric string), only present when `flashcard` is `true` in the
+     * request
+     */
+    readonly newFlashcardCount?: string;
     /**
      * Directory path
      */

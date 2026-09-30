@@ -20,6 +20,10 @@
  */
 export interface IPayload {
     /**
+     * Callback identifier, attached to the push messages of the move as is
+     */
+    readonly callback?: any;
+    /**
      * document paths list
      */
     readonly fromPaths: string[];

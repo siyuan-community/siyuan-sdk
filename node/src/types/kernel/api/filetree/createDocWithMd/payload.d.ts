@@ -20,6 +20,23 @@
  */
 export interface IPayload {
     /**
+     * Source URL of a web clipping, extra inline Markdown syntax is enabled for articles from
+     * `ld246.com` or `liuyun.io`
+     */
+    readonly clippingHref?: string;
+    /**
+     * Document template path (relative to `data/templates/`), only used when `markdown` is empty
+     */
+    readonly docCreateTemplatePath?: string;
+    /**
+     * ID of the new document, generated automatically when empty
+     */
+    readonly id?: string;
+    /**
+     * Whether to locate the new document in the document tree after creation
+     */
+    readonly listDocTree?: boolean;
+    /**
      * Markdown text (GitLab Flavored Markdown, GFM)
      * REF: https://github.github.com/gfm/
      */
@@ -29,10 +46,27 @@ export interface IPayload {
      */
     readonly notebook: string;
     /**
+     * Parent document ID, used to specify the parent when several parent documents have the
+     * same name
+     */
+    readonly parentID?: string;
+    /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database hpath field
      */
     readonly path: string;
+    /**
+     * Document tags, separated by commas
+     */
+    readonly tags?: string;
+    /**
+     * Whether to mark the document title as empty (the title in `path` is used as a placeholder)
+     */
+    readonly titleEmpty?: boolean;
+    /**
+     * Whether to parse inline math
+     */
+    readonly withMath?: boolean;
 }
 
 // #endregion content

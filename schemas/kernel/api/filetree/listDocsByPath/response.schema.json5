@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/listDocsByPath/response.schema.json5
  * 根据文档文件路径列出文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.4/kernel/api/filetree.go#L627-L675
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/filetree.go#L1130-L1215
  * @pathname: /api/filetree/listDocsByPath
- * @version: 2.10.4
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/listDocsByPath/response.schema.json5',
-    $comment: 'v2.10.4',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -44,6 +44,7 @@
             additionalProperties: false,
             required: [
                 'box',
+                'effectiveSortMode',
                 'path',
                 'files',
             ],
@@ -65,6 +66,13 @@
                         $ref: '#/$defs/file',
                     },
                 },
+                effectiveSortMode: {
+                    // 实际使用的排序方式
+                    type: 'integer',
+                    description: 'Sort mode actually used\n- `0`/`1`: Name ascending/descending\n- `2`/`3`: Modified time ascending/descending\n- `4`/`5`: Natural name ascending/descending\n- `6`: Custom\n- `7`/`8`: Reference count ascending/descending\n- `9`/`10`: Created time ascending/descending\n- `11`/`12`: Size ascending/descending\n- `13`/`14`: Sub-document count ascending/descending\n- `15`: Follow the notebook or document tree setting',
+                    minimum: 0,
+                    maximum: 15,
+                },
             },
         },
         file: {
@@ -74,6 +82,7 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'childrenSortMode',
                 'path',
                 'name',
                 'icon',
@@ -91,7 +100,6 @@
                 'hCtime',
                 'sort',
                 'subFileCount',
-                'hidden',
                 'newFlashcardCount',
                 'dueFlashcardCount',
                 'flashcardCount',
@@ -228,11 +236,6 @@
                     type: 'integer',
                     description: 'sub file count',
                 },
-                hidden: {
-                    // 是否隐藏
-                    type: 'boolean',
-                    description: 'is hidden',
-                },
                 newFlashcardCount: {
                     // 新闪卡数
                     type: 'integer',
@@ -247,6 +250,21 @@
                     // 闪卡总数
                     type: 'integer',
                     description: 'flashcard count',
+                },
+                childrenSortMode: {
+                    // 文档为子文档设置的排序方式，未设置时为 null
+                    type: [
+                        'integer',
+                        'null',
+                    ],
+                    description: 'Sort mode set on the document for its sub-documents, `null` when not set',
+                    minimum: 0,
+                    maximum: 14,
+                },
+                titleEmpty: {
+                    // 文档标题是否被标记为空（此时 name 为占位标题），仅在为 true 时返回
+                    type: 'boolean',
+                    description: 'Whether the document title is marked as empty (`name` is a placeholder in that case), only present when `true`',
                 },
             },
         },

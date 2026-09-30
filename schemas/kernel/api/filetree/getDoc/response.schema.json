@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/getDoc/response.schema.json",
-    "$comment": "v3.1.16",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -38,6 +38,7 @@
                 "box",
                 "content",
                 "eof",
+                "headingNumbers",
                 "id",
                 "isBacklinkExpand",
                 "isSyncing",
@@ -46,6 +47,7 @@
                 "parent2ID",
                 "parentID",
                 "path",
+                "publishAccessRequired",
                 "reqId",
                 "rootID",
                 "scroll",
@@ -163,6 +165,120 @@
                         "NodeBlockQueryEmbed",
                         "NodeAttributeView"
                     ]
+                },
+                "docInfo": {
+                    "$ref": "#/$defs/docInfo"
+                },
+                "headingNumbers": {
+                    "description": "Map from heading block IDs to heading numbers, an empty object when heading numbers are disabled or there are no headings, `null` in some loading modes",
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string",
+                                "examples": [
+                                    "1.2"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "publishAccessRequired": {
+                    "type": "boolean",
+                    "description": "Whether the document requires a password in the publish service (`content` is replaced when required)"
+                }
+            }
+        },
+        "docInfo": {
+            "title": "IDocInfo",
+            "description": "Document information",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "attrViews",
+                "ial",
+                "icon",
+                "id",
+                "name",
+                "refCount",
+                "refIDs",
+                "rootID",
+                "subFileCount"
+            ],
+            "properties": {
+                "attrViews": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Attribute view reference list, `null` when the document is not bound to any database",
+                    "items": {
+                        "$ref": "#/$defs/docInfo_attrView"
+                    }
+                },
+                "ial": {
+                    "type": "object",
+                    "description": "Inline Attribute List (IAL) of the document block",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "Document icon"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Document name"
+                },
+                "refCount": {
+                    "type": "integer",
+                    "description": "The number of references to the document"
+                },
+                "refIDs": {
+                    "type": "array",
+                    "description": "IDs of the blocks referencing the document",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                    }
+                },
+                "rootID": {
+                    "type": "string",
+                    "description": "Document block ID",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "subFileCount": {
+                    "type": "integer",
+                    "description": "The number of sub-documents"
+                }
+            }
+        },
+        "docInfo_attrView": {
+            "title": "IDocInfoAttrView",
+            "description": "Attribute view",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Attribute view ID"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Attribute view name"
                 }
             }
         }

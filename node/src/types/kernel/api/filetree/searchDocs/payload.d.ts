@@ -20,6 +20,10 @@
  */
 export interface IPayload {
     /**
+     * IDs of documents to exclude (their sub-documents are also excluded)
+     */
+    readonly excludeIDs?: string[];
+    /**
      * whether is flashcard
      */
     readonly flashcard?: boolean;

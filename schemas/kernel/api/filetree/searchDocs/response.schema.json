@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/searchDocs/response.schema.json",
-    "$comment": "v2.10.0",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -78,19 +78,27 @@
                     ]
                 },
                 "flashcardCount": {
-                    "type": "integer",
-                    "description": "Total number of cards",
-                    "minimum": 0
+                    "type": "string",
+                    "description": "Total number of cards (numeric string), only present when `flashcard` is `true` in the request",
+                    "pattern": "^\\d+$"
                 },
                 "newFlashcardCount": {
-                    "type": "integer",
-                    "description": "Number of new cards",
-                    "minimum": 0
+                    "type": "string",
+                    "description": "Number of new cards (numeric string), only present when `flashcard` is `true` in the request",
+                    "pattern": "^\\d+$"
                 },
                 "dueFlashcardCount": {
-                    "type": "integer",
-                    "description": "Number of expired cards",
-                    "minimum": 0
+                    "type": "string",
+                    "description": "Number of due cards (numeric string), only present when `flashcard` is `true` in the request",
+                    "pattern": "^\\d+$"
+                },
+                "alias": {
+                    "type": "string",
+                    "description": "Document alias, only present in document entries"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Document name, only present in document entries"
                 }
             }
         }

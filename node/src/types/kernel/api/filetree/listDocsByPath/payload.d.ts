@@ -20,9 +20,18 @@
  */
 export interface IPayload {
     /**
+     * ID of the frontend app sending the request, the hint for exceeding the maximum list count
+     * is only pushed to this app
+     */
+    readonly app?: string;
+    /**
      * whether to list flashcard count
      */
     readonly flashcard?: boolean;
+    /**
+     * Whether to skip the hint when the number of documents exceeds the maximum list count
+     */
+    readonly ignoreMaxListHint?: boolean;
     /**
      * max list count of docs
      * `<= 0`: unlimited
@@ -36,6 +45,10 @@ export interface IPayload {
      * document file/folder path
      */
     readonly path: string;
+    /**
+     * Whether to list hidden documents
+     */
+    readonly showHidden?: boolean;
     /**
      * document sort rule
      * 0: Name Alphabet ASC

@@ -38,6 +38,19 @@ export interface IData {
      * notebook ID
      */
     readonly box: string;
+    /**
+     * Sort mode actually used
+     * - `0`/`1`: Name ascending/descending
+     * - `2`/`3`: Modified time ascending/descending
+     * - `4`/`5`: Natural name ascending/descending
+     * - `6`: Custom
+     * - `7`/`8`: Reference count ascending/descending
+     * - `9`/`10`: Created time ascending/descending
+     * - `11`/`12`: Size ascending/descending
+     * - `13`/`14`: Sub-document count ascending/descending
+     * - `15`: Follow the notebook or document tree setting
+     */
+    readonly effectiveSortMode: number;
     readonly files: IFile[];
     /**
      * document file/folder path
@@ -58,6 +71,10 @@ export interface IFile {
      */
     readonly bookmark: string;
     /**
+     * Sort mode set on the document for its sub-documents, `null` when not set
+     */
+    readonly childrenSortMode: null | number;
+    /**
      * document reference count
      */
     readonly count: number;
@@ -77,10 +94,6 @@ export interface IFile {
      * human readable document created time
      */
     readonly hCtime: string;
-    /**
-     * is hidden
-     */
-    readonly hidden: boolean;
     /**
      * human readable document modified time
      */
@@ -150,6 +163,11 @@ export interface IFile {
      * sub file count
      */
     readonly subFileCount: number;
+    /**
+     * Whether the document title is marked as empty (`name` is a placeholder in that case),
+     * only present when `true`
+     */
+    readonly titleEmpty?: boolean;
 }
 
 // #endregion content

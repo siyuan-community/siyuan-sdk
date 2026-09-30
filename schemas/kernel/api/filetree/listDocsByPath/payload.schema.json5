@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/listDocsByPath/payload.schema.json5
  * 根据文档文件路径列出文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.8/kernel/api/filetree.go#L617-L661
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/filetree.go#L1130-L1215
  * @pathname: /api/filetree/listDocsByPath
- * @version: 2.9.8
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/listDocsByPath/payload.schema.json5',
-    $comment: 'v2.9.8',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -82,6 +82,23 @@
                     // 是否列出闪卡数
                     type: 'boolean',
                     description: 'whether to list flashcard count',
+                    default: false,
+                },
+                app: {
+                    // 发起请求的前端应用 ID，文档数量超过最大列出数量时只向该应用推送提示
+                    type: 'string',
+                    description: 'ID of the frontend app sending the request, the hint for exceeding the maximum list count is only pushed to this app',
+                },
+                ignoreMaxListHint: {
+                    // 文档数量超过最大列出数量时是否不推送提示
+                    type: 'boolean',
+                    description: 'Whether to skip the hint when the number of documents exceeds the maximum list count',
+                    default: false,
+                },
+                showHidden: {
+                    // 是否列出隐藏的文档
+                    type: 'boolean',
+                    description: 'Whether to list hidden documents',
                     default: false,
                 },
             },

@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/searchDocs/response.schema.json5
  * 通过关键词搜索文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.0/kernel/api/filetree.go#L599-L615
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/filetree.go#L1115-L1126
  * @pathname: /api/filetree/searchDocs
- * @version: 2.10.0
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/searchDocs/response.schema.json5',
-    $comment: 'v2.10.0',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -91,22 +91,32 @@
                     ],
                 },
                 flashcardCount: {
-                    // 总卡片数量
-                    type: 'integer',
-                    description: 'Total number of cards',
-                    minimum: 0,
+                    // 总卡片数量（数字字符串），仅在请求 flashcard 为 true 时返回
+                    type: 'string',
+                    description: 'Total number of cards (numeric string), only present when `flashcard` is `true` in the request',
+                    pattern: '^\\d+$',
                 },
                 newFlashcardCount: {
-                    // 新卡片数量
-                    type: 'integer',
-                    description: 'Number of new cards',
-                    minimum: 0,
+                    // 新卡片数量（数字字符串），仅在请求 flashcard 为 true 时返回
+                    type: 'string',
+                    description: 'Number of new cards (numeric string), only present when `flashcard` is `true` in the request',
+                    pattern: '^\\d+$',
                 },
                 dueFlashcardCount: {
-                    // 到期卡片数量
-                    type: 'integer',
-                    description: 'Number of expired cards',
-                    minimum: 0,
+                    // 到期卡片数量（数字字符串），仅在请求 flashcard 为 true 时返回
+                    type: 'string',
+                    description: 'Number of due cards (numeric string), only present when `flashcard` is `true` in the request',
+                    pattern: '^\\d+$',
+                },
+                alias: {
+                    // 文档别名，仅文档条目包含该字段
+                    type: 'string',
+                    description: 'Document alias, only present in document entries',
+                },
+                name: {
+                    // 文档命名，仅文档条目包含该字段
+                    type: 'string',
+                    description: 'Document name, only present in document entries',
                 },
             },
         },

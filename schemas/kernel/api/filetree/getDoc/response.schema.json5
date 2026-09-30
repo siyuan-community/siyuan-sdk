@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/filetree/getDoc/response.schema.json5
  * 获取块 DOM 与相关信息
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.1.16/kernel/api/filetree.go#L1060-L1157
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/filetree.go#L1219-L1323
  * @pathname: /api/filetree/getDoc
- * @version: 3.1.16
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/getDoc/response.schema.json5',
-    $comment: 'v3.1.16',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -47,6 +47,7 @@
                 'box',
                 'content',
                 'eof',
+                'headingNumbers',
                 'id',
                 'isBacklinkExpand',
                 'isSyncing',
@@ -55,6 +56,7 @@
                 'parent2ID',
                 'parentID',
                 'path',
+                'publishAccessRequired',
                 'reqId',
                 'rootID',
                 'scroll',
@@ -192,6 +194,136 @@
                         'NodeBlockQueryEmbed', // 嵌入块
                         'NodeAttributeView', // 属性表
                     ],
+                },
+                docInfo: {
+                    // 文档信息，仅在请求 includeDocInfo 为 true 时返回
+                    $ref: '#/$defs/docInfo',
+                },
+                headingNumbers: {
+                    // 标题块 ID 到标题编号的映射，未启用标题编号或文档中没有标题时为空对象，部分加载模式下为 null
+                    description: 'Map from heading block IDs to heading numbers, an empty object when heading numbers are disabled or there are no headings, `null` in some loading modes',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            type: 'object',
+                            additionalProperties: {
+                                type: 'string',
+                                examples: [
+                                    '1.2',
+                                ],
+                            },
+                        },
+                    ],
+                },
+                publishAccessRequired: {
+                    // 发布服务中访问该文档是否需要密码（需要时 content 被替换）
+                    type: 'boolean',
+                    description: 'Whether the document requires a password in the publish service (`content` is replaced when required)',
+                },
+            },
+        },
+        docInfo: {
+            title: 'IDocInfo',
+            description: 'Document information',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'attrViews',
+                'ial',
+                'icon',
+                'id',
+                'name',
+                'refCount',
+                'refIDs',
+                'rootID',
+                'subFileCount',
+            ],
+            properties: {
+                attrViews: {
+                    // 属性视图引用列表，文档未关联数据库时为 null
+                    type: [
+                        'array',
+                        'null',
+                    ],
+                    description: 'Attribute view reference list, `null` when the document is not bound to any database',
+                    items: {
+                        $ref: '#/$defs/docInfo_attrView',
+                    },
+                },
+                ial: {
+                    // 文档块的内联属性表
+                    type: 'object',
+                    description: 'Inline Attribute List (IAL) of the document block',
+                    additionalProperties: {
+                        type: 'string',
+                    },
+                },
+                icon: {
+                    // 文档图标
+                    type: 'string',
+                    description: 'Document icon',
+                },
+                id: {
+                    // 块 ID
+                    type: 'string',
+                    description: 'Block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                name: {
+                    // 文档名
+                    type: 'string',
+                    description: 'Document name',
+                },
+                refCount: {
+                    // 引用该文档的数量
+                    type: 'integer',
+                    description: 'The number of references to the document',
+                },
+                refIDs: {
+                    // 引用该文档的块 ID
+                    type: 'array',
+                    description: 'IDs of the blocks referencing the document',
+                    items: {
+                        type: 'string',
+                        pattern: '^\\d{14}-[0-9a-z]{7}$',
+                    },
+                },
+                rootID: {
+                    // 文档块 ID
+                    type: 'string',
+                    description: 'Document block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                subFileCount: {
+                    // 下级文档数
+                    type: 'integer',
+                    description: 'The number of sub-documents',
+                },
+            },
+        },
+        docInfo_attrView: {
+            title: 'IDocInfoAttrView',
+            description: 'Attribute view',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'id',
+                'name',
+            ],
+            properties: {
+                id: {
+                    // 属性视图 ID
+                    type: 'string',
+                    description: 'Attribute view ID',
+                },
+                name: {
+                    // 属性视图名称
+                    type: 'string',
+                    description: 'Attribute view name',
                 },
             },
         },

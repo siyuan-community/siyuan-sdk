@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/createDocWithMd/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -32,6 +32,43 @@
                 "markdown": {
                     "type": "string",
                     "description": "Markdown text (GitLab Flavored Markdown, GFM)\nREF: https://github.github.com/gfm/"
+                },
+                "clippingHref": {
+                    "type": "string",
+                    "description": "Source URL of a web clipping, extra inline Markdown syntax is enabled for articles from `ld246.com` or `liuyun.io`"
+                },
+                "docCreateTemplatePath": {
+                    "type": "string",
+                    "description": "Document template path (relative to `data/templates/`), only used when `markdown` is empty"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "ID of the new document, generated automatically when empty",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "listDocTree": {
+                    "type": "boolean",
+                    "description": "Whether to locate the new document in the document tree after creation",
+                    "default": false
+                },
+                "parentID": {
+                    "type": "string",
+                    "description": "Parent document ID, used to specify the parent when several parent documents have the same name",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "tags": {
+                    "type": "string",
+                    "description": "Document tags, separated by commas"
+                },
+                "titleEmpty": {
+                    "type": "boolean",
+                    "description": "Whether to mark the document title as empty (the title in `path` is used as a placeholder)",
+                    "default": false
+                },
+                "withMath": {
+                    "type": "boolean",
+                    "description": "Whether to parse inline math",
+                    "default": false
                 }
             }
         }

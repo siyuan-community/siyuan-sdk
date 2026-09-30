@@ -19,6 +19,7 @@
 - 弃用已被内核停用的 API `/api/storage/setLocalStorage` | Deprecate API `/api/storage/setLocalStorage`, which the kernel has disabled
 - 按内核 `v3.8.6` 调整 API `/api/system/getConf`：新增 AI、加密笔记本、OIDC 等配置项，移除 `account`、`ai.openAI` 等已废弃的配置项，语言代码改为 `en`、`zh-CN` 等形式 | Adjust API `/api/system/getConf` to kernel `v3.8.6`: add the AI, encrypted notebook, OIDC and other settings, remove obsolete settings such as `account` and `ai.openAI`, and use language codes such as `en` and `zh-CN`
 - 按内核 `v3.8.6` 调整 API `/api/block/*`：`moveBlock` 的响应数据改为 `null`，`getBlockInfo` 等 API 新增加密笔记本与发布访问相关的参数和字段 | Adjust API `/api/block/*` to kernel `v3.8.6`: the response data of `moveBlock` is now `null`, and `getBlockInfo` and other APIs gain the parameters and fields for encrypted notebooks and publish access
+- 按内核 `v3.8.6` 调整 API `/api/filetree/*`：`searchDocs` 返回的闪卡数量改为数字字符串，`listDocsByPath` 移除 `hidden` 并新增排序方式字段，`getDoc`、`createDocWithMd` 等 API 新增请求参数 | Adjust API `/api/filetree/*` to kernel `v3.8.6`: the flashcard counts returned by `searchDocs` are numeric strings, `listDocsByPath` drops `hidden` and adds sort mode fields, and `getDoc`, `createDocWithMd` and other APIs accept new parameters
 
 ## v0.3.14 / 2024-11-20
 

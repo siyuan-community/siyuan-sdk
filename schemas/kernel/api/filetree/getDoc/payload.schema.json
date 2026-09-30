@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/getDoc/payload.schema.json",
-    "$comment": "v2.9.5",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -91,6 +91,31 @@
                 "reqId": {
                     "type": "integer",
                     "description": "Request ID (Unix timestamp)"
+                },
+                "highlight": {
+                    "type": "boolean",
+                    "description": "Whether to highlight the matches of `query`",
+                    "default": true
+                },
+                "includeDocInfo": {
+                    "type": "boolean",
+                    "description": "Whether to include the document information `docInfo` in the response",
+                    "default": false
+                },
+                "notebook": {
+                    "type": "string",
+                    "description": "ID of the encrypted notebook containing the document, required for documents in encrypted notebooks",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "originalRefBlockIDs": {
+                    "type": "object",
+                    "description": "Map from backlink context block IDs to the original referencing block IDs, only used when `isBacklink` is `true`",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "querySubTypes": {
+                    "$ref": "#/$defs/querySubTypes"
                 }
             }
         },
@@ -160,6 +185,130 @@
                     "description": "Embed block",
                     "type": "boolean",
                     "default": false
+                },
+                "audioBlock": {
+                    "description": "Audio block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "callout": {
+                    "description": "Callout",
+                    "type": "boolean",
+                    "default": false
+                },
+                "customBlock": {
+                    "description": "Custom block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "databaseBlock": {
+                    "description": "Database block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "iframeBlock": {
+                    "description": "IFrame block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mindmap": {
+                    "description": "Mind map block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mindmapItem": {
+                    "description": "Mind map item block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "tabItem": {
+                    "description": "Tab item block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "tabs": {
+                    "description": "Tabbed block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "videoBlock": {
+                    "description": "Video block",
+                    "type": "boolean",
+                    "default": false
+                },
+                "widgetBlock": {
+                    "description": "Widget block",
+                    "type": "boolean",
+                    "default": false
+                }
+            }
+        },
+        "querySubTypes": {
+            "title": "IQuerySubTypes",
+            "description": "Block subtype filter, all subtypes of a type match when none of its subtypes is `true`",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "heading": {
+                    "$ref": "#/$defs/querySubTypes_heading"
+                },
+                "list": {
+                    "$ref": "#/$defs/querySubTypes_list"
+                },
+                "listItem": {
+                    "$ref": "#/$defs/querySubTypes_list"
+                }
+            }
+        },
+        "querySubTypes_heading": {
+            "title": "IQuerySubTypesHeading",
+            "description": "Heading levels",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "h1": {
+                    "type": "boolean",
+                    "description": "Heading 1"
+                },
+                "h2": {
+                    "type": "boolean",
+                    "description": "Heading 2"
+                },
+                "h3": {
+                    "type": "boolean",
+                    "description": "Heading 3"
+                },
+                "h4": {
+                    "type": "boolean",
+                    "description": "Heading 4"
+                },
+                "h5": {
+                    "type": "boolean",
+                    "description": "Heading 5"
+                },
+                "h6": {
+                    "type": "boolean",
+                    "description": "Heading 6"
+                }
+            }
+        },
+        "querySubTypes_list": {
+            "title": "IQuerySubTypesList",
+            "description": "List types",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "o": {
+                    "type": "boolean",
+                    "description": "Ordered list"
+                },
+                "t": {
+                    "type": "boolean",
+                    "description": "Task list"
+                },
+                "u": {
+                    "type": "boolean",
+                    "description": "Unordered list"
                 }
             }
         }

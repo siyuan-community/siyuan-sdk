@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/listDocsByPath/payload.schema.json",
-    "$comment": "v2.9.8",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -66,6 +66,20 @@
                 "flashcard": {
                     "type": "boolean",
                     "description": "whether to list flashcard count",
+                    "default": false
+                },
+                "app": {
+                    "type": "string",
+                    "description": "ID of the frontend app sending the request, the hint for exceeding the maximum list count is only pushed to this app"
+                },
+                "ignoreMaxListHint": {
+                    "type": "boolean",
+                    "description": "Whether to skip the hint when the number of documents exceeds the maximum list count",
+                    "default": false
+                },
+                "showHidden": {
+                    "type": "boolean",
+                    "description": "Whether to list hidden documents",
                     "default": false
                 }
             }

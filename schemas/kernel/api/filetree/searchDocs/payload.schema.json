@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/searchDocs/payload.schema.json",
-    "$comment": "v2.10.0",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -22,6 +22,14 @@
                     "type": "boolean",
                     "description": "whether is flashcard",
                     "default": false
+                },
+                "excludeIDs": {
+                    "type": "array",
+                    "description": "IDs of documents to exclude (their sub-documents are also excluded)",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                    }
                 }
             }
         }

@@ -46,10 +46,16 @@ export interface IData {
      * HTML DOM string
      */
     readonly content: string;
+    readonly docInfo?: IDocInfo;
     /**
      * End Of File
      */
     readonly eof: boolean;
+    /**
+     * Map from heading block IDs to heading numbers, an empty object when heading numbers are
+     * disabled or there are no headings, `null` in some loading modes
+     */
+    readonly headingNumbers: { [key: string]: string } | null;
     /**
      * Block ID
      */
@@ -86,6 +92,11 @@ export interface IData {
      */
     readonly path: string;
     /**
+     * Whether the document requires a password in the publish service (`content` is replaced
+     * when required)
+     */
+    readonly publishAccessRequired: boolean;
+    /**
      * Request ID (Unix timestamp)
      */
     readonly reqId: null | number;
@@ -101,6 +112,62 @@ export interface IData {
      * Block type
      */
     readonly type: TBlockType;
+}
+
+/**
+ * Document information
+ */
+export interface IDocInfo {
+    /**
+     * Attribute view reference list, `null` when the document is not bound to any database
+     */
+    readonly attrViews: IDocInfoAttrView[] | null;
+    /**
+     * Inline Attribute List (IAL) of the document block
+     */
+    readonly ial: { [key: string]: string };
+    /**
+     * Document icon
+     */
+    readonly icon: string;
+    /**
+     * Block ID
+     */
+    readonly id: string;
+    /**
+     * Document name
+     */
+    readonly name: string;
+    /**
+     * The number of references to the document
+     */
+    readonly refCount: number;
+    /**
+     * IDs of the blocks referencing the document
+     */
+    readonly refIDs: string[];
+    /**
+     * Document block ID
+     */
+    readonly rootID: string;
+    /**
+     * The number of sub-documents
+     */
+    readonly subFileCount: number;
+}
+
+/**
+ * Attribute view
+ */
+export interface IDocInfoAttrView {
+    /**
+     * Attribute view ID
+     */
+    readonly id: string;
+    /**
+     * Attribute view name
+     */
+    readonly name: string;
 }
 
 /**

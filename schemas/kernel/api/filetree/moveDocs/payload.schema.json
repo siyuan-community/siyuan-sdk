@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/filetree/moveDocs/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -41,6 +41,9 @@
                         "/",
                         "/20200812220555-lj3enxa/"
                     ]
+                },
+                "callback": {
+                    "description": "Callback identifier, attached to the push messages of the move as is"
                 }
             }
         }

@@ -24,9 +24,17 @@ export interface IPayload {
      */
     readonly endID?: string;
     /**
+     * Whether to highlight the matches of `query`
+     */
+    readonly highlight?: boolean;
+    /**
      * Block ID
      */
     readonly id: string;
+    /**
+     * Whether to include the document information `docInfo` in the response
+     */
+    readonly includeDocInfo?: boolean;
     /**
      * Block index
      */
@@ -40,6 +48,16 @@ export interface IPayload {
      */
     readonly mode?: number;
     /**
+     * ID of the encrypted notebook containing the document, required for documents in encrypted
+     * notebooks
+     */
+    readonly notebook?: string;
+    /**
+     * Map from backlink context block IDs to the original referencing block IDs, only used when
+     * `isBacklink` is `true`
+     */
+    readonly originalRefBlockIDs?: { [key: string]: string };
+    /**
      * Query statements
      */
     readonly query?: string;
@@ -47,6 +65,7 @@ export interface IPayload {
      * Query method
      */
     readonly queryMethod?: number;
+    readonly querySubTypes?: IQuerySubTypes;
     readonly queryTypes?: IQueryTypes;
     /**
      * Request ID (Unix timestamp)
@@ -63,17 +82,90 @@ export interface IPayload {
 }
 
 /**
+ * Block subtype filter, all subtypes of a type match when none of its subtypes is `true`
+ */
+export interface IQuerySubTypes {
+    readonly heading?: IQuerySubTypesHeading;
+    readonly list?: IQuerySubTypesList;
+    readonly listItem?: IQuerySubTypesList;
+}
+
+/**
+ * Heading levels
+ */
+export interface IQuerySubTypesHeading {
+    /**
+     * Heading 1
+     */
+    readonly h1?: boolean;
+    /**
+     * Heading 2
+     */
+    readonly h2?: boolean;
+    /**
+     * Heading 3
+     */
+    readonly h3?: boolean;
+    /**
+     * Heading 4
+     */
+    readonly h4?: boolean;
+    /**
+     * Heading 5
+     */
+    readonly h5?: boolean;
+    /**
+     * Heading 6
+     */
+    readonly h6?: boolean;
+}
+
+/**
+ * List types
+ */
+export interface IQuerySubTypesList {
+    /**
+     * Ordered list
+     */
+    readonly o?: boolean;
+    /**
+     * Task list
+     */
+    readonly t?: boolean;
+    /**
+     * Unordered list
+     */
+    readonly u?: boolean;
+}
+
+/**
  * Query the specified block type (block type filter)
  */
 export interface IQueryTypes {
+    /**
+     * Audio block
+     */
+    readonly audioBlock?: boolean;
     /**
      * Quote block
      */
     readonly blockquote?: boolean;
     /**
+     * Callout
+     */
+    readonly callout?: boolean;
+    /**
      * Code block
      */
     readonly codeBlock?: boolean;
+    /**
+     * Custom block
+     */
+    readonly customBlock?: boolean;
+    /**
+     * Database block
+     */
+    readonly databaseBlock?: boolean;
     /**
      * Document block
      */
@@ -91,6 +183,10 @@ export interface IQueryTypes {
      */
     readonly htmlBlock?: boolean;
     /**
+     * IFrame block
+     */
+    readonly iframeBlock?: boolean;
+    /**
      * List block
      */
     readonly list?: boolean;
@@ -103,6 +199,14 @@ export interface IQueryTypes {
      */
     readonly mathBlock?: boolean;
     /**
+     * Mind map block
+     */
+    readonly mindmap?: boolean;
+    /**
+     * Mind map item block
+     */
+    readonly mindmapItem?: boolean;
+    /**
      * Paragraph block
      */
     readonly paragraph?: boolean;
@@ -111,9 +215,25 @@ export interface IQueryTypes {
      */
     readonly superBlock?: boolean;
     /**
+     * Tab item block
+     */
+    readonly tabItem?: boolean;
+    /**
      * Table block
      */
     readonly table?: boolean;
+    /**
+     * Tabbed block
+     */
+    readonly tabs?: boolean;
+    /**
+     * Video block
+     */
+    readonly videoBlock?: boolean;
+    /**
+     * Widget block
+     */
+    readonly widgetBlock?: boolean;
 }
 
 // #endregion content

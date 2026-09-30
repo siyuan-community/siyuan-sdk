@@ -14,6 +14,7 @@
 - 重构文件、资源与存储测试 | Refactor file, asset and storage tests
 - 重构系统、网络与广播测试 | Refactor system, network and broadcast tests
 - 移除旧的测试工具函数 | Remove legacy test helpers
+- 测试失败时列出所有不符合 JSON Schema 的字段 | List all fields that do not match the JSON Schema when a test fails
 
 ## v0.3.14 / 2024-11-20
 

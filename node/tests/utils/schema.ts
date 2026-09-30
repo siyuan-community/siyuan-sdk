@@ -70,6 +70,7 @@ export class SchemaJSON {
         public filepath: string,
         options: Options = {
             allowUnionTypes: true,
+            allErrors: true, // 列出所有不符合 JSON Schema 的字段，而不是在第一个错误处停止
         },
     ) {
         this._ajv = addFormats(new Ajv2020(options));

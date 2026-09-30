@@ -2,14 +2,14 @@
  * schemas/kernel/api/asset/upload/response.schema.json5
  * 上传资源文件
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#upload-assets
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/model/upload.go#L110-L202
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/asset.go#L493-L499
  * @pathname: /api/asset/upload
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/asset/upload/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -45,6 +45,8 @@
             additionalProperties: false,
             required: [
                 'errFiles',
+                'failedFiles',
+                'succFiles',
                 'succMap',
             ],
             properties: {
@@ -70,6 +72,22 @@
                 succMap: {
                     $ref: '#/$defs/succMap',
                 },
+                failedFiles: {
+                    // 上传失败的文件列表（按上传顺序）
+                    type: 'array',
+                    description: 'Files that failed to upload (in upload order)',
+                    items: {
+                        $ref: '#/$defs/failedFile',
+                    },
+                },
+                succFiles: {
+                    // 上传成功的文件列表（按上传顺序）
+                    type: 'array',
+                    description: 'Files uploaded successfully (in upload order)',
+                    items: {
+                        $ref: '#/$defs/succFile',
+                    },
+                },
             },
         },
         succMap: {
@@ -88,6 +106,69 @@
             },
             propertyNames: {
                 type: 'string',
+            },
+        },
+        failedFile: {
+            title: 'IFailedFile',
+            description: 'A file that failed to upload',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'error',
+                'index',
+                'name',
+            ],
+            properties: {
+                error: {
+                    // 失败原因
+                    type: 'string',
+                    description: 'Reason of the failure',
+                },
+                index: {
+                    // 文件在上传的文件列表中的序号（从 0 开始）
+                    type: 'integer',
+                    description: 'Index of the file in the uploaded files (starting from 0)',
+                    minimum: 0,
+                },
+                name: {
+                    // 上传时的文件名
+                    type: 'string',
+                    description: 'File name when uploading',
+                },
+            },
+        },
+        succFile: {
+            title: 'ISuccFile',
+            description: 'A file uploaded successfully',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'index',
+                'name',
+                'path',
+            ],
+            properties: {
+                index: {
+                    // 文件在上传的文件列表中的序号（从 0 开始）
+                    type: 'integer',
+                    description: 'Index of the file in the uploaded files (starting from 0)',
+                    minimum: 0,
+                },
+                name: {
+                    // 上传时的文件名
+                    type: 'string',
+                    description: 'File name when uploading',
+                },
+                path: {
+                    // 资源文件路径（相对于 data 目录），可用于引用该资源文件
+                    type: 'string',
+                    description: 'Asset path (relative to the `data` directory), which can be used to reference the asset',
+                    examples: [
+                        'assets/image-20230725232100-abcdefg.png',
+                    ],
+                },
             },
         },
     },

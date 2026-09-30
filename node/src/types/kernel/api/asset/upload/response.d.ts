@@ -35,7 +35,51 @@ export interface IResponse {
  */
 export interface IData {
     readonly errFiles: null | string[];
+    /**
+     * Files that failed to upload (in upload order)
+     */
+    readonly failedFiles: IFailedFile[];
+    /**
+     * Files uploaded successfully (in upload order)
+     */
+    readonly succFiles: ISuccFile[];
     readonly succMap: { [key: string]: string };
+}
+
+/**
+ * A file that failed to upload
+ */
+export interface IFailedFile {
+    /**
+     * Reason of the failure
+     */
+    readonly error: string;
+    /**
+     * Index of the file in the uploaded files (starting from 0)
+     */
+    readonly index: number;
+    /**
+     * File name when uploading
+     */
+    readonly name: string;
+}
+
+/**
+ * A file uploaded successfully
+ */
+export interface ISuccFile {
+    /**
+     * Index of the file in the uploaded files (starting from 0)
+     */
+    readonly index: number;
+    /**
+     * File name when uploading
+     */
+    readonly name: string;
+    /**
+     * Asset path (relative to the `data` directory), which can be used to reference the asset
+     */
+    readonly path: string;
 }
 
 // #endregion content

@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/asset/upload/response.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -35,6 +35,8 @@
             "additionalProperties": false,
             "required": [
                 "errFiles",
+                "failedFiles",
+                "succFiles",
                 "succMap"
             ],
             "properties": {
@@ -56,6 +58,20 @@
                 },
                 "succMap": {
                     "$ref": "#/$defs/succMap"
+                },
+                "failedFiles": {
+                    "type": "array",
+                    "description": "Files that failed to upload (in upload order)",
+                    "items": {
+                        "$ref": "#/$defs/failedFile"
+                    }
+                },
+                "succFiles": {
+                    "type": "array",
+                    "description": "Files uploaded successfully (in upload order)",
+                    "items": {
+                        "$ref": "#/$defs/succFile"
+                    }
                 }
             }
         },
@@ -68,6 +84,61 @@
             },
             "propertyNames": {
                 "type": "string"
+            }
+        },
+        "failedFile": {
+            "title": "IFailedFile",
+            "description": "A file that failed to upload",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "error",
+                "index",
+                "name"
+            ],
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "description": "Reason of the failure"
+                },
+                "index": {
+                    "type": "integer",
+                    "description": "Index of the file in the uploaded files (starting from 0)",
+                    "minimum": 0
+                },
+                "name": {
+                    "type": "string",
+                    "description": "File name when uploading"
+                }
+            }
+        },
+        "succFile": {
+            "title": "ISuccFile",
+            "description": "A file uploaded successfully",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "index",
+                "name",
+                "path"
+            ],
+            "properties": {
+                "index": {
+                    "type": "integer",
+                    "description": "Index of the file in the uploaded files (starting from 0)",
+                    "minimum": 0
+                },
+                "name": {
+                    "type": "string",
+                    "description": "File name when uploading"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Asset path (relative to the `data` directory), which can be used to reference the asset",
+                    "examples": [
+                        "assets/image-20230725232100-abcdefg.png"
+                    ]
+                }
             }
         }
     }

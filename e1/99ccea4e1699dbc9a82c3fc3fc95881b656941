@@ -1,0 +1,23 @@
+node/src/client/Client.ts
+  s_4c1c5e37e8877b::t_74b7b358f51412 195,1458-1461,1475-1482
+CHANGELOG.md
+  s_4c1c5e37e8877b::t_9ab9966b1bd697 18
+node/tests/api/repo/openRepoSnapshotFile.test.ts
+  s_4c1c5e37e8877b::t_02da89611f4e29 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "e199ccea4e1699dbc9a82c3fc3fc95881b656941",
+  "prompts": {},
+  "sessions": {
+    "s_4c1c5e37e8877b": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_w976kbuotgju",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

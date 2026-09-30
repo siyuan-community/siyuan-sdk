@@ -2,14 +2,14 @@
  * schemas/kernel/api/block/updateBlock/payload.schema.json5
  * 更新块
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#update-a-block
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block_op.go#L222-L305
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block_op.go#L704-L720
  * @pathname: /api/block/updateBlock
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/updateBlock/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -44,6 +44,12 @@
                     type: 'string',
                     description: 'ID of the block to be updated',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                lockType: {
+                    // 是否禁止改变块的类型，为 true 时新内容的块类型与原块不同则更新失败
+                    type: 'boolean',
+                    description: 'Whether to forbid changing the block type, the update fails when the new content has a different block type',
+                    default: false,
                 },
             },
         },

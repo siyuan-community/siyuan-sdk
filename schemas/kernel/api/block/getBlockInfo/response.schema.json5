@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/block/getBlockInfo/response.schema.json5
  * 获取块所在文档信息
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.6/kernel/api/block.go#L397-L452
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block.go#L657-L747
  * @pathname: /api/block/getBlockInfo
- * @version: 2.9.6
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getBlockInfo/response.schema.json5',
-    $comment: 'v',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -43,12 +43,10 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                'box',
-                'path',
-                'rootChildID',
                 'rootID',
                 'rootIcon',
                 'rootTitle',
+                'rootTitleEmpty',
             ],
             properties: {
                 box: {
@@ -66,6 +64,12 @@
                         '/20200812220555-lj3enxa.sy',
                         '/20200812220555-lj3enxa/20210808180320-fqgskfj.sy',
                     ],
+                },
+                publishAccessRequired: {
+                    // 发布服务中访问该文档是否需要密码，仅在需要时出现，此时不返回 box、path 与 rootChildID
+                    type: 'boolean',
+                    description: 'Whether the document requires a password in the publish service, only present when required, in which case `box`, `path` and `rootChildID` are omitted',
+                    const: true,
                 },
                 rootChildID: {
                     // 没有上级的块 (顶层块)
@@ -94,6 +98,11 @@
                     type: 'string',
                     description: 'Document title',
                     minLength: 1,
+                },
+                rootTitleEmpty: {
+                    // 文档标题是否被标记为空（此时 rootTitle 为占位标题）
+                    type: 'boolean',
+                    description: 'Whether the document title is marked as empty (`rootTitle` is a placeholder in that case)',
                 },
             },
         },

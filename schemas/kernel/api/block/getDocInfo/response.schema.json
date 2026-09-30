@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getDocInfo/response.schema.json",
-    "$comment": "v3.0.5",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -46,8 +46,11 @@
             ],
             "properties": {
                 "attrViews": {
-                    "type": "array",
-                    "description": "Attribute view reference list",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Attribute view reference list, `null` when the document is not bound to any database",
                     "items": {
                         "$ref": "#/$defs/attrView"
                     }

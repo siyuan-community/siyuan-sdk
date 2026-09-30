@@ -4,14 +4,14 @@
  * 如果为文档块, 则获取包含标题块的顶层块
  * 如果为标题块, 则也可以获取包含下级标题块的所有下级块
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#get-child-blocks
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block.go#L492-L507
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block.go#L1127-L1139
  * @pathname: /api/block/getChildBlocks
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getChildBlocks/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -57,11 +57,21 @@
             type: 'object',
             additionalProperties: false,
             properties: {
+                content: {
+                    // 块的纯文本内容，为空时不返回
+                    type: 'string',
+                    description: 'Plain text content of the block, omitted when empty',
+                },
                 id: {
                     // 块 ID
                     type: 'string',
                     description: 'block ID',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                markdown: {
+                    // 块的 Markdown 文本，为空时不返回
+                    type: 'string',
+                    description: 'Markdown text of the block, omitted when empty',
                 },
                 type: {
                     // 块类型

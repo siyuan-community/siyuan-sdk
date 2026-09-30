@@ -27,6 +27,16 @@ export interface IPayload {
      * Block ID
      */
     readonly id: string;
+    /**
+     * Additional block IDs, only used to check whether the encrypted notebooks containing them
+     * are unlocked
+     */
+    readonly ids?: string[];
+    /**
+     * ID of the encrypted notebook containing the block, required for blocks in encrypted
+     * notebooks
+     */
+    readonly notebook?: string;
 }
 
 /**

@@ -37,9 +37,17 @@ export interface IResponse {
  */
 export interface IBlock {
     /**
+     * Plain text content of the block, omitted when empty
+     */
+    readonly content?: string;
+    /**
      * block ID
      */
     readonly id: string;
+    /**
+     * Markdown text of the block, omitted when empty
+     */
+    readonly markdown?: string;
     /**
      * block subtype
      */

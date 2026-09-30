@@ -23,57 +23,11 @@ export interface IResponse {
      * status code
      */
     readonly code: number;
-    readonly data: [ITransaction, ...ITransaction[]];
+    readonly data: null;
     /**
      * status message
      */
     readonly msg: string;
-}
-
-/**
- * Move transactions
- *
- * Move transaction
- */
-export interface ITransaction {
-    readonly doOperations: [IOperation, ...IOperation[]];
-    /**
-     * timestamp
-     */
-    readonly timestamp: number;
-    /**
-     * undo operation list
-     */
-    readonly undoOperations: null;
-}
-
-/**
- * move operation list
- *
- * move operation
- */
-export interface IOperation {
-    /**
-     * operation action type
-     */
-    readonly action: "move";
-    /**
-     * HTML DOM of inserting blocks
-     */
-    readonly data: null;
-    /**
-     * Block ID to move
-     */
-    readonly id: string;
-    /**
-     * block ID: insert into this block
-     */
-    readonly parentID: string;
-    /**
-     * block ID: insert after this block
-     */
-    readonly previousID: string;
-    [property: string]: any;
 }
 
 // #endregion content

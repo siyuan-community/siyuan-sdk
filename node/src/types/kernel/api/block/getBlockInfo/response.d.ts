@@ -37,16 +37,21 @@ export interface IData {
     /**
      * Notebook ID
      */
-    readonly box: string;
+    readonly box?: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field
      */
-    readonly path: string;
+    readonly path?: string;
+    /**
+     * Whether the document requires a password in the publish service, only present when
+     * required, in which case `box`, `path` and `rootChildID` are omitted
+     */
+    readonly publishAccessRequired?: boolean;
     /**
      * Block ID without parent block
      */
-    readonly rootChildID: string;
+    readonly rootChildID?: string;
     /**
      * Document icon
      */
@@ -59,6 +64,10 @@ export interface IData {
      * Document title
      */
     readonly rootTitle: string;
+    /**
+     * Whether the document title is marked as empty (`rootTitle` is a placeholder in that case)
+     */
+    readonly rootTitleEmpty: boolean;
 }
 
 // #endregion content

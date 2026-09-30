@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/updateBlock/payload.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -32,6 +32,11 @@
                     "type": "string",
                     "description": "ID of the block to be updated",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "lockType": {
+                    "type": "boolean",
+                    "description": "Whether to forbid changing the block type, the update fails when the new content has a different block type",
+                    "default": false
                 }
             }
         }

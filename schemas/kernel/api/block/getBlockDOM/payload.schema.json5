@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/block/getBlockDOM/payload.schema.json5
  * 获取块 DOM 字符串
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.5/kernel/api/block.go#L454-L469
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block.go#L826-L853
  * @pathname: /api/block/getBlockDOM
- * @version: 2.9.5
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getBlockDOM/payload.schema.json5',
-    $comment: 'v2.9.5',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -25,6 +25,21 @@
                     // 块 ID
                     type: 'string',
                     description: 'Block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                ids: {
+                    // 额外的块 ID 列表，仅用于检查这些块所在的加密笔记本是否已解锁
+                    type: 'array',
+                    description: 'Additional block IDs, only used to check whether the encrypted notebooks containing them are unlocked',
+                    items: {
+                        type: 'string',
+                        pattern: '^\\d{14}-[0-9a-z]{7}$',
+                    },
+                },
+                notebook: {
+                    // 块所在的加密笔记本 ID，读取加密笔记本中的块时需要
+                    type: 'string',
+                    description: 'ID of the encrypted notebook containing the block, required for blocks in encrypted notebooks',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
             },

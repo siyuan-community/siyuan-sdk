@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/block/getDocInfo/response.schema.json5
  * 获取文档信息
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.5/kernel/api/block.go#L236-L253
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block.go#L350-L385
  * @pathname: /api/block/getDocInfo
- * @version: 3.0.5
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getDocInfo/response.schema.json5',
-    $comment: 'v3.0.5',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -55,9 +55,12 @@
             ],
             properties: {
                 attrViews: {
-                    // 属性视图引用列表
-                    type: 'array',
-                    description: 'Attribute view reference list',
+                    // 属性视图引用列表，文档未关联数据库时为 null
+                    type: [
+                        'array',
+                        'null',
+                    ],
+                    description: 'Attribute view reference list, `null` when the document is not bound to any database',
                     items: {
                         $ref: '#/$defs/attrView',
                     },

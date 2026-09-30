@@ -23,6 +23,29 @@ export interface IPayload {
      * block ID
      */
     readonly id: string;
+    /**
+     * Additional block IDs, only used to check whether the encrypted notebooks containing them
+     * are unlocked
+     */
+    readonly ids?: string[];
+    /**
+     * Output mode of the kramdown
+     * - `md`: Markdown markers
+     * - `textmark`: Inline elements are output as `span` tags
+     */
+    readonly mode?: TKramdownMode;
+    /**
+     * ID of the encrypted notebook containing the block, required for blocks in encrypted
+     * notebooks
+     */
+    readonly notebook?: string;
 }
+
+/**
+ * Output mode of the kramdown
+ * - `md`: Markdown markers
+ * - `textmark`: Inline elements are output as `span` tags
+ */
+export type TKramdownMode = "md" | "textmark";
 
 // #endregion content

@@ -35,9 +35,9 @@ export interface IResponse {
  */
 export interface IData {
     /**
-     * Attribute view reference list
+     * Attribute view reference list, `null` when the document is not bound to any database
      */
-    readonly attrViews: IAttrView[];
+    readonly attrViews: IAttrView[] | null;
     readonly ial: Ial;
     /**
      * document icon

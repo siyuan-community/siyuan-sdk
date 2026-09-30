@@ -2,14 +2,14 @@
  * schemas/kernel/api/block/getBlockKramdown/payload.schema.json5
  * 获取块 kramdown 源码
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#get-a-block-kramdown
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/block.go#L471-L490
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/block.go#L1012-L1062
  * @pathname: /api/block/getBlockKramdown
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/block/getBlockKramdown/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -25,6 +25,32 @@
                 id: {
                     type: 'string',
                     description: 'block ID',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                ids: {
+                    // 额外的块 ID 列表，仅用于检查这些块所在的加密笔记本是否已解锁
+                    type: 'array',
+                    description: 'Additional block IDs, only used to check whether the encrypted notebooks containing them are unlocked',
+                    items: {
+                        type: 'string',
+                        pattern: '^\\d{14}-[0-9a-z]{7}$',
+                    },
+                },
+                mode: {
+                    // kramdown 的输出模式
+                    type: 'string',
+                    title: 'TKramdownMode',
+                    description: 'Output mode of the kramdown\n- `md`: Markdown markers\n- `textmark`: Inline elements are output as `span` tags',
+                    default: 'md',
+                    enum: [
+                        'md', // 使用 Markdown 标记符
+                        'textmark', // 行级元素输出为 span 标签
+                    ],
+                },
+                notebook: {
+                    // 块所在的加密笔记本 ID，读取加密笔记本中的块时需要
+                    type: 'string',
+                    description: 'ID of the encrypted notebook containing the block, required for blocks in encrypted notebooks',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
                 },
             },

@@ -31,6 +31,11 @@ export interface IPayload {
      * ID of the block to be updated
      */
     readonly id: string;
+    /**
+     * Whether to forbid changing the block type, the update fails when the new content has a
+     * different block type
+     */
+    readonly lockType?: boolean;
 }
 
 /**

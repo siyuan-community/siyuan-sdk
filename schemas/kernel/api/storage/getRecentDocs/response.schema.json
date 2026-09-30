@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/getRecentDocs/response.schema.json",
-    "$comment": "v2.10.0",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -41,7 +41,6 @@
             "additionalProperties": false,
             "required": [
                 "rootID",
-                "icon",
                 "title"
             ],
             "properties": {
@@ -63,6 +62,18 @@
                     "type": "string",
                     "description": "Document title",
                     "pattern": "^[^/]+$"
+                },
+                "closedAt": {
+                    "type": "integer",
+                    "description": "Time when the tab was closed (Unix timestamp, unit: s), omitted when `0`"
+                },
+                "openAt": {
+                    "type": "integer",
+                    "description": "Time when the document was opened in a tab from the document tree (Unix timestamp, unit: s), omitted when `0`"
+                },
+                "viewedAt": {
+                    "type": "integer",
+                    "description": "Last viewed time (Unix timestamp, unit: s), omitted when `0`"
                 }
             }
         }

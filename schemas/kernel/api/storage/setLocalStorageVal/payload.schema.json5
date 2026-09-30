@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/storage/setLocalStorageVal/payload.schema.json5
  * 持久化一项本地存储数据
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.13/kernel/api/storage.go#L127-L150
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/storage.go#L79-L101
  * @pathname: /api/storage/setLocalStorageVal
- * @version: 2.10.13
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/setLocalStorageVal/payload.schema.json5',
-    $comment: 'v2.10.13',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -18,6 +18,7 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'key',
                 'val',
             ],
             properties: {

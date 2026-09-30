@@ -35,9 +35,18 @@ export interface IResponse {
 
 export interface IDocInfo {
     /**
+     * Time when the tab was closed (Unix timestamp, unit: s), omitted when `0`
+     */
+    readonly closedAt?: number;
+    /**
      * Document icon
      */
-    readonly icon: string;
+    readonly icon?: string;
+    /**
+     * Time when the document was opened in a tab from the document tree (Unix timestamp, unit:
+     * s), omitted when `0`
+     */
+    readonly openAt?: number;
     /**
      * Document Block ID
      */
@@ -46,6 +55,10 @@ export interface IDocInfo {
      * Document title
      */
     readonly title: string;
+    /**
+     * Last viewed time (Unix timestamp, unit: s), omitted when `0`
+     */
+    readonly viewedAt?: number;
 }
 
 // #endregion content

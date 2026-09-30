@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/storage/getRecentDocs/response.schema.json5
  * 获取最近更新的文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.0/kernel/api/storage.go#L28-L39
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/storage.go#L217-L232
  * @pathname: /api/storage/getRecentDocs
- * @version: 2.10.0
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/storage/getRecentDocs/response.schema.json5',
-    $comment: 'v2.10.0',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -50,7 +50,6 @@
             additionalProperties: false,
             required: [
                 'rootID',
-                'icon',
                 'title',
             ],
             properties: {
@@ -75,6 +74,21 @@
                     type: 'string',
                     description: 'Document title',
                     pattern: '^[^/]+$',
+                },
+                closedAt: {
+                    // 页签关闭时间（Unix 时间戳，单位: s），为 0 时不返回
+                    type: 'integer',
+                    description: 'Time when the tab was closed (Unix timestamp, unit: s), omitted when `0`',
+                },
+                openAt: {
+                    // 从文档树打开到页签的时间（Unix 时间戳，单位: s），为 0 时不返回
+                    type: 'integer',
+                    description: 'Time when the document was opened in a tab from the document tree (Unix timestamp, unit: s), omitted when `0`',
+                },
+                viewedAt: {
+                    // 最近浏览时间（Unix 时间戳，单位: s），为 0 时不返回
+                    type: 'integer',
+                    description: 'Last viewed time (Unix timestamp, unit: s), omitted when `0`',
                 },
             },
         },

@@ -26,7 +26,7 @@ export interface IPayload {
     /**
      * The key of the key-value pair
      */
-    readonly key?: string;
+    readonly key: string;
     /**
      * The value of the key-value pair
      */

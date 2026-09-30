@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/outline/getDocOutline/payload.schema.json",
-    "$comment": "v2.12.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -17,6 +17,16 @@
                     "type": "string",
                     "description": "Block ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "notebook": {
+                    "type": "string",
+                    "description": "ID of the encrypted notebook containing the document, required for documents in encrypted notebooks",
+                    "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "preview": {
+                    "type": "boolean",
+                    "description": "Whether it is for the export preview (the document title becomes a top-level outline node when adding titles is enabled for exports)",
+                    "default": false
                 }
             }
         }

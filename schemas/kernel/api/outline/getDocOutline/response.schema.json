@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/outline/getDocOutline/payload.schema.json",
-    "$comment": "v2.12.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -24,8 +24,11 @@
                     "description": "status message"
                 },
                 "data": {
-                    "type": "array",
-                    "description": "Outline item list",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "description": "Outline item list, `null` when the document has no headings",
                     "items": {
                         "$ref": "#/$defs/datum"
                     }
@@ -38,6 +41,7 @@
             "type": "object",
             "additionalProperties": true,
             "required": [
+                "folded",
                 "id",
                 "box",
                 "name",
@@ -104,6 +108,18 @@
                     "items": {
                         "$ref": "#/$defs/block"
                     }
+                },
+                "folded": {
+                    "type": "boolean",
+                    "description": "Whether the node is folded in the outline panel"
+                },
+                "nameIsHTML": {
+                    "type": "boolean",
+                    "description": "Whether `name` is rendered HTML"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "Heading number, only present when heading numbers are enabled for the document"
                 }
             }
         },
@@ -113,6 +129,7 @@
             "type": "object",
             "additionalProperties": true,
             "required": [
+                "folded",
                 "id",
                 "box",
                 "rootID",
@@ -191,6 +208,14 @@
                     "items": {
                         "$ref": "#/$defs/block"
                     }
+                },
+                "folded": {
+                    "type": "boolean",
+                    "description": "Whether the node is folded in the outline panel"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "Heading number, only present when heading numbers are enabled for the document"
                 }
             }
         }

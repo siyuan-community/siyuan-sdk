@@ -23,6 +23,16 @@ export interface IPayload {
      * Block ID
      */
     readonly id: string;
+    /**
+     * ID of the encrypted notebook containing the document, required for documents in encrypted
+     * notebooks
+     */
+    readonly notebook?: string;
+    /**
+     * Whether it is for the export preview (the document title becomes a top-level outline node
+     * when adding titles is enabled for exports)
+     */
+    readonly preview?: boolean;
 }
 
 // #endregion content

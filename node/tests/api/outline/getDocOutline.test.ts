@@ -51,12 +51,16 @@ describe(pathname, () => {
         const response = await client.getDocOutline(payload);
         expectResponse(context.validators, response);
 
+        /* 文档中没有标题时 data 为 null */
+        expect(response.data, "outline").not.toBeNull();
+        const outline = response.data!;
+
         /* 标题文本以 HTML 形式返回，测试数据不含空格等会被转义的字符 */
-        expect(response.data.map((node) => [node.name, node.subType])).toEqual([
+        expect(outline.map((node) => [node.name, node.subType])).toEqual([
             ["Heading1", "h1"],
             ["Heading2", "h1"],
         ]);
-        expect(response.data[0]!.blocks?.map((node) => [node.content, node.subType])).toEqual([
+        expect(outline[0]!.blocks?.map((node) => [node.content, node.subType])).toEqual([
             ["Heading1.1", "h2"],
         ]);
     });

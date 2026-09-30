@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/outline/getDocOutline/payload.schema.json5
  * 获取文档大纲
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.12.3/kernel/api/outline.go#L28-L49
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/outline.go#L29-L76
  * @pathname: /api/outline/getDocOutline
- * @version: 2.12.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/outline/getDocOutline/payload.schema.json5',
-    $comment: 'v2.12.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -32,8 +32,12 @@
                     description: 'status message',
                 },
                 data: {
-                    type: 'array',
-                    description: 'Outline item list',
+                    // 大纲节点列表，文档中没有标题时为 null
+                    type: [
+                        'array',
+                        'null',
+                    ],
+                    description: 'Outline item list, `null` when the document has no headings',
 
                     items: {
                         $ref: '#/$defs/datum',
@@ -49,6 +53,7 @@
             type: 'object',
             additionalProperties: true,
             required: [
+                'folded',
                 'id',
                 'box',
                 'name',
@@ -126,6 +131,21 @@
                         $ref: '#/$defs/block',
                     },
                 },
+                folded: {
+                    // 该节点在大纲面板中是否折叠
+                    type: 'boolean',
+                    description: 'Whether the node is folded in the outline panel',
+                },
+                nameIsHTML: {
+                    // name 是否为渲染后的 HTML
+                    type: 'boolean',
+                    description: 'Whether `name` is rendered HTML',
+                },
+                number: {
+                    // 标题编号，仅在文档启用标题编号时返回
+                    type: 'string',
+                    description: 'Heading number, only present when heading numbers are enabled for the document',
+                },
             },
         },
         block: {
@@ -136,6 +156,7 @@
             type: 'object',
             additionalProperties: true,
             required: [
+                'folded',
                 'id',
                 'box',
                 'rootID',
@@ -225,6 +246,16 @@
                     items: {
                         $ref: '#/$defs/block',
                     },
+                },
+                folded: {
+                    // 该节点在大纲面板中是否折叠
+                    type: 'boolean',
+                    description: 'Whether the node is folded in the outline panel',
+                },
+                number: {
+                    // 标题编号，仅在文档启用标题编号时返回
+                    type: 'string',
+                    description: 'Heading number, only present when heading numbers are enabled for the document',
                 },
             },
         },

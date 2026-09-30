@@ -24,9 +24,9 @@ export interface IResponse {
      */
     readonly code: number;
     /**
-     * Outline item list
+     * Outline item list, `null` when the document has no headings
      */
-    readonly data: IOutlineTopNode[];
+    readonly data: IOutlineTopNode[] | null;
     /**
      * status message
      */
@@ -54,6 +54,10 @@ export interface IOutlineTopNode {
      */
     readonly depth: number;
     /**
+     * Whether the node is folded in the outline panel
+     */
+    readonly folded: boolean;
+    /**
      * Block ID
      */
     readonly id: string;
@@ -62,9 +66,17 @@ export interface IOutlineTopNode {
      */
     readonly name: string;
     /**
+     * Whether `name` is rendered HTML
+     */
+    readonly nameIsHTML?: boolean;
+    /**
      * Block type
      */
     readonly nodeType: "NodeHeading";
+    /**
+     * Heading number, only present when heading numbers are enabled for the document
+     */
+    readonly number?: string;
     /**
      * Block sub-type
      */
@@ -101,9 +113,17 @@ export interface IOutlineLowerNode {
      */
     readonly depth: number;
     /**
+     * Whether the node is folded in the outline panel
+     */
+    readonly folded: boolean;
+    /**
      * Block ID
      */
     readonly id: string;
+    /**
+     * Heading number, only present when heading numbers are enabled for the document
+     */
+    readonly number?: string;
     /**
      * Document path, which needs to start with / and separate levels with /
      * path here corresponds to the database path field

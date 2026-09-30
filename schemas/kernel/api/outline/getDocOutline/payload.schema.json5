@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/outline/getDocOutline/payload.schema.json5
  * 获取文档大纲
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.12.3/kernel/api/outline.go#L28-L49
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/outline.go#L29-L76
  * @pathname: /api/outline/getDocOutline
- * @version: 2.12.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/outline/getDocOutline/payload.schema.json5',
-    $comment: 'v2.12.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -26,6 +26,18 @@
                     type: 'string',
                     description: 'Block ID',
                     pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                notebook: {
+                    // 文档所在的加密笔记本 ID，读取加密笔记本中的文档时需要
+                    type: 'string',
+                    description: 'ID of the encrypted notebook containing the document, required for documents in encrypted notebooks',
+                    pattern: '^\\d{14}-[0-9a-z]{7}$',
+                },
+                preview: {
+                    // 是否为导出预览（启用导出时添加文档标题的设置后，文档标题作为一级大纲节点）
+                    type: 'boolean',
+                    description: 'Whether it is for the export preview (the document title becomes a top-level outline node when adding titles is enabled for exports)',
+                    default: false,
                 },
             },
         },

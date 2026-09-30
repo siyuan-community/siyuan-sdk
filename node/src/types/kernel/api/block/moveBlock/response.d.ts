@@ -23,7 +23,7 @@ export interface IResponse {
      * status code
      */
     readonly code: number;
-    readonly data: ITransaction[];
+    readonly data: [ITransaction, ...ITransaction[]];
     /**
      * status message
      */
@@ -36,7 +36,7 @@ export interface IResponse {
  * Move transaction
  */
 export interface ITransaction {
-    readonly doOperations: IOperation[];
+    readonly doOperations: [IOperation, ...IOperation[]];
     /**
      * timestamp
      */

@@ -7,6 +7,7 @@
 - 将 `ts-node` 切换为 `tsx` | Switch `ts-node` to `tsx`
 - 升级 Node.js 至 `v26.10.0`，升级 pnpm 至 `v12.8.1` | Upgrade Node.js to `v26.10.0` and pnpm to `v12.8.1`
 - 更新依赖版本 | Update dependency versions
+- 使用 quicktype `v26` 重新生成类型定义：声明了 `minItems` 的数组改为非空元组类型，`/api/system/getConf` 中自动生成的布局类型名称变更 | Regenerate type definitions using quicktype `v26`: arrays with `minItems` become non-empty tuple types, and the generated layout type names in `/api/system/getConf` changed
 
 ## v0.3.14 / 2024-11-20
 

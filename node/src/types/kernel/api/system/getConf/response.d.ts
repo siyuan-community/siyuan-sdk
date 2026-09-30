@@ -1758,7 +1758,7 @@ export interface IUILayoutLayoutChild {
     /**
      * Internal elements
      */
-    readonly children: ChildElement[];
+    readonly children: IuiLayout[];
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
@@ -1768,7 +1768,7 @@ export interface IUILayoutLayoutChild {
     /**
      * Object name
      */
-    readonly instance: TUILayout;
+    readonly instance: FluffyTUILayout;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
@@ -1799,7 +1799,7 @@ export interface IUILayoutLayoutChild {
     readonly width?: string;
 }
 
-export type Children = ChildElement[] | IUILayoutTabContent;
+export type IUILayoutTabContent = IuiLayout[] | IuiLayoutTab;
 
 /**
  * SiYuan panel layout
@@ -1808,13 +1808,13 @@ export type Children = ChildElement[] | IUILayoutTabContent;
  *
  * SiYuan tab
  */
-export interface ChildElement {
+export interface IuiLayout {
     /**
      * Internal elements
      *
      * Tab content
      */
-    readonly children: Children;
+    readonly children: IUILayoutTabContent;
     /**
      * Panel content layout direction
      * - `tb`: Top and bottom layout
@@ -1824,7 +1824,7 @@ export interface ChildElement {
     /**
      * Object name
      */
-    readonly instance: TUILayoutInstance;
+    readonly instance: PurpleTUILayout;
     /**
      * The direction in which the size can be adjusted
      * - `tb`: Can adjust the size up and down
@@ -1884,8 +1884,6 @@ export interface ChildElement {
 }
 
 /**
- * Tab content
- *
  * SiYuan tab without content
  *
  * SiYuan editor tab
@@ -1908,7 +1906,7 @@ export interface ChildElement {
  *
  * SiYuan search tab
  */
-export interface IUILayoutTabContent {
+export interface IuiLayoutTab {
     /**
      * (Editor) Actions to be performed after the tab is loaded
      */
@@ -2296,7 +2294,7 @@ export type TuiLayoutTabType = "global" | "local" | "pin";
  */
 export type TUILayoutDirection = "lr" | "tb";
 
-export type TUILayoutInstance = "Layout" | "Tab" | "Wnd";
+export type PurpleTUILayout = "Layout" | "Tab" | "Wnd";
 
 /**
  * Layout type
@@ -2309,6 +2307,6 @@ export type TUILayoutInstance = "Layout" | "Tab" | "Wnd";
  */
 export type TUILayoutType = "bottom" | "center" | "left" | "normal" | "right" | "top";
 
-export type TUILayout = "Layout" | "Wnd";
+export type FluffyTUILayout = "Layout" | "Wnd";
 
 // #endregion content

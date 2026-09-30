@@ -2,14 +2,14 @@
  * schemas/kernel/api/query/sql/response.schema.json5
  * 使用 SQL 查询数据库
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#execute-sql-query
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/sql.go#L29-L47
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/sql.go#L37-L74
  * @pathname: /api/query/sql
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/query/sql/response.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -20,8 +20,10 @@
             additionalProperties: false,
             required: [
                 'code',
+                'limit',
                 'msg',
                 'data',
+                'truncated',
             ],
             properties: {
                 code: {
@@ -34,6 +36,17 @@
                 },
                 data: {
                     $ref: '#/$defs/data',
+                },
+                limit: {
+                    // 内核附加的默认行数上限，语句自带 LIMIT 时为 0
+                    type: 'integer',
+                    description: 'Default row limit appended by the kernel (the search limit setting), `0` when the statement has its own `LIMIT`',
+                    minimum: 0,
+                },
+                truncated: {
+                    // 查询结果是否因默认行数上限而被截断
+                    type: 'boolean',
+                    description: 'Whether the result was truncated by the default row limit',
                 },
             },
         },

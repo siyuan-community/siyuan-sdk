@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/query/sql/response.schema.json",
-    "$comment": "v2.9.3",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -11,8 +11,10 @@
             "additionalProperties": false,
             "required": [
                 "code",
+                "limit",
                 "msg",
-                "data"
+                "data",
+                "truncated"
             ],
             "properties": {
                 "code": {
@@ -25,6 +27,15 @@
                 },
                 "data": {
                     "$ref": "#/$defs/data"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Default row limit appended by the kernel (the search limit setting), `0` when the statement has its own `LIMIT`",
+                    "minimum": 0
+                },
+                "truncated": {
+                    "type": "boolean",
+                    "description": "Whether the result was truncated by the default row limit"
                 }
             }
         },

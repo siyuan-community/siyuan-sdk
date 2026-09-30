@@ -25,9 +25,18 @@ export interface IResponse {
     readonly code: number;
     readonly data: { [key: string]: any }[];
     /**
+     * Default row limit appended by the kernel (the search limit setting), `0` when the
+     * statement has its own `LIMIT`
+     */
+    readonly limit: number;
+    /**
      * status message
      */
     readonly msg: string;
+    /**
+     * Whether the result was truncated by the default row limit
+     */
+    readonly truncated: boolean;
 }
 
 // #endregion content

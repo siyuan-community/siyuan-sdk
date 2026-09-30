@@ -20,9 +20,24 @@
  */
 export interface IPayload {
     /**
+     * Statement check mode
+     * - Empty string: A single statement
+     * - `readonly`: A single read-only statement
+     * - `multiple`: Multiple statements, the result of the last one is returned
+     */
+    readonly mode?: TSQLMode;
+    /**
      * SQL query statements
      */
     readonly stmt: string;
 }
+
+/**
+ * Statement check mode
+ * - Empty string: A single statement
+ * - `readonly`: A single read-only statement
+ * - `multiple`: Multiple statements, the result of the last one is returned
+ */
+export type TSQLMode = "" | "multiple" | "readonly";
 
 // #endregion content

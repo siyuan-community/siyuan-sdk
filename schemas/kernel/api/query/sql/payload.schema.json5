@@ -2,14 +2,14 @@
  * schemas/kernel/api/query/sql/payload.schema.json5
  * 使用 SQL 查询数据库
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#execute-sql-query
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/sql.go#L29-L47
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/sql.go#L37-L74
  * @pathname: /api/query/sql
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/query/sql/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -22,6 +22,18 @@
                 'stmt',
             ],
             properties: {
+                mode: {
+                    // 语句校验模式
+                    type: 'string',
+                    title: 'TSQLMode',
+                    description: 'Statement check mode\n- Empty string: A single statement\n- `readonly`: A single read-only statement\n- `multiple`: Multiple statements, the result of the last one is returned',
+                    default: '',
+                    enum: [
+                        '', // 单条语句
+                        'multiple', // 多条语句，返回最后一条语句的结果
+                        'readonly', // 单条只读语句
+                    ],
+                },
                 stmt: {
                     // SQL 查询语句
                     type: 'string',

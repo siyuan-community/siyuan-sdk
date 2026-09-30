@@ -23,6 +23,7 @@
 - 按内核 `v3.8.6` 调整 API `/api/notebook/*`：新增加密笔记本相关字段，`setNotebookConf` 支持只提交需要修改的配置项 | Adjust API `/api/notebook/*` to kernel `v3.8.6`: add the fields of encrypted notebooks, and `setNotebookConf` accepts only the settings to change
 - 按内核 `v3.8.6` 调整 API `/api/search/fullTextSearchBlock`：`riffCardReps` 改为 `riffCard`，新增 `refCount`，支持更多块类型与子类型过滤 | Adjust API `/api/search/fullTextSearchBlock` to kernel `v3.8.6`: `riffCardReps` is replaced by `riffCard`, `refCount` is added, and more block types and subtype filters are supported
 - 按内核 `v3.8.6` 调整 API `/api/outline/getDocOutline`：文档没有标题时响应数据为 `null`，新增 `folded`、`number` 等字段 | Adjust API `/api/outline/getDocOutline` to kernel `v3.8.6`: the response data is `null` when the document has no headings, and `folded`, `number` and other fields are added
+- 按内核 `v3.8.6` 调整 API `/api/query/sql`：响应新增 `limit` 与 `truncated`，支持 `mode` 参数 | Adjust API `/api/query/sql` to kernel `v3.8.6`: the response gains `limit` and `truncated`, and the `mode` parameter is supported
 
 ## v0.3.14 / 2024-11-20
 

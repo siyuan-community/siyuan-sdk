@@ -1,0 +1,55 @@
+node/tests/api/block/moveBlock.test.ts
+  s_4c1c5e37e8877b::t_a8e2c19c92aec2 16,18-21,23,25,27,29,31-37,39-42,45-53,55-58,60-66,68-72,75-78
+node/tests/api/block/getBlockKramdown.test.ts
+  s_4c1c5e37e8877b::t_10c411e466a322 16,18-27,31,33-44,46-65,67-69
+node/tests/api/block/getDocInfo.test.ts
+  s_4c1c5e37e8877b::t_57cf91bf2c37ed 16,18-21,23,25,27,29,31-37,39-42,45-50,52-53,55-64
+node/tests/api/attr/setBlockAttrs.test.ts
+  s_4c1c5e37e8877b::t_f3f6a4a82bf28e 16,18-25,29,31-36,38-41,43-51,53-70,72-78,81-84
+node/tests/api/block/getChildBlocks.test.ts
+  s_4c1c5e37e8877b::t_cc6103e665ce12 16,18-27,31-93
+node/tests/api/block/transferBlockRef.test.ts
+  s_4c1c5e37e8877b::t_695bdc5252a22a 16,18-21,23,25,27,29,31-32,45-46,49-55,57-60,63-77,79-81,85-88
+  s_4c1c5e37e8877b::t_585887a47a3931 78,82-84
+  s_4c1c5e37e8877b::t_14f0fb4674fb43 34-38,43-44
+node/tests/api/block/appendBlock.test.ts
+  s_4c1c5e37e8877b::t_ef94da19fd6a8d 16,18-21,23,25,27,29,31-36,38-41,44,46-59
+node/tests/api/block/updateBlock.test.ts
+  s_4c1c5e37e8877b::t_f48938b9eca11e 16,18-21,23,25,27,29,31-36,38-40,43,45-59
+node/tests/api/block/insertBlock.test.ts
+  s_4c1c5e37e8877b::t_a195c18d8c1671 16,18-21,23,25,27,29,31-37,39-42,45-55,57-60,62-69,71-74,76-79,82-85
+node/tests/api/block/getBlockDOM.test.ts
+  s_4c1c5e37e8877b::t_a841cd2f9d9c9c 16,18-21,23,25-26,28,30,32-37,39-41,44-51,53-55
+node/tests/api/block/getBlockBreadcrumb.test.ts
+  s_4c1c5e37e8877b::t_bc8f1a565d1f3f 16,18-21,23,26-27,29,31,33,35-40,42-44,47-66
+node/tests/api/block/deleteBlock.test.ts
+  s_4c1c5e37e8877b::t_0377321b2d07bb 16,18-21,23,25,27,29,31-36,38-41,43,45-51,53-55
+CHANGELOG.md
+  s_4c1c5e37e8877b::t_f031f8b08ac9d5 12
+node/tests/api/attr/getBookmarkLabels.test.ts
+  s_4c1c5e37e8877b::t_c955b068afffb4 16,18-27,29,31,33,35-63
+node/tests/api/block/prependBlock.test.ts
+  s_4c1c5e37e8877b::t_83cf22ea2a8f3b 16,18-21,23,25,27,29,31-36,38-41,44,46-59
+node/tests/api/block/getBlockInfo.test.ts
+  s_4c1c5e37e8877b::t_18ef4c85a0d03d 16,18-21,23,25-26,28,30-60
+node/tests/api/block/foldBlock.test.ts
+  s_4c1c5e37e8877b::t_a426f52d4c638a 16,18-21,23,25,27,29,31-36,38-41,43,46-52,54-56
+node/tests/api/attr/getBlockAttrs.test.ts
+  s_4c1c5e37e8877b::t_e0d7ae99b172a2 16,18-25,29-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "bc1d1a76a25ec4ed5cf26f2c1c055d52272758c4",
+  "prompts": {},
+  "sessions": {
+    "s_4c1c5e37e8877b": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_w976kbuotgju",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

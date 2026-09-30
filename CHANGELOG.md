@@ -33,6 +33,7 @@
 - 按内核 `v3.8.6` 调整 API `/api/asset/upload`：响应新增按文件列出结果的 `succFiles` 与 `failedFiles` | Adjust API `/api/asset/upload` to kernel `v3.8.6`: the response gains the per-file results `succFiles` and `failedFiles`
 - 按内核 `v3.8.6` 调整 API `/api/file/removeFile`：支持 `app` 参数 | Adjust API `/api/file/removeFile` to kernel `v3.8.6`: support the `app` parameter
 - 按内核 `v3.8.6` 调整 API `/api/system/exit`：支持 `setCurrentWorkspace` 参数 | Adjust API `/api/system/exit` to kernel `v3.8.6`: support the `setCurrentWorkspace` parameter
+- 添加正向代理 API `/api/network/proxy`、`/ws/network/proxy` 与 `/es/network/proxy`，对应方法 `httpProxy`、`wsProxy` 与 `esProxy` | Add forward proxy APIs `/api/network/proxy`, `/ws/network/proxy` and `/es/network/proxy` as the methods `httpProxy`, `wsProxy` and `esProxy`
 
 ## v0.3.14 / 2024-11-20
 

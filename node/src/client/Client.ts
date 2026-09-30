@@ -91,13 +91,51 @@ export interface IFetch {
     $fetch: typeof fetch;
 }
 
+/* 正向代理设置选项 */
+export interface IProxyOptions extends IBaseOptions {
+    /**
+     * 内核连接目标服务器的超时时间 (单位: ms)
+     * 未设置时由内核决定 (30 s)；HTTP 与 EventSource 代理仅限制建立连接的时间，WebSocket 代理还限制握手时间
+     */
+    timeout?: number;
+}
+
+/* WebSocket 正向代理的连接选项 */
+export interface IWebSocketProxyInit {
+    /* 内核与目标服务器握手时发送的请求头 */
+    headers?: HeadersInit;
+    /**
+     * 向目标服务器请求的子协议，以 `Sec-WebSocket-Protocol` 请求头发送
+     * 内核与客户端之间的连接不协商子协议，目标服务器选定的子协议只能从握手响应头 `Siyuan-Proxy-Sec-Websocket-Protocol` 中获取
+     * （浏览器无法读取握手响应头，Node.js 中可以通过 ws 的 upgrade 事件获取）
+     */
+    protocols?: string | string[];
+}
+
+/* EventSource 正向代理的连接选项 */
+export interface IEventSourceProxyInit<T = EventSource> extends EventSourceInit {
+    /* 内核请求目标服务器时发送的请求头，未设置 `Accept` 时内核使用 `text/event-stream` */
+    headers?: HeadersInit;
+    /* EventSource 的实现，未设置时使用 `globalThis.EventSource`（Node.js 中需要自行提供） */
+    EventSource?: new (url: string | URL, eventSourceInitDict?: EventSourceInit) => T;
+}
+
 export enum HeaderKey {
     Authorization = "Authorization",
 }
 
 export class Client implements IFetch {
+    public static readonly es = {
+        network: {
+            proxy: { pathname: "/es/network/proxy" },
+        },
+    } as const;
+
     public static readonly ws = {
         broadcast: { pathname: "/ws/broadcast" },
+        network: {
+            proxy: { pathname: "/ws/network/proxy" },
+        },
     } as const;
 
     public static readonly api = {
@@ -169,6 +207,8 @@ export class Client implements IFetch {
         network: {
             echo: { pathname: "/api/network/echo", method: "POST" } as const,
             forwardProxy: { pathname: "/api/network/forwardProxy", method: "POST" } as const,
+            /* 接受任意请求方法，内核使用相同的方法请求目标服务器 */
+            proxy: { pathname: "/api/network/proxy" } as const,
         } as const,
         notebook: {
             closeNotebook: { pathname: "/api/notebook/closeNotebook", method: "POST" } as const,
@@ -223,6 +263,9 @@ export class Client implements IFetch {
             renderSprig: { pathname: "/api/template/renderSprig", method: "POST" } as const,
         } as const,
     } as const;
+
+    /* 正向代理响应中目标服务器响应头的前缀（小写） */
+    protected static readonly PROXY_HEADER_PREFIX = "siyuan-proxy-";
 
     public static headers2record(headers: Headers): Record<string, string> {
         const record: Record<string, string> = {};
@@ -485,7 +528,139 @@ export class Client implements IFetch {
         });
     }
 
+    /**
+     * 兼容 fetch 接口的 HTTP 正向代理，由内核请求目标服务器
+     * - 请求方法、请求头与请求体转发给目标服务器，访问内核使用的 API Token 不会转发给目标服务器
+     * - 请求体在发送前读取到内存中，响应体以流的形式透传
+     * - 内核不会逐块刷新响应体，需要实时接收的事件流请使用 {@link Client.esProxy}
+     * - 返回目标服务器的状态码、响应头与响应体，目标服务器返回错误状态码时不会抛出异常
+     * @param input - {@link fetch} 的第一个参数
+     * @param init - {@link fetch} 的第二个参数
+     * @param options - 代理设置选项
+     * @returns 目标服务器的响应
+     * @throws {@link KernelError} 内核拒绝代理请求时（如目标地址无效、无法连接目标服务器）
+     * @throws {@link HTTPError} 内核返回无法识别的响应时（如无访问权限）
+     */
+    public async httpProxy(
+        input: RequestInfo | URL, //
+        init?: RequestInit,
+        options?: IProxyOptions,
+    ): Promise<Response> {
+        const request = new Request(input, init);
+
+        /**
+         * 浏览器会从 Request 中移除禁止设置的请求头（如 User-Agent），因此直接读取调用方提供的请求头
+         * 与 fetch 相同，init.headers 存在时替换 input 的请求头
+         */
+        const headers = new Headers(init?.headers ?? (input instanceof Request ? input.headers : undefined));
+        /* Content-Type 可能由请求体推导（如 FormData 的 boundary），因此从 Request 中读取 */
+        const contentType = request.headers.get("Content-Type");
+        headers.delete("Content-Type");
+
+        const kernelHeaders = new Headers();
+        const token = options?.token ?? this._token;
+        if (token) {
+            kernelHeaders.set(HeaderKey.Authorization, `Token ${token}`);
+        }
+        if (contentType) {
+            /* 内核只将该请求的 Content-Type 转发给目标服务器 */
+            kernelHeaders.set("Content-Type", contentType);
+        }
+
+        const response = await fetch(
+            this._proxyURL(Client.api.network.proxy.pathname, request.url, headers, options, false),
+            {
+                method: request.method,
+                headers: kernelHeaders,
+                body: request.body === null ? undefined : await request.arrayBuffer(),
+                /* 与 fetch 相同，init.signal 为 null 时不使用 input 的 signal */
+                signal: init?.signal !== undefined ? init.signal : (input instanceof Request ? input.signal : undefined),
+            },
+        );
+
+        const mediaType = response.headers.get("Content-Type")?.split(";")[0]?.trim().toLowerCase() ?? "";
+        const nullBody = response.status === 204 || response.status === 205 || response.status === 304;
+        switch (true) {
+            /* 内核总是使用 application/octet-stream 返回目标服务器的响应体，但 Go 的 HTTP 服务会移除 304 响应的 Content-Type */
+            case mediaType === "application/octet-stream":
+            case mediaType === "" && nullBody: {
+                const upstreamHeaders = new Headers();
+                response.headers.forEach((value, key) => {
+                    if (key.toLowerCase().startsWith(Client.PROXY_HEADER_PREFIX)) {
+                        upstreamHeaders.append(key.substring(Client.PROXY_HEADER_PREFIX.length), value);
+                    }
+                });
+                return new Response(nullBody ? null : response.body, {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: upstreamHeaders,
+                });
+            }
+
+            /* 内核拒绝代理请求 */
+            case mediaType === "application/json": {
+                const body: unknown = await response.json().catch(() => null);
+                if (typeof body === "object" && body !== null && typeof (body as kernel.kernel.IResponse).code === "number") {
+                    throw new KernelError(body as kernel.kernel.IResponse, response);
+                }
+                throw new HTTPError(response);
+            }
+
+            default:
+                await response.body?.cancel();
+                throw new HTTPError(response);
+        }
+    }
+
     /* 👇 WebSocket 👇 */
+    /**
+     * WebSocket 正向代理，内核与目标服务器之间转发文本、二进制与关闭帧
+     * 内核拒绝连接时（如目标地址无效、无法连接目标服务器）握手失败，WebSocket 触发 error 与 close 事件
+     * @param url - 目标服务器的 ws/wss 地址
+     * @param init - 连接选项
+     * @param options - 代理设置选项
+     * @returns 连接到代理的 WebSocket
+     * @throws TypeError 目标地址无效时
+     */
+    public wsProxy(
+        url: string | URL, //
+        init?: IWebSocketProxyInit,
+        options?: IProxyOptions,
+    ): InstanceType<typeof Websocket> {
+        const headers = new Headers(init?.headers);
+        const protocols = typeof init?.protocols === "string" ? [init.protocols] : init?.protocols;
+        if (protocols?.length) {
+            headers.append("Sec-WebSocket-Protocol", protocols.join(", "));
+        }
+
+        const proxyURL = this._proxyURL(Client.ws.network.proxy.pathname, url, headers, options, true);
+        proxyURL.protocol = proxyURL.protocol.replace(/^http/, "ws");
+        return new Websocket(proxyURL);
+    }
+
+    /**
+     * EventSource (SSE) 正向代理，内核逐块转发目标服务器的事件流
+     * 目标服务器的状态码会透传给 EventSource，内核拒绝代理或目标服务器返回错误状态码时 EventSource 触发 error 事件
+     * @param url - 目标服务器的 http/https 地址
+     * @param init - 连接选项
+     * @param options - 代理设置选项
+     * @returns 连接到代理的 EventSource，类型为 init.EventSource 的实例
+     * @throws TypeError 目标地址无效时，或未提供 init.EventSource 且当前环境没有全局 EventSource 时
+     */
+    public esProxy<T = EventSource>(
+        url: string | URL, //
+        init?: IEventSourceProxyInit<T>,
+        options?: IProxyOptions,
+    ): T {
+        const { EventSource: EventSourceImpl = globalThis.EventSource, headers, ...eventSourceInitDict } = init ?? {};
+        if (typeof EventSourceImpl !== "function") {
+            throw new TypeError("EventSource is not available in the current environment, please provide an implementation by init.EventSource");
+        }
+        /* 未提供实现时 T 为默认的 EventSource */
+        const EventSourceConstructor = EventSourceImpl as new (url: string | URL, eventSourceInitDict?: EventSourceInit) => T;
+        return new EventSourceConstructor(this._proxyURL(Client.es.network.proxy.pathname, url, new Headers(headers), options, true), eventSourceInitDict);
+    }
+
     /* 消息广播 */
     public broadcast(
         params: kernel.ws.broadcast.IParams | URLSearchParams, //
@@ -1686,6 +1861,53 @@ export class Client implements IFetch {
             config,
         );
         return response;
+    }
+
+    /**
+     * 构造正向代理 API 的地址
+     * @param pathname - 代理 API 的路径
+     * @param target - 目标服务器的地址
+     * @param headers - 转发给目标服务器的请求头
+     * @param options - 代理设置选项
+     * @param tokenInQuery - 是否通过查询参数传递 API Token（WebSocket 与 EventSource 无法设置请求头）
+     * @returns 代理 API 的地址
+     */
+    protected _proxyURL(
+        pathname: string, //
+        target: string | URL,
+        headers: Headers,
+        options: IProxyOptions | undefined,
+        tokenInQuery: boolean,
+    ): URL {
+        const url = new URL(options?.baseURL ?? this._baseURL, globalThis.location?.href);
+        url.pathname = url.pathname.endsWith("/") //
+            ? `${url.pathname}${pathname.substring(1)}`
+            : `${url.pathname}${pathname}`;
+
+        /**
+         * 目标地址与请求头使用不带填充的 URL 安全 Base64 编码，请求头为 JSON 对象 map[string][]string
+         * 目标地址先解析为规范的绝对地址（如国际化域名转为 Punycode），无效的地址在此处抛出 TypeError
+         */
+        const searchParams = new URLSearchParams();
+        searchParams.set("u", base64.encodeURI(new URL(target).href));
+        const record: Record<string, string[]> = {};
+        headers.forEach((value, key) => {
+            /* Set-Cookie 的多个值会分别遍历 */
+            (record[key] ??= []).push(value);
+        });
+        if (Object.keys(record).length > 0) {
+            searchParams.set("h", base64.encodeURI(JSON.stringify(record)));
+        }
+        if (options?.timeout !== undefined) {
+            /* 内核按 Go 的时长格式解析 */
+            searchParams.set("t", `${options.timeout}ms`);
+        }
+        const token = options?.token ?? this._token;
+        if (tokenInQuery && token) {
+            searchParams.set("token", token);
+        }
+        url.search = searchParams.toString();
+        return url;
     }
 
     public async _request<

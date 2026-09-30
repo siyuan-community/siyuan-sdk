@@ -20,6 +20,10 @@
  */
 export interface IPayload {
     /**
+     * Whether to highlight the matches of the keyword `k`
+     */
+    readonly highlight?: boolean;
+    /**
      * Absolute path of history document file
      */
     readonly historyPath: string;

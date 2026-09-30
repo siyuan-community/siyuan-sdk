@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getHistoryItems/payload.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -10,7 +10,6 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "query",
                 "created"
             ],
             "properties": {

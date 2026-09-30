@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getHistoryItems/response.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -51,6 +51,9 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "id",
+                "notebook",
+                "op",
                 "title",
                 "path"
             ],
@@ -62,6 +65,28 @@
                 "path": {
                     "type": "string",
                     "description": "Absolute path of the historical document file"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "ID of the object in the history (the document ID for documents, the attribute view ID for databases, may be empty for assets)"
+                },
+                "notebook": {
+                    "type": "string",
+                    "description": "ID of the notebook containing the document (only meaningful for document histories)"
+                },
+                "op": {
+                    "type": "string",
+                    "title": "THistoryOperation",
+                    "description": "Operation that produced the history\n- `clean`: Clean up unused assets or databases\n- `update`: Update\n- `delete`: Delete\n- `format`: Format\n- `sync`: Overwritten by sync\n- `replace`: Replace\n- `outline`: Edit in the outline panel",
+                    "enum": [
+                        "clean",
+                        "delete",
+                        "format",
+                        "outline",
+                        "replace",
+                        "sync",
+                        "update"
+                    ]
                 }
             }
         }

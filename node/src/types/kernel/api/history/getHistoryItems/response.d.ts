@@ -42,6 +42,26 @@ export interface IData {
  */
 export interface IItem {
     /**
+     * ID of the object in the history (the document ID for documents, the attribute view ID for
+     * databases, may be empty for assets)
+     */
+    readonly id: string;
+    /**
+     * ID of the notebook containing the document (only meaningful for document histories)
+     */
+    readonly notebook: string;
+    /**
+     * Operation that produced the history
+     * - `clean`: Clean up unused assets or databases
+     * - `update`: Update
+     * - `delete`: Delete
+     * - `format`: Format
+     * - `sync`: Overwritten by sync
+     * - `replace`: Replace
+     * - `outline`: Edit in the outline panel
+     */
+    readonly op: THistoryOperation;
+    /**
      * Absolute path of the historical document file
      */
     readonly path: string;
@@ -50,5 +70,17 @@ export interface IItem {
      */
     readonly title: string;
 }
+
+/**
+ * Operation that produced the history
+ * - `clean`: Clean up unused assets or databases
+ * - `update`: Update
+ * - `delete`: Delete
+ * - `format`: Format
+ * - `sync`: Overwritten by sync
+ * - `replace`: Replace
+ * - `outline`: Edit in the outline panel
+ */
+export type THistoryOperation = "clean" | "delete" | "format" | "outline" | "replace" | "sync" | "update";
 
 // #endregion content

@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/history/getDocHistoryContent/payload.schema.json5
  * 从历史文档文件绝对路径获取文档历史
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/history.go#L135-L163
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/history.go#L96-L111
  * @pathname: /api/history/getDocHistoryContent
- * @version: 2.9.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getDocHistoryContent/payload.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -21,6 +21,12 @@
                 'historyPath',
             ],
             properties: {
+                highlight: {
+                    // 是否高亮关键字 k 的命中内容
+                    type: 'boolean',
+                    description: 'Whether to highlight the matches of the keyword `k`',
+                    default: true,
+                },
                 historyPath: {
                     // 历史文档文件的绝对路径
                     type: 'string',

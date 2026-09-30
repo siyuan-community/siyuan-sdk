@@ -35,7 +35,7 @@ export interface IPayload {
     /**
      * Query keywords, which can be document block IDs
      */
-    readonly query: string;
+    readonly query?: string;
     /**
      * Query scheme
      * 0: Search docs by doc name

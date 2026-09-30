@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/history/getHistoryItems/payload.schema.json5
  * 查询历史项列表
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/history.go#L64-L93
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/history.go#L44-L51
  * @pathname: /api/history/getHistoryItems
- * @version: 2.9.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getHistoryItems/payload.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -18,7 +18,6 @@
             type: 'object',
             additionalProperties: false,
             required: [
-                'query',
                 'created',
             ],
             properties: {

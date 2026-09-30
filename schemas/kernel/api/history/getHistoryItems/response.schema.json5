@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/history/getHistoryItems/response.schema.json5
  * 查询历史项列表
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/history.go#L64-L93
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/history.go#L44-L51
  * @pathname: /api/history/getHistoryItems
- * @version: 2.9.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/history/getHistoryItems/response.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -63,6 +63,9 @@
             type: 'object',
             additionalProperties: false,
             required: [
+                'id',
+                'notebook',
+                'op',
                 'title',
                 'path',
             ],
@@ -76,6 +79,31 @@
                     // 历史文档文件的绝对路径
                     type: 'string',
                     description: 'Absolute path of the historical document file',
+                },
+                id: {
+                    // 历史对象的 ID（文档为文档 ID，数据库为属性视图 ID，资源文件可能为空字符串）
+                    type: 'string',
+                    description: 'ID of the object in the history (the document ID for documents, the attribute view ID for databases, may be empty for assets)',
+                },
+                notebook: {
+                    // 文档所在的笔记本 ID（仅对文档历史有意义）
+                    type: 'string',
+                    description: 'ID of the notebook containing the document (only meaningful for document histories)',
+                },
+                op: {
+                    // 产生该历史的操作
+                    type: 'string',
+                    title: 'THistoryOperation',
+                    description: 'Operation that produced the history\n- `clean`: Clean up unused assets or databases\n- `update`: Update\n- `delete`: Delete\n- `format`: Format\n- `sync`: Overwritten by sync\n- `replace`: Replace\n- `outline`: Edit in the outline panel',
+                    enum: [
+                        'clean', // 清理未引用的资源文件或数据库
+                        'delete', // 删除
+                        'format', // 格式化
+                        'outline', // 在大纲面板中编辑
+                        'replace', // 替换
+                        'sync', // 同步时被覆盖
+                        'update', // 更新
+                    ],
                 },
             },
         },

@@ -46,6 +46,10 @@ export interface ISnippet {
      */
     readonly content: string;
     /**
+     * Whether the snippet is disabled in the publish service
+     */
+    readonly disabledInPublish: boolean;
+    /**
      * snippet enable status
      */
     readonly enabled: boolean;
@@ -53,10 +57,6 @@ export interface ISnippet {
      * snippet ID
      */
     readonly id: string;
-    /**
-     * snippet memo
-     */
-    readonly memo?: string;
     /**
      * snippet name
      */

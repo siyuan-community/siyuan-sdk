@@ -27,6 +27,10 @@ export interface IPayload {
      */
     readonly enabled: number;
     /**
+     * Filter keyword matched against the names and contents of snippets (case-insensitive)
+     */
+    readonly keyword?: string;
+    /**
      * Get code snippets of a specified type
      */
     readonly type: TSnippetType;

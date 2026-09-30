@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/getSnippet/response.schema.json",
-    "$comment": "v2.10.15",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -51,6 +51,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+                "disabledInPublish",
                 "id",
                 "name",
                 "type",
@@ -66,10 +67,6 @@
                 "name": {
                     "type": "string",
                     "description": "snippet name"
-                },
-                "memo": {
-                    "type": "string",
-                    "description": "snippet memo"
                 },
                 "type": {
                     "title": "TSnippetType",
@@ -87,6 +84,10 @@
                 "content": {
                     "type": "string",
                     "description": "snippet content"
+                },
+                "disabledInPublish": {
+                    "type": "boolean",
+                    "description": "Whether the snippet is disabled in the publish service"
                 }
             }
         }

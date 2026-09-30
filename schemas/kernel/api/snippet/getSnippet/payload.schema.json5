@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/snippet/getSnippet/payload.schema.json5
  * 获取代码片段列表
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/snippet.go#L58-L94
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/snippet.go#L30-L80
  * @pathname: /api/snippet/getSnippet
- * @version: 2.9.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/getSnippet/payload.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -42,6 +42,11 @@
                         1, // 启用的代码片段
                         2, // 所有状态的代码片段
                     ],
+                },
+                keyword: {
+                    // 过滤关键字，匹配代码片段名称或内容（不区分大小写）
+                    type: 'string',
+                    description: 'Filter keyword matched against the names and contents of snippets (case-insensitive)',
                 },
             },
         },

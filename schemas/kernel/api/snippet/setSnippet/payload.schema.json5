@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/snippet/setSnippet/payload.schema.json5
  * 设置代码片段列表
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.7/kernel/api/snippet.go#L96-L128
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/snippet.go#L82-L109
  * @pathname: /api/snippet/setSnippet
- * @version: 2.9.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/setSnippet/payload.schema.json5',
-    $comment: 'v2.9.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -83,6 +83,12 @@
                     // 代码片段内容
                     type: 'string',
                     description: 'snippet content',
+                },
+                disabledInPublish: {
+                    // 是否在发布服务中禁用
+                    type: 'boolean',
+                    description: 'Whether the snippet is disabled in the publish service',
+                    default: false,
                 },
             },
         },

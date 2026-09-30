@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/snippet/setSnippet/payload.schema.json",
-    "$comment": "v2.9.7",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -67,6 +67,11 @@
                 "content": {
                     "type": "string",
                     "description": "snippet content"
+                },
+                "disabledInPublish": {
+                    "type": "boolean",
+                    "description": "Whether the snippet is disabled in the publish service",
+                    "default": false
                 }
             }
         }

@@ -13,50 +13,43 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, onTestFinished } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type createNotebook from "@/types/kernel/api/notebook/createNotebook";
 
-const pathname = client.Client.api.notebook.createNotebook.pathname;
+const pathname = Client.api.notebook.createNotebook.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    const notebook_name = "createNotebook";
-    testKernelAPI<createNotebook.IPayload, createNotebook.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                name: notebook_name,
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.createNotebook(payload!),
-        response: {
-            validate: validate_response,
-            test: async (response) => {
-                it("test the result of creating a notebook", async () => {
-                    const res = await client.client.getNotebookConf({
-                        notebook: response.data.notebook.id,
-                    });
-                    expect(res.data.name).toEqual(notebook_name);
-                    expect(res.data.conf.name).toEqual(notebook_name);
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-                    /* 删除测试用的笔记本 */
-                    await client.client.removeNotebook({
-                        notebook: res.data.box,
-                    });
-                });
-            },
-        },
+    it("main", async () => {
+        const payload: createNotebook.IPayload = { name: uniqueName("createNotebook") };
+        expectPayload(context.validators, payload);
+
+        const response = await client.createNotebook(payload);
+        const id = response.data.notebook.id;
+        onTestFinished(async () => {
+            await client.removeNotebook({ notebook: id });
+        });
+        expectResponse(context.validators, response);
+
+        const conf = await client.getNotebookConf({ notebook: id });
+        expect(conf.data.name).toBe(payload.name);
+        expect(conf.data.conf.name).toBe(payload.name);
     });
 });

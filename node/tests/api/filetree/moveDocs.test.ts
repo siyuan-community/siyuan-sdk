@@ -13,78 +13,52 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type moveDocs from "@/types/kernel/api/filetree/moveDocs";
 
-const pathname = client.Client.api.filetree.moveDocs.pathname;
+const pathname = Client.api.filetree.moveDocs.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("moveDocs");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        documents: [] as string[], // 逐级嵌套的文档 ID 列表
+    };
 
-    const notebook_name = "moveDocs";
-    const hpaths = [
-        "/path1",
-        "/path1/path2",
-        "/path1/path2/moveDocs",
-    ];
-    const markdown = "# moveDocs\n";
-    const hpath = "/moveDocs";
-    testKernelAPI<moveDocs.IPayload, moveDocs.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                fromPaths: [], // 将使用新创建的文档的 ID
-                toNotebook: "", // 将使用新创建的笔记本的 ID
-                toPath: "/",
-            },
-            validate: validate_payload,
-            test: async (payload, options) => {
-                /* 新建一个笔记本以进行测试 */
-                const response_createNotebook = await client.client.createNotebook({
-                    name: notebook_name,
-                });
-                payload.toNotebook = response_createNotebook.data.notebook.id;
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        for (const hpath of [
+            "/path1",
+            "/path1/path2",
+            "/path1/path2/moveDocs",
+        ]) {
+            context.documents.push(await createDoc(notebook.id, hpath, "# moveDocs\n"));
+        }
+    });
 
-                options.ids = [] as string[]; // 文档 ID 列表
-                /* 新建数个文档以测试 */
-                for (const hpath of hpaths) {
-                    const response_createDocWithMd = await client.client.createDocWithMd({
-                        notebook: payload.toNotebook,
-                        path: hpath,
-                        markdown,
-                    });
-                    options.ids.push(response_createDocWithMd.data);
-                }
-                payload.fromPaths.push(`/${options.ids.join("/")}.sy`);
-            },
-        },
-        request: (payload) => client.client.moveDocs(payload!),
-        response: {
-            validate: validate_response,
-            test: async (_response, payload, options) => {
-                it("test the result of moving documents", async () => {
-                    const res = await client.client.getHPathByPath({
-                        notebook: payload.toNotebook,
-                        path: `/${options.ids.pop()}.sy`,
-                    });
-                    expect(res.data).toEqual(hpath);
+    it("move a nested document to the notebook root", async () => {
+        const document = context.documents.at(-1)!;
+        const payload: moveDocs.IPayload = {
+            fromPaths: [`/${context.documents.join("/")}.sy`],
+            toNotebook: notebook.id,
+            toPath: "/",
+        };
+        expectPayload(context.validators, payload);
 
-                    /* 删除测试用的笔记本 */
-                    await client.client.removeNotebook({
-                        notebook: payload.toNotebook,
-                    });
-                });
-            },
-        },
+        const response = await client.moveDocs(payload);
+        expectResponse(context.validators, response);
+
+        const hpath = await client.getHPathByPath({ notebook: notebook.id, path: `/${document}.sy` });
+        expect(hpath.data).toBe("/moveDocs");
     });
 });

@@ -13,36 +13,45 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type exportMdContent from "@/types/kernel/api/export/exportMdContent";
 
-const pathname = client.Client.api.export.exportMdContent.pathname;
+const pathname = Client.api.export.exportMdContent.pathname;
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+/* 测试文档的内容 */
+const MARKDOWN = "## exportMdContent\n\nParagraph with **strong** text\n";
 
-    testKernelAPI<exportMdContent.IPayload, exportMdContent.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                id: "20240608221014-g7o9pk5", // 测试/exportMdContent
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.exportMdContent(payload!),
-        response: {
-            validate: validate_response,
-        },
-        // debug: true,
+describe(pathname, () => {
+    const notebook = useNotebook("exportMdContent");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/exportMdContent", MARKDOWN);
+    });
+
+    it("main", async () => {
+        const payload: exportMdContent.IPayload = { id: context.document };
+        expectPayload(context.validators, payload);
+
+        const response = await client.exportMdContent(payload);
+        expectResponse(context.validators, response);
+
+        /* 导出内容是否带有 YAML Front Matter 取决于工作空间的导出设置，因此只检查正文 */
+        expect(response.data.hPath).toBe("/exportMdContent");
+        expect(response.data.content).toContain(MARKDOWN);
     });
 });

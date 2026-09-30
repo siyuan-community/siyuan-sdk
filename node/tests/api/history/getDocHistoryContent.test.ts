@@ -13,64 +13,57 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDeletedDocHistory, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IDocHistory } from "~/tests/utils/fixtures";
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getDocHistoryContent from "@/types/kernel/api/history/getDocHistoryContent";
 
-const pathname = client.Client.api.history.getDocHistoryContent.pathname;
+const pathname = Client.api.history.getDocHistoryContent.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: getDocHistoryContent.IPayload;
-    after?: (response: getDocHistoryContent.IResponse, payload: getDocHistoryContent.IPayload) => void;
-    debug: boolean;
-}
+/* 测试文档的内容 */
+const CONTENT = "getDocHistoryContent";
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("getDocHistoryContent");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        history: {} as IDocHistory, // 被删除文档的历史记录
+        historyPath: "", // 历史记录文件路径
+    };
 
-    const cases: ICase[] = [
-        {
-            name: "history without keyword",
-            payload: {
-                historyPath: "D:\\Note\\siyuan\\workspace\\test\\history\\2023-08-08-175043-update\\20210808180117-czj9bvb\\20200812220555-lj3enxa.sy",
-            },
-            debug: false,
-        },
-        {
-            name: "history with keyword",
-            payload: {
-                historyPath: "D:\\Note\\siyuan\\workspace\\test\\history\\2023-08-08-175043-update\\20210808180117-czj9bvb\\20200812220555-lj3enxa.sy",
-                k: "开始",
-            },
-            debug: false,
-        },
-    ];
-
-    cases.forEach((item) => {
-        testKernelAPI<getDocHistoryContent.IPayload, getDocHistoryContent.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.getDocHistoryContent(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.history = await createDeletedDocHistory(notebook.id, "/getDocHistoryContent", CONTENT);
+        const response = await client.getHistoryItems({
+            created: context.history.created,
+            query: context.history.id,
+            type: 3, // 按文档 ID 检索
         });
+        context.historyPath = response.data.items[0]!.path;
+    });
+
+    it.for<{ name: string; k?: string }>([
+        { name: "history without keyword" },
+        { name: "history with keyword", k: CONTENT },
+    ])("$name", async ({ k }) => {
+        const payload: getDocHistoryContent.IPayload = {
+            historyPath: context.historyPath,
+            k,
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.getDocHistoryContent(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.id).toBe(context.history.id);
+        expect(response.data.content).toContain(CONTENT);
     });
 });

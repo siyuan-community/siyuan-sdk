@@ -13,114 +13,64 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe } from "vitest";
+import { beforeAll, describe, expect, it, onTestFinished } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { removeFileIfExists } from "~/tests/utils/cleanup";
+import { client } from "~/tests/utils/client";
+import { useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type exportResources from "@/types/kernel/api/export/exportResources";
 
-const pathname = client.Client.api.export.exportResources.pathname;
+const pathname = Client.api.export.exportResources.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: exportResources.IPayload;
-    after?: (response: exportResources.IResponse, payload: exportResources.IPayload) => void;
-    debug: boolean;
-}
+/* ZIP 文件头 */
+const ZIP_SIGNATURE = [0x50, 0x4B, 0x03, 0x04];
 
-const paths: string[] = []; // 测试生成的文件路径
+describe(pathname, () => {
+    const dir = useTempDir("exportResources");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const cases: ICase[] = [
-        {
-            name: "empty with name",
-            payload: {
-                paths: [],
-                name: "test-empty",
-            },
-            debug: false,
-        },
-        {
-            name: "files",
-            payload: {
-                paths: [
-                    "temp/siyuan.log", //
-                    "temp/pandoc/COPYING.rtf",
-                    "temp/pandoc/COPYRIGHT.txt",
-                    "temp/pandoc/MANUAL.html",
-                ],
-                name: "test-files",
-            },
-            debug: false,
-        },
-        {
-            name: "folders",
-            payload: {
-                paths: [
-                    "conf/appearance/boot", //
-                    "conf/appearance/emojis",
-                    "conf/appearance/icons/ant",
-                    "conf/appearance/themes/midnight",
-                ],
-                name: "test-folders",
-            },
-            debug: false,
-        },
-        {
-            name: "files + folders",
-            payload: {
-                paths: [
-                    "temp/siyuan.log", //
-                    "temp/pandoc/COPYING.rtf",
-                    "temp/pandoc/COPYRIGHT.txt",
-                    "temp/pandoc/MANUAL.html",
-                    "conf/appearance/boot",
-                    "conf/appearance/emojis",
-                    "conf/appearance/icons/ant",
-                    "conf/appearance/themes/midnight",
-                ],
-                name: "test-files+folders",
-            },
-            debug: false,
-        },
-    ];
-
-    cases.forEach((item) => {
-        testKernelAPI<exportResources.IPayload, exportResources.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.exportResources(payload!),
-            response: {
-                validate: validate_response,
-                test: (response) => {
-                    paths.push(response.data.path);
-                },
-            },
-            debug: item.debug,
-        });
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        for (const name of [
+            "file1.html",
+            "file2.html",
+            "folder1/file.html",
+            "folder2/file.html",
+        ]) {
+            await client.putFile({ path: dir.resolve(name), file: CONSTANTS.TEST_FILE_CONTENT });
+        }
     });
-});
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试生成的 *.zip 文件 */
-    paths.forEach((path) => {
-        client.client.removeFile({
-            path,
+    it.for<{ name: string; paths: string[] }>([
+        { name: "empty with name", paths: [] },
+        { name: "files", paths: ["file1.html", "file2.html"] },
+        { name: "folders", paths: ["folder1", "folder2"] },
+        { name: "files + folders", paths: ["file1.html", "file2.html", "folder1", "folder2"] },
+    ])("$name", async ({ name, paths }) => {
+        const payload: exportResources.IPayload = {
+            paths: paths.map((path) => dir.resolve(path)),
+            name: `test-${name}`,
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.exportResources(payload);
+        /* 压缩包生成在 temp/export 目录下，不在测试临时目录中，需要单独删除 */
+        onTestFinished(async () => {
+            await removeFileIfExists(response.data.path);
         });
+        expectResponse(context.validators, response);
+
+        const zip = await client.getFile({ path: response.data.path }, "arraybuffer");
+        expect([...new Uint8Array(zip.slice(0, ZIP_SIGNATURE.length))]).toEqual(ZIP_SIGNATURE);
     });
 });

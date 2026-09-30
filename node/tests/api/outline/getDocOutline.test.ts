@@ -13,35 +13,51 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getDocOutline from "@/types/kernel/api/outline/getDocOutline";
 
-const pathname = client.Client.api.outline.getDocOutline.pathname;
+const pathname = Client.api.outline.getDocOutline.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("getDocOutline");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
 
-    testKernelAPI<getDocOutline.IPayload, getDocOutline.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                id: "20200813163359-v04n73b", // 隐私政策和用户协议
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.getDocOutline(payload!),
-        response: {
-            validate: validate_response,
-        },
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(
+            notebook.id,
+            "/getDocOutline",
+            "# Heading1\n\nParagraph\n\n## Heading1.1\n\nParagraph\n\n# Heading2\n",
+        );
+    });
+
+    it("main", async () => {
+        const payload: getDocOutline.IPayload = { id: context.document };
+        expectPayload(context.validators, payload);
+
+        const response = await client.getDocOutline(payload);
+        expectResponse(context.validators, response);
+
+        /* 标题文本以 HTML 形式返回，测试数据不含空格等会被转义的字符 */
+        expect(response.data.map((node) => [node.name, node.subType])).toEqual([
+            ["Heading1", "h1"],
+            ["Heading2", "h1"],
+        ]);
+        expect(response.data[0]!.blocks?.map((node) => [node.content, node.subType])).toEqual([
+            ["Heading1.1", "h2"],
+        ]);
     });
 });

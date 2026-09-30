@@ -13,71 +13,45 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type renameDoc from "@/types/kernel/api/filetree/renameDoc";
 
-const pathname = client.Client.api.filetree.renameDoc.pathname;
+const pathname = Client.api.filetree.renameDoc.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("renameDoc");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
 
-    const notebook_name = "renameDoc";
-    const hpath = "/renameDoc";
-    const markdown = "# renameDoc\n";
-    const title_new = "renameDoc-new";
-    const hpath_new = "/renameDoc-new";
-    testKernelAPI<renameDoc.IPayload, renameDoc.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                notebook: "", // 将使用新创建的笔记本的 ID
-                path: "", // 将使用新创建的文档的 ID
-                title: title_new,
-            },
-            validate: validate_payload,
-            test: async (payload) => {
-                /* 新建一个笔记本以进行测试 */
-                const response_createNotebook = await client.client.createNotebook({
-                    name: notebook_name,
-                });
-                payload.notebook = response_createNotebook.data.notebook.id;
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/renameDoc", "# renameDoc\n");
+    });
 
-                /* 新建一个文档以测试 */
-                const response_createDocWithMd = await client.client.createDocWithMd({
-                    notebook: payload.notebook,
-                    path: hpath,
-                    markdown,
-                });
-                payload.path = `/${response_createDocWithMd.data}.sy`;
-            },
-        },
-        request: (payload) => client.client.renameDoc(payload!),
-        response: {
-            validate: validate_response,
-            test: async (_response, payload) => {
-                it("test the result of renaming a document", async () => {
-                    const res = await client.client.getHPathByPath({
-                        notebook: payload.notebook,
-                        path: payload.path,
-                    });
-                    expect(res.data).toEqual(hpath_new);
+    it("main", async () => {
+        const payload: renameDoc.IPayload = {
+            notebook: notebook.id,
+            path: `/${context.document}.sy`,
+            title: "renameDoc-new",
+        };
+        expectPayload(context.validators, payload);
 
-                    /* 删除测试用的笔记本 */
-                    await client.client.removeNotebook({
-                        notebook: payload!.notebook,
-                    });
-                });
-            },
-        },
+        const response = await client.renameDoc(payload);
+        expectResponse(context.validators, response);
+
+        const hpath = await client.getHPathByPath({ notebook: payload.notebook, path: payload.path });
+        expect(hpath.data).toBe("/renameDoc-new");
     });
 });

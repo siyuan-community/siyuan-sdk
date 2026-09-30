@@ -13,118 +13,91 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { randomUUID } from "node:crypto";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { beforeAll, describe, expect, it } from "vitest";
+
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import {
+    appendMarkdown,
+    createDoc,
+    useNotebook,
+    waitForIndexed,
+} from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type fullTextSearchBlock from "@/types/kernel/api/search/fullTextSearchBlock";
 
-const pathname = client.Client.api.search.fullTextSearchBlock.pathname;
+const pathname = Client.api.search.fullTextSearchBlock.pathname;
 
-interface ICase {
-    name: string;
-    payload: fullTextSearchBlock.IPayload;
-    debug: boolean;
+/* 测试用关键词，只由字母与数字组成，避免分词影响匹配 */
+const KEYWORD = `sdk${randomUUID().replaceAll("-", "").slice(0, 16)}`;
+
+/**
+ * 按搜索方式构造查询语句
+ * @param method - 搜索方式
+ */
+function buildQuery(method: number): string {
+    switch (method) {
+        case 1: // 查询语法
+            return `"${KEYWORD}"`;
+        case 2: // SQL
+            return `SELECT * FROM blocks WHERE content = '${KEYWORD}'`;
+        case 3: // 正则表达式
+            return `^${KEYWORD}$`;
+        case 0: // 关键字
+        default:
+            return KEYWORD;
+    }
 }
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+/* 所有分组方式、排序方式与搜索方式的组合 */
+const CASES: fullTextSearchBlock.IPayload[] = [0, 1].flatMap((groupBy) =>
+    [0, 1, 2, 3, 4, 5, 6, 7].flatMap((orderBy) =>
+        [0, 1, 2, 3].map((method) => ({ groupBy, orderBy, method })),
+    ),
+);
 
-    const cases: ICase[] = (() => {
-        const payloads: fullTextSearchBlock.IPayload[] = [];
-        for (const groupBy of [
-            0,
-            1,
-        ]) {
-            for (const orderBy of [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-            ]) {
-                for (const method of [
-                    0,
-                    1,
-                    2,
-                    3,
-                ]) {
-                    const query = (() => {
-                        switch (method) {
-                            // eslint-disable-next-line default-case-last
-                            default:
-                            case 0:
-                                return "测试";
+describe(pathname, () => {
+    const notebook = useNotebook("fullTextSearchBlock");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        block: "", // 内容为关键词的段落块 ID
+    };
 
-                            case 1:
-                                return "\"测试\"";
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        const document = await createDoc(notebook.id, "/fullTextSearchBlock");
+        context.block = await appendMarkdown(document, KEYWORD);
+        await waitForIndexed([document, context.block]);
+    });
 
-                            case 2:
-                                return "^测试$";
-
-                            case 3:
-                                return "SELECT * FROM blocks_fts WHERE blocks_fts MATCH '测试' LIMIT 1;";
-                        }
-                    })();
-                    payloads.push({
-                        method,
-                        groupBy,
-                        orderBy,
-                        page: 1,
-                        paths: [
-                            "20210808180117-czj9bvb", // 简体中文用户手册
-                            "20211226090932-5lcq56f", // 繁体中文用户手册
-                            "20210808180117-6v0mkxr", // 英文用户手册
-                        ],
-                        query,
-                        types: {
-                            // heading: false,
-                            // paragraph: false,
-                            // mathBlock: false,
-                            // table: false,
-                            // codeBlock: false,
-                            // htmlBlock: false,
-                            // embedBlock: false,
-
-                            document: true,
-                            // superBlock: false,
-                            // blockquote: false,
-                            // list: false,
-                            // listItem: false,
-                        },
-                    });
-                }
-            }
-        }
-        return payloads.map((payload) => ({
-            name: `method: ${payload.method} groupBy: ${payload.groupBy} orderBy: ${payload.orderBy}`,
-            payload,
-            debug: false,
-        }));
-    })();
-
-    cases.forEach((item) => {
-        testKernelAPI<fullTextSearchBlock.IPayload, fullTextSearchBlock.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
+    it.for(CASES)("method: $method groupBy: $groupBy orderBy: $orderBy", async ({ groupBy, orderBy, method }) => {
+        const payload: fullTextSearchBlock.IPayload = {
+            method,
+            groupBy,
+            orderBy,
+            page: 1,
+            paths: [notebook.id],
+            query: buildQuery(method!),
+            types: {
+                document: true,
+                paragraph: true,
             },
-            request: (payload) => client.client.fullTextSearchBlock(payload!),
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.fullTextSearchBlock(payload);
+        expectResponse(context.validators, response);
+
+        /* 按文档分组时，匹配的块位于文档块的下级 */
+        const blocks = response.data.blocks.flatMap((block) => [block, ...(block.children ?? [])]);
+        expect(blocks.map((block) => block.id)).toContain(context.block);
+        expect(response.data.matchedBlockCount).toBe(1);
     });
 });

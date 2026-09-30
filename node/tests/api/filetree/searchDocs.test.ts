@@ -13,67 +13,66 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import {
+    createDoc,
+    uniqueName,
+    useNotebook,
+    waitForIndexed,
+} from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type searchDocs from "@/types/kernel/api/filetree/searchDocs";
 
-const pathname = client.Client.api.filetree.searchDocs.pathname;
+const pathname = Client.api.filetree.searchDocs.pathname;
 
-interface ICase {
-    name: string;
-    payload: searchDocs.IPayload;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const notebook = useNotebook("searchDocs");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        title: uniqueName("searchDocs"), // 测试用文档标题，全局唯一
+        document: "", // 测试用文档 ID
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, `/${context.title}`);
+        await waitForIndexed([context.document]);
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "flashcard: undefined",
-            payload: {
-                k: "block",
-            },
-            debug: false,
-        },
-        {
-            name: "flashcard: false",
-            payload: {
-                k: "block",
-                flashcard: false,
-            },
-            debug: false,
-        },
-        {
-            name: "flashcard: true",
-            payload: {
-                k: "block",
-                flashcard: true,
-            },
-            debug: false,
-        },
-    ];
-    cases.forEach((item) => {
-        testKernelAPI<searchDocs.IPayload, searchDocs.IResponse>({
-            name: "main",
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.searchDocs(payload!),
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
+    /**
+     * 搜索文档并校验
+     * @param payload - 请求体
+     * @returns 搜索结果中的文档路径列表，格式为 `笔记本 ID/文档路径`
+     */
+    async function search(payload: searchDocs.IPayload): Promise<string[]> {
+        expectPayload(context.validators, payload);
+
+        const response = await client.searchDocs(payload);
+        expectResponse(context.validators, response);
+        return response.data.map((doc) => `${doc.box}${doc.path}`);
+    }
+
+    it("flashcard: undefined", async () => {
+        const paths = await search({ k: context.title });
+        expect(paths).toContain(`${notebook.id}/${context.document}.sy`);
+    });
+
+    it("flashcard: false", async () => {
+        const paths = await search({ k: context.title, flashcard: false });
+        expect(paths).toContain(`${notebook.id}/${context.document}.sy`);
+    });
+
+    it("flashcard: true", async () => {
+        /* 测试文档中没有闪卡 */
+        const paths = await search({ k: context.title, flashcard: true });
+        expect(paths).not.toContain(`${notebook.id}/${context.document}.sy`);
     });
 });

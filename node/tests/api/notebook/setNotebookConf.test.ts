@@ -13,70 +13,59 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { uniqueName, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type setNotebookConf from "@/types/kernel/api/notebook/setNotebookConf";
 
-const pathname = client.Client.api.notebook.setNotebookConf.pathname;
+const pathname = Client.api.notebook.setNotebookConf.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("setNotebookConf");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        sort: 0, // 笔记本原有的排序值
+    };
 
-    const notebook_name = "setNotebookConf";
-    testKernelAPI<setNotebookConf.IPayload, setNotebookConf.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                notebook: "", // 将使用新创建的笔记本的 ID
-                conf: {
-                    name: "name",
-                    sort: 1,
-                    icon: "12345",
-                    closed: false,
-                    refCreateSaveBox: "",
-                    refCreateSavePath: "./refCreateSavePath/",
-                    docCreateSaveBox: "",
-                    docCreateSavePath: "./docCreateSavePath",
-                    dailyNoteSavePath: "/dailyNoteSavePath",
-                    dailyNoteTemplatePath: "/dailyNoteTemplatePath.md",
-                    sortMode: 15,
-                },
-            },
-            validate: validate_payload,
-            test: async (payload) => {
-                /* 新建一个笔记本以进行测试 */
-                const response = await client.client.createNotebook({
-                    name: notebook_name,
-                });
-                payload.notebook = response.data.notebook.id;
-            },
-        },
-        request: (payload) => client.client.setNotebookConf(payload!),
-        response: {
-            validate: validate_response,
-            test: async (response, payload) => {
-                it("test the result of setting notebook config", async () => {
-                    const res = await client.client.getNotebookConf({
-                        notebook: payload!.notebook,
-                    });
-                    expect(response.data).toEqual(res.data.conf);
-                    expect(response.data).toEqual(payload!.conf);
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.sort = (await client.getNotebookConf({ notebook: notebook.id })).data.conf.sort;
+    });
 
-                    /* 删除新建的笔记本 */
-                    await client.client.removeNotebook({
-                        notebook: payload!.notebook,
-                    });
-                });
+    it("main", async () => {
+        const payload: setNotebookConf.IPayload = {
+            notebook: notebook.id,
+            conf: {
+                /* 名称保留测试前缀，排序值保持不变，避免影响工作空间中其他笔记本的顺序 */
+                name: uniqueName("setNotebookConf-new"),
+                sort: context.sort,
+                icon: "12345",
+                closed: false,
+                refCreateSaveBox: "",
+                refCreateSavePath: "./refCreateSavePath/",
+                docCreateSaveBox: "",
+                docCreateSavePath: "./docCreateSavePath",
+                dailyNoteSavePath: "/dailyNoteSavePath",
+                dailyNoteTemplatePath: "/dailyNoteTemplatePath.md",
+                sortMode: 15,
             },
-        },
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.setNotebookConf(payload);
+        expectResponse(context.validators, response);
+
+        /* 响应中是保存后的完整配置，其中包括请求体中没有的字段 */
+        const conf = await client.getNotebookConf({ notebook: notebook.id });
+        expect(response.data).toEqual(conf.data.conf);
+        expect(response.data).toMatchObject(payload.conf);
     });
 });

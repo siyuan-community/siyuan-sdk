@@ -10,6 +10,7 @@
 - 使用 quicktype `v26` 重新生成类型定义：声明了 `minItems` 的数组改为非空元组类型，`/api/system/getConf` 中自动生成的布局类型名称变更 | Regenerate type definitions using quicktype `v26`: arrays with `minItems` become non-empty tuple types, and the generated layout type names in `/api/system/getConf` changed
 - 添加无状态测试所需的夹具与全局检查 | Add fixtures and global checks for stateless tests
 - 重构 API `/api/block/*` 与 `/api/attr/*` 测试用例 | Refactor API `/api/block/*` and `/api/attr/*` test cases
+- 重构文档、笔记本与检索测试 | Refactor document, notebook and search tests
 
 ## v0.3.14 / 2024-11-20
 

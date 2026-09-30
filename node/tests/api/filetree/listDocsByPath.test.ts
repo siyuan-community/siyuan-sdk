@@ -13,112 +13,64 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type listDocsByPath from "@/types/kernel/api/filetree/listDocsByPath";
 
-const pathname = client.Client.api.filetree.listDocsByPath.pathname;
+const pathname = Client.api.filetree.listDocsByPath.pathname;
 
-/* 测试环境上下文 */
-const context = {
-    notebook: "", // 测试用笔记本的 ID
-    document: "", // 测试用文档的 ID
-};
+describe(pathname, () => {
+    const notebook = useNotebook("listDocsByPath");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
 
-/* 初始化测试上下文 */
-async function initContext() {
-    /* 创建一个测试用笔记本 */
-    const response_createNotebook = await client.client.createNotebook({
-        name: "listDocsByPath",
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/listDocsByPath");
     });
-    context.notebook = response_createNotebook.data.notebook.id;
 
-    /* 创建一个测试用文档 */
-    const response_createDocWithMd = await client.client.createDocWithMd({
-        notebook: context.notebook,
-        markdown: "",
-        path: "/listDocsByPath",
-    });
-    context.document = response_createDocWithMd.data;
-    return context;
-}
-
-interface ICase {
-    name: string;
-    payload: listDocsByPath.IPayload;
-    after?: (response: listDocsByPath.IResponse, payload: listDocsByPath.IPayload) => void;
-    debug: boolean;
-}
-
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const context = await initContext();
-
-    /* 测试各种块的插入 */
-    const cases: ICase[] = [];
-    cases.push({
-        name: `path: .`,
-        payload: {
-            notebook: context.notebook,
+    it("path: /", async () => {
+        const payload: listDocsByPath.IPayload = {
+            notebook: notebook.id,
             path: "/",
-        },
-        after: (response, payload) => {
-            it("docs", () => {
-                expect.soft(response.data.box, "box").toEqual(payload.notebook);
-                expect.soft(response.data.path, "path").toEqual(payload.path);
-                expect(response.data.files, "files.length").toHaveLength(1);
-                const file = response.data.files[0];
-                expect.soft(file.path, "file.path").toEqual(`/${context.document}.sy`);
-                expect.soft(file.name, "file.name").toEqual("listDocsByPath.sy");
-                expect.soft(file.icon, "file.icon").toEqual("");
-                expect.soft(file.name1, "file.name1").toEqual("");
-                expect.soft(file.alias, "file.alias").toEqual("");
-                expect.soft(file.memo, "file.memo").toEqual("");
-                expect.soft(file.bookmark, "file.bookmark").toEqual("");
-                expect.soft(file.id, "file.id").toEqual(context.document);
-                expect.soft(file.count, "file.count").toEqual(0);
-                expect.soft(file.size, "file.size").toEqual(387);
-                expect.soft(file.hSize, "file.hSize").toEqual("387 B");
-                expect.soft(file.subFileCount, "file.subFileCount").toEqual(0);
-                expect.soft(file.newFlashcardCount, "file.newFlashcardCount").toEqual(0);
-                expect.soft(file.dueFlashcardCount, "file.dueFlashcardCount").toEqual(0);
-                expect.soft(file.flashcardCount, "file.flashcardCount").toEqual(0);
-            });
-        },
-        debug: false,
-    });
+        };
+        expectPayload(context.validators, payload);
 
-    cases.forEach((item) => {
-        testKernelAPI<listDocsByPath.IPayload, listDocsByPath.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.listDocsByPath(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
-    });
-});
+        const response = await client.listDocsByPath(payload);
+        expectResponse(context.validators, response);
+        expect.soft(response.data.box, "box").toBe(payload.notebook);
+        expect.soft(response.data.path, "path").toBe(payload.path);
+        expect(response.data.files, "files").toHaveLength(1);
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试用笔记本 */
-    await client.client.removeNotebook({
-        notebook: context.notebook,
+        /* 文档大小与 .sy 文件的实际大小一致 */
+        const sy = await client.getFile({ path: `/data/${notebook.id}/${context.document}.sy` }, "arraybuffer");
+
+        const file = response.data.files[0]!;
+        expect.soft(file.path, "file.path").toBe(`/${context.document}.sy`);
+        expect.soft(file.name, "file.name").toBe("listDocsByPath");
+        expect.soft(file.icon, "file.icon").toBe("");
+        expect.soft(file.name1, "file.name1").toBe("");
+        expect.soft(file.alias, "file.alias").toBe("");
+        expect.soft(file.memo, "file.memo").toBe("");
+        expect.soft(file.bookmark, "file.bookmark").toBe("");
+        expect.soft(file.id, "file.id").toBe(context.document);
+        expect.soft(file.count, "file.count").toBe(0);
+        expect.soft(file.size, "file.size").toBe(sy.byteLength);
+        expect.soft(file.hSize, "file.hSize").toBe(`${sy.byteLength} B`);
+        expect.soft(file.subFileCount, "file.subFileCount").toBe(0);
+        expect.soft(file.newFlashcardCount, "file.newFlashcardCount").toBe(0);
+        expect.soft(file.dueFlashcardCount, "file.dueFlashcardCount").toBe(0);
+        expect.soft(file.flashcardCount, "file.flashcardCount").toBe(0);
     });
 });

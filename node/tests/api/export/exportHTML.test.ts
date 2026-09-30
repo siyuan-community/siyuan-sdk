@@ -13,54 +13,51 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe } from "vitest";
+import { join } from "node:path";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { beforeAll, describe, expect, it } from "vitest";
+
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { env } from "~/tests/utils/env";
+import { createDoc, useNotebook, useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type exportHTML from "@/types/kernel/api/export/exportHTML";
 
-const pathname = client.Client.api.export.exportHTML.pathname;
+const pathname = Client.api.export.exportHTML.pathname;
 
-const savePath = "temp/export/html";
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("exportHTML");
+    const dir = useTempDir("exportHTML");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
 
-    await client.client.putFile({
-        path: savePath,
-        isDir: true,
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/exportHTML", "exportHTML paragraph");
     });
 
-    testKernelAPI<exportHTML.IPayload, exportHTML.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                id: "20200812220555-lj3enxa", // 思源笔记用户指南/请从这里开始
-                pdf: false,
-                savePath,
-                keepFold: true,
-                merge: false,
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.exportHTML(payload!),
-        response: {
-            validate: validate_response,
-        },
-        // debug: true,
-    });
-});
+    it("main", async () => {
+        const payload: exportHTML.IPayload = {
+            id: context.document,
+            pdf: false,
+            /* 内核直接使用该路径，因此传入测试临时目录的绝对路径 */
+            savePath: join(env.workspace, dir.path),
+            keepFold: true,
+            merge: false,
+        };
+        expectPayload(context.validators, payload);
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试生成的文件目录 */
-    await client.client.removeFile({
-        path: savePath,
+        const response = await client.exportHTML(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.id).toBe(context.document);
+        expect(response.data.content).toContain("exportHTML paragraph");
     });
 });

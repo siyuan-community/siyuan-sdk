@@ -13,26 +13,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-/**
- * 读取快照中的文件需要工作空间已初始化数据仓库并创建过快照，而快照一旦创建便会留在工作空间中，
- * 因此这里只测试读取不存在的快照文件时内核返回的错误
- */
+import { beforeAll, describe, expect, it } from "vitest";
 
-import { beforeAll, describe, it } from "vitest";
-
-import { expectKernelError, expectPayload } from "~/tests/utils/assert";
+import { expectResponse } from "~/tests/utils/assert";
 import { client } from "~/tests/utils/client";
+import { useNotebook } from "~/tests/utils/fixtures";
 import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
 import { Client } from "@/client/Client";
 
 import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-import type openRepoSnapshotDoc from "@/types/kernel/api/repo/openRepoSnapshotDoc";
-
-const pathname = Client.api.repo.openRepoSnapshotDoc.pathname;
+const pathname = Client.api.notebook.lsNotebooks.pathname;
 
 describe(pathname, () => {
+    const notebook = useNotebook("lsNotebooks");
     const context = {
         validators: {} as IKernelAPIValidators,
     };
@@ -41,12 +36,13 @@ describe(pathname, () => {
         context.validators = await loadKernelAPISchemas(pathname);
     });
 
-    it("non-existent file", async () => {
-        const payload: openRepoSnapshotDoc.IPayload = {
-            id: "0000000000000000000000000000000000000000",
-        };
-        expectPayload(context.validators, payload);
-
-        await expectKernelError(client.openRepoSnapshotDoc(payload), -1);
+    it("main", async () => {
+        const response = await client.lsNotebooks();
+        expectResponse(context.validators, response);
+        expect(response.data.notebooks).toContainEqual(expect.objectContaining({
+            id: notebook.id,
+            name: notebook.name,
+            closed: false,
+        }));
     });
 });

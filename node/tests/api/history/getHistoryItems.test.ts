@@ -13,128 +13,58 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDeletedDocHistory, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IDocHistory } from "~/tests/utils/fixtures";
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getHistoryItems from "@/types/kernel/api/history/getHistoryItems";
 
-const pathname = client.Client.api.history.getHistoryItems.pathname;
+const pathname = Client.api.history.getHistoryItems.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: getHistoryItems.IPayload;
-    after?: (response: getHistoryItems.IResponse, payload: getHistoryItems.IPayload) => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const notebook = useNotebook("getHistoryItems");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        history: {} as IDocHistory, // 被删除文档的历史记录
+    };
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.history = await createDeletedDocHistory(notebook.id, "/getHistoryItems", "getHistoryItems");
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "operate default",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate all",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "all",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate clean",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "clean",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate update",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "update",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate delete",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "delete",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate format",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "format",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate sync",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "sync",
-                type: 3,
-            },
-            debug: false,
-        },
-        {
-            name: "operate replace",
-            payload: {
-                created: "1690304916",
-                query: "20200812220555-lj3enxa",
-                op: "replace",
-                type: 3,
-            },
-            debug: false,
-        },
-    ];
+    /* 测试文档只有一条删除操作的历史记录 */
+    it.for<{ op?: getHistoryItems.TOperationType; count: number }>([
+        { count: 1 },
+        { op: "all", count: 1 },
+        { op: "delete", count: 1 },
+        { op: "clean", count: 0 },
+        { op: "update", count: 0 },
+        { op: "format", count: 0 },
+        { op: "sync", count: 0 },
+        { op: "replace", count: 0 },
+    ])("operate $op", async ({ op, count }) => {
+        const payload: getHistoryItems.IPayload = {
+            created: context.history.created,
+            query: context.history.id,
+            op,
+            type: 3, // 按文档 ID 检索
+        };
+        expectPayload(context.validators, payload);
 
-    cases.forEach((item) => {
-        testKernelAPI<getHistoryItems.IPayload, getHistoryItems.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.getHistoryItems(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+        const response = await client.getHistoryItems(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.items).toHaveLength(count);
+        for (const item of response.data.items) {
+            expect(item.path).toContain(context.history.id);
+        }
     });
 });

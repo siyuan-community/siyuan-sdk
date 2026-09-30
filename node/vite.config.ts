@@ -40,7 +40,7 @@ export default defineConfig({
         sourcemap: true,
         emptyOutDir: true,
         lib: {
-            entry: resolve(__dirname, "src/index.ts"),
+            entry: resolve(import.meta.dirname, "src/index.ts"),
             name: "SiyuanSDK",
             fileName: "index",
             formats: [

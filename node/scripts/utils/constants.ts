@@ -18,7 +18,7 @@ import path from "node:path";
 import process from "node:process";
 
 import TOML from "@ltd/j-toml";
-import quicktype from "quicktype-core";
+import * as quicktype from "quicktype-core";
 
 /* prettier 配置文件路径 */
 export const PRETTIERRC_PATH = path.resolve(process.cwd(), "./../.prettierrc.toml");
@@ -81,6 +81,7 @@ export const QUICKTYPE_OPTIONS: Partial<quicktype.Options> = {
         "prefer-types": false, // 使用类型替代接口
         "prefer-const-values": true, // 对于具有单值的字符串枚举，使用 string 字面量类型替代 enum
         "readonly": true, // 使用只读类型成员
+        "prefer-unknown": false, // 使用 unknown 类型替代 any 类型
     }, // 渲染器选项
     indentation: " ".repeat(PRETTIER.tabWidth as number), // 缩进
 } as const;

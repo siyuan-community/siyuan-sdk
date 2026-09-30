@@ -58,7 +58,7 @@ interface ITestKernelAPIOptions<P, R> {
  * @param options - 测试配置项
  */
 export async function testKernelAPI<P, R>(options: ITestKernelAPIOptions<P, R>) {
-    describe.sequential(options.name, async () => {
+    describe(options.name, { concurrent: false }, async () => {
         try {
             /* 测试请求体 */
             if (options.payload) {

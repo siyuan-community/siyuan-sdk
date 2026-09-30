@@ -1,8 +1,5 @@
 allowBuilds:
   esbuild: true
 
-minimumReleaseAgeExclude:
-  - tsx@4.22.5
-
 shellEmulator: true
 trustPolicy: "off"

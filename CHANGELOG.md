@@ -6,6 +6,7 @@
 - 调整 API `/api/filetree/getDoc` | Adjust API `/api/filetree/getDoc`
 - 将 `ts-node` 切换为 `tsx` | Switch `ts-node` to `tsx`
 - 升级 Node.js 至 `v26.10.0`，升级 pnpm 至 `v12.8.1` | Upgrade Node.js to `v26.10.0` and pnpm to `v12.8.1`
+- 更新依赖版本 | Update dependency versions
 
 ## v0.3.14 / 2024-11-20
 

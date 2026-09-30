@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import quicktype from "quicktype-core";
+import * as quicktype from "quicktype-core";
 
 import { QUICKTYPE_OPTIONS } from "./constants.ts";
 

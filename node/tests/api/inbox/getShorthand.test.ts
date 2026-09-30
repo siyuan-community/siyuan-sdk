@@ -13,36 +13,39 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+/**
+ * 收集箱中的速记来自云端账号，测试无法在工作空间中自行创建，
+ * 因此这里只测试获取速记失败时内核返回的错误码；测试工作空间未登录云端账号，内核不访问网络即返回鉴权失败
+ */
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { beforeAll, describe, it } from "vitest";
+
+import { expectKernelError, expectPayload } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getShorthand from "@/types/kernel/api/inbox/getShorthand";
 
-const pathname = client.Client.api.inbox.getShorthand.pathname;
+const pathname = Client.api.inbox.getShorthand.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    testKernelAPI<getShorthand.IPayload, getShorthand.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                id: "1673252942799",
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.getShorthand(payload!),
-        response: {
-            validate: validate_response,
-        },
-        debug: false,
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("non-existent shorthand", async () => {
+        /* 速记 ID 为 13 位毫秒时间戳 */
+        const payload: getShorthand.IPayload = { id: "0000000000000" };
+        expectPayload(context.validators, payload);
+
+        await expectKernelError(client.getShorthand(payload), 1);
     });
 });

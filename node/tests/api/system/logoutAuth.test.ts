@@ -13,34 +13,38 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import { KernelError } from "~/src";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type logoutAuth from "@/types/kernel/api/system/logoutAuth";
+import { Client } from "@/client/Client";
+import { KernelError } from "@/errors/kernel";
 
-const pathname = client.Client.api.system.logoutAuth.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.system.logoutAuth.pathname;
 
-    testKernelAPI<never, logoutAuth.IResponse>({
-        name: "main",
-        request: () => client.client.logoutAuth(),
-        catch: (error) => {
-            /* 测试错误信息 (未设置访问鉴权码) */
-            it(`test error info (No authentication code)`, async () => {
-                expect(error, "error instance of KernelError").instanceOf(KernelError);
-                expect((error as KernelError).data, "response data include closeTimeout property").toHaveProperty("closeTimeout", 5000);
-            });
-        },
-        response: {
-            validate: validate_response,
-        },
+/* 测试请求使用 API token 鉴权，注销会话不影响后续请求 */
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        try {
+            const response = await client.logoutAuth();
+            expectResponse(context.validators, response);
+        }
+        catch (error) {
+            /* 工作空间未设置访问授权码时，内核返回错误并在 closeTimeout 后关闭提示 */
+            expect(error, "error instance of KernelError").toBeInstanceOf(KernelError);
+            expect((error as KernelError).data, "response data include closeTimeout property").toHaveProperty("closeTimeout", 5000);
+        }
     });
 });

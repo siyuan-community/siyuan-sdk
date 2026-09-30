@@ -13,36 +13,38 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type pushErrMsg from "@/types/kernel/api/notification/pushErrMsg";
 
-const pathname = client.Client.api.notification.pushErrMsg.pathname;
+const pathname = Client.api.notification.pushErrMsg.pathname;
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    testKernelAPI<pushErrMsg.IPayload, pushErrMsg.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                msg: "SDK pushErrMsg test",
-                timeout: 7000,
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.pushErrMsg(payload!),
-        response: {
-            validate: validate_response,
-        },
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        const payload: pushErrMsg.IPayload = {
+            msg: "SDK pushErrMsg test",
+            timeout: 7000,
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.pushErrMsg(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.id).toBeTypeOf("string");
     });
 });

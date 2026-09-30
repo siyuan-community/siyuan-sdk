@@ -13,130 +13,73 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse, expectSchema } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { env } from "~/tests/utils/env";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type forwardProxy from "@/types/kernel/api/network/forwardProxy";
 
-const pathname = client.Client.api.network.forwardProxy.pathname;
-const pathname_version = client.Client.api.system.version.pathname;
+const pathname = Client.api.network.forwardProxy.pathname;
+const pathname_version = Client.api.system.version.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: forwardProxy.IPayload;
-    after?: (response: forwardProxy.IResponse, payload?: forwardProxy.IPayload) => void;
-    debug: boolean;
-}
+/* 通过内核代理请求内核自身的 API，不依赖外部网络 */
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        validators_version: {} as IKernelAPIValidators,
+    };
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.validators_version = await loadKernelAPISchemas(pathname_version);
+    });
 
-    const schema_response_version = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname_version));
-    await schema_response_version.loadSchemaFile();
-    const validate_response_version = schema_response_version.constructValidateFuction();
+    /**
+     * 通过代理请求 `/api/system/version` 并校验
+     * @param options - 请求体中除 url 与鉴权请求头之外的字段
+     */
+    async function proxy(options: Omit<forwardProxy.IPayload, "headers" | "url">): Promise<forwardProxy.IResponse> {
+        const payload: forwardProxy.IPayload = {
+            url: `${env.serve}${pathname_version}`,
+            headers: [
+                { Authorization: `Token ${env.token}` },
+            ],
+            ...options,
+        };
+        expectPayload(context.validators, payload);
 
-    const cases: ICase[] = [
-        /* GET 请求测试 */
-        {
-            name: "GET request",
-            payload: {
-                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
-                method: "GET",
-                headers: [
-                    {
-                        Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`,
-                    },
-                ],
-            },
-            after: (response, _payload) => {
-                it("test response.data.body", async () => {
-                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual("text");
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "GET request [text]",
-            payload: {
-                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
-                method: "GET",
-                headers: [
-                    {
-                        Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`,
-                    },
-                ],
-                responseEncoding: "text",
-            },
-            after: (response, payload) => {
-                // eslint-disable-next-line test/no-identical-title
-                it("test response.data.body", async () => {
-                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload?.responseEncoding);
+        const response = await client.forwardProxy(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.status, "proxied response status").toBe(200);
+        return response;
+    }
 
-                    expect.soft(validate_response_version(JSON.parse(response.data.body)), `verify response using JSON Schema`).toBeTruthy(); // 校验响应体
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "GET request [base64]",
-            payload: {
-                url: `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`,
-                method: "GET",
-                headers: [
-                    {
-                        Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`,
-                    },
-                ],
-                responseEncoding: "base64",
-            },
-            after: (response, payload) => {
-                // eslint-disable-next-line test/no-identical-title
-                it("test response.data.body", async () => {
-                    expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toEqual(payload?.responseEncoding);
-                    expect.soft(validate_response_version(JSON.parse(atob(response.data.body))), `verify response using JSON Schema`).toBeTruthy(); // 校验响应体
-                });
-            },
-            debug: false,
-        },
-        /* POST 请求测试 */
-        {
-            name: "POST request",
-            payload: {
-                url: `${process.env.VITE_SIYUAN_SERVE}${client.Client.api.system.version.pathname}`,
-                method: "POST",
-                headers: [
-                    {
-                        Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`,
-                    },
-                ],
-            },
-            debug: false,
-        },
-    ];
+    it("request with GET method", async () => {
+        const response = await proxy({ method: "GET" });
+        expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toBe("text");
+    });
 
-    cases.forEach((item) => {
-        testKernelAPI<forwardProxy.IPayload, forwardProxy.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.forwardProxy(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+    it("request with GET method [text]", async () => {
+        const response = await proxy({ method: "GET", responseEncoding: "text" });
+        expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toBe("text");
+        expectSchema(context.validators_version.response!, JSON.parse(response.data.body), "proxied response");
+    });
+
+    it("request with GET method [base64]", async () => {
+        const response = await proxy({ method: "GET", responseEncoding: "base64" });
+        expect.soft(response.data.bodyEncoding, "verify bodyEncoding").toBe("base64");
+        expectSchema(context.validators_version.response!, JSON.parse(atob(response.data.body)), "proxied response");
+    });
+
+    it("request with POST method", async () => {
+        const response = await proxy({ method: "POST" });
+        expectSchema(context.validators_version.response!, JSON.parse(response.data.body), "proxied response");
     });
 });

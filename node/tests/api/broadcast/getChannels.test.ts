@@ -13,38 +13,32 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import CONSTANTS from "~/tests/constants";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
-import "~/tests/utils/websocket";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+import { useBroadcast } from "~/tests/utils/websocket";
 
-import type getChannels from "@/types/kernel/api/broadcast/getChannels";
+import { Client } from "@/client/Client";
 
-const pathname = client.Client.api.broadcast.getChannels.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.broadcast.getChannels.pathname;
 
-    testKernelAPI<never, getChannels.IResponse>({
-        name: "main",
-        request: () => client.client.getChannels(),
-        response: {
-            validate: validate_response,
-            test: (response) => {
-                it("channel info", () => {
-                    const channel = response.data.channels.find((c) => c.name === CONSTANTS.BROADCAST_CHANNEL_NAME);
+describe(pathname, () => {
+    const broadcast = useBroadcast("getChannels");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-                    expect.soft(
-                        channel?.count,
-                        "channel count",
-                    ).toBeGreaterThanOrEqual(1);
-                });
-            },
-        },
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        const response = await client.getChannels();
+        expectResponse(context.validators, response);
+        expect(response.data.channels).toContainEqual({ name: broadcast.channel, count: 1 });
     });
 });

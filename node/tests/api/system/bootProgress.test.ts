@@ -13,26 +13,31 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type bootProgress from "@/types/kernel/api/system/bootProgress";
+import { Client } from "@/client/Client";
 
-const pathname = client.Client.api.system.bootProgress.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe.concurrent(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.system.bootProgress.pathname;
 
-    testKernelAPI<never, bootProgress.IResponse>({
-        name: "main",
-        request: () => client.client.bootProgress(),
-        response: {
-            validate: validate_response,
-        },
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        const response = await client.bootProgress();
+        expectResponse(context.validators, response);
+        /* 全局 setup 已确认内核可以访问，此时内核已启动完成 */
+        expect(response.data.progress).toBe(100);
     });
 });

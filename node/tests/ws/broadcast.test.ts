@@ -13,42 +13,29 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { randomUUID } from "node:crypto";
+
 import { describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
+import { client } from "~/tests/utils/client";
+import { useBroadcast, waitForMessage } from "~/tests/utils/websocket";
 
-const pathname = client.Client.ws.broadcast.pathname;
+import { Client } from "@/client/Client";
 
-describe(pathname, async () => {
-    const channel = Date.now().toString(36);
-    const message = new Date().toString();
+const pathname = Client.ws.broadcast.pathname;
+
+describe(pathname, () => {
+    const broadcast = useBroadcast("ws-broadcast");
 
     it("test channel push and listen message", async () => {
-        const ws = client.client.broadcast({
-            channel,
+        const message = randomUUID();
+        const received = waitForMessage(broadcast.ws, (data) => data === message);
+
+        await client.postMessage({
+            channel: broadcast.channel,
+            message,
         });
 
-        const data = await new Promise((resolve, rejects) => {
-            const listener = (e: WebSocketEventMap["message"]) => {
-                ws.removeEventListener("message", listener);
-                resolve(e.data);
-            };
-
-            ws.addEventListener("message", listener);
-            ws.addEventListener("error", rejects);
-            ws.addEventListener("open", () => {
-                client.client.postMessage({
-                    channel,
-                    message,
-                });
-            });
-        });
-
-        expect(
-            data,
-            "listen message",
-        ).toEqual(message);
-
-        ws.close();
+        await expect(received, "listen message").resolves.toBe(message);
     });
 });

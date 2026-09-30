@@ -12,6 +12,7 @@
 - 重构 API `/api/block/*` 与 `/api/attr/*` 测试用例 | Refactor API `/api/block/*` and `/api/attr/*` test cases
 - 重构文档、笔记本与检索测试 | Refactor document, notebook and search tests
 - 重构文件、资源与存储测试 | Refactor file, asset and storage tests
+- 重构系统、网络与广播测试 | Refactor system, network and broadcast tests
 
 ## v0.3.14 / 2024-11-20
 

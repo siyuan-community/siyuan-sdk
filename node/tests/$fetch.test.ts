@@ -13,53 +13,42 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
+import { expectSchema } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { env } from "~/tests/utils/env";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type version from "@/types/kernel/api/system/version";
+import { Client } from "@/client/Client";
 
-const pathname_version = client.Client.api.system.version.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe("$fetch", async () => {
-    const schema_response_version = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname_version));
-    await schema_response_version.loadSchemaFile();
-    const validate_response_version = schema_response_version.constructValidateFuction();
+const pathname_version = Client.api.system.version.pathname;
 
-    const url = `${process.env.VITE_SIYUAN_SERVE}${pathname_version}`;
+/* $fetch 通过内核代理发送请求，这里请求内核自身的 API，不依赖外部网络 */
+describe("$fetch", () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
+    const url = `${env.serve}${pathname_version}`;
     const init: RequestInit = {
         headers: {
-            Authorization: `Token ${process.env.VITE_SIYUAN_TOKEN}`,
+            Authorization: `Token ${env.token}`,
         },
     };
 
-    it(`test GET ${pathname_version}`, async () => {
-        const response = await client.client.$fetch(
-            url,
-            Object.assign<any, RequestInit>(
-                {
-                    method: "GET",
-                },
-                init,
-            ),
-        );
-        const version: version.IResponse = await response.json();
-        expect.soft(validate_response_version(version), "verify response text").toBeTruthy();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname_version);
     });
 
-    it(`test POST ${pathname_version}`, async () => {
-        const response = await client.client.$fetch(
-            url,
-            Object.assign<any, RequestInit>(
-                {
-                    method: "POST",
-                    body: "{}",
-                },
-                init,
-            ),
-        );
-        const version: version.IResponse = await response.json();
-        expect.soft(validate_response_version(version), "verify response text").toBeTruthy();
+    it.for(["GET", "POST"])(`test %s ${pathname_version}`, async (method) => {
+        const response = await client.$fetch(url, {
+            ...init,
+            method,
+            body: method === "POST" ? "{}" : undefined,
+        });
+        expect(response.status).toBe(200);
+        expectSchema(context.validators.response!, await response.json(), "response");
     });
 });

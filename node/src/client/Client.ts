@@ -1560,7 +1560,10 @@ export class Client implements IFetch {
         return response;
     }
 
-    /* 持久化本地存储 */
+    /**
+     * 持久化本地存储
+     * @deprecated 内核 v3.7.0 起该 API 已停用，调用时始终返回错误（将于 2026 年 12 月 1 日后删除），请使用 {@link Client.setLocalStorageVal} 逐项写入
+     */
     public async setLocalStorage(
         payload: kernel.api.storage.setLocalStorage.IPayload, //
         config?: TempOptions,

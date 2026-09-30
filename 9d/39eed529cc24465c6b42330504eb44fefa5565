@@ -1,0 +1,49 @@
+node/tests/utils/upstream.ts
+  s_4c1c5e37e8877b::t_cbcfa30138de62 1-96
+CHANGELOG.md
+  s_4c1c5e37e8877b::t_d516952ebd7946 36
+node/tests/api/network/proxy.test.ts
+  s_4c1c5e37e8877b::t_05cd775e199878 201-209
+  s_4c1c5e37e8877b::t_ab68c0587b3300 1-200,210-220
+node/tests/utils/eventsource.ts
+  s_4c1c5e37e8877b::t_1df094e25ee77b 25-28
+  s_4c1c5e37e8877b::t_ac4b5eafea7965 1-24,29-126
+node/tests/es/proxy.test.ts
+  s_4c1c5e37e8877b::t_1904491cd22ecc 45,57,60
+  s_4c1c5e37e8877b::t_678c14bbc40024 1-44,46-56,58-59,61-130,138-155
+  s_4c1c5e37e8877b::t_548a4a6e64646c 131-137
+cspell-words.txt
+  s_4c1c5e37e8877b::t_1255d5c7fa2e66 69
+node/src/client/Client.ts
+  s_4c1c5e37e8877b::t_16bb0f59177dcf 584,586
+  s_4c1c5e37e8877b::t_dac2c8784cec9f 602-604
+  s_4c1c5e37e8877b::t_42097d2dc650b2 1866-1886,1891,1893-1894,1897-1912
+  s_4c1c5e37e8877b::t_528fac27d4871c 1889
+  s_4c1c5e37e8877b::t_723546179ef795 531,537-550,557-570,572-575,578-583,585,587-601,605-614,616-622,624-630,639-642,644-646,649,651,653,655-658,662-663
+  s_4c1c5e37e8877b::t_10931867bc13b8 109-110,576-577,623,648,1887-1888,1890,1892
+  s_4c1c5e37e8877b::t_18183f300e816c 210-211
+  s_4c1c5e37e8877b::t_b20db6dcca2ad0 116,120,643,647,650,652,654,659-661
+  s_4c1c5e37e8877b::t_30757ea0f3f8bc 94-108,111-115,117-119,121-122,128-133,136-138
+  s_4c1c5e37e8877b::t_d914af2732bac3 532-534,536,551-556,1895-1896
+  s_4c1c5e37e8877b::t_11821bd159367a 267-269,571,631-638
+  s_4c1c5e37e8877b::t_d6178b4976da41 535
+node/tests/ws/proxy.test.ts
+  s_4c1c5e37e8877b::t_c8779f0fd27552 166-169
+  s_4c1c5e37e8877b::t_0ae0158c4fafa2 1-165,170-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "9d39eed529cc24465c6b42330504eb44fefa5565",
+  "prompts": {},
+  "sessions": {
+    "s_4c1c5e37e8877b": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_w976kbuotgju",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}

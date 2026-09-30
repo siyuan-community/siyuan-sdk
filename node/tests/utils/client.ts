@@ -13,16 +13,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import "dotenv/config";
-
-import process from "node:process";
-
 import { Client } from "@/client/Client";
+
+import { env } from "./env";
 
 export const client = new Client(
     {
-        baseURL: process.env.VITE_SIYUAN_SERVE,
-        token: process.env.VITE_SIYUAN_TOKEN,
+        baseURL: env.serve,
+        token: env.token,
     },
     "fetch",
 );

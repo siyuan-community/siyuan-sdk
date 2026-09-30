@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import process from "node:process";
 
@@ -24,6 +25,12 @@ import constants from "@/constants";
 import { loadJSON5 } from "./json5";
 
 import type { Options, Schema, ValidateFunction } from "ajv/dist/2020";
+
+/* 内核 API 的请求体与响应体校验函数，没有对应 JSON Schema 文件的一项为 undefined */
+export interface IKernelAPIValidators {
+    payload?: ValidateFunction;
+    response?: ValidateFunction;
+}
 
 export class SchemaJSON {
     public static resolveSchemaPath(
@@ -97,4 +104,27 @@ export class SchemaJSON {
         const validate = this._ajv.compile(this.schema);
         return validate;
     }
+}
+
+/**
+ * 加载内核 API 的请求体与响应体 JSON Schema 并构造校验函数
+ * @param pathname - 内核 API 路径，如 `/api/block/appendBlock`
+ */
+export async function loadKernelAPISchemas(pathname: string): Promise<IKernelAPIValidators> {
+    const validators: IKernelAPIValidators = {};
+    const paths = {
+        payload: SchemaJSON.resolvePayloadSchemaPath(pathname),
+        response: SchemaJSON.resolveResponseSchemaPath(pathname),
+    };
+    for (const key of ["payload", "response"] as const) {
+        if (existsSync(paths[key])) {
+            const schema = new SchemaJSON(paths[key]);
+            await schema.loadSchemaFile();
+            validators[key] = schema.constructValidateFuction();
+        }
+    }
+    if (!validators.payload && !validators.response) {
+        throw new Error(`No JSON Schema found for ${pathname}`);
+    }
+    return validators;
 }

@@ -57,7 +57,13 @@ export default defineConfig({
             "**/*.{test,spec}.?(c|m)[jt]s?(x)",
         ],
         api: 1204,
+        // 检查测试工作空间并清理遗留的测试夹具
+        globalSetup: [
+            "./tests/setup/global.ts",
+        ],
         testTimeout: 60_000,
+        hookTimeout: 60_000,
+        // 所有测试共用同一个内核与工作空间，按文件串行执行，避免修改全局状态的测试互相干扰
         fileParallelism: false,
         // poolOptions: {
         //     threads: {

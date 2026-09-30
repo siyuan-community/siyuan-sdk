@@ -24,4 +24,7 @@ describe("environment Variable Test", async () => {
     it(`vITE_SIYUAN_TOKEN`, async () => {
         expect(process.env.VITE_SIYUAN_TOKEN).not.toBeUndefined();
     });
+    it(`vITE_SIYUAN_WORKSPACE`, async () => {
+        expect(process.env.VITE_SIYUAN_WORKSPACE).not.toBeUndefined();
+    });
 });

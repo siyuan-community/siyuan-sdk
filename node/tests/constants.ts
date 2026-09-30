@@ -17,6 +17,27 @@ export default {
     /* pandoc 工作目录 */
     PANDOC_CONVERT_DIR_PATH: "/temp/convert/pandoc", // pandoc 转换目录
 
+    /**
+     * 各种类型的块，用于生成测试文档
+     * 标题块放在最后，使其下级块只有紧随其后的段落块
+     */
+    BLOCK_SAMPLES: [
+        { type: "s", label: "super block", markdown: "{{{row\nleft\n\nright\n}}}" },
+        { type: "b", label: "blockquote", markdown: "> quote" },
+        { type: "l", label: "list", markdown: "- item 1\n- item 2" },
+        { type: "p", label: "paragraph", markdown: "Paragraph with **strong** text" },
+        { type: "m", label: "math block", markdown: "$$\nE=mc^2\n$$" },
+        { type: "t", label: "table", markdown: "| a | b |\n| - | - |\n| 1 | 2 |" },
+        { type: "c", label: "code block", markdown: "```js\nconsole.log(1);\n```" },
+        { type: "html", label: "HTML block", markdown: "<div>html</div>" },
+        { type: "query_embed", label: "embed block", markdown: "{{SELECT * FROM blocks LIMIT 1}}" },
+        { type: "tb", label: "thematic break", markdown: "---" },
+        { type: "audio", label: "audio block", markdown: `<audio controls="controls" src="assets/audio.mp3"></audio>` },
+        { type: "video", label: "video block", markdown: `<video controls="controls" src="assets/video.mp4"></video>` },
+        { type: "iframe", label: "iframe", markdown: `<iframe src="https://example.com" border="0" frameborder="no"></iframe>` },
+        { type: "h", label: "heading", markdown: "## Heading\n\nParagraph under heading" },
+    ] as const,
+
     BROADCAST_CHANNEL_NAME: "channel-test", // 测试用广播通道名称
     BROADCAST_CHANNEL_NAME_MESSAGE: "channel-test", // 消息测试用广播通道名称
     /* 测试用文件内容 */

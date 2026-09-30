@@ -27,6 +27,7 @@
 - 按内核 `v3.8.6` 调整 API `/api/snippet/*`：新增 `disabledInPublish`，移除不存在的 `memo` | Adjust API `/api/snippet/*` to kernel `v3.8.6`: add `disabledInPublish` and remove the nonexistent `memo`
 - 按内核 `v3.8.6` 调整 API `/api/storage/*`：`getRecentDocs` 新增浏览、打开与关闭时间，`setLocalStorageVal` 的 `key` 改为必填 | Adjust API `/api/storage/*` to kernel `v3.8.6`: `getRecentDocs` gains the viewed, opened and closed times, and `key` of `setLocalStorageVal` is required
 - 按内核 `v3.8.6` 调整 API `/api/history/*`：历史条目新增 `id`、`notebook` 与 `op` | Adjust API `/api/history/*` to kernel `v3.8.6`: history items gain `id`, `notebook` and `op`
+- 按内核 `v3.8.6` 调整 API `/api/network/*`：`echo` 的 `User` 改为 HTTP Basic 认证信息，`forwardProxy` 支持 `redirect` 参数 | Adjust API `/api/network/*` to kernel `v3.8.6`: `User` of `echo` holds the HTTP Basic authentication credentials, and `forwardProxy` supports the `redirect` parameter
 
 ## v0.3.14 / 2024-11-20
 

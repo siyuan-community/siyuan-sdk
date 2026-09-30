@@ -2,14 +2,14 @@
  * schemas/kernel/api/network/forwardProxy/payload.schema.json5
  * 正向代理
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#Forward-proxy
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.10.3/kernel/api/network.go#L36-L200
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/network.go#L145-L277
  * @pathname: /api/network/forwardProxy
- * @version: 2.10.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/network/forwardProxy/payload.schema.json5',
-    $comment: 'v2.10.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -20,7 +20,6 @@
             additionalProperties: false,
             required: [
                 'url',
-                'headers',
             ],
             properties: {
                 url: {
@@ -89,6 +88,12 @@
                     // 响应体编码类型
                     description: 'Encoding schema for response body\n@defaultValue "text"',
                     $ref: '#/$defs/encodeSchema',
+                },
+                redirect: {
+                    // 是否跟随重定向（最多 3 次）
+                    type: 'boolean',
+                    description: 'Whether to follow redirects (up to 3)',
+                    default: true,
                 },
             },
         },

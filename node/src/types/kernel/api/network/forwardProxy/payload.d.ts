@@ -27,7 +27,7 @@ export interface IPayload {
     /**
      * request headers list
      */
-    readonly headers: { [key: string]: string }[];
+    readonly headers?: { [key: string]: string }[];
     /**
      * HTTP method to request
      * @defaultValue "GET"
@@ -42,6 +42,10 @@ export interface IPayload {
      * @defaultValue "text"
      */
     readonly payloadEncoding?: TEncodeSchema;
+    /**
+     * Whether to follow redirects (up to 3)
+     */
+    readonly redirect?: boolean;
     /**
      * Encoding schema for response body
      * @defaultValue "text"

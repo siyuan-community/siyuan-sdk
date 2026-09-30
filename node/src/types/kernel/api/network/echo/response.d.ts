@@ -389,11 +389,23 @@ export interface ICookie {
      */
     readonly Name: string;
     /**
+     * {@link https://pkg.go.dev/net/http#Cookie}
+     *
+     * Whether the cookie is partitioned (CHIPS), always `false` for request cookies
+     */
+    readonly Partitioned: boolean;
+    /**
      * {@link https://pkg.go.dev/net/http#Cookie.Path}
      *
      * Cookie efficient URL path
      */
     readonly Path: string;
+    /**
+     * {@link https://pkg.go.dev/net/http#Cookie}
+     *
+     * Whether the cookie value was originally quoted
+     */
+    readonly Quoted: boolean;
     /**
      * {@link https://pkg.go.dev/net/http#Cookie.Raw}
      *
@@ -483,6 +495,12 @@ export interface Itls {
      */
     readonly CipherSuite: number;
     /**
+     * {@link https://pkg.go.dev/crypto/tls#ConnectionState}
+     *
+     * CurveID is the key exchange mechanism used for the connection, `0` means RSA key exchange
+     */
+    readonly CurveID: number;
+    /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.DidResume}
      *
      * DidResume is true if this connection was successfully resumed from a previous session
@@ -490,11 +508,25 @@ export interface Itls {
      */
     readonly DidResume: boolean;
     /**
+     * {@link https://pkg.go.dev/crypto/tls#ConnectionState}
+     *
+     * ECHAccepted indicates whether Encrypted Client Hello was offered by the client and
+     * accepted by the server
+     */
+    readonly ECHAccepted: boolean;
+    /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.HandshakeComplete}
      *
      * HandshakeComplete is true if the handshake has concluded.
      */
     readonly HandshakeComplete: boolean;
+    /**
+     * {@link https://pkg.go.dev/crypto/tls#ConnectionState}
+     *
+     * HelloRetryRequest indicates whether we sent a HelloRetryRequest if we are a server, or if
+     * we received a HelloRetryRequest if we are a client
+     */
+    readonly HelloRetryRequest: boolean;
     /**
      * {@link https://pkg.go.dev/crypto/tls#ConnectionState.NegotiatedProtocol}
      *
@@ -726,9 +758,10 @@ export interface IRequestURL {
     /**
      * {@link https://pkg.go.dev/net/url#URL.User}
      *
-     * username and password information
+     * username and password information, an empty object when the request target is in absolute
+     * form with userinfo, otherwise `null`
      */
-    readonly User: null;
+    readonly User: { [key: string]: any } | null;
     [property: string]: any;
 }
 
@@ -859,32 +892,23 @@ export interface IURL {
 }
 
 /**
- * Request user
+ * {@link https://pkg.go.dev/net/http#Request.BasicAuth}
+ *
+ * HTTP Basic authentication credentials of the request
  */
 export interface IUser {
     /**
-     * {@link https://pkg.go.dev/net/url#Userinfo.Password}
-     *
-     * Password returns the password in case it is set.
+     * Whether the request carries valid HTTP Basic authentication credentials
+     */
+    readonly Exists: boolean;
+    /**
+     * Password, an empty string when the request carries no HTTP Basic authentication
+     * credentials
      */
     readonly Password: string;
     /**
-     * {@link https://pkg.go.dev/net/url#Userinfo.Password}
-     *
-     * Password returns the password whether it is set.
-     */
-    readonly PasswordSet: boolean;
-    /**
-     * {@link https://pkg.go.dev/net/url#Userinfo.String}
-     *
-     * String returns the encoded userinfo information in the standard form of
-     * "username[:password]".
-     */
-    readonly String: string;
-    /**
-     * {@link https://pkg.go.dev/net/url#Userinfo.Username}
-     *
-     * Username returns the username.
+     * Username, an empty string when the request carries no HTTP Basic authentication
+     * credentials
      */
     readonly Username: string;
 }

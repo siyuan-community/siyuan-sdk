@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/network/echo/response.schema.json5
  * 回显请求内容
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.11.0/kernel/api/network.go#L51-L151
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/network.go#L45-L143
  * @pathname: /api/network/echo
- * @version: 2.11.0
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/network/echo/response.schema.json5',
-    $comment: 'v2.11.0',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -642,52 +642,34 @@ In the second form, the following rules apply:\
         },
         User: {
             title: 'IUser',
-            description: 'Request user',
+            description: '\
+{@link https://pkg.go.dev/net/http#Request.BasicAuth}\
+\n\n\
+HTTP Basic authentication credentials of the request\
+',
 
             type: 'object',
             additionalProperties: false,
             required: [
+                'Exists',
                 'Password',
-                'PasswordSet',
-                'String',
                 'Username',
             ],
             properties: {
-                Password: {
-                    // 密码
-                    type: 'string',
-                    description: '\
-{@link https://pkg.go.dev/net/url#Userinfo.Password}\
-\n\n\
-Password returns the password in case it is set.\
-',
-                },
-                PasswordSet: {
-                    // 判断是否设置了密码
+                Exists: {
+                    // 请求是否携带了有效的 HTTP Basic 认证信息
                     type: 'boolean',
-                    description: '\
-{@link https://pkg.go.dev/net/url#Userinfo.Password}\
-\n\n\
-Password returns the password whether it is set.\
-',
+                    description: 'Whether the request carries valid HTTP Basic authentication credentials',
                 },
-                String: {
-                    // 编码后的完整用户名密码字段 username[:password]
+                Password: {
+                    // 密码，请求未携带 HTTP Basic 认证信息时为空字符串
                     type: 'string',
-                    description: '\
-{@link https://pkg.go.dev/net/url#Userinfo.String}\
-\n\n\
-String returns the encoded userinfo information in the standard form of "username[:password]".\
-',
+                    description: 'Password, an empty string when the request carries no HTTP Basic authentication credentials',
                 },
                 Username: {
-                    // 用户名
+                    // 用户名，请求未携带 HTTP Basic 认证信息时为空字符串
                     type: 'string',
-                    description: '\
-{@link https://pkg.go.dev/net/url#Userinfo.Username}\
-\n\n\
-Username returns the username.\
-',
+                    description: 'Username, an empty string when the request carries no HTTP Basic authentication credentials',
                 },
             },
         },
@@ -729,6 +711,8 @@ See https://tools.ietf.org/html/rfc6265 for details.\
             additionalProperties: false,
             required: [
                 'Name',
+                'Partitioned',
+                'Quoted',
                 'Value',
                 'Path',
                 'Domain',
@@ -869,6 +853,24 @@ Raw text of unparsed attribute-value pairs\
                     items: {
                         type: 'string',
                     },
+                },
+                Partitioned: {
+                    // 是否为分区 Cookie（CHIPS），请求中的 Cookie 始终为 false
+                    type: 'boolean',
+                    description: '\
+{@link https://pkg.go.dev/net/http#Cookie}\
+\n\n\
+Whether the cookie is partitioned (CHIPS), always `false` for request cookies\
+',
+                },
+                Quoted: {
+                    // Cookie 的值原本是否带有双引号
+                    type: 'boolean',
+                    description: '\
+{@link https://pkg.go.dev/net/http#Cookie}\
+\n\n\
+Whether the cookie value was originally quoted\
+',
                 },
             },
         },
@@ -1068,13 +1070,17 @@ encoded opaque data\
 ',
                 },
                 User: {
-                    // 用户名
-                    type: 'null',
+                    // 请求目标中的用户名与密码信息，请求目标为包含 userinfo 的绝对形式时为空对象，否则为 null
+                    type: [
+                        'object',
+                        'null',
+                    ],
                     description: '\
 {@link https://pkg.go.dev/net/url#URL.User}\
 \n\n\
-username and password information\
+username and password information, an empty object when the request target is in absolute form with userinfo, otherwise `null`\
 ',
+                    maxProperties: 0,
                 },
                 Host: {
                     // 主机名
@@ -1161,6 +1167,9 @@ ConnectionState records basic TLS details about the connection.\
             type: 'object',
             additionalProperties: false,
             required: [
+                'CurveID',
+                'ECHAccepted',
+                'HelloRetryRequest',
                 'Version',
                 'HandshakeComplete',
                 'DidResume',
@@ -1301,6 +1310,33 @@ OCSPResponse is a stapled Online Certificate Status Protocol (OCSP) response pro
 TLSUnique contains the "tls-unique" channel binding value (see RFC 5929, Section 3).\
 \n\
 This value will be nil for TLS 1.3 connections and for resumed connections that don\'t support Extended Master Secret (RFC 7627).\
+',
+                },
+                CurveID: {
+                    // 密钥交换使用的曲线（组），0 表示 RSA 密钥交换
+                    type: 'integer',
+                    description: '\
+{@link https://pkg.go.dev/crypto/tls#ConnectionState}\
+\n\n\
+CurveID is the key exchange mechanism used for the connection, `0` means RSA key exchange\
+',
+                },
+                ECHAccepted: {
+                    // 是否接受了加密的 ClientHello（ECH）
+                    type: 'boolean',
+                    description: '\
+{@link https://pkg.go.dev/crypto/tls#ConnectionState}\
+\n\n\
+ECHAccepted indicates whether Encrypted Client Hello was offered by the client and accepted by the server\
+',
+                },
+                HelloRetryRequest: {
+                    // 握手时服务端是否发送了 HelloRetryRequest
+                    type: 'boolean',
+                    description: '\
+{@link https://pkg.go.dev/crypto/tls#ConnectionState}\
+\n\n\
+HelloRetryRequest indicates whether we sent a HelloRetryRequest if we are a server, or if we received a HelloRetryRequest if we are a client\
 ',
                 },
             },

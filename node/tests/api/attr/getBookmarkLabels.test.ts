@@ -13,26 +13,53 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import {
+    appendMarkdown,
+    createDoc,
+    INDEX_TIMEOUT,
+    uniqueName,
+    useNotebook,
+} from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type getBookmarkLabels from "@/types/kernel/api/attr/getBookmarkLabels";
+import { Client } from "@/client/Client";
 
-const pathname = client.Client.api.attr.getBookmarkLabels.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.attr.getBookmarkLabels.pathname;
 
-    testKernelAPI<never, getBookmarkLabels.IResponse>({
-        name: "main",
-        request: () => client.client.getBookmarkLabels(),
-        response: {
-            validate: validate_response,
-        },
+describe(pathname, () => {
+    const notebook = useNotebook("getBookmarkLabels");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        label: uniqueName("bookmark"), // 测试用书签名称
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        const document = await createDoc(notebook.id, "/getBookmarkLabels");
+        const block = await appendMarkdown(document, "getBookmarkLabels");
+        await client.setBlockAttrs({
+            id: block,
+            attrs: { bookmark: context.label },
+        });
+    });
+
+    it("main", async () => {
+        /* 书签从数据库中查询，需要等待属性写入索引 */
+        const response = await vi.waitFor(
+            async () => {
+                await client.flushTransaction();
+                const response = await client.getBookmarkLabels();
+                expect(response.data).toContain(context.label);
+                return response;
+            },
+            { timeout: INDEX_TIMEOUT, interval: 200 },
+        );
+        expectResponse(context.validators, response);
     });
 });

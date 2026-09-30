@@ -13,107 +13,83 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createBlockSamples, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { TBlockSampleType } from "~/tests/utils/fixtures";
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getChildBlocks from "@/types/kernel/api/block/getChildBlocks";
 
-const pathname = client.Client.api.block.getChildBlocks.pathname;
+const pathname = Client.api.block.getChildBlocks.pathname;
 
-interface ICase {
-    name: string;
-    payload: getChildBlocks.IPayload;
-    debug: boolean;
-    after?: (response: getChildBlocks.IResponse) => void;
-}
+describe(pathname, () => {
+    const notebook = useNotebook("getChildBlocks");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+        blocks: {} as Record<TBlockSampleType, string>, // 各类型块的 ID
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        Object.assign(context, await createBlockSamples(notebook.id));
+    });
 
-    const cases: ICase[] = [
-        /* 文档块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素",
-            payload: {
-                id: "20200825162036-4dx365o",
-            },
-            debug: false,
-        },
-        /* 标题块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/有序、无序、任务列表",
-            payload: {
-                id: "20210104091228-okx8vv6",
-            },
-            debug: false,
-        },
-        /* 列表块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/无序列表",
-            payload: {
-                id: "20210104091228-tue1zbn",
-            },
-            debug: false,
-        },
-        /* 列表项 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/无序列表",
-            payload: {
-                id: "20210104091228-ao01ihn",
-            },
-            debug: false,
-        },
-        /* 超级块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/超级块",
-            payload: {
-                id: "20210604234955-651jbge",
-            },
-            debug: false,
-        },
-        /* 引述块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/引述块",
-            payload: {
-                id: "20210604223030-6gapuyv",
-            },
-            debug: false,
-        },
-        /* 叶子块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/代码块",
-            payload: {
-                id: "20210104091228-mwb2x54",
-            },
-            after: async (response) => {
-                it("leaf block has't child blocks", () => {
-                    expect(response.data).toHaveLength(0);
-                });
-            },
-            debug: false,
-        },
-    ];
-    cases.forEach((item) => {
-        testKernelAPI<getChildBlocks.IPayload, getChildBlocks.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.getChildBlocks(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+    /**
+     * 获取下级块并校验，返回下级块的类型列表
+     * @param id - 块 ID
+     */
+    async function getChildTypes(id: string): Promise<{ response: getChildBlocks.IResponse; types: string[] }> {
+        const payload: getChildBlocks.IPayload = { id };
+        expectPayload(context.validators, payload);
+
+        const response = await client.getChildBlocks(payload);
+        expectResponse(context.validators, response);
+        return { response, types: response.data.map((block) => block.type) };
+    }
+
+    it("document", async () => {
+        const { types } = await getChildTypes(context.document);
+        /* 标题块之后还有一个段落块 */
+        expect(types).toEqual([
+            ...CONSTANTS.BLOCK_SAMPLES.map((sample) => sample.type),
+            "p",
+        ]);
+    });
+
+    it("heading", async () => {
+        const { types } = await getChildTypes(context.blocks.h);
+        expect(types).toEqual(["p"]);
+    });
+
+    it("super block", async () => {
+        const { types } = await getChildTypes(context.blocks.s);
+        expect(types).toEqual(["p", "p"]);
+    });
+
+    it("blockquote", async () => {
+        const { types } = await getChildTypes(context.blocks.b);
+        expect(types).toEqual(["p"]);
+    });
+
+    it("list and list item", async () => {
+        const list = await getChildTypes(context.blocks.l);
+        expect(list.types).toEqual(["i", "i"]);
+
+        const item = await getChildTypes(list.response.data[0]!.id);
+        expect(item.types).toEqual(["p"]);
+    });
+
+    it("leaf block has no child blocks", async () => {
+        const { types } = await getChildTypes(context.blocks.c);
+        expect(types).toHaveLength(0);
     });
 });

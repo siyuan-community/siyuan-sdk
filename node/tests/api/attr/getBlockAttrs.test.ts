@@ -13,36 +13,47 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { appendMarkdown, createDoc, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getBlockAttrs from "@/types/kernel/api/attr/getBlockAttrs";
 
-const pathname = client.Client.api.attr.getBlockAttrs.pathname;
+const pathname = Client.api.attr.getBlockAttrs.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("getBlockAttrs");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        block: "", // 带有自定义属性的块 ID
+    };
 
-    testKernelAPI<getBlockAttrs.IPayload, getBlockAttrs.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                id: "20240608220844-2jfu489", // 测试/块属性测试
-            },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.getBlockAttrs(payload!),
-        response: {
-            validate: validate_response,
-        },
-        debug: false,
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        const document = await createDoc(notebook.id, "/getBlockAttrs");
+        context.block = await appendMarkdown(document, "getBlockAttrs");
+        await client.setBlockAttrs({
+            id: context.block,
+            attrs: { "custom-test": "getBlockAttrs" },
+        });
+    });
+
+    it("main", async () => {
+        const payload: getBlockAttrs.IPayload = { id: context.block };
+        expectPayload(context.validators, payload);
+
+        const response = await client.getBlockAttrs(payload);
+        expectResponse(context.validators, response);
+        expect(response.data).toMatchObject({
+            "id": context.block,
+            "custom-test": "getBlockAttrs",
+        });
     });
 });

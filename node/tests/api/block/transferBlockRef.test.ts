@@ -13,225 +13,78 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe } from "vitest";
+import { beforeAll, describe, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, insertMarkdown, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type transferBlockRef from "@/types/kernel/api/block/transferBlockRef";
 
-const pathname = client.Client.api.block.transferBlockRef.pathname;
+const pathname = Client.api.block.transferBlockRef.pathname;
 
-/* 测试环境上下文 */
-const context = {
-    notebook: "", // 测试用笔记本的 ID
-    document: "", // 测试用文档的 ID
-    block: "", // 测试用的块 ID
-};
+/* 引用锚文本 */
+const ANCHOR_TEXT = "Anchor text1";
 
-/* 初始化测试上下文 */
-async function initContext() {
-    /* 创建一个测试用笔记本 */
-    const response_createNotebook = await client.client.createNotebook({
-        name: "transferBlockRef",
-    });
-    context.notebook = response_createNotebook.data.notebook.id;
-
-    /* 创建一个测试用文档 */
-    const response_createDocWithMd = await client.client.createDocWithMd({
-        notebook: context.notebook,
-        markdown: "",
-        path: "/transferBlockRef",
-    });
-    context.document = response_createDocWithMd.data;
-
-    /* 插入一个测试用容器块 */
-    const response_insertBlock = await client.client.insertBlock({
-        dataType: "markdown",
-        data: "{{{\ntransferBlockRef\n}}}",
-        parentID: context.document,
-    });
-    context.block = response_insertBlock.data[0].doOperations[0].id;
-
-    return context;
+interface IRefContext {
+    notebook: string; // 测试用笔记本 ID
+    document: string; // 测试用文档 ID
+    container: string; // 被引用的容器块 ID
+    ref: string; // 本用例新插入的引用块 ID
 }
 
 interface ICase {
     name: string;
-    before?: (payload: transferBlockRef.IPayload) => void;
-    payload: transferBlockRef.IPayload;
-    debug: boolean;
+    /* 构造待转移的引用 ID 列表 */
+    refIDs?: (context: IRefContext) => transferBlockRef.IPayload["refIDs"];
+    /* 为 true 时请求体中不包含 refIDs 字段 */
+    omitRefIDs?: boolean;
 }
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const notebook = useNotebook("transferBlockRef");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+        container: "", // 被引用的容器块 ID
+    };
 
-    const context = await initContext();
-
-    /* 测试各种块的更新 */
-    const cases: ICase[] = [];
-    for (const markdown of [
-        "Anchor text1", // 锚文本
-    ]) {
-        cases.push({
-            name: `✖Transfer all block ref: ${markdown}`,
-            before: async (_payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: null,
-                reloadUI: false,
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✖Transfer all block ref: ${markdown}`,
-            before: async (_payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✖Transfer all block ref: ${markdown}`,
-            before: async (_payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: [],
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✖Transfer notebook block ref: ${markdown}`,
-            before: async (payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-                payload.refIDs = [
-                    context.notebook,
-                ];
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: null, // 将使用新插入的块 ID
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✔Transfer document block ref: ${markdown}`,
-            before: async (payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-                payload.refIDs = [
-                    context.document,
-                ];
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: null, // 将使用新插入的块 ID
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✔Transfer parent block ref: ${markdown}`,
-            before: async (payload) => {
-                /* 插入一个测试用的块 */
-                await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-                payload.refIDs = [
-                    context.block,
-                ];
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: null, // 将使用新插入的块 ID
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `✔Transfer current block ref: ${markdown}`,
-            before: async (payload) => {
-                /* 插入一个测试用的块 */
-                const response_insertBlock = await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: `((${context.block} "${markdown}")) `.repeat(3),
-                    previousID: context.block,
-                });
-                payload.refIDs = [
-                    response_insertBlock.data[0].doOperations[0].id,
-                ];
-            },
-            payload: {
-                fromID: context.block,
-                toID: context.document,
-                refIDs: null, // 将使用新插入的块 ID
-            },
-            debug: false,
-        });
-    }
-    cases.forEach((item) => {
-        testKernelAPI<transferBlockRef.IPayload, transferBlockRef.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.transferBlockRef(payload!),
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/transferBlockRef");
+        context.container = await insertMarkdown({ parentID: context.document }, "{{{\ntransferBlockRef\n}}}");
     });
-});
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试用笔记本 */
-    await client.client.removeNotebook({
-        notebook: context.notebook,
+    it.for<ICase>([
+        { name: "✖Transfer all block ref (refIDs: null)", refIDs: () => null },
+        { name: "✖Transfer all block ref (refIDs omitted)", omitRefIDs: true },
+        { name: "✖Transfer all block ref (refIDs: [])", refIDs: () => [] },
+        { name: "✖Transfer notebook block ref", refIDs: ({ notebook }) => [notebook] },
+        { name: "✔Transfer document block ref", refIDs: ({ document }) => [document] },
+        { name: "✔Transfer parent block ref", refIDs: ({ container }) => [container] },
+        { name: "✔Transfer current block ref", refIDs: ({ ref }) => [ref] },
+    ])("$name", async (item) => {
+        /* 插入一个引用了容器块的块 */
+        const ref = await insertMarkdown(
+            { previousID: context.container },
+            `((${context.container} "${ANCHOR_TEXT}")) `.repeat(3),
+        );
+
+        const base = {
+            fromID: context.container,
+            toID: context.document,
+        };
+        const payload: transferBlockRef.IPayload = item.omitRefIDs
+            ? base
+            : { ...base, refIDs: item.refIDs!({ notebook: notebook.id, document: context.document, container: context.container, ref }) };
+        expectPayload(context.validators, payload);
+
+        const response = await client.transferBlockRef(payload);
+        expectResponse(context.validators, response);
     });
 });

@@ -13,110 +13,46 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, insertMarkdown, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type foldBlock from "@/types/kernel/api/block/foldBlock";
 
-const pathname = client.Client.api.block.foldBlock.pathname;
+const pathname = Client.api.block.foldBlock.pathname;
 
-/* 测试环境上下文 */
-const context = {
-    notebook: "", // 测试用笔记本的 ID
-    document: "", // 测试用文档的 ID
-};
+describe(pathname, () => {
+    const notebook = useNotebook("foldBlock");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+    };
 
-/* 初始化测试上下文 */
-async function initContext() {
-    /* 创建一个测试用笔记本 */
-    const response_createNotebook = await client.client.createNotebook({
-        name: "foldBlock",
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/foldBlock");
     });
-    context.notebook = response_createNotebook.data.notebook.id;
 
-    /* 创建一个测试用文档 */
-    const response_createDocWithMd = await client.client.createDocWithMd({
-        notebook: context.notebook,
-        markdown: "",
-        path: "/foldBlock",
-    });
-    context.document = response_createDocWithMd.data;
-
-    return context;
-}
-
-interface ICase {
-    name: string;
-    before?: (payload: foldBlock.IPayload) => void;
-    payload: foldBlock.IPayload;
-    after?: (response: foldBlock.IResponse, payload: foldBlock.IPayload) => void;
-    debug: boolean;
-}
-
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const context = await initContext();
-
-    /* 测试各种块的更新 */
-    const cases: ICase[] = [];
-    for (const markdown of [
+    it.for([
         "Paragraph block", // 段落块
         "# Heading block", // 标题块
-    ]) {
-        cases.push({
-            name: `fold: ${markdown}`,
-            before: async (payload) => {
-                /* 插入一个测试用的块 */
-                const response_foldBlock = await client.client.insertBlock({
-                    dataType: "markdown",
-                    data: markdown,
-                    parentID: context.document,
-                });
-                payload.id = response_foldBlock.data[0].doOperations[0].id;
-            },
-            payload: {
-                id: "", // 将使用新插入的块 ID
-            },
-            after: async (response, payload) => {
-                const response_getBlockAttrs = await client.client.getBlockAttrs({ id: payload.id });
-                it("block IAL > fold", () => {
-                    expect.soft(response_getBlockAttrs.data.fold).toEqual("1");
-                });
-            },
-            debug: false,
-        });
-    }
-    cases.forEach((item) => {
-        testKernelAPI<foldBlock.IPayload, foldBlock.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.foldBlock(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
-    });
-});
+    ])("fold: %s", async (markdown) => {
+        const id = await insertMarkdown({ parentID: context.document }, markdown);
+        const payload: foldBlock.IPayload = { id };
+        expectPayload(context.validators, payload);
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试用笔记本 */
-    await client.client.removeNotebook({
-        notebook: context.notebook,
+        const response = await client.foldBlock(payload);
+        expectResponse(context.validators, response);
+
+        /* 块的 IAL 中记录了折叠状态 */
+        const attrs = await client.getBlockAttrs({ id });
+        expect(attrs.data.fold).toBe("1");
     });
 });

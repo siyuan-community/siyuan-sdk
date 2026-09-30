@@ -13,174 +13,59 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createBlockSamples, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { TBlockSampleType } from "~/tests/utils/fixtures";
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getBlockKramdown from "@/types/kernel/api/block/getBlockKramdown";
 
-const pathname = client.Client.api.block.getBlockKramdown.pathname;
+const pathname = Client.api.block.getBlockKramdown.pathname;
 
-interface ICase {
-    name: string;
-    payload: getBlockKramdown.IPayload;
-    debug: boolean;
-    after?: (response: getBlockKramdown.IResponse) => void;
-}
+describe(pathname, () => {
+    const notebook = useNotebook("getBlockKramdown");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+        blocks: {} as Record<TBlockSampleType, string>, // 各类型块的 ID
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        Object.assign(context, await createBlockSamples(notebook.id));
+    });
 
-    const cases: ICase[] = [
-        /* 文档块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素",
-            payload: {
-                id: "20200825162036-4dx365o",
-            },
-            debug: false,
-        },
-        /* 超级块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/超级块",
-            payload: {
-                id: "20210604234955-651jbge",
-            },
-            debug: false,
-        },
-        /* 引述块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/引述块",
-            payload: {
-                id: "20210604223030-6gapuyv",
-            },
-            debug: false,
-        },
-        /* 列表块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/无序列表",
-            payload: {
-                id: "20210104091228-tue1zbn",
-            },
-            debug: false,
-        },
-        /* 列表项 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/无序列表",
-            payload: {
-                id: "20210104091228-ao01ihn",
-            },
-            debug: false,
-        },
-        /* 标题块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/有序、无序、任务列表",
-            payload: {
-                id: "20210104091228-okx8vv6",
-            },
-            debug: false,
-        },
-        /* 段落块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/行级元素",
-            payload: {
-                id: "20210604222221-9zkgkky",
-            },
-            debug: false,
-        },
-        /* 公式块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/公式块",
-            payload: {
-                id: "20210104091228-9ok9gv4",
-            },
-            debug: false,
-        },
-        /* 表格块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/表格块",
-            payload: {
-                id: "20210104091228-eem86ni",
-            },
-            debug: false,
-        },
-        /* 代码块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/代码块",
-            payload: {
-                id: "20210104091228-mwb2x54",
-            },
-            debug: false,
-        },
-        /* HTML 块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/HTML 块",
-            payload: {
-                id: "20220312004517-f6i1k8m",
-            },
-            debug: false,
-        },
-        /* 嵌入块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/嵌入块",
-            payload: {
-                id: "20210604222515-ggpd5hs",
-            },
-            debug: false,
-        },
-        /* 分割线 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/分割线",
-            payload: {
-                id: "20210604222430-tctcbzh",
-            },
-            debug: false,
-        },
-        /* 音频块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/音频块",
-            payload: {
-                id: "20210608113713-wm8271x",
-            },
-            debug: false,
-        },
-        /* 视频块 */
-        {
-            name: "/请从这里开始/编辑器/排版元素/视频块",
-            payload: {
-                id: "20210608113914-zvtw5kj",
-            },
-            debug: false,
-        },
-        /* iframe */
-        {
-            name: "/请从这里开始/编辑器/排版元素/iframe",
-            payload: {
-                id: "20220908200902-6rqv2wt",
-            },
-            debug: false,
-        },
-    ];
-    cases.forEach((item) => {
-        testKernelAPI<getBlockKramdown.IPayload, getBlockKramdown.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.getBlockKramdown(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+    /**
+     * 获取块的 kramdown 并校验
+     * @param id - 块 ID
+     */
+    async function getBlockKramdown(id: string): Promise<getBlockKramdown.IResponse> {
+        const payload: getBlockKramdown.IPayload = { id };
+        expectPayload(context.validators, payload);
+
+        const response = await client.getBlockKramdown(payload);
+        expectResponse(context.validators, response);
+        expect(response.data.id).toBe(id);
+        return response;
+    }
+
+    it("document", async () => {
+        const response = await getBlockKramdown(context.document);
+        for (const sample of CONSTANTS.BLOCK_SAMPLES) {
+            expect(response.data.kramdown, sample.label).toContain(context.blocks[sample.type]);
+        }
+    });
+
+    it.for(CONSTANTS.BLOCK_SAMPLES)("$label", async (sample) => {
+        const response = await getBlockKramdown(context.blocks[sample.type]);
+        expect(response.data.kramdown).toContain(`id="${context.blocks[sample.type]}"`);
     });
 });

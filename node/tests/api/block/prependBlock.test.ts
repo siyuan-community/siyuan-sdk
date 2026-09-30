@@ -13,101 +13,49 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, prependMarkdown, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type prependBlock from "@/types/kernel/api/block/prependBlock";
 
-const pathname = client.Client.api.block.prependBlock.pathname;
+const pathname = Client.api.block.prependBlock.pathname;
 
-/* 测试环境上下文 */
-const context = {
-    notebook: "", // 测试用笔记本的 ID
-    document: "", // 测试用文档的 ID
-    block: "", // 测试用的块 ID
-};
+describe(pathname, () => {
+    const notebook = useNotebook("prependBlock");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        container: "", // 测试用容器块 ID
+    };
 
-/* 初始化测试上下文 */
-async function initContext() {
-    /* 创建一个测试用笔记本 */
-    const response_createNotebook = await client.client.createNotebook({
-        name: "prependBlock",
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        const document = await createDoc(notebook.id, "/prependBlock");
+        context.container = await prependMarkdown(document, "{{{\nprependBlock\n}}}");
     });
-    context.notebook = response_createNotebook.data.notebook.id;
 
-    /* 创建一个测试用文档 */
-    const response_createDocWithMd = await client.client.createDocWithMd({
-        notebook: context.notebook,
-        markdown: "",
-        path: "/prependBlock",
-    });
-    context.document = response_createDocWithMd.data;
-
-    /* 插入一个测试用容器块 */
-    const response_prependBlock = await client.client.prependBlock({
-        dataType: "markdown",
-        data: "{{{\nprependBlock\n}}}",
-        parentID: context.document,
-    });
-    context.block = response_prependBlock.data[0].doOperations[0].id;
-
-    return context;
-}
-
-interface ICase {
-    name: string;
-    payload: prependBlock.IPayload;
-    debug: boolean;
-}
-
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const context = await initContext();
-
-    /* 测试各种块的插入 */
-    const cases: ICase[] = [];
-    for (const markdown of [
+    it.for([
         "Paragraph block", // 段落块
-    ]) {
-        cases.push({
-            name: `insert: ${markdown}`,
-            payload: {
-                dataType: "markdown",
-                data: markdown,
-                parentID: context.block,
-            },
-            debug: false,
-        });
-    }
-    cases.forEach((item) => {
-        testKernelAPI<prependBlock.IPayload, prependBlock.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.prependBlock(payload!),
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
-    });
-});
+    ])("prepend: %s", async (markdown) => {
+        const payload: prependBlock.IPayload = {
+            dataType: "markdown",
+            data: markdown,
+            parentID: context.container,
+        };
+        expectPayload(context.validators, payload);
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试用笔记本 */
-    await client.client.removeNotebook({
-        notebook: context.notebook,
+        const response = await client.prependBlock(payload);
+        expectResponse(context.validators, response);
+
+        /* 新块位于容器块的开头 */
+        const children = await client.getChildBlocks({ id: context.container });
+        expect(children.data.at(0)?.id).toBe(response.data[0].doOperations[0].id);
     });
 });

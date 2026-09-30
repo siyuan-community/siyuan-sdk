@@ -13,119 +13,75 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { afterAll, describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { createDoc, insertMarkdown, useNotebook } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type insertBlock from "@/types/kernel/api/block/insertBlock";
 
-const pathname = client.Client.api.block.insertBlock.pathname;
+const pathname = Client.api.block.insertBlock.pathname;
 
-/* 测试环境上下文 */
-const context = {
-    notebook: "", // 测试用笔记本的 ID
-    document: "", // 测试用文档的 ID
-    block: "", // 测试用的块 ID
-};
+describe(pathname, () => {
+    const notebook = useNotebook("insertBlock");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        document: "", // 测试用文档 ID
+        container: "", // 测试用容器块 ID
+    };
 
-/* 初始化测试上下文 */
-async function initContext() {
-    /* 创建一个测试用笔记本 */
-    const response_createNotebook = await client.client.createNotebook({
-        name: "insertBlock",
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        context.document = await createDoc(notebook.id, "/insertBlock");
+        context.container = await insertMarkdown({ parentID: context.document }, "{{{\ninsertBlock\n}}}");
     });
-    context.notebook = response_createNotebook.data.notebook.id;
 
-    /* 创建一个测试用文档 */
-    const response_createDocWithMd = await client.client.createDocWithMd({
-        notebook: context.notebook,
-        markdown: "",
-        path: "/insertBlock",
-    });
-    context.document = response_createDocWithMd.data;
+    /**
+     * 插入块并返回新块 ID
+     * @param position - 插入位置
+     */
+    async function insert(position: Pick<insertBlock.IPayload, "nextID" | "parentID" | "previousID">): Promise<string> {
+        const payload: insertBlock.IPayload = {
+            dataType: "markdown",
+            data: "Paragraph block",
+            ...position,
+        };
+        expectPayload(context.validators, payload);
 
-    /* 插入一个测试用容器块 */
-    const response_insertBlock = await client.client.insertBlock({
-        dataType: "markdown",
-        data: "{{{\ninsertBlock\n}}}",
-        parentID: context.document,
-    });
-    context.block = response_insertBlock.data[0].doOperations[0].id;
-
-    return context;
-}
-
-interface ICase {
-    name: string;
-    payload: insertBlock.IPayload;
-    debug: boolean;
-}
-
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const context = await initContext();
-
-    /* 测试各种块的插入 */
-    const cases: ICase[] = [];
-    for (const markdown of [
-        "Paragraph block", // 段落块
-    ]) {
-        cases.push({
-            name: `insert by parentID: ${markdown}`,
-            payload: {
-                dataType: "markdown",
-                data: markdown,
-                parentID: context.block,
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `insert by previousID: ${markdown}`,
-            payload: {
-                dataType: "markdown",
-                data: markdown,
-                previousID: context.block,
-            },
-            debug: false,
-        });
-        cases.push({
-            name: `insert by nextID: ${markdown}`,
-            payload: {
-                dataType: "markdown",
-                data: markdown,
-                nextID: context.block,
-            },
-            debug: false,
-        });
+        const response = await client.insertBlock(payload);
+        expectResponse(context.validators, response);
+        return response.data[0].doOperations[0].id;
     }
-    cases.forEach((item) => {
-        testKernelAPI<insertBlock.IPayload, insertBlock.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.insertBlock(payload!),
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
-    });
-});
 
-// REF: https://cn.vitest.dev/api/#afterall
-afterAll(async () => {
-    /* 删除测试用笔记本 */
-    await client.client.removeNotebook({
-        notebook: context.notebook,
+    /**
+     * 获取块的下级块 ID 列表
+     * @param id - 块 ID
+     */
+    async function childIDs(id: string): Promise<string[]> {
+        const response = await client.getChildBlocks({ id });
+        return response.data.map((child) => child.id);
+    }
+
+    it("insert by parentID", async () => {
+        const id = await insert({ parentID: context.container });
+        expect(await childIDs(context.container)).toContain(id);
+    });
+
+    it("insert by previousID", async () => {
+        const id = await insert({ previousID: context.container });
+        const ids = await childIDs(context.document);
+        expect(ids[ids.indexOf(context.container) + 1]).toBe(id);
+    });
+
+    it("insert by nextID", async () => {
+        const id = await insert({ nextID: context.container });
+        const ids = await childIDs(context.document);
+        expect(ids[ids.indexOf(context.container) - 1]).toBe(id);
     });
 });

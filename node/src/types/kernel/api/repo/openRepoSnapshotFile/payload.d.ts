@@ -15,10 +15,14 @@
 
 // #region content
 
-/* directories */
-export * as openRepoSnapshotDoc from "./openRepoSnapshotDoc";
-export * as openRepoSnapshotFile from "./openRepoSnapshotFile";
-
-/* files */
+/**
+ * Read a file in the repository snapshot
+ */
+export interface IPayload {
+    /**
+     * Snapshot file object ID
+     */
+    readonly id: string;
+}
 
 // #endregion content

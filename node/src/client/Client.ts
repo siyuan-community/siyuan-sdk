@@ -192,6 +192,7 @@ export class Client implements IFetch {
         } as const,
         repo: {
             openRepoSnapshotDoc: { pathname: "/api/repo/openRepoSnapshotDoc", method: "POST" } as const,
+            openRepoSnapshotFile: { pathname: "/api/repo/openRepoSnapshotFile", method: "POST" } as const,
         } as const,
         search: {
             fullTextSearchBlock: { pathname: "/api/search/fullTextSearchBlock", method: "POST" } as const,
@@ -1454,7 +1455,10 @@ export class Client implements IFetch {
         return response;
     }
 
-    /* 读取快照文件内容 */
+    /**
+     * 读取快照文件内容
+     * @deprecated 内核 v3.6.2 起该 API 更名为 `/api/repo/openRepoSnapshotFile`，请使用 {@link Client.openRepoSnapshotFile}
+     */
     public async openRepoSnapshotDoc(
         payload: kernel.api.repo.openRepoSnapshotDoc.IPayload, //
         config?: TempOptions,
@@ -1462,6 +1466,20 @@ export class Client implements IFetch {
         const response: kernel.api.repo.openRepoSnapshotDoc.IResponse = await this._request(
             Client.api.repo.openRepoSnapshotDoc.pathname, //
             Client.api.repo.openRepoSnapshotDoc.method,
+            payload,
+            config,
+        );
+        return response;
+    }
+
+    /* 读取快照文件内容 */
+    public async openRepoSnapshotFile(
+        payload: kernel.api.repo.openRepoSnapshotFile.IPayload, //
+        config?: TempOptions,
+    ): Promise<kernel.api.repo.openRepoSnapshotFile.IResponse> {
+        const response: kernel.api.repo.openRepoSnapshotFile.IResponse = await this._request(
+            Client.api.repo.openRepoSnapshotFile.pathname, //
+            Client.api.repo.openRepoSnapshotFile.method,
             payload,
             config,
         );

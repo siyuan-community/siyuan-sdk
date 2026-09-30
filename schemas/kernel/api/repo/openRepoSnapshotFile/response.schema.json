@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/repo/openRepoSnapshotDoc/response.schema.json",
-    "$comment": "v3.1.11",
+    "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/repo/openRepoSnapshotFile/response.schema.json",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
             "title": "response body",
-            "description": "Open document in repository snapshot",
+            "description": "Read a file in the repository snapshot",
             "type": "object",
             "additionalProperties": false,
             "required": [

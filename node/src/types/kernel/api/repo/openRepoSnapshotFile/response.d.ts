@@ -15,10 +15,43 @@
 
 // #region content
 
-/* directories */
-export * as openRepoSnapshotDoc from "./openRepoSnapshotDoc";
-export * as openRepoSnapshotFile from "./openRepoSnapshotFile";
+/**
+ * Read a file in the repository snapshot
+ */
+export interface IResponse {
+    /**
+     * status code
+     */
+    readonly code: number;
+    readonly data: IData;
+    /**
+     * status message
+     */
+    readonly msg: string;
+}
 
-/* files */
+/**
+ * Response information
+ */
+export interface IData {
+    /**
+     * snapshot file content
+     */
+    readonly content: string;
+    /**
+     * Whether the content is rendered as a string
+     * - `true`: original text/file path
+     * - `false`: block DOM string
+     */
+    readonly displayInText: boolean;
+    /**
+     * title (asset file: file path; document file: document title)
+     */
+    readonly title: string;
+    /**
+     * update time (Unix timestamp, ms)
+     */
+    readonly updated: number;
+}
 
 // #endregion content

@@ -1,19 +1,19 @@
 /**
- * schemas/kernel/api/repo/openRepoSnapshotDoc/response.schema.json5
- * 打开快照中仓库中的文档
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.1.11/kernel/api/repo.go#L63-L86
- * @pathname: /api/repo/openRepoSnapshotDoc
- * @version: 3.1.11
+ * schemas/kernel/api/repo/openRepoSnapshotFile/response.schema.json5
+ * 读取快照中的文件
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/repo.go#L91-L104
+ * @pathname: /api/repo/openRepoSnapshotFile
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/repo/openRepoSnapshotDoc/response.schema.json5',
-    $comment: 'v3.1.11',
+    $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/repo/openRepoSnapshotFile/response.schema.json5',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
             title: 'response body',
-            description: 'Open document in repository snapshot',
+            description: 'Read a file in the repository snapshot',
 
             type: 'object',
             additionalProperties: false,

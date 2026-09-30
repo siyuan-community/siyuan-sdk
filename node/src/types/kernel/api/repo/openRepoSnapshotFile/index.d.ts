@@ -16,9 +16,9 @@
 // #region content
 
 /* directories */
-export * as openRepoSnapshotDoc from "./openRepoSnapshotDoc";
-export * as openRepoSnapshotFile from "./openRepoSnapshotFile";
 
 /* files */
+export * from "./payload";
+export * from "./response";
 
 // #endregion content

@@ -28,9 +28,9 @@ import { Client } from "@/client/Client";
 
 import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-import type openRepoSnapshotDoc from "@/types/kernel/api/repo/openRepoSnapshotDoc";
+import type openRepoSnapshotFile from "@/types/kernel/api/repo/openRepoSnapshotFile";
 
-const pathname = Client.api.repo.openRepoSnapshotDoc.pathname;
+const pathname = Client.api.repo.openRepoSnapshotFile.pathname;
 
 describe(pathname, () => {
     const context = {
@@ -42,11 +42,11 @@ describe(pathname, () => {
     });
 
     it("non-existent file", async () => {
-        const payload: openRepoSnapshotDoc.IPayload = {
+        const payload: openRepoSnapshotFile.IPayload = {
             id: "0000000000000000000000000000000000000000",
         };
         expectPayload(context.validators, payload);
 
-        await expectKernelError(client.openRepoSnapshotDoc(payload), -1);
+        await expectKernelError(client.openRepoSnapshotFile(payload), -1);
     });
 });

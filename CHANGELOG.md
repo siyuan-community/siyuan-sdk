@@ -15,6 +15,7 @@
 - 重构系统、网络与广播测试 | Refactor system, network and broadcast tests
 - 移除旧的测试工具函数 | Remove legacy test helpers
 - 测试失败时列出所有不符合 JSON Schema 的字段 | List all fields that do not match the JSON Schema when a test fails
+- 添加 API `/api/repo/openRepoSnapshotFile`，并弃用已被内核更名的 `/api/repo/openRepoSnapshotDoc` | Add API `/api/repo/openRepoSnapshotFile` and deprecate `/api/repo/openRepoSnapshotDoc`, which the kernel has renamed
 
 ## v0.3.14 / 2024-11-20
 

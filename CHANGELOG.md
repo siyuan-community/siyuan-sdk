@@ -11,6 +11,7 @@
 - 添加无状态测试所需的夹具与全局检查 | Add fixtures and global checks for stateless tests
 - 重构 API `/api/block/*` 与 `/api/attr/*` 测试用例 | Refactor API `/api/block/*` and `/api/attr/*` test cases
 - 重构文档、笔记本与检索测试 | Refactor document, notebook and search tests
+- 重构文件、资源与存储测试 | Refactor file, asset and storage tests
 
 ## v0.3.14 / 2024-11-20
 

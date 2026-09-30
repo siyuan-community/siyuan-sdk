@@ -13,26 +13,30 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type getRecentDocs from "@/types/kernel/api/storage/getRecentDocs";
+import { Client } from "@/client/Client";
 
-const pathname = client.Client.api.storage.getRecentDocs.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.storage.getRecentDocs.pathname;
 
-    testKernelAPI<never, getRecentDocs.IResponse>({
-        name: "main",
-        request: () => client.client.getRecentDocs(),
-        response: {
-            validate: validate_response,
-        },
+/* 最近打开的文档由前端记录，这里只读取并校验响应结构，不写入 */
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        const response = await client.getRecentDocs();
+        expectResponse(context.validators, response);
     });
 });

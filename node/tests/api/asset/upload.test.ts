@@ -13,147 +13,73 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, onTestFinished } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { FIXTURE_ASSETS_DIR, removeFileIfExists } from "~/tests/utils/cleanup";
+import { client } from "~/tests/utils/client";
+import { uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type upload from "@/types/kernel/api/asset/upload";
 
-const pathname = client.Client.api.asset.upload.pathname;
+const pathname = Client.api.asset.upload.pathname;
 
-interface ICase {
-    name: string;
-    payload: upload.IPayload;
-    debug: boolean;
+/**
+ * 构造测试用的文本文件，文件内容与文件名相同
+ * @param count - 文件数量
+ */
+function createFiles(count: number): File[] {
+    return Array.from({ length: count }, () => {
+        const name = `${uniqueName("upload")}.txt`;
+        return new File([name], name, { type: "text/plain" });
+    });
 }
 
-describe.concurrent(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    const cases: ICase[] = [
-        /* 测试上传单文件 */
-        {
-            name: "test upload file",
-            payload: {
-                files: [
-                    new File(
-                        [
-                            "test0.txt",
-                        ],
-                        "test0.txt",
-                        { type: "text/plain" },
-                    ), //
-                ],
-            },
-            debug: false,
-        },
-        /* 测试上传多个文件 */
-        {
-            name: "test upload files",
-            payload: {
-                files: [
-                    new File(
-                        [
-                            "test1.txt",
-                        ],
-                        "test1.txt",
-                        { type: "text/plain" },
-                    ), //
-                    new File(
-                        [
-                            "test2.txt",
-                        ],
-                        "test2.txt",
-                        { type: "text/plain" },
-                    ),
-                ],
-            },
-            debug: false,
-        },
-        /* 测试上传文件到次级目录中 */
-        {
-            name: "test upload files to sub dir",
-            payload: {
-                assetsDirPath: "/assets/dir1/dir2/",
-                files: [
-                    new File(
-                        [
-                            "test3.txt",
-                        ],
-                        "test3.txt",
-                        { type: "text/plain" },
-                    ), //
-                    new File(
-                        [
-                            "test4.txt",
-                        ],
-                        "test4.txt",
-                        { type: "text/plain" },
-                    ),
-                ],
-            },
-            debug: false,
-        },
-    ];
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    cases.forEach((item) => {
-        testKernelAPI<upload.IPayload, upload.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-            },
-            request: (payload) => client.client.upload(payload!),
-            response: {
-                validate: validate_response,
-                test: async (response, payload) => {
-                    it("test the result of updating file", async () => {
-                        /* 测试响应体中的结果 */
-                        payload!
-                            .files
-                            .map((file) => file.name)
-                            .forEach((filename) => {
-                                expect
-                                    .soft(
-                                        response.data.succMap[filename],
-                                        `uploaded file "${filename}" failed`,
-                                    )
-                                    .not
-                                    .toBeUndefined();
-                            });
-                    });
+    afterAll(async () => {
+        /* 删除上传时创建的测试资源目录 */
+        await removeFileIfExists(`/data${FIXTURE_ASSETS_DIR}`);
+    });
 
-                    /* 测试文件是是否能正常获取到 */
-                    it("test the file is accessible", async () => {
-                        for (const [
-                            filename,
-                            filepath,
-                        ] of Object.entries(response.data.succMap)) {
-                            const path = `/data/${filepath}`;
-                            await expect
-                                .soft(
-                                    client.client.getFile(
-                                        {
-                                            path,
-                                        },
-                                        "text",
-                                    ),
-                                )
-                                .resolves
-                                .toEqual(filename);
+    it.for<{ name: string; assetsDirPath?: string; count: number }>([
+        { name: "upload file to the default assets directory", count: 1 },
+        { name: "upload files", assetsDirPath: FIXTURE_ASSETS_DIR, count: 2 },
+        { name: "upload files to sub dir", assetsDirPath: `${FIXTURE_ASSETS_DIR}dir1/dir2/`, count: 2 },
+    ])("$name", async ({ assetsDirPath, count }) => {
+        const payload: upload.IPayload = {
+            assetsDirPath,
+            files: createFiles(count),
+        };
 
-                            /* 删除测试文件 */
-                            await client.client.removeFile({
-                                path,
-                            });
-                        }
-                    });
-                },
-            },
-            debug: item.debug,
+        const response = await client.upload(payload);
+        /* 上传的文件在用例结束后删除 */
+        onTestFinished(async () => {
+            for (const path of Object.values(response.data.succMap)) {
+                await removeFileIfExists(`/data/${path}`);
+            }
         });
+        expectResponse(context.validators, response);
+
+        for (const file of payload.files) {
+            const path = response.data.succMap[file.name];
+            expect(path, `uploaded file "${file.name}"`).toBeDefined();
+            if (assetsDirPath) {
+                expect(`/${path}`, "assets directory").toContain(assetsDirPath);
+            }
+            await expect(client.getFile({ path: `/data/${path}` }, "text"), "uploaded content").resolves.toBe(file.name);
+        }
     });
 });

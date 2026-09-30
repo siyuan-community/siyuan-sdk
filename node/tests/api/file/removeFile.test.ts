@@ -13,99 +13,61 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, it } from "vitest";
 
-import constants from "~/tests/constants";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectKernelError, expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type removeFile from "@/types/kernel/api/file/removeFile";
 
-const pathname = client.Client.api.file.removeFile.pathname;
+const pathname = Client.api.file.removeFile.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: removeFile.IPayload;
-    after?: () => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const dir = useTempDir("removeFile");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "test remove file",
-            before: async () => {
-                /* 写入测试文件 */
-                await client.client.putFile({
-                    path: "/temp/convert/test/remove-file/test.html",
-                    file: constants.TEST_FILE_CONTENT,
-                });
-            },
-            payload: {
-                path: "/temp/convert/test/remove-file/test.html", // 移除文件测试
-            },
-            after: () => {
-                it("test the result of removing file", async () => {
-                    await expect(
-                        client.client.getFile(
-                            {
-                                path: "/temp/convert/test/remove-file/test.html",
-                            },
-                            "json",
-                        ),
-                    ).rejects.toMatchObject({ code: 404 });
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "test remove dir",
-            before: async () => {
-                /* 写入测试目录 */
-                await client.client.putFile({
-                    path: "/temp/convert/test/remove-dir/",
-                    isDir: true,
-                });
-            },
-            payload: {
-                path: "/temp/convert/test/remove-dir/", // 移除目录测试
-            },
-            after: () => {
-                it("test the result of removing directory", async () => {
-                    await expect(
-                        client.client.readDir({
-                            path: "/temp/convert/test/remove-dir/",
-                        }),
-                    ).rejects.toMatchObject({ code: 404 });
-                });
-            },
-            debug: false,
-        },
-    ];
+    /**
+     * 删除文件并校验
+     * @param path - 文件或目录路径
+     */
+    async function remove(path: string): Promise<void> {
+        const payload: removeFile.IPayload = { path };
+        expectPayload(context.validators, payload);
 
-    cases.forEach((item) => {
-        testKernelAPI<removeFile.IPayload, removeFile.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.removeFile(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+        const response = await client.removeFile(payload);
+        expectResponse(context.validators, response);
+    }
+
+    it("remove file", async () => {
+        const path = dir.resolve("remove-file/test.html");
+        await client.putFile({ path, file: CONSTANTS.TEST_FILE_CONTENT });
+
+        await remove(path);
+        await expectKernelError(client.getFile({ path }, "json"), 404);
+    });
+
+    it("remove dir", async () => {
+        const path = dir.resolve("remove-dir/");
+        await client.putFile({ path, isDir: true });
+
+        await remove(path);
+        await expectKernelError(client.readDir({ path }), 404);
+    });
+
+    it("non-existent path", async () => {
+        await expectKernelError(client.removeFile({ path: dir.resolve("none-existent") }), 404);
     });
 });

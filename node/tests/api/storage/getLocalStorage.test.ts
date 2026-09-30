@@ -13,27 +13,30 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
 
-import type getLocalStorage from "@/types/kernel/api/storage/getLocalStorage";
+import { Client } from "@/client/Client";
 
-const pathname = client.Client.api.storage.getLocalStorage.pathname;
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
-describe(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+const pathname = Client.api.storage.getLocalStorage.pathname;
 
-    testKernelAPI<never, getLocalStorage.IResponse>({
-        name: "main",
-        request: () => client.client.getLocalStorage(),
-        response: {
-            validate: validate_response,
-        },
-        debug: false,
+describe(pathname, () => {
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
+
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
+
+    it("main", async () => {
+        const response = await client.getLocalStorage();
+        expectResponse(context.validators, response);
+        expect(response.data).toBeTypeOf("object");
     });
 });

@@ -13,102 +13,72 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import constants from "~/tests/constants";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { PANDOC_DIR, removeFileIfExists } from "~/tests/utils/cleanup";
+import { client } from "~/tests/utils/client";
+import { uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type pandoc from "@/types/kernel/api/convert/pandoc";
 
-const pathname = client.Client.api.convert.pandoc.pathname;
+const pathname = Client.api.convert.pandoc.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: pandoc.IPayload;
-    after?: () => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    /* pandoc 在工作空间的 temp/convert/pandoc/<dir> 目录中执行 */
+    const dir = uniqueName("pandoc");
+    const dirPath = `${PANDOC_DIR}/${dir}`;
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
-
-    const cases: ICase[] = [
-        {
-            name: "test pandoc",
-            payload: {
-                args: [
-                    "-h",
-                ],
-            },
-            debug: false,
-        },
-        {
-            name: "test convert",
-            before: async () => {
-                try {
-                    /* 删除可能已存在的测试文件 */
-                    await client.client.removeFile({
-                        path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/`,
-                    });
-                }
-                catch (error) {
-                    void error;
-                }
-
-                /* 写入测试文件 */
-                await client.client.putFile({
-                    path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.html`,
-                    file: constants.TEST_FILE_CONTENT,
-                });
-            },
-            payload: {
-                dir: "convert-test",
-                args: [
-                    "--to",
-                    "gfm-raw_html+tex_math_dollars+pipe_tables",
-                    "test.html",
-                    "-o",
-                    "test.md",
-                ],
-            },
-            after: async () => {
-                it("test the result of pandoc converting", async () => {
-                    await expect(
-                        client.client.getFile(
-                            {
-                                path: `${constants.PANDOC_CONVERT_DIR_PATH}/convert-test/test.md`,
-                            },
-                            "text",
-                        ),
-                    ).resolves.toBeTypeOf("string");
-                });
-            },
-            debug: false,
-        },
-    ];
-
-    cases.forEach((item) => {
-        testKernelAPI<pandoc.IPayload, pandoc.IResponse>({
-            name: "main",
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.pandoc(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        await client.putFile({
+            path: `${dirPath}/test.html`,
+            file: CONSTANTS.TEST_FILE_CONTENT,
         });
+    });
+
+    afterAll(async () => {
+        await removeFileIfExists(dirPath);
+    });
+
+    /**
+     * 调用 pandoc 并校验
+     * @param payload - 请求体
+     */
+    async function run(payload: pandoc.IPayload): Promise<pandoc.IResponse> {
+        expectPayload(context.validators, payload);
+        const response = await client.pandoc(payload);
+        expectResponse(context.validators, response);
+        return response;
+    }
+
+    it("pandoc help", async () => {
+        /* 未指定 dir 时内核会在转换目录中新建一个随机目录，因此同样使用测试目录 */
+        await run({ dir, args: ["-h"] });
+    });
+
+    it("convert html to markdown", async () => {
+        await run({
+            dir,
+            args: [
+                "--to",
+                "gfm-raw_html+tex_math_dollars+pipe_tables",
+                "test.html",
+                "-o",
+                "test.md",
+            ],
+        });
+
+        const markdown = await client.getFile({ path: `${dirPath}/test.md` }, "text");
+        expect(markdown).toContain("一级标题");
     });
 });

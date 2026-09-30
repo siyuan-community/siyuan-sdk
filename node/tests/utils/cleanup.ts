@@ -28,6 +28,9 @@ export const FIXTURE_TEMP_DIR = `/temp/${FIXTURE_PREFIX}`;
 /* 测试上传资源文件的目录（相对于 data 目录） */
 export const FIXTURE_ASSETS_DIR = `/assets/${FIXTURE_PREFIX}/`;
 
+/* 默认资源目录（相对于工作空间目录），上传时未指定目录的资源文件保存在该目录中 */
+export const ASSETS_DIR = "/data/assets";
+
 /* 模板目录（相对于工作空间目录），内核只渲染该目录中的模板文件 */
 export const TEMPLATES_DIR = "/data/templates";
 
@@ -119,10 +122,11 @@ export async function sweepFixtures(): Promise<string[]> {
         await removeFileIfExists(dir);
     }
 
-    /* 模板文件与 pandoc 工作目录 */
+    /* 模板目录、pandoc 工作目录与默认资源目录中带有测试前缀的条目 */
     for (const dir of [
         TEMPLATES_DIR,
         PANDOC_DIR,
+        ASSETS_DIR,
     ]) {
         for (const name of (await listDir(dir)).filter(isFixtureName)) {
             await removeFileIfExists(`${dir}/${name}`);

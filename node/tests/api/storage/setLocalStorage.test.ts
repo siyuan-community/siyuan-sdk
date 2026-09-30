@@ -13,47 +13,50 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { randomUUID } from "node:crypto";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { beforeAll, describe, expect, it } from "vitest";
+
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { FIXTURE_APP_ID } from "~/tests/utils/cleanup";
+import { client } from "~/tests/utils/client";
+import { preserveLocalStorage, uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type setLocalStorage from "@/types/kernel/api/storage/setLocalStorage";
 
-const pathname = client.Client.api.storage.setLocalStorage.pathname;
+const pathname = Client.api.storage.setLocalStorage.pathname;
 
-describe(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+describe(pathname, () => {
+    /* 设置本地存储会整体替换已有的内容，因此先保存，结束后恢复 */
+    preserveLocalStorage();
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    const response = await client.client.getLocalStorage();
-    const key = "test-setLocalStorage";
-    const val = globalThis.crypto.randomUUID();
-    response.data[key] = val;
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    testKernelAPI<setLocalStorage.IPayload, setLocalStorage.IResponse>({
-        name: "main",
-        payload: {
-            data: {
-                app: "01234",
-                val: response.data,
+    it("main", async () => {
+        const { data: storage } = await client.getLocalStorage();
+        const payload: setLocalStorage.IPayload = {
+            app: FIXTURE_APP_ID,
+            val: {
+                ...storage,
+                [uniqueName("setLocalStorage")]: randomUUID(),
             },
-            validate: validate_payload,
-        },
-        request: (payload) => client.client.setLocalStorage(payload!),
-        response: {
-            validate: validate_response,
-            test: async () => {
-                it("test the result of set local storage", async () => {
-                    await expect(client.client.getLocalStorage()).resolves.toEqual(response);
-                });
-            },
-        },
-        debug: false,
+        };
+        expectPayload(context.validators, payload);
+
+        const response = await client.setLocalStorage(payload);
+        expectResponse(context.validators, response);
+
+        const { data } = await client.getLocalStorage();
+        expect(data).toEqual(payload.val);
     });
 });

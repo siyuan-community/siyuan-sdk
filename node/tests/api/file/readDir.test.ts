@@ -13,129 +13,77 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import { KernelError } from "~/src";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectKernelError, expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { uniqueName, useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type readDir from "@/types/kernel/api/file/readDir";
 
-const pathname = client.Client.api.file.readDir.pathname;
+const pathname = Client.api.file.readDir.pathname;
 
-interface ICase {
-    path: string;
-    catch?: (error: unknown, payload: readDir.IPayload) => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const dir = useTempDir("readDir");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        await client.putFile({ path: dir.resolve("file.html"), file: CONSTANTS.TEST_FILE_CONTENT });
+        await client.putFile({ path: dir.resolve("folder"), isDir: true });
+    });
 
-    const cases: ICase[] = [
-        /* 工作空间目录 */
-        { path: "", debug: false },
-        { path: "/", debug: false },
-        { path: ".", debug: false },
-        { path: "./", debug: false },
-        { path: "./.", debug: false },
-        { path: "././", debug: false },
+    /**
+     * 读取目录，校验请求体
+     * @param path - 目录路径
+     */
+    function read(path: string): Promise<readDir.IResponse> {
+        const payload: readDir.IPayload = { path };
+        expectPayload(context.validators, payload);
+        return client.readDir(payload);
+    }
 
-        /* 工作空间/data 目录 */
-        { path: "data", debug: false },
-        { path: "data/", debug: false },
-        { path: "/data", debug: false },
-        { path: "/data/", debug: false },
-        { path: "./data", debug: false },
-        { path: "./data/", debug: false },
-        { path: "./data/.", debug: false },
-        { path: "./data/./", debug: false },
+    /* 工作空间目录 */
+    it.for(["", "/", ".", "./", "./.", "././"])("workspace: %s", async (path) => {
+        const response = await read(path);
+        expectResponse(context.validators, response);
+        expect(response.data.map((entry) => entry.name)).toEqual(expect.arrayContaining(["conf", "data"]));
+    });
 
-        /* 工作空间外目录 */
-        ...[
-            { path: "..", debug: false },
-            { path: "../", debug: false },
-            { path: "/..", debug: false },
-            { path: "/../", debug: false },
-            { path: "./..", debug: false },
-            { path: "./../", debug: false },
-            { path: "./../.", debug: false },
-            { path: "./.././", debug: false },
-        ].map((item: ICase) => {
-            item.catch = (error) => {
-                it("kernelError: 403", () => {
-                    expect(
-                        error, //
-                        "test error's type",
-                    ).toBeInstanceOf(KernelError);
-                    expect(
-                        (error as KernelError).code, //
-                        "test error's code",
-                    ).toEqual(403);
-                });
-            };
-            return item;
-        }),
+    /* 工作空间/data 目录，其中的 assets 与 templates 目录由内核在启动时创建 */
+    it.for(["data", "data/", "/data", "/data/", "./data", "./data/", "./data/.", "./data/./"])("data: %s", async (path) => {
+        const response = await read(path);
+        expectResponse(context.validators, response);
+        expect(response.data.map((entry) => entry.name)).toEqual(expect.arrayContaining(["assets", "templates"]));
+    });
 
-        /* 不存在目录 */
-        ...[
-            { path: "123", debug: false },
-            { path: "456", debug: false },
-            { path: "789", debug: false },
-        ].map((item: ICase) => {
-            item.catch = (error) => {
-                it("kernelError: 404", () => {
-                    expect(
-                        error, //
-                        "test error's type",
-                    ).toBeInstanceOf(KernelError);
-                    expect(
-                        (error as KernelError).code, //
-                        "test error's code",
-                    ).toEqual(404);
-                });
-            };
-            return item;
-        }),
+    it("test temporary directory", async () => {
+        const response = await read(dir.path);
+        expectResponse(context.validators, response);
+        expect(response.data).toEqual(expect.arrayContaining([
+            expect.objectContaining({ name: "file.html", isDir: false }),
+            expect.objectContaining({ name: "folder", isDir: true }),
+        ]));
+    });
 
-        /* 文件 */
-        ...[
-            { path: "conf/appearance/langs/en_US.json", debug: false },
-            { path: "conf/appearance/langs/es_ES.json", debug: false },
-            { path: "conf/appearance/langs/fr_FR.json", debug: false },
-            { path: "conf/appearance/langs/zh_CN.json", debug: false },
-            { path: "conf/appearance/langs/zh_CHT.json", debug: false },
-        ].map((item: ICase) => {
-            item.catch = (error) => {
-                it("kernelError: 405", () => {
-                    expect(error, "test error's type").toBeInstanceOf(KernelError);
-                    expect((error as KernelError).code, "test error's code").toEqual(405);
-                });
-            };
-            return item;
-        }),
-    ];
-    cases.forEach((item) => {
-        testKernelAPI<readDir.IPayload, readDir.IResponse>({
-            name: "main",
-            payload: {
-                data: {
-                    path: item.path, // 数据
-                },
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.readDir(payload!),
-            catch: item.catch,
-            response: {
-                validate: validate_response,
-            },
-            debug: item.debug,
-        });
+    /* 工作空间外目录 */
+    it.for(["..", "../", "/..", "/../", "./..", "./../", "./../.", "./.././"])("outside workspace: %s", async (path) => {
+        await expectKernelError(read(path), 403);
+    });
+
+    it("non-existent directory", async () => {
+        await expectKernelError(read(dir.resolve(uniqueName("none-existent"))), 404);
+    });
+
+    it("file", async () => {
+        await expectKernelError(read(dir.resolve("file.html")), 409);
     });
 });

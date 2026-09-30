@@ -13,96 +13,75 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { newNodeID, preserveSnippets, uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type getSnippet from "@/types/kernel/api/snippet/getSnippet";
 import type setSnippet from "@/types/kernel/api/snippet/setSnippet";
 
-const pathname = client.Client.api.snippet.getSnippet.pathname;
+const pathname = Client.api.snippet.getSnippet.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: getSnippet.IPayload;
-    after?: (response: getSnippet.IResponse, payload: getSnippet.IPayload) => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    /* 设置代码片段会整体替换已有的代码片段，因此先保存，结束后恢复 */
+    preserveSnippets();
+    const context = {
+        validators: {} as IKernelAPIValidators,
+        snippets: [
+            {
+                id: newNodeID(),
+                name: uniqueName("getSnippet-css"),
+                type: "css",
+                enabled: true,
+                content: "/* getSnippet css */",
+            },
+            {
+                id: "", // 由内核生成 ID
+                name: uniqueName("getSnippet-js"),
+                type: "js",
+                enabled: false,
+                content: "// getSnippet js",
+            },
+        ] as setSnippet.ISnippet[],
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        const { data } = await client.getSnippet({ type: "all", enabled: 2 });
+        await client.setSnippet({ snippets: [...data.snippets, ...context.snippets] });
+    });
 
-    const snippets: setSnippet.IPayload["snippets"] = [
-        {
-            id: "20230725235727-lvt3puk",
-            name: "test-getSnippet-css-1",
-            type: "css",
-            enabled: true,
-            content: "/* test-getSnippet-css-1 */",
-        },
-        {
-            id: "",
-            name: "test-getSnippet-js-1",
-            type: "js",
-            enabled: false,
-            content: "// test-getSnippet-js-1",
-        },
-    ];
-    const cases: ICase[] = [
-        {
-            name: "main test",
-            before: async () => {
-                await client.client.setSnippet({
-                    snippets,
-                });
-            },
-            payload: {
-                type: "all",
-                enabled: 2,
-            },
-            after: async (response) => {
-                it("test the result of get snippet", async () => {
-                    for (const snippet of response.data.snippets) {
-                        const s = snippets.find((s) => s.name === snippet.name);
-                        expect(s).not.toBeUndefined();
-                        if (s) {
-                            if (s.id !== "") {
-                                expect.soft(s.id, "snippet.id").toEqual(snippet.id);
-                            }
-                            expect.soft(s.name, "snippet.name").toEqual(snippet.name);
-                            expect.soft(s.type, "snippet.type").toEqual(snippet.type);
-                            expect.soft(s.enabled, "snippet.enabled").toEqual(snippet.enabled);
-                            expect.soft(s.content, "snippet.content").toEqual(snippet.content);
-                        }
-                    }
-                });
-            },
-            debug: false,
-        },
-    ];
+    it.for<{ type: getSnippet.TSnippetType; enabled: number; expected: string[] }>([
+        { type: "all", enabled: 2, expected: ["css", "js"] },
+        { type: "css", enabled: 2, expected: ["css"] },
+        { type: "js", enabled: 2, expected: ["js"] },
+        { type: "all", enabled: 1, expected: ["css"] },
+        { type: "all", enabled: 0, expected: ["js"] },
+    ])("type: $type, enabled: $enabled", async ({ type, enabled, expected }) => {
+        const payload: getSnippet.IPayload = { type, enabled };
+        expectPayload(context.validators, payload);
 
-    cases.forEach((item) => {
-        testKernelAPI<getSnippet.IPayload, getSnippet.IResponse>({
-            name: "main",
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.getSnippet(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+        const response = await client.getSnippet(payload);
+        expectResponse(context.validators, response);
+
+        const names = context.snippets.map((snippet) => snippet.name);
+        const snippets = response.data.snippets.filter((snippet) => names.includes(snippet.name));
+        expect(snippets.map((snippet) => snippet.type).sort()).toEqual(expected);
+        for (const snippet of snippets) {
+            const expectedSnippet = context.snippets.find((s) => s.name === snippet.name)!;
+            if (expectedSnippet.id !== "") {
+                expect.soft(snippet.id, "snippet.id").toBe(expectedSnippet.id);
+            }
+            expect.soft(snippet.type, "snippet.type").toBe(expectedSnippet.type);
+            expect.soft(snippet.enabled, "snippet.enabled").toBe(expectedSnippet.enabled);
+            expect.soft(snippet.content, "snippet.content").toBe(expectedSnippet.content);
+        }
     });
 });

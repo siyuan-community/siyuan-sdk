@@ -13,153 +13,60 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import constants from "~/tests/constants";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectKernelError, expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type renameFile from "@/types/kernel/api/file/renameFile";
 
-const pathname = client.Client.api.file.renameFile.pathname;
+const pathname = Client.api.file.renameFile.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: renameFile.IPayload;
-    after?: () => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const dir = useTempDir("renameFile");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "rename file",
-            before: async () => {
-                /* 删除可能已存在的测试文件 */
-                for (const path of [
-                    "/temp/convert/pandoc/test/rename-file/",
-                ]) {
-                    try {
-                        await client.client.removeFile({
-                            path,
-                        });
-                    }
-                    catch (error) {
-                        void error;
-                    }
-                }
+    /**
+     * 重命名文件并校验
+     * @param payload - 请求体
+     */
+    async function rename(payload: renameFile.IPayload): Promise<void> {
+        expectPayload(context.validators, payload);
 
-                /* 写入测试文件 */
-                await client.client.putFile({
-                    path: "/temp/convert/pandoc/test/rename-file/test.html",
-                    file: constants.TEST_FILE_CONTENT,
-                });
-            },
-            payload: {
-                path: "/temp/convert/pandoc/test/rename-file/test.html", // 移动文件测试
-                newPath: "/temp/convert/pandoc/test/rename-file/test-new.html",
-            },
-            after: () => {
-                it("test the result of renaming file", async () => {
-                    /* 测试原文件是否存在 */
-                    await expect(
-                        client.client.getFile(
-                            {
-                                path: "/temp/convert/pandoc/test/rename-file/test.html",
-                            },
-                            "json",
-                        ),
-                        `original path: /temp/convert/pandoc/test/rename-file/test.html`,
-                    ).rejects.toMatchObject({ code: 404 });
+        const response = await client.renameFile(payload);
+        expectResponse(context.validators, response);
+    }
 
-                    /* 测试重命名后文件是否存在 */
-                    await expect(
-                        client.client.getFile(
-                            {
-                                path: "/temp/convert/pandoc/test/rename-file/test-new.html",
-                            },
-                            "text",
-                        ),
-                        `new path: /temp/convert/pandoc/test/rename-file/test-new.html`,
-                    ).resolves.toEqual(constants.TEST_FILE_CONTENT);
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "rename directory",
-            before: async () => {
-                /* 删除可能已存在的测试文件 */
-                for (const path of [
-                    "/temp/convert/pandoc/test/rename-dir/", //
-                    "/temp/convert/pandoc/test/rename-dir-new/",
-                ]) {
-                    try {
-                        await client.client.removeFile({
-                            path,
-                        });
-                    }
-                    catch (error) {
-                        void error;
-                    }
-                }
+    it("rename file", async () => {
+        const path = dir.resolve("rename-file/test.html");
+        const newPath = dir.resolve("rename-file/test-new.html");
+        await client.putFile({ path, file: CONSTANTS.TEST_FILE_CONTENT });
 
-                /* 写入测试文件 */
-                await client.client.putFile({
-                    path: "/temp/convert/pandoc/test/rename-dir/",
-                    isDir: true,
-                });
-            },
-            payload: {
-                path: "/temp/convert/pandoc/test/rename-dir/", // 移动目录测试
-                newPath: "/temp/convert/pandoc/test/rename-dir-new/",
-            },
-            after: () => {
-                it("test the result of renaming directory", async () => {
-                    /* 测试原目录是否存在 */
-                    await expect(
-                        client.client.readDir({
-                            path: "/temp/convert/pandoc/test/rename-dir/",
-                        }),
-                        `original path: /temp/convert/pandoc/test/rename-dir/`,
-                    ).rejects.toMatchObject({ code: 404 });
+        await rename({ path, newPath });
+        await expectKernelError(client.getFile({ path }, "json"), 404);
+        await expect(client.getFile({ path: newPath }, "text"), `new path: ${newPath}`).resolves.toBe(CONSTANTS.TEST_FILE_CONTENT);
+    });
 
-                    /* 测试重命名后目录是否存在 */
-                    await expect(
-                        client.client.readDir({
-                            path: "/temp/convert/pandoc/test/rename-dir-new/",
-                        }),
-                        `new path: /temp/convert/pandoc/test/rename-dir-new/`,
-                    ).resolves.toMatchObject({ code: 0 });
-                });
-            },
-            debug: false,
-        },
-    ];
+    it("rename directory", async () => {
+        const path = dir.resolve("rename-dir/");
+        const newPath = dir.resolve("rename-dir-new/");
+        await client.putFile({ path, isDir: true });
 
-    cases.forEach((item) => {
-        testKernelAPI<renameFile.IPayload, renameFile.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.renameFile(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+        await rename({ path, newPath });
+        await expectKernelError(client.readDir({ path }), 404);
+        await expect(client.readDir({ path: newPath }), `new path: ${newPath}`).resolves.toMatchObject({ code: 0 });
     });
 });

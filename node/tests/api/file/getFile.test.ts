@@ -13,182 +13,123 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import { KernelError } from "~/src";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectKernelError, expectPayload } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type { ResponseType } from "@/client/Client";
 import type getFile from "@/types/kernel/api/file/getFile";
 
-const pathname = client.Client.api.file.getFile.pathname;
+const pathname = Client.api.file.getFile.pathname;
 
-interface ICase {
-    name: string;
-    path: string;
-    responseType: ResponseType;
-    type: string;
-    protoType?: any;
-    catch?: (err: unknown) => void;
-    debug: boolean;
-}
+/* 测试文件内容 */
+const BINARY = Uint8Array.from({ length: 256 }, (_, i) => i);
+const JSON_CONTENT = { name: "getFile", list: [1, 2, 3] };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
+describe(pathname, () => {
+    const dir = useTempDir("getFile");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-    const cases: ICase[] = [
-        {
-            name: "arraybuffer-icon.png",
-            path: "/conf/appearance/boot/icon.png", // 二进制文件
-            responseType: "arraybuffer",
-            type: "object",
-            protoType: ArrayBuffer,
-            debug: false,
-        },
-        {
-            name: "blob-icon.png",
-            path: "/conf/appearance/boot/icon.png", // 二进制文件
-            responseType: "blob",
-            type: "object",
-            protoType: Blob,
-            debug: false,
-        },
-        {
-            name: "text-icon.png",
-            path: "/conf/appearance/boot/icon.png", // 二进制文件
-            responseType: "text",
-            type: "string",
-            debug: false,
-        },
-        {
-            name: "stream-icon.png",
-            path: "/conf/appearance/boot/icon.png", // 二进制文件
-            responseType: "stream",
-            type: "object",
-            protoType: ReadableStream,
-            debug: false,
-        },
-        {
-            name: "json-theme.json",
-            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
-            responseType: "json",
-            type: "object",
-            protoType: Object,
-            debug: false,
-        },
-        {
-            name: "text-theme.json",
-            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
-            responseType: "text",
-            type: "string",
-            debug: false,
-        },
-        {
-            name: "stream-theme.json",
-            path: "/conf/appearance/themes/daylight/theme.json", // json 文件
-            responseType: "stream",
-            type: "object",
-            protoType: ReadableStream,
-            debug: false,
-        },
-        {
-            name: "text-siyuan.log",
-            path: "/temp/siyuan.log", // 纯文本文件
-            responseType: "text",
-            type: "string",
-            debug: false,
-        },
-        {
-            name: "stream-siyuan.log",
-            path: "/temp/siyuan.log", // 纯文本文件
-            responseType: "stream",
-            type: "object",
-            protoType: ReadableStream,
-            debug: false,
-        },
-        {
-            name: "json-out-workspace",
-            path: "/..//none-existent", // 不存在的文件
-            responseType: "json",
-            type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
-            catch: (error) => {
-                it("kernelError: 403", async () => {
-                    expect(error, "error's type").toBeInstanceOf(KernelError);
-                    expect((error as KernelError).code, "error's code").toEqual(403);
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "json-non-existent",
-            path: "/none-existent", // 不存在的文件
-            responseType: "json",
-            type: "object", // 返回 { code: 404, msg: 'file is a directory', data: null }
-            catch: (error) => {
-                it("kernelError: 404", async () => {
-                    expect(
-                        error, //
-                        "error's type",
-                    ).toBeInstanceOf(KernelError);
-                    expect(
-                        (error as KernelError).code, //
-                        "error's code",
-                    ).toEqual(404);
-                });
-            },
-            debug: false,
-        },
-        {
-            name: "json-dir",
-            path: "/temp", // 目录
-            responseType: "json",
-            type: "object", // 返回 { code: 405, msg: 'file [/temp] is a directory', data: null }
-            catch: (error) => {
-                it("kernelError: 405", async () => {
-                    expect(
-                        error, //
-                        "error's type",
-                    ).toBeInstanceOf(KernelError);
-                    expect(
-                        (error as KernelError).code, //
-                        "error's code",
-                    ).toEqual(405);
-                });
-            },
-            debug: false,
-        },
-    ];
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+        await client.putFile({ path: dir.resolve("binary.bin"), file: new Blob([BINARY]) });
+        await client.putFile({ path: dir.resolve("data.json"), file: JSON.stringify(JSON_CONTENT) });
+        await client.putFile({ path: dir.resolve("text.html"), file: CONSTANTS.TEST_FILE_CONTENT });
+    });
 
-    cases.forEach((item) => {
-        testKernelAPI<getFile.IPayload, unknown>({
-            name: item.name,
-            payload: {
-                data: {
-                    path: item.path, // 数据
-                },
-                validate: validate_payload,
-            },
-            request: (payload) => client.client.getFile(payload!, item.responseType),
-            catch: item.catch,
-            response: {
-                test: (body) => {
-                    if (item.debug) {
-                        // eslint-disable-next-line no-console
-                        console.debug(body);
-                    }
-                    it("response body type verify", () => {
-                        expect.soft(typeof body, "typeof").toEqual(item.type);
-                        if (item.protoType) {
-                            expect.soft(body, "instanceof").toBeInstanceOf(item.protoType);
-                        }
-                    });
-                },
-            },
-            debug: item.debug,
+    /**
+     * 获取文件并校验请求体
+     * @param path - 文件路径
+     * @param responseType - 响应体类型
+     */
+    async function getFile(path: string, responseType: ResponseType): Promise<unknown> {
+        const payload: getFile.IPayload = { path };
+        expectPayload(context.validators, payload);
+        return client.getFile(payload, responseType);
+    }
+
+    /**
+     * 读取流中的全部数据
+     * @param stream - 可读流
+     */
+    async function readStream(stream: ReadableStream<Uint8Array>): Promise<Uint8Array> {
+        return new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    describe("binary file", () => {
+        it("arraybuffer", async () => {
+            const body = await getFile(dir.resolve("binary.bin"), "arraybuffer");
+            expect(body).toBeInstanceOf(ArrayBuffer);
+            expect(new Uint8Array(body as ArrayBuffer)).toEqual(BINARY);
+        });
+
+        it("blob", async () => {
+            const body = await getFile(dir.resolve("binary.bin"), "blob");
+            expect(body).toBeInstanceOf(Blob);
+            expect(new Uint8Array(await (body as Blob).arrayBuffer())).toEqual(BINARY);
+        });
+
+        it("text", async () => {
+            const body = await getFile(dir.resolve("binary.bin"), "text");
+            expect(body).toBeTypeOf("string");
+        });
+
+        it("stream", async () => {
+            const body = await getFile(dir.resolve("binary.bin"), "stream");
+            expect(body).toBeInstanceOf(ReadableStream);
+            expect(await readStream(body as ReadableStream<Uint8Array>)).toEqual(BINARY);
+        });
+    });
+
+    describe("json file", () => {
+        it("json", async () => {
+            await expect(getFile(dir.resolve("data.json"), "json")).resolves.toEqual(JSON_CONTENT);
+        });
+
+        it("text", async () => {
+            await expect(getFile(dir.resolve("data.json"), "text")).resolves.toBe(JSON.stringify(JSON_CONTENT));
+        });
+
+        it("stream", async () => {
+            const body = await getFile(dir.resolve("data.json"), "stream");
+            expect(body).toBeInstanceOf(ReadableStream);
+            expect(new TextDecoder().decode(await readStream(body as ReadableStream<Uint8Array>))).toBe(JSON.stringify(JSON_CONTENT));
+        });
+    });
+
+    describe("text file", () => {
+        it("text", async () => {
+            await expect(getFile(dir.resolve("text.html"), "text")).resolves.toBe(CONSTANTS.TEST_FILE_CONTENT);
+        });
+
+        it("stream", async () => {
+            const body = await getFile(dir.resolve("text.html"), "stream");
+            expect(body).toBeInstanceOf(ReadableStream);
+            expect(new TextDecoder().decode(await readStream(body as ReadableStream<Uint8Array>))).toBe(CONSTANTS.TEST_FILE_CONTENT);
+        });
+    });
+
+    describe("errors", () => {
+        it("path outside the workspace", async () => {
+            await expectKernelError(getFile("/..//none-existent", "json"), 403);
+        });
+
+        it("non-existent file", async () => {
+            await expectKernelError(getFile(dir.resolve("none-existent"), "json"), 404);
+        });
+
+        it("directory", async () => {
+            await expectKernelError(getFile(dir.path, "json"), 409);
         });
     });
 });

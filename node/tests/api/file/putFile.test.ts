@@ -13,115 +13,63 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import constants from "~/tests/constants";
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import CONSTANTS from "~/tests/constants";
+import { expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { useTempDir } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type putFile from "@/types/kernel/api/file/putFile";
 
-const pathname = client.Client.api.file.putFile.pathname;
+const pathname = Client.api.file.putFile.pathname;
 
-interface ICase {
-    name: string;
-    payload: putFile.IPayload;
-    debug: boolean;
-}
+describe(pathname, () => {
+    const dir = useTempDir("putFile");
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_response.loadSchemaFile();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "create dir",
-            payload: {
-                path: "/temp/convert/test",
-                isDir: true,
-            },
-            debug: false,
-        },
-        {
-            name: "create file with string",
-            payload: {
-                path: "/temp/convert/test/test0.html",
-                file: constants.TEST_FILE_CONTENT,
-            },
-            debug: false,
-        },
-        {
-            name: "create file with custom modified time",
-            payload: {
-                path: "/temp/convert/test/test1.html",
-                file: constants.TEST_FILE_CONTENT,
-                modTime: new Date("2001-02-03T04:05:06.007Z").getTime(),
-            },
-            debug: false,
-        },
-        {
-            name: "create file with Blob",
-            payload: {
-                path: "/temp/convert/test/test2.html",
-                file: new Blob([
-                    constants.TEST_FILE_CONTENT,
-                ]),
-            },
-            debug: false,
-        },
-        {
-            name: "create file with File",
-            payload: {
-                path: "/temp/convert/test/test3.html",
-                file: new File(
-                    [
-                        constants.TEST_FILE_CONTENT,
-                    ],
-                    "test3.html",
-                ),
-            },
-            debug: false,
-        },
-    ];
+    /**
+     * 写入文件并校验
+     * @param payload - 请求体
+     */
+    async function put(payload: putFile.IPayload): Promise<void> {
+        const response = await client.putFile(payload);
+        expectResponse(context.validators, response);
+    }
 
-    cases.forEach((item) => {
-        testKernelAPI<putFile.IPayload, putFile.IResponse>({
-            name: item.name,
-            payload: {
-                data: item.payload,
-            },
-            request: (payload) => client.client.putFile(payload!),
-            response: {
-                validate: validate_response,
-                test: async () => {
-                    it("test the result of put file", async () => {
-                        if (item.payload.isDir) {
-                            /* 测试目录是否存在 */
-                            await expect(
-                                client.client.readDir({
-                                    path: item.payload.path,
-                                }),
-                                `dir path: ${item.payload.path}`,
-                            ).resolves.toMatchObject({ code: 0 });
-                        }
-                        else {
-                            /* 测试文件是否存在 */
-                            await expect(
-                                client.client.getFile(
-                                    {
-                                        path: item.payload.path,
-                                    },
-                                    "text",
-                                ),
-                                `file path: ${item.payload.path}`,
-                            ).resolves.toEqual(constants.TEST_FILE_CONTENT);
-                        }
-                    });
-                },
-            },
-            debug: item.debug,
-        });
+    it("create dir", async () => {
+        const path = dir.resolve("dir");
+        await put({ path, isDir: true });
+        await expect(client.readDir({ path }), `dir path: ${path}`).resolves.toMatchObject({ code: 0 });
+    });
+
+    it.for<{ name: string; file: () => Blob | string }>([
+        { name: "string", file: () => CONSTANTS.TEST_FILE_CONTENT },
+        { name: "Blob", file: () => new Blob([CONSTANTS.TEST_FILE_CONTENT]) },
+        { name: "File", file: () => new File([CONSTANTS.TEST_FILE_CONTENT], "test.html") },
+    ])("create file with $name", async ({ name, file }) => {
+        const path = dir.resolve(`file-${name}.html`);
+        await put({ path, file: file() });
+        await expect(client.getFile({ path }, "text"), `file path: ${path}`).resolves.toBe(CONSTANTS.TEST_FILE_CONTENT);
+    });
+
+    it("create file with custom modified time", async () => {
+        const modTime = new Date("2001-02-03T04:05:06.007Z").getTime();
+        await put({ path: dir.resolve("modTime.html"), file: CONSTANTS.TEST_FILE_CONTENT, modTime });
+
+        /* readDir 返回的修改时间精确到秒 */
+        const entries = await client.readDir({ path: dir.path });
+        expect(entries.data.find((entry) => entry.name === "modTime.html")?.updated).toBe(Math.floor(modTime / 1000));
     });
 });

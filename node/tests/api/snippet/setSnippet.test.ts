@@ -13,78 +13,60 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-import client from "~/tests/utils/client";
-import { SchemaJSON } from "~/tests/utils/schema";
-import { testKernelAPI } from "~/tests/utils/test";
+import { expectPayload, expectResponse } from "~/tests/utils/assert";
+import { client } from "~/tests/utils/client";
+import { env } from "~/tests/utils/env";
+import { newNodeID, preserveSnippets, uniqueName } from "~/tests/utils/fixtures";
+import { loadKernelAPISchemas } from "~/tests/utils/schema";
+
+import { Client } from "@/client/Client";
+
+import type { IKernelAPIValidators } from "~/tests/utils/schema";
 
 import type setSnippet from "@/types/kernel/api/snippet/setSnippet";
 
-const pathname = client.Client.api.snippet.setSnippet.pathname;
+const pathname = Client.api.snippet.setSnippet.pathname;
 
-interface ICase {
-    name: string;
-    before?: () => void;
-    payload: setSnippet.IPayload;
-    after?: (response: setSnippet.IResponse, payload: setSnippet.IPayload) => void;
-    debug: boolean;
-}
+describe(pathname, () => {
+    /* 设置代码片段会整体替换已有的代码片段，因此先保存，结束后恢复 */
+    preserveSnippets();
+    const context = {
+        validators: {} as IKernelAPIValidators,
+    };
 
-describe.concurrent(pathname, async () => {
-    const schema_payload = new SchemaJSON(SchemaJSON.resolvePayloadSchemaPath(pathname));
-    const schema_response = new SchemaJSON(SchemaJSON.resolveResponseSchemaPath(pathname));
-    await schema_payload.loadSchemaFile();
-    await schema_response.loadSchemaFile();
-    const validate_payload = schema_payload.constructValidateFuction();
-    const validate_response = schema_response.constructValidateFuction();
+    beforeAll(async () => {
+        context.validators = await loadKernelAPISchemas(pathname);
+    });
 
-    const cases: ICase[] = [
-        {
-            name: "main test",
-            payload: {
-                snippets: [
-                    {
-                        id: "20230725235727-lvt3puk",
-                        name: "test-setSnippet-css-1",
-                        type: "css",
-                        enabled: true,
-                        content: "/* test-setSnippet-css-1 */",
-                    },
-                    {
-                        id: "",
-                        name: "test-setSnippet-js-1",
-                        type: "js",
-                        enabled: false,
-                        content: "// test-setSnippet-js-1",
-                    },
-                ],
+    it("main", async () => {
+        const snippets: setSnippet.ISnippet[] = [
+            {
+                id: newNodeID(),
+                name: uniqueName("setSnippet-css"),
+                type: "css",
+                enabled: true,
+                content: "/* setSnippet css */",
             },
-            after: async (_response, payload) => {
-                it("test the result of set snippet", async () => {
-                    for (const snippet of payload.snippets) {
-                        await expect((await fetch(`${process.env.VITE_SIYUAN_SERVE}/snippets/${snippet.name}.${snippet.type}`)).text()).resolves.toEqual(snippet.content);
-                    }
-                });
+            {
+                id: "", // 由内核生成 ID
+                name: uniqueName("setSnippet-js"),
+                type: "js",
+                enabled: false,
+                content: "// setSnippet js",
             },
-            debug: false,
-        },
-    ];
+        ];
+        const payload: setSnippet.IPayload = { snippets };
+        expectPayload(context.validators, payload);
 
-    cases.forEach((item) => {
-        testKernelAPI<setSnippet.IPayload, setSnippet.IResponse>({
-            name: "main",
-            payload: {
-                data: item.payload,
-                validate: validate_payload,
-                test: item.before,
-            },
-            request: (payload) => client.client.setSnippet(payload!),
-            response: {
-                validate: validate_response,
-                test: item.after,
-            },
-            debug: item.debug,
-        });
+        const response = await client.setSnippet(payload);
+        expectResponse(context.validators, response);
+
+        /* 内核通过 /snippets/<name>.<type> 提供代码片段的内容 */
+        for (const snippet of snippets) {
+            const content = await (await fetch(`${env.serve}/snippets/${snippet.name}.${snippet.type}`)).text();
+            expect(content, `${snippet.name}.${snippet.type}`).toBe(snippet.content);
+        }
     });
 });

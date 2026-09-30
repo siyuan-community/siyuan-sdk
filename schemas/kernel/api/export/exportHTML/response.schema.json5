@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/export/exportHTML/response.schema.json5
  * 导出指定文档块为 HTML
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.7/kernel/api/export.go#L419-L436
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/export.go#L628-L665
  * @pathname: /api/export/exportHTML
- * @version: 3.0.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportHTML/response.schema.json5',
-    $comment: 'v3.0.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -58,6 +58,11 @@
                 content: {
                     type: 'string',
                     description: 'html content',
+                },
+                folder: {
+                    // 导出到的临时目录名（相对于 temp/export/），仅在请求未指定 savePath 时返回
+                    type: 'string',
+                    description: 'Name of the temporary directory exported to (relative to `temp/export/`), only present when `savePath` is not specified in the request',
                 },
             },
         },

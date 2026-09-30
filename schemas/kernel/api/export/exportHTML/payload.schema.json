@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportHTML/payload.schema.json",
-    "$comment": "v3.0.7",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -11,8 +11,7 @@
             "additionalProperties": false,
             "required": [
                 "id",
-                "pdf",
-                "savePath"
+                "pdf"
             ],
             "properties": {
                 "id": {
@@ -26,7 +25,7 @@
                 },
                 "savePath": {
                     "type": "string",
-                    "description": "The location where the file is saved"
+                    "description": "Export directory, exported to a temporary directory under `temp/export/` when empty (see `folder` in the response)"
                 },
                 "keepFold": {
                     "type": "boolean",
@@ -37,6 +36,35 @@
                     "type": "boolean",
                     "description": "Whether to merge the content of the sub-document",
                     "default": false
+                },
+                "addTitle": {
+                    "type": "boolean",
+                    "description": "Whether to add the document title at the beginning, the export setting is used by default"
+                },
+                "customTitle": {
+                    "type": "string",
+                    "description": "Custom title, only used when `addTitle` is `true`, the document title is used when empty"
+                },
+                "mergeContentHeadingMode": {
+                    "type": "string",
+                    "title": "TMergeContentHeadingMode",
+                    "description": "How headings in the content are handled when merging sub-documents, only used when `merge` is `true`\n- `preserve`: Keep the heading levels\n- `demote`: Demote the headings to levels below the title of their document",
+                    "default": "preserve",
+                    "enum": [
+                        "demote",
+                        "preserve"
+                    ]
+                },
+                "mergeDocHeadingMode": {
+                    "type": "string",
+                    "title": "TMergeDocHeadingMode",
+                    "description": "Levels of the sub-document titles when merging sub-documents, only used when `merge` is `true`\n- Empty string: Level by document depth\n- `flat`: All level 1\n- `tree`: Level by document depth, one level lower when the root title is added",
+                    "default": "",
+                    "enum": [
+                        "",
+                        "flat",
+                        "tree"
+                    ]
                 }
             }
         }

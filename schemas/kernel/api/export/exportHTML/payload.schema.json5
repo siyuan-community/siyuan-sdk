@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/export/exportHTML/payload.schema.json5
  * 导出指定文档块为 HTML
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.0.7/kernel/api/export.go#L419-L436
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/export.go#L628-L665
  * @pathname: /api/export/exportHTML
- * @version: 3.0.7
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportHTML/payload.schema.json5',
-    $comment: 'v3.0.7',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -19,7 +19,6 @@
             required: [
                 'id',
                 'pdf',
-                'savePath',
             ],
             properties: {
                 id: {
@@ -34,9 +33,9 @@
                     description: 'Whether the export format is PDF',
                 },
                 savePath: {
-                    // 导出时创建的文件的位置
+                    // 导出目录，为空时导出到 temp/export/ 下的临时目录（见响应中的 folder）
                     type: 'string',
-                    description: 'The location where the file is saved',
+                    description: 'Export directory, exported to a temporary directory under `temp/export/` when empty (see `folder` in the response)',
                 },
                 keepFold: {
                     // 是否保持折叠状态
@@ -49,6 +48,39 @@
                     type: 'boolean',
                     description: 'Whether to merge the content of the sub-document',
                     default: false,
+                },
+                addTitle: {
+                    // 是否在开头添加文档标题，默认使用导出设置
+                    type: 'boolean',
+                    description: 'Whether to add the document title at the beginning, the export setting is used by default',
+                },
+                customTitle: {
+                    // 自定义标题，仅在 addTitle 为 true 时使用，为空时使用文档标题
+                    type: 'string',
+                    description: 'Custom title, only used when `addTitle` is `true`, the document title is used when empty',
+                },
+                mergeContentHeadingMode: {
+                    // 合并子文档时正文中标题的处理方式，仅在 merge 为 true 时使用
+                    type: 'string',
+                    title: 'TMergeContentHeadingMode',
+                    description: 'How headings in the content are handled when merging sub-documents, only used when `merge` is `true`\n- `preserve`: Keep the heading levels\n- `demote`: Demote the headings to levels below the title of their document',
+                    default: 'preserve',
+                    enum: [
+                        'demote', // 降级到所在文档标题的下级
+                        'preserve', // 保持原有层级
+                    ],
+                },
+                mergeDocHeadingMode: {
+                    // 合并子文档时子文档标题的层级，仅在 merge 为 true 时使用
+                    type: 'string',
+                    title: 'TMergeDocHeadingMode',
+                    description: 'Levels of the sub-document titles when merging sub-documents, only used when `merge` is `true`\n- Empty string: Level by document depth\n- `flat`: All level 1\n- `tree`: Level by document depth, one level lower when the root title is added',
+                    default: '',
+                    enum: [
+                        '', // 按文档层级
+                        'flat', // 全部为一级标题
+                        'tree', // 按文档层级，添加根文档标题时下降一级
+                    ],
                 },
             },
         },

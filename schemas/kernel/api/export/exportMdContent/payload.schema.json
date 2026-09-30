@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/export/exportMdContent/payload.schema.json",
-    "$comment": "v2.9.2",
+    "$comment": "v3.8.6",
     "$ref": "#/$defs/root",
     "$defs": {
         "root": {
@@ -13,10 +13,51 @@
                 "id"
             ],
             "properties": {
+                "addTitle": {
+                    "type": "boolean",
+                    "description": "Whether to add the document title at the beginning, the export setting is used by default"
+                },
+                "adjustHeadingLevel": {
+                    "type": "boolean",
+                    "description": "Whether to adjust heading levels when exporting a block (starting from level 1)",
+                    "default": false
+                },
+                "embedMode": {
+                    "type": "integer",
+                    "description": "Export mode of embed blocks, the export setting is used by default\n- `0`: Original text\n- `1`: Blockquote",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "fillCSSVar": {
+                    "type": "boolean",
+                    "description": "Whether to replace theme CSS variables in inline styles with their values",
+                    "default": false
+                },
                 "id": {
                     "type": "string",
                     "description": "doc block ID",
                     "pattern": "^\\d{14}-[0-9a-z]{7}$"
+                },
+                "imgTag": {
+                    "type": "boolean",
+                    "description": "Whether to export images as `img` tags",
+                    "default": false
+                },
+                "refMode": {
+                    "type": "integer",
+                    "description": "Export mode of block references, the export setting is used by default\n- `2`: Anchor text with a link to the block\n- `3`: Anchor text only\n- `4`: Anchor text with a footnote",
+                    "enum": [
+                        2,
+                        3,
+                        4
+                    ]
+                },
+                "yfm": {
+                    "type": "boolean",
+                    "description": "Whether to add YAML Front Matter",
+                    "default": true
                 }
             }
         }

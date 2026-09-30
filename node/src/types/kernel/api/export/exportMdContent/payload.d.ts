@@ -20,9 +20,42 @@
  */
 export interface IPayload {
     /**
+     * Whether to add the document title at the beginning, the export setting is used by default
+     */
+    readonly addTitle?: boolean;
+    /**
+     * Whether to adjust heading levels when exporting a block (starting from level 1)
+     */
+    readonly adjustHeadingLevel?: boolean;
+    /**
+     * Export mode of embed blocks, the export setting is used by default
+     * - `0`: Original text
+     * - `1`: Blockquote
+     */
+    readonly embedMode?: number;
+    /**
+     * Whether to replace theme CSS variables in inline styles with their values
+     */
+    readonly fillCSSVar?: boolean;
+    /**
      * doc block ID
      */
     readonly id: string;
+    /**
+     * Whether to export images as `img` tags
+     */
+    readonly imgTag?: boolean;
+    /**
+     * Export mode of block references, the export setting is used by default
+     * - `2`: Anchor text with a link to the block
+     * - `3`: Anchor text only
+     * - `4`: Anchor text with a footnote
+     */
+    readonly refMode?: number;
+    /**
+     * Whether to add YAML Front Matter
+     */
+    readonly yfm?: boolean;
 }
 
 // #endregion content

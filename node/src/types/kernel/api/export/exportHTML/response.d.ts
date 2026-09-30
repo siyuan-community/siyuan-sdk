@@ -39,6 +39,11 @@ export interface IData {
      */
     readonly content: string;
     /**
+     * Name of the temporary directory exported to (relative to `temp/export/`), only present
+     * when `savePath` is not specified in the request
+     */
+    readonly folder?: string;
+    /**
      * doc block ID
      */
     readonly id: string;

@@ -4,7 +4,7 @@
     "type": "module",
     "version": "0.3.16",
     "private": false,
-    "packageManager": "pnpm@11.9.0",
+    "packageManager": "pnpm@12.8.1",
     "description": "A simple and easy to use SDK for SiYuan.",
     "author": {
         "name": "Zuoqiu Yingyi",

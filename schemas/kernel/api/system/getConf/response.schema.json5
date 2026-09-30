@@ -1,14 +1,14 @@
 /**
  * schemas/kernel/api/system/getConf/response.schema.json5
  * 获取工作空间完整配置
- * REF: https://github.com/siyuan-note/siyuan/blob/v3.1.16/kernel/api/system.go#L432-L464
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/system.go#L746-L792
  * @pathname: /api/system/getConf
- * @version: 3.1.16
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/system/getConf/response.schema.json5',
-    $comment: 'v3.1.16',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -72,12 +72,12 @@
             additionalProperties: false,
             required: [
                 'accessAuthCode',
-                'account',
                 'ai',
                 'api',
                 'appearance',
                 'bazaar',
                 'cloudRegion',
+                'cookieKey',
                 'dataIndexState',
                 'editor',
                 'export',
@@ -87,13 +87,17 @@
                 'keymap',
                 'lang',
                 'langs',
-                'localIPs',
                 'logLevel',
-                'openHelp',
+                'mcpOAuth',
+                'notebookCrypto',
+                'oidc',
+                'onboarding',
                 'publish',
                 'readonly',
                 'repo',
                 'search',
+                'secrets',
+                'serverAddrs',
                 'showChangelog',
                 'snippet',
                 'stat',
@@ -102,6 +106,7 @@
                 'tag',
                 'uiLayout',
                 'userData',
+                'variables',
             ],
             properties: {
                 accessAuthCode: {
@@ -114,10 +119,6 @@
                         '',
                         '*******',
                     ],
-                },
-                account: {
-                    // 账户相关设置项
-                    $ref: '#/$defs/account',
                 },
                 ai: {
                     // AI 相关设置项
@@ -144,9 +145,10 @@
                         1,
                     ],
                 },
-                community: {
-                    // 社区版相关设置项
-                    type: 'object',
+                cookieKey: {
+                    // 会话 Cookie 加密密钥（该 API 始终返回空字符串）
+                    type: 'string',
+                    description: 'Key used to encrypt session cookies (always an empty string in this API)',
                 },
                 dataIndexState: {
                     // 数据索引状态
@@ -195,28 +197,29 @@
                     title: 'TLang',
                     description: 'User interface language  \nSame as {@link IAppearance.lang}',
                     enum: [
-                        'en_US', // 英文
-                        'es_ES', // 西班牙文
-                        'fr_FR', // 法文
-                        'zh_CHT', // 繁体中文
-                        'zh_CN', // 简体中文
+                        'ar', // 阿拉伯文
+                        'de', // 德文
+                        'en', // 英文
+                        'es', // 西班牙文
+                        'fr', // 法文
+                        'he', // 希伯来文
+                        'hi', // 印地文
+                        'id', // 印度尼西亚文
+                        'it', // 意大利文
+                        'ja', // 日文
+                        'ko', // 韩文
+                        'nl', // 荷兰文
+                        'pl', // 波兰文
+                        'pt-BR', // 巴西葡萄牙文
+                        'ru', // 俄文
+                        'sk', // 斯洛伐克文
+                        'sr', // 塞尔维亚文
+                        'th', // 泰文
+                        'tr', // 土耳其文
+                        'uk', // 乌克兰文
+                        'zh-CN', // 简体中文
+                        'zh-TW', // 繁体中文
                     ],
-                },
-                localIPs: {
-                    // 内核所在设备 IP 列表
-                    type: 'array',
-                    description: 'A list of the IP addresses of the devices on which the kernel resides',
-                    items: {
-                        type: 'string',
-                        description: 'IP addresses (IPv4 & IPv6)',
-                        examples: [
-                            '127.0.0.1', //
-                            '192.168.1.1', //
-                            '10.0.0.1', //
-                            '[::1]', //
-                            '[fe80::8cc:2a8:23fc:daf3]', //
-                        ],
-                    },
                 },
                 logLevel: {
                     // 日志级别
@@ -233,10 +236,22 @@
                         'fatal', // 致命
                     ],
                 },
-                openHelp: {
-                    // 启动后是否需要打开用户指南
-                    type: 'boolean',
-                    description: 'Whether to open the user guide after startup',
+                mcpOAuth: {
+                    // MCP OAuth 凭据密文（该 API 始终返回空字符串）
+                    type: 'string',
+                    description: 'Encrypted MCP OAuth credentials (always an empty string in this API)',
+                },
+                notebookCrypto: {
+                    // 加密笔记本相关设置项
+                    $ref: '#/$defs/notebookCrypto',
+                },
+                oidc: {
+                    // OpenID Connect 登录相关设置项
+                    $ref: '#/$defs/oidc',
+                },
+                onboarding: {
+                    // 新手引导状态
+                    $ref: '#/$defs/onboarding',
                 },
                 publish: {
                     // 发布服务相关设置项
@@ -254,6 +269,23 @@
                 search: {
                     // 搜索相关设置项
                     $ref: '#/$defs/search',
+                },
+                secrets: {
+                    // 全局密钥库
+                    $ref: '#/$defs/secrets',
+                },
+                serverAddrs: {
+                    // 内核服务地址列表（局域网 IPv4 地址与 127.0.0.1），非管理员角色为空列表
+                    type: 'array',
+                    description: 'Kernel server addresses (LAN IPv4 addresses and 127.0.0.1), empty for non-administrator roles',
+                    items: {
+                        type: 'string',
+                        description: 'Kernel server address',
+                        examples: [
+                            'http://127.0.0.1:6806',
+                            'http://192.168.1.2:6806',
+                        ],
+                    },
                 },
                 showChangelog: {
                     // 是否显示本版本更新日志
@@ -290,28 +322,9 @@
                     description: 'Community user data (Encrypted)',
                     default: '',
                 },
-            },
-        },
-        account: {
-            title: 'IAccount',
-            description: 'Account configuration',
-
-            type: 'object',
-            additionalProperties: false,
-            required: [
-                'displayTitle',
-                'displayVIP',
-            ],
-            properties: {
-                displayTitle: {
-                    // 顶栏显示头衔
-                    type: 'boolean',
-                    description: 'Display the title icon',
-                },
-                displayVIP: {
-                    // 顶栏显示 VIP 图标
-                    type: 'boolean',
-                    description: 'Display the VIP icon',
+                variables: {
+                    // 全局变量库
+                    $ref: '#/$defs/variables',
                 },
             },
         },
@@ -322,116 +335,784 @@
             description: 'Artificial Intelligence (AI) related configuration',
             additionalProperties: false,
             required: [
-                'openAI',
+                'agent',
+                'decision',
+                'editing',
+                'embedding',
+                'imageGeneration',
+                'mcp',
+                'providers',
+                'rerank',
             ],
             properties: {
-                openAI: {
-                    $ref: '#/$defs/ai_openAI',
+                agent: {
+                    // 智能体设置项
+                    $ref: '#/$defs/ai_agent',
+                },
+                decision: {
+                    // 决策模型设置项
+                    $ref: '#/$defs/ai_decision',
+                },
+                editing: {
+                    // 编辑器内 AI 设置项
+                    $ref: '#/$defs/ai_editing',
+                },
+                embedding: {
+                    // 向量模型设置项
+                    $ref: '#/$defs/ai_embedding',
+                },
+                imageGeneration: {
+                    // 图片生成设置项
+                    $ref: '#/$defs/ai_imageGeneration',
+                },
+                mcp: {
+                    // MCP 设置项
+                    $ref: '#/$defs/ai_mcp',
+                },
+                providers: {
+                    // 模型服务商列表
+                    type: 'array',
+                    description: 'Model providers',
+                    items: {
+                        $ref: '#/$defs/ai_provider',
+                    },
+                },
+                rerank: {
+                    // 重排模型设置项
+                    $ref: '#/$defs/ai_rerank',
                 },
             },
         },
-        ai_openAI: {
-            // Open AI 的 API 配置项
-            title: 'IOpenAI',
-            description: 'Open AI related configuration',
-
+        ai_agent: {
+            title: 'IAIAgent',
             type: 'object',
+
+            description: 'AI agent configuration',
             additionalProperties: false,
             required: [
-                'apiBaseURL',
-                'apiKey',
-                'apiMaxContexts',
-                'apiMaxTokens',
-                'apiModel',
-                'apiProvider',
-                'apiProxy',
-                'apiTemperature',
-                'apiTimeout',
-                'apiUserAgent',
-                'apiVersion',
+                'approvalPolicy',
+                'capabilityPolicy',
+                'confirmTimeout',
+                'maxCompletionTokens',
+                'maxRetries',
+                'maxToolCallRounds',
+                'modelId',
+                'sessionTimeout',
+                'skills',
+                'streamIdleTimeout',
+                'temperature',
             ],
             properties: {
-                apiBaseURL: {
-                    // API 基础 URL 地址
+                approvalPolicy: {
+                    // 工具调用审批策略
+                    $ref: '#/$defs/ai_agent_approvalPolicy',
+                },
+                capabilityPolicy: {
+                    // 智能体可用的能力（工具）策略
+                    $ref: '#/$defs/ai_capabilityPolicy',
+                },
+                confirmTimeout: {
+                    // 等待用户确认或回答提问的超时时间（单位: s），0 表示不限时
+                    type: 'integer',
+                    description: 'Timeout for waiting for user confirmations and answers (unit: s), `0` means no limit',
+                    default: 600,
+                },
+                maxCompletionTokens: {
+                    // 单次回复的最大输出 token 数，0 表示不设置
+                    type: 'integer',
+                    description: 'Maximum output tokens per reply, `0` means not set',
+                    default: 0,
+                },
+                maxRetries: {
+                    // 模型请求失败时的重试次数
+                    type: 'integer',
+                    description: 'Retries for failed model requests',
+                    default: 3,
+                    minimum: 0,
+                    maximum: 10,
+                },
+                maxToolCallRounds: {
+                    // 单轮对话的最大工具调用轮数，小于等于 0 表示不限
+                    type: 'integer',
+                    description: 'Maximum tool call rounds per user turn, `0` or less means unlimited',
+                    default: 64,
+                },
+                modelId: {
+                    // 智能体使用的模型 ID（ai.providers[].models[].id）
                     type: 'string',
-                    description: 'API base URL',
-                    format: 'uri',
-                    examples: [
-                        'https://api.openai.com/v1',
+                    description: 'ID of the model used by the agent (`ai.providers[].models[].id`)',
+                },
+                sessionTimeout: {
+                    // 会话总超时时间（单位: s），0 表示不限
+                    type: 'integer',
+                    description: 'Total session timeout (unit: s), `0` means unlimited',
+                    default: 1800,
+                    minimum: 0,
+                    maximum: 3600,
+                },
+                skills: {
+                    // 技能设置项
+                    $ref: '#/$defs/ai_agent_skills',
+                },
+                streamIdleTimeout: {
+                    // 流式输出空闲超时时间（单位: s），持续无输出时中断
+                    type: 'integer',
+                    description: 'Streaming idle timeout (unit: s), the reply is aborted when no output arrives within it',
+                    default: 120,
+                    minimum: 1,
+                    maximum: 600,
+                },
+                temperature: {
+                    // 采样温度
+                    type: 'number',
+                    description: 'Sampling temperature',
+                    default: 1,
+                    minimum: 0,
+                    maximum: 2,
+                },
+            },
+        },
+        ai_agent_approvalPolicy: {
+            title: 'IAIAgentApprovalPolicy',
+            type: 'object',
+
+            description: 'Approval policy for agent tool calls',
+            additionalProperties: false,
+            required: [
+                'default',
+                'overrides',
+            ],
+            properties: {
+                default: {
+                    // 全局审批方式
+                    type: 'string',
+                    title: 'TAIAgentApprovalPolicyDefault',
+                    description: 'Global approval mode\n- `risk`: Ask for confirmation according to the operation risk\n- `allow`: Approve automatically',
+                    default: 'risk',
+                    enum: [
+                        'allow', // 自动批准
+                        'risk', // 按操作风险决定是否确认
                     ],
                 },
+                overrides: {
+                    // 按能力 ID 覆盖的审批方式，键如 native/backend/<工具名>、mcp/backend/<服务器 ID>/<工具名>
+                    type: 'object',
+                    description: 'Approval overrides keyed by capability ID, such as `native/backend/<tool>` or `mcp/backend/<server ID>/<tool>`',
+                    additionalProperties: {
+                        $ref: '#/$defs/ai_agent_capabilityApproval',
+                    },
+                },
+            },
+        },
+        ai_agent_capabilityApproval: {
+            title: 'IAIAgentCapabilityApproval',
+            type: 'object',
+
+            description: 'Approval override of a capability',
+            additionalProperties: false,
+            required: [
+                'actions',
+                'default',
+            ],
+            properties: {
+                actions: {
+                    // 按工具 action 参数值细分的审批方式
+                    type: 'object',
+                    description: 'Approval modes by the value of the `action` argument of the tool',
+                    additionalProperties: {
+                        $ref: '#/$defs/ai_agent_approval',
+                    },
+                },
+                default: {
+                    // 该能力的审批方式，空字符串表示继承全局设置
+                    type: 'string',
+                    title: 'TAIAgentApprovalOverride',
+                    description: 'Approval mode of the capability, an empty string inherits the global mode\n- `allow`: Approve automatically\n- `confirm`: Always ask for confirmation\n- `risk`: Ask for confirmation according to the operation risk',
+                    enum: [
+                        '', // 继承全局设置
+                        'allow', // 自动批准
+                        'confirm', // 总是确认
+                        'risk', // 按操作风险决定是否确认
+                    ],
+                },
+            },
+        },
+        ai_agent_approval: {
+            title: 'TAIAgentApproval',
+            type: 'string',
+
+            description: 'Approval mode\n- `allow`: Approve automatically\n- `confirm`: Always ask for confirmation\n- `risk`: Ask for confirmation according to the operation risk',
+            enum: [
+                'allow', // 自动批准
+                'confirm', // 总是确认
+                'risk', // 按操作风险决定是否确认
+            ],
+        },
+        ai_agent_skills: {
+            title: 'IAIAgentSkills',
+            type: 'object',
+
+            description: 'Agent skills configuration',
+            additionalProperties: false,
+            required: [
+                'userEnabled',
+            ],
+            properties: {
+                userEnabled: {
+                    // 已启用的用户级技能（~/.agents/skills 下的目录名）
+                    type: 'array',
+                    description: 'Enabled user-level skills (directory names under `~/.agents/skills`)',
+                    items: {
+                        type: 'string',
+                    },
+                },
+            },
+        },
+        ai_capabilityPolicy: {
+            title: 'IAICapabilityPolicy',
+            type: 'object',
+
+            description: 'Policy of which capabilities (tools) are available',
+            additionalProperties: false,
+            required: [
+                'default',
+                'overrides',
+            ],
+            properties: {
+                default: {
+                    // 默认策略
+                    $ref: '#/$defs/ai_capabilityPolicy_value',
+                },
+                overrides: {
+                    // 按能力 ID 覆盖的策略
+                    type: 'object',
+                    description: 'Policy overrides keyed by capability ID',
+                    additionalProperties: {
+                        $ref: '#/$defs/ai_capabilityPolicy_value',
+                    },
+                },
+            },
+        },
+        ai_capabilityPolicy_value: {
+            title: 'TAICapabilityPolicy',
+            type: 'string',
+
+            description: 'Capability policy\n- `allow`: Available\n- `deny`: Unavailable',
+            enum: [
+                'allow', // 允许
+                'deny', // 禁止
+            ],
+        },
+        ai_decision: {
+            title: 'IAIDecision',
+            type: 'object',
+
+            description: 'Decision model (TypeSafe System One) configuration, which provides the decision tool to the agent',
+            additionalProperties: false,
+            required: [
+                'apiKey',
+                'enabled',
+                'endpoint',
+                'name',
+                'timeout',
+            ],
+            properties: {
                 apiKey: {
                     // API 密钥
                     type: 'string',
                     description: 'API key',
-                    examples: [
-                        'sk-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL',
-                    ],
                 },
-                apiMaxContexts: {
-                    // 请求 API 时传入的最大上下文数
+                enabled: {
+                    // 是否启用决策模型
+                    type: 'boolean',
+                    description: 'Whether to enable the decision model',
+                },
+                endpoint: {
+                    // 服务端点
+                    type: 'string',
+                    description: 'Service endpoint',
+                    default: 'https://api.typesafe.ai/v1/systemone',
+                },
+                name: {
+                    // 模型名称
+                    type: 'string',
+                    description: 'Model name',
+                    default: 'jev-latest',
+                },
+                timeout: {
+                    // 请求超时时间（单位: s）
                     type: 'integer',
-                    description: 'The maximum number of contexts passed when requesting the API',
-                    minimum: 0,
+                    description: 'Request timeout (unit: s)',
+                    default: 30,
+                    minimum: 1,
+                    maximum: 600,
                 },
-                apiMaxTokens: {
-                    // 最大 Token 数 (0 表示无限制)
+            },
+        },
+        ai_editing: {
+            title: 'IAIEditing',
+            type: 'object',
+
+            description: 'In-editor AI configuration',
+            additionalProperties: false,
+            required: [
+                'maxCompletionTokens',
+                'maxHistoryMessages',
+                'modelId',
+                'temperature',
+            ],
+            properties: {
+                maxCompletionTokens: {
+                    // 单次回复的最大输出 token 数，0 表示不设置
                     type: 'integer',
-                    description: 'Maximum number of tokens (0 means no limit)',
-                    minimum: 0,
+                    description: 'Maximum output tokens per reply, `0` means not set',
+                    default: 0,
                 },
-                apiModel: {
-                    // API 所调用的模型名称
+                maxHistoryMessages: {
+                    // 作为上下文保留的历史对话轮数
+                    type: 'integer',
+                    description: 'Number of previous turns kept as context',
+                    default: 7,
+                    minimum: 1,
+                    maximum: 64,
+                },
+                modelId: {
+                    // 使用的模型 ID（ai.providers[].models[].id）
                     type: 'string',
-                    title: 'TOpenAIAPIModel',
-                    description: 'The model name called by the API',
-                    examples: [
-                        'gpt-4',
-                        'gpt-4-32k',
-                        'gpt-3.5-turbo',
-                        'gpt-3.5-turbo-16k',
-                    ],
+                    description: 'ID of the model used (`ai.providers[].models[].id`)',
                 },
-                apiProvider: {
-                    // API 供应商
-                    type: 'string',
-                    title: 'TOpenAIApiProvider',
-                    description: 'API Provider',
-                    enum: [
-                        'OpenAI',
-                        'Azure',
-                    ],
-                },
-                apiProxy: {
-                    // API 请求代理地址
-                    type: 'string',
-                    description: 'API request proxy address',
-                    examples: [
-                        'http://127.0.0.1:1080',
-                        'socks://127.0.0.1:1080',
-                        'socks5://127.0.0.1:1080',
-                    ],
-                },
-                apiTemperature: {
-                    // 控制生成的文本随机性的参数 `temperature`
+                temperature: {
+                    // 采样温度
                     type: 'number',
-                    description: 'Parameter `temperature` that controls the randomness of the generated text',
-                },
-                apiTimeout: {
-                    // API 请求超时时间 (单位: 秒)
-                    type: 'integer',
-                    description: 'API request timeout (unit: seconds)',
+                    description: 'Sampling temperature',
+                    default: 1,
                     minimum: 0,
+                    maximum: 2,
                 },
-                apiUserAgent: {
-                    // API 请求附加的用户代理字段
+            },
+        },
+        ai_embedding: {
+            title: 'IAIEmbedding',
+            type: 'object',
+
+            description: 'Embedding model configuration, used for recall in semantic search',
+            additionalProperties: false,
+            required: [
+                'apiKey',
+                'baseURL',
+                'dimensions',
+                'enabled',
+                'id',
+                'name',
+                'timeout',
+            ],
+            properties: {
+                apiKey: {
+                    // API 密钥
                     type: 'string',
-                    description: 'API request additional user agent field',
+                    description: 'API key',
                 },
-                apiVersion: {
-                    // API 版本号
+                baseURL: {
+                    // API 基础地址
                     type: 'string',
-                    description: 'API version number',
+                    description: 'API base URL',
+                },
+                dimensions: {
+                    // 输出向量维度，0 表示使用模型的默认维度
+                    type: 'integer',
+                    description: 'Dimensions of the output vectors, `0` means the default of the model',
+                    default: 0,
+                },
+                enabled: {
+                    // 是否启用向量化
+                    type: 'boolean',
+                    description: 'Whether to enable embeddings',
+                },
+                id: {
+                    // 配置 ID
+                    type: 'string',
+                    description: 'Configuration ID',
+                },
+                name: {
+                    // 模型名称
+                    type: 'string',
+                    description: 'Model name',
+                },
+                timeout: {
+                    // 请求超时时间（单位: s）
+                    type: 'integer',
+                    description: 'Request timeout (unit: s)',
+                    default: 30,
+                },
+            },
+        },
+        ai_imageGeneration: {
+            title: 'IAIImageGeneration',
+            type: 'object',
+
+            description: 'Image generation configuration',
+            additionalProperties: false,
+            required: [
+                'modelId',
+                'outputFormat',
+                'quality',
+                'requestTimeout',
+                'size',
+            ],
+            properties: {
+                modelId: {
+                    // 使用的模型 ID（ai.providers[].models[].id），可以为空
+                    type: 'string',
+                    description: 'ID of the model used (`ai.providers[].models[].id`), may be empty',
+                },
+                outputFormat: {
+                    // 输出图片格式
+                    type: 'string',
+                    title: 'TAIImageGenerationOutputFormat',
+                    description: 'Output image format',
+                    default: 'png',
+                    enum: [
+                        'jpeg',
+                        'png',
+                        'webp',
+                    ],
+                },
+                quality: {
+                    // 默认图片质量，原样传给服务商
+                    type: 'string',
+                    description: 'Default image quality, passed to the provider as is',
+                    default: 'auto',
+                },
+                requestTimeout: {
+                    // 请求超时时间（单位: s）
+                    type: 'integer',
+                    description: 'Request timeout (unit: s)',
+                    default: 300,
+                    minimum: 1,
+                    maximum: 600,
+                },
+                size: {
+                    // 默认图片尺寸，原样传给服务商
+                    type: 'string',
+                    description: 'Default image size, passed to the provider as is',
+                    default: '1024x1024',
+                },
+            },
+        },
+        ai_mcp: {
+            title: 'IAIMcp',
+            type: 'object',
+
+            description: 'MCP (Model Context Protocol) configuration',
+            additionalProperties: false,
+            required: [
+                'exposurePolicy',
+                'servers',
+            ],
+            properties: {
+                exposurePolicy: {
+                    // 内置 MCP 服务向外部客户端暴露的工具策略
+                    $ref: '#/$defs/ai_capabilityPolicy',
+                },
+                servers: {
+                    // 智能体连接的外部 MCP 服务器列表
+                    type: 'array',
+                    description: 'External MCP servers the agent connects to',
+                    items: {
+                        $ref: '#/$defs/ai_mcp_server',
+                    },
+                },
+            },
+        },
+        ai_mcp_server: {
+            title: 'IAIMCPServer',
+            type: 'object',
+
+            description: 'External MCP server',
+            additionalProperties: false,
+            required: [
+                'args',
+                'command',
+                'disableStandaloneSSE',
+                'enabled',
+                'env',
+                'headers',
+                'id',
+                'inheritEnv',
+                'name',
+                'timeout',
+                'trustToolAnnotations',
+                'type',
+                'url',
+            ],
+            properties: {
+                args: {
+                    // 命令参数（stdio）
+                    type: 'array',
+                    description: 'Command arguments (stdio)',
+                    items: {
+                        type: 'string',
+                    },
+                },
+                command: {
+                    // 启动的可执行命令（stdio）
+                    type: 'string',
+                    description: 'Executable to launch (stdio)',
+                },
+                disableStandaloneSSE: {
+                    // 是否关闭 Streamable HTTP 的独立 SSE 流
+                    type: 'boolean',
+                    description: 'Whether to disable the standalone SSE stream of Streamable HTTP',
+                },
+                enabled: {
+                    // 是否启用该服务器
+                    type: 'boolean',
+                    description: 'Whether to enable the server',
+                },
+                env: {
+                    // 子进程的环境变量（stdio），支持 {{secrets.X}} 与 {{vars.X}}
+                    type: 'object',
+                    description: 'Environment variables of the process (stdio), supporting `{{secrets.X}}` and `{{vars.X}}`',
+                    additionalProperties: {
+                        type: 'string',
+                    },
+                },
+                headers: {
+                    // HTTP 请求头（http），支持密钥与变量占位符
+                    type: 'object',
+                    description: 'HTTP request headers (http), supporting secret and variable placeholders',
+                    additionalProperties: {
+                        type: 'string',
+                    },
+                },
+                id: {
+                    // 服务器 ID
+                    type: 'string',
+                    description: 'Server ID (UUID)',
+                },
+                inheritEnv: {
+                    // 允许从内核进程继承的环境变量名（stdio）
+                    type: 'array',
+                    description: 'Names of environment variables inherited from the kernel process (stdio)',
+                    items: {
+                        type: 'string',
+                    },
+                },
+                name: {
+                    // 显示名称
+                    type: 'string',
+                    description: 'Display name',
+                },
+                timeout: {
+                    // 连接、列举工具与调用工具的超时时间（单位: s），小于等于 0 时为 30
+                    type: 'integer',
+                    description: 'Timeout for connecting, listing tools and calling tools (unit: s), `30` when `0` or less',
+                },
+                trustToolAnnotations: {
+                    // 是否信任服务器声明的只读提示（readOnlyHint）
+                    type: 'boolean',
+                    description: 'Whether to trust the `readOnlyHint` annotations declared by the server',
+                },
+                type: {
+                    // 传输方式
+                    type: 'string',
+                    title: 'TAIMCPServerType',
+                    description: 'Transport type',
+                    enum: [
+                        'http',
+                        'stdio',
+                    ],
+                },
+                url: {
+                    // 服务地址（http）
+                    type: 'string',
+                    description: 'Server URL (http)',
+                },
+            },
+        },
+        ai_provider: {
+            title: 'IAIProvider',
+            type: 'object',
+
+            description: 'Model provider',
+            additionalProperties: false,
+            required: [
+                'apiKey',
+                'baseURL',
+                'enabled',
+                'id',
+                'models',
+                'requestTimeout',
+            ],
+            properties: {
+                apiKey: {
+                    // API 密钥
+                    type: 'string',
+                    description: 'API key',
+                },
+                baseURL: {
+                    // API 基础地址，为空时使用 OpenAI（anthropic-messages 协议为 Anthropic）的官方地址
+                    type: 'string',
+                    description: 'API base URL, the official OpenAI URL (Anthropic URL for `anthropic-messages`) when empty',
+                },
+                displayName: {
+                    // 显示名称
+                    type: 'string',
+                    description: 'Display name',
+                },
+                enabled: {
+                    // 是否启用该服务商
+                    type: 'boolean',
+                    description: 'Whether to enable the provider',
+                },
+                headers: {
+                    // 自定义请求头，支持密钥与变量占位符
+                    type: 'object',
+                    description: 'Custom request headers, supporting secret and variable placeholders',
+                    additionalProperties: {
+                        type: 'string',
+                    },
+                },
+                id: {
+                    // 服务商 ID
+                    type: 'string',
+                    description: 'Provider ID',
+                },
+                models: {
+                    // 模型列表
+                    type: 'array',
+                    description: 'Models',
+                    items: {
+                        $ref: '#/$defs/ai_provider_model',
+                    },
+                },
+                protocol: {
+                    // 接口协议
+                    type: 'string',
+                    title: 'TAIProviderProtocol',
+                    description: 'API protocol\n- `openai`: OpenAI Chat Completions\n- `openai-responses`: OpenAI Responses\n- `anthropic-messages`: Anthropic Messages',
+                    default: 'openai',
+                    enum: [
+                        'anthropic-messages',
+                        'openai',
+                        'openai-responses',
+                    ],
+                },
+                requestTimeout: {
+                    // 请求超时时间（单位: s）
+                    type: 'integer',
+                    description: 'Request timeout (unit: s)',
+                    default: 120,
+                    minimum: 1,
+                    maximum: 600,
+                },
+            },
+        },
+        ai_provider_model: {
+            title: 'IAIProviderModel',
+            type: 'object',
+
+            description: 'Model of a provider',
+            additionalProperties: false,
+            required: [
+                'enabled',
+                'id',
+                'name',
+            ],
+            properties: {
+                contextLength: {
+                    // 上下文窗口大小（token），0 表示自动推断
+                    type: 'integer',
+                    description: 'Context window size (tokens), `0` means inferred automatically',
+                },
+                displayName: {
+                    // 显示名称
+                    type: 'string',
+                    description: 'Display name',
+                },
+                enabled: {
+                    // 是否启用该模型
+                    type: 'boolean',
+                    description: 'Whether to enable the model',
+                },
+                id: {
+                    // 模型条目 ID，供各处的 modelId 引用
+                    type: 'string',
+                    description: 'Model entry ID, referenced by the `modelId` fields',
+                },
+                name: {
+                    // 调用 API 时使用的模型名称
+                    type: 'string',
+                    description: 'Model name sent to the API',
+                },
+            },
+        },
+        ai_rerank: {
+            title: 'IAIRerank',
+            type: 'object',
+
+            description: 'Rerank model configuration, used to rerank semantic search results',
+            additionalProperties: false,
+            required: [
+                'apiKey',
+                'candidateCount',
+                'enabled',
+                'endpoint',
+                'id',
+                'name',
+                'requestFormat',
+                'timeout',
+            ],
+            properties: {
+                apiKey: {
+                    // API 密钥
+                    type: 'string',
+                    description: 'API key',
+                },
+                candidateCount: {
+                    // 向量召回后送去重排的候选数量
+                    type: 'integer',
+                    description: 'Number of candidates sent to rerank after vector recall',
+                    default: 30,
+                    minimum: 5,
+                    maximum: 100,
+                },
+                enabled: {
+                    // 是否启用重排
+                    type: 'boolean',
+                    description: 'Whether to enable reranking',
+                },
+                endpoint: {
+                    // 完整的重排服务端点
+                    type: 'string',
+                    description: 'Full endpoint URL of the rerank service',
+                },
+                id: {
+                    // 配置 ID
+                    type: 'string',
+                    description: 'Configuration ID',
+                },
+                name: {
+                    // 模型名称
+                    type: 'string',
+                    description: 'Model name',
+                },
+                requestFormat: {
+                    // 请求格式
+                    type: 'string',
+                    title: 'TAIRerankRequestFormat',
+                    description: 'Request format',
+                    default: 'cohere',
+                    enum: [
+                        'cohere',
+                        'dashscope',
+                    ],
+                },
+                timeout: {
+                    // 请求超时时间（单位: s）
+                    type: 'integer',
+                    description: 'Request timeout (unit: s)',
+                    default: 30,
                 },
             },
         },
@@ -462,11 +1143,15 @@
             description: 'SiYuan appearance related configuration',
             additionalProperties: false,
             required: [
+                'bodyGradient',
                 'closeButtonBehavior',
                 'codeBlockThemeDark',
                 'codeBlockThemeLight',
                 'darkThemes',
+                'entryVisibility',
+                'globalFontFamilies',
                 'hideStatusBar',
+                'hideToolbar',
                 'icon',
                 'iconVer',
                 'icons',
@@ -474,12 +1159,26 @@
                 'lightThemes',
                 'mode',
                 'modeOS',
+                'notifications',
+                'statusBar',
                 'themeDark',
                 'themeJS',
                 'themeLight',
                 'themeVer',
             ],
             properties: {
+                bodyGradient: {
+                    // 背景渐变，为 null 时按工作空间名称自动配色
+                    description: 'Body background gradient, colors are derived from the workspace name when `null`',
+                    oneOf: [
+                        {
+                            type: 'null',
+                        },
+                        {
+                            $ref: '#/$defs/appearance_bodyGradient',
+                        },
+                    ],
+                },
                 closeButtonBehavior: {
                     // 关闭按钮行为
                     type: 'integer',
@@ -507,10 +1206,28 @@
                         $ref: '#/$defs/appearance_theme_item',
                     },
                 },
+                entryVisibility: {
+                    // 桌面端界面入口（顶栏、状态栏、菜单、工具栏与停靠栏各项）的显示与排序方案
+                    $ref: '#/$defs/appearance_entryVisibility',
+                },
+                globalFontFamilies: {
+                    // 全局默认字体，按优先级从高到低排列
+                    type: 'array',
+                    description: 'Global default fonts in descending order of priority',
+                    items: {
+                        $ref: '#/$defs/font',
+                    },
+                },
                 hideStatusBar: {
                     // 是否隐藏状态栏
                     type: 'boolean',
                     description: 'Whether to hide status bar',
+                },
+                hideToolbar: {
+                    // 是否将页签栏融合至顶栏
+                    type: 'boolean',
+                    description: 'Whether to merge the tab bar into the top bar',
+                    default: true,
                 },
                 icon: {
                     // 当前使用的图标名称
@@ -523,12 +1240,11 @@
                     description: 'The version number of the icon currently in use',
                 },
                 icons: {
-                    // 已安装的图标名称列表
+                    // 已安装的图标列表
                     type: 'array',
-                    description: 'List of installed icon names',
+                    description: 'List of installed icons',
                     items: {
-                        type: 'string',
-                        description: 'Icon name',
+                        $ref: '#/$defs/appearance_icon_item',
                     },
                 },
                 lang: {
@@ -537,11 +1253,28 @@
                     title: 'TLang',
                     description: 'The language used by the current user',
                     enum: [
-                        'en_US', // 英文
-                        'es_ES', // 西班牙文
-                        'fr_FR', // 法文
-                        'zh_CHT', // 繁体中文
-                        'zh_CN', // 简体中文
+                        'ar', // 阿拉伯文
+                        'de', // 德文
+                        'en', // 英文
+                        'es', // 西班牙文
+                        'fr', // 法文
+                        'he', // 希伯来文
+                        'hi', // 印地文
+                        'id', // 印度尼西亚文
+                        'it', // 意大利文
+                        'ja', // 日文
+                        'ko', // 韩文
+                        'nl', // 荷兰文
+                        'pl', // 波兰文
+                        'pt-BR', // 巴西葡萄牙文
+                        'ru', // 俄文
+                        'sk', // 斯洛伐克文
+                        'sr', // 塞尔维亚文
+                        'th', // 泰文
+                        'tr', // 土耳其文
+                        'uk', // 乌克兰文
+                        'zh-CN', // 简体中文
+                        'zh-TW', // 繁体中文
                     ],
                 },
                 lightThemes: {
@@ -565,6 +1298,14 @@
                     // 主题模式是否跟随系统主题
                     type: 'boolean',
                     description: 'Whether the theme mode follows the system theme',
+                },
+                notifications: {
+                    // 内置通知与提示的开关
+                    $ref: '#/$defs/appearance_notifications',
+                },
+                statusBar: {
+                    // 状态栏消息的开关
+                    $ref: '#/$defs/appearance_statusBar',
                 },
                 themeDark: {
                     // 当前使用的暗色主题名称
@@ -599,6 +1340,14 @@
                 'name',
             ],
             properties: {
+                frontends: {
+                    // 主题声明支持的前端（all、desktop、desktop-window、mobile、browser-desktop、browser-mobile），缺省时支持除 mobile 与 browser-mobile 外的所有前端
+                    type: 'array',
+                    description: 'Frontends supported by the theme (`all`, `desktop`, `desktop-window`, `mobile`, `browser-desktop`, `browser-mobile`), all frontends except `mobile` and `browser-mobile` when omitted',
+                    items: {
+                        type: 'string',
+                    },
+                },
                 label: {
                     // 外观主题标注
                     type: 'string',
@@ -608,6 +1357,270 @@
                     // 外观主题名称
                     type: 'string',
                     description: 'Appearance theme name',
+                },
+            },
+        },
+        appearance_bodyGradient: {
+            title: 'IAppearanceBodyGradient',
+            type: 'object',
+
+            description: 'Body background gradient',
+            additionalProperties: false,
+            required: [
+                'dark',
+                'light',
+                'mode',
+            ],
+            properties: {
+                dark: {
+                    // 暗色模式下的渐变颜色
+                    $ref: '#/$defs/appearance_bodyGradient_color',
+                },
+                light: {
+                    // 亮色模式下的渐变颜色
+                    $ref: '#/$defs/appearance_bodyGradient_color',
+                },
+                mode: {
+                    // 渐变模式
+                    type: 'string',
+                    title: 'TAppearanceBodyGradientMode',
+                    description: 'Gradient mode\n- `auto`: Automatic\n- `custom`: Custom\n- `off`: Off',
+                    enum: [
+                        'auto', // 自动
+                        'custom', // 自定义
+                        'off', // 关闭
+                    ],
+                },
+            },
+        },
+        appearance_bodyGradient_color: {
+            title: 'IAppearanceBodyGradientColor',
+            type: 'object',
+
+            description: 'Gradient color',
+            additionalProperties: false,
+            required: [
+                'color',
+                'opacity',
+            ],
+            properties: {
+                color: {
+                    // 渐变颜色（十六进制 RGB）
+                    type: 'string',
+                    description: 'Gradient color (hex RGB)',
+                },
+                opacity: {
+                    // 渐变起点的不透明度
+                    type: 'number',
+                    description: 'Opacity at the start of the gradient',
+                    minimum: 0,
+                    maximum: 100,
+                },
+            },
+        },
+        appearance_entryVisibility: {
+            title: 'IAppearanceEntryVisibility',
+            type: 'object',
+
+            description: 'Visibility and order of desktop UI entries (top bar, status bar, menus, toolbars and docks)',
+            additionalProperties: false,
+            required: [
+                'active',
+                'profiles',
+                'version',
+            ],
+            properties: {
+                active: {
+                    // 当前方案 ID：内置的 simple、full 或自定义方案的 ID
+                    type: 'string',
+                    description: 'ID of the active profile: the built-in `simple` or `full`, or the ID of a custom profile',
+                    examples: [
+                        'simple',
+                        'full',
+                    ],
+                },
+                profiles: {
+                    // 自定义方案列表（不含内置方案）
+                    type: 'array',
+                    description: 'Custom profiles (the built-in profiles are not included)',
+                    items: {
+                        $ref: '#/$defs/appearance_entryVisibility_profile',
+                    },
+                },
+                version: {
+                    // 配置结构版本
+                    type: 'integer',
+                    description: 'Version of the configuration structure',
+                },
+            },
+        },
+        appearance_entryVisibility_profile: {
+            title: 'IAppearanceEntryVisibilityProfile',
+            type: 'object',
+
+            description: 'Custom profile of entry visibility and order',
+            additionalProperties: false,
+            required: [
+                'entries',
+                'id',
+                'name',
+                'orders',
+            ],
+            properties: {
+                entries: {
+                    // 入口路径（如 document.more.editMode）到是否显示的映射，未列出的入口按默认可见性显示
+                    type: 'object',
+                    description: 'Map from entry paths (such as `document.more.editMode`) to visibility, unlisted entries use their default visibility',
+                    additionalProperties: {
+                        type: 'boolean',
+                    },
+                },
+                id: {
+                    // 方案 ID
+                    type: 'string',
+                    description: 'Profile ID',
+                },
+                name: {
+                    // 方案名称
+                    type: 'string',
+                    description: 'Profile name',
+                },
+                orders: {
+                    // 父入口路径到下级入口顺序的映射
+                    type: 'object',
+                    description: 'Map from parent entry paths to the order of their child entries',
+                    additionalProperties: {
+                        type: 'array',
+                        items: {
+                            type: 'string',
+                        },
+                    },
+                },
+            },
+        },
+        appearance_icon_item: {
+            title: 'IAppearanceIconItem',
+            description: 'Icon item',
+
+            type: 'object',
+            additionalProperties: false,
+            required: [
+                'label',
+                'name',
+            ],
+            properties: {
+                label: {
+                    // 图标显示名称
+                    type: 'string',
+                    description: 'Icon label',
+                    examples: [
+                        'litheness (Default)',
+                    ],
+                },
+                name: {
+                    // 图标名称（目录名）
+                    type: 'string',
+                    description: 'Icon name (directory name)',
+                    examples: [
+                        'litheness',
+                    ],
+                },
+            },
+        },
+        appearance_notifications: {
+            title: 'IAppearanceNotifications',
+            type: 'object',
+
+            description: 'Switches of built-in notifications and tips',
+            additionalProperties: false,
+            required: [
+                'browserCompatibility',
+                'docTreeMaxList',
+                'tagMaxList',
+                'workspaceNotSSD',
+            ],
+            properties: {
+                browserCompatibility: {
+                    // 是否显示浏览器兼容性提示
+                    type: 'boolean',
+                    description: 'Whether to show the browser compatibility notice',
+                },
+                docTreeMaxList: {
+                    // 文档树展开的文档数量达到上限时是否提示
+                    type: 'boolean',
+                    description: 'Whether to notify when the number of documents expanded in the document tree reaches the limit',
+                },
+                formatPainterTip: {
+                    // 是否显示格式刷的使用提示，缺省时显示
+                    type: 'boolean',
+                    description: 'Whether to show the tip of the format painter, shown when omitted',
+                },
+                selectAllIncompleteTip: {
+                    // 编辑器全选不完整时是否提示，缺省时提示
+                    type: 'boolean',
+                    description: 'Whether to show a tip when select-all in the editor is incomplete, shown when omitted',
+                },
+                selectAllTip: {
+                    // 是否显示编辑器全选提示，缺省时显示
+                    type: 'boolean',
+                    description: 'Whether to show the tip of select-all in the editor, shown when omitted',
+                },
+                tagMaxList: {
+                    // 标签面板展开的标签数量达到上限时是否提示
+                    type: 'boolean',
+                    description: 'Whether to notify when the number of tags expanded in the tag panel reaches the limit',
+                },
+                workspaceNotSSD: {
+                    // 工作空间不在固态硬盘上时是否警告
+                    type: 'boolean',
+                    description: 'Whether to warn when the workspace is not on an SSD',
+                },
+            },
+        },
+        appearance_statusBar: {
+            title: 'IAppearanceStatusBar',
+            type: 'object',
+
+            description: 'Switches of status bar messages',
+            additionalProperties: false,
+            required: [
+                'msgDataSyncDisabled',
+                'msgTaskAssetDatabaseIndexCommitDisabled',
+                'msgTaskDatabaseIndexCommitDisabled',
+                'msgTaskHistoryDatabaseIndexCommitDisabled',
+                'msgTaskHistoryGenerateFileDisabled',
+                'version',
+            ],
+            properties: {
+                msgDataSyncDisabled: {
+                    // 是否不显示数据同步消息
+                    type: 'boolean',
+                    description: 'Whether to hide data sync messages',
+                },
+                msgTaskAssetDatabaseIndexCommitDisabled: {
+                    // 是否不显示资源文件内容索引提交任务的消息
+                    type: 'boolean',
+                    description: 'Whether to hide messages of asset content index commit tasks',
+                },
+                msgTaskDatabaseIndexCommitDisabled: {
+                    // 是否不显示数据库索引提交任务的消息
+                    type: 'boolean',
+                    description: 'Whether to hide messages of database index commit tasks',
+                },
+                msgTaskHistoryDatabaseIndexCommitDisabled: {
+                    // 是否不显示历史数据库索引提交任务的消息
+                    type: 'boolean',
+                    description: 'Whether to hide messages of history database index commit tasks',
+                },
+                msgTaskHistoryGenerateFileDisabled: {
+                    // 是否不显示生成历史文件任务的消息
+                    type: 'boolean',
+                    description: 'Whether to hide messages of history file generation tasks',
+                },
+                version: {
+                    // 配置结构版本
+                    type: 'integer',
+                    description: 'Version of the configuration structure',
                 },
             },
         },
@@ -642,36 +1655,66 @@
             additionalProperties: false,
             required: [
                 'allowHTMLBLockScript',
+                'allowSVGScript',
+                'assetOpen',
+                'autoDirection',
+                'backlinkBlockSort',
                 'backlinkContainChildren',
                 'backlinkExpandCount',
+                'backlinkGlobalSort',
+                'backlinkHideReference',
+                'backlinkMentionExclude',
+                'backlinkShowBottom',
+                'backlinkSort',
                 'backmentionExpandCount',
+                'backmentionSort',
                 'blockRefDynamicAnchorTextMaxLen',
+                'checkBlockRef',
+                'codeFontFamilies',
                 'codeLigatures',
                 'codeLineWrap',
                 'codeSyntaxHighlightLineNum',
                 'codeTabSpaces',
+                'cursorSurroundingLines',
+                'databaseAttrClickMode',
+                'databaseAttrHideEmpty',
+                'databaseAttrShow',
+                'databaseAttrUseTabs',
+                'databaseAttrViewMode',
                 'displayBookmarkIcon',
                 'displayNetImgMark',
+                'dragHTMLFileToIframe',
                 'dynamicLoadBlocks',
                 'embedBlockBreadcrumb',
                 'emoji',
+                'floatWindowDelay',
                 'floatWindowMode',
+                'fontFamilies',
                 'fontFamily',
+                'fontFamilyDisplay',
                 'fontSize',
                 'fontSizeScrollZoom',
+                'fontWeight',
                 'fullWidth',
                 'generateHistoryInterval',
+                'hashTagSearch',
+                'headingEmbedMode',
+                'headingNumber',
+                'headingNumberFormat',
                 'historyRetentionDays',
                 'justify',
                 'katexMacros',
+                'keepLoadedContent',
                 'listItemDotNumberClickFocus',
                 'listLogicalOutdent',
                 'markdown',
                 'onlySearchForDoc',
+                'pasteURLAutoConvert',
                 'plantUMLServePath',
                 'readOnly',
                 'rtl',
                 'spellcheck',
+                'spellcheckLanguages',
                 'virtualBlockRef',
                 'virtualBlockRefExclude',
                 'virtualBlockRefInclude',
@@ -681,6 +1724,30 @@
                     // 是否允许 HTML 块运行脚本
                     type: 'boolean',
                     description: 'Allow HTML blocks to run scripts',
+                },
+                allowSVGScript: {
+                    // 是否允许执行 SVG 图片中的脚本
+                    type: 'boolean',
+                    description: 'Whether to allow scripts in SVG images to run',
+                },
+                assetOpen: {
+                    // 点击资源文件时的打开方式
+                    $ref: '#/$defs/editor_assetOpen',
+                },
+                autoDirection: {
+                    // 是否自动判定段落与标题的文字方向（手动设置的方向优先）
+                    type: 'boolean',
+                    description: 'Whether to detect the text direction of paragraphs and headings automatically (a manually set direction takes precedence)',
+                },
+                backlinkBlockSort: {
+                    // 文档内引用的排序方式
+                    type: 'integer',
+                    description: 'Sort order of references within a document\n- `0`: Order in the document\n- `1`: Anchor text ascending\n- `2`: Anchor text descending',
+                    enum: [
+                        0, // 正文顺序
+                        1, // 锚文本升序
+                        2, // 锚文本降序
+                    ],
                 },
                 backlinkContainChildren: {
                     // 反向链接面板是否包含下级节点
@@ -692,15 +1759,66 @@
                     type: 'integer',
                     description: 'The default number of backlinks to expand',
                 },
+                backlinkGlobalSort: {
+                    // 反向链接的全局排序方式
+                    type: 'integer',
+                    description: 'Global sort order of backlinks\n- `0`: Group by document (sorted by `backlinkSort` and `backlinkBlockSort`)\n- `1`: Anchor text ascending\n- `2`: Anchor text descending',
+                    enum: [
+                        0, // 按文档分组
+                        1, // 锚文本升序
+                        2, // 锚文本降序
+                    ],
+                },
+                backlinkHideReference: {
+                    // 反链面板中是否隐藏传递型反链里仅包含块引用的块
+                    type: 'boolean',
+                    description: 'Whether to hide blocks that only contain block references in propagated backlinks of the backlink panel',
+                },
+                backlinkMentionExclude: {
+                    // 反链提及中排除的关键字，使用英文逗号分隔
+                    type: 'string',
+                    description: 'Keywords excluded from backlink mentions, separated by commas',
+                },
+                backlinkShowBottom: {
+                    // 是否在文档底部显示反向链接
+                    type: 'boolean',
+                    description: 'Whether to show backlinks at the bottom of the document',
+                },
+                backlinkSort: {
+                    // 反向链接中文档的排序方式（与文档树的排序方式取值相同）
+                    type: 'integer',
+                    description: 'Sort order of documents in backlinks (same values as the sort modes of the document tree)\n- `0`/`1`: Name ascending/descending\n- `2`/`3`: Modified time ascending/descending\n- `4`/`5`: Natural name ascending/descending\n- `9`/`10`: Created time ascending/descending',
+                    default: 3,
+                },
                 backmentionExpandCount: {
                     // 反向链接提及默认展开数量
                     type: 'integer',
                     description: 'The default number of backlinks to mention',
                 },
+                backmentionSort: {
+                    // 反链提及中文档的排序方式（取值同 backlinkSort）
+                    type: 'integer',
+                    description: 'Sort order of documents in backlink mentions (same values as `backlinkSort`)',
+                    default: 3,
+                },
                 blockRefDynamicAnchorTextMaxLen: {
                     // 块引用的动态锚文本最大长度
                     type: 'integer',
                     description: 'The maximum length of the dynamic anchor text for block references',
+                },
+                checkBlockRef: {
+                    // 删除或剪切前是否检查块引用与数据库绑定
+                    type: 'boolean',
+                    description: 'Whether to check block references and database bindings before deleting or cutting',
+                    default: true,
+                },
+                codeFontFamilies: {
+                    // 代码字体，按优先级从高到低排列
+                    type: 'array',
+                    description: 'Code fonts in descending order of priority',
+                    items: {
+                        $ref: '#/$defs/font',
+                    },
                 },
                 codeLigatures: {
                     // 代码块是否启用连字符号
@@ -723,6 +1841,49 @@
                     description: 'The number of spaces generated by the Tab key in the code block, configured as 0 means no conversion to spaces',
                     minimum: 0,
                 },
+                cursorSurroundingLines: {
+                    // 使用键盘纵向移动光标时，光标上下至少保留的可见行数
+                    type: 'integer',
+                    description: 'Minimum number of visible lines kept above and below the cursor when moving it vertically with the keyboard',
+                    default: 0,
+                    minimum: 0,
+                    maximum: 20,
+                },
+                databaseAttrClickMode: {
+                    // 点击数据库角标时的行为
+                    type: 'integer',
+                    description: 'Behavior when clicking a database badge\n- `0`: Focus the block and expand the database panel\n- `1`: Open the block attribute panel',
+                    enum: [
+                        0, // 聚焦块并展开数据库面板
+                        1, // 打开块属性面板
+                    ],
+                },
+                databaseAttrHideEmpty: {
+                    // 是否隐藏值为空的数据库属性
+                    type: 'boolean',
+                    description: 'Whether to hide empty database attributes',
+                },
+                databaseAttrShow: {
+                    // 是否在文档顶部显示数据库属性
+                    type: 'boolean',
+                    description: 'Whether to show database attributes at the top of the document',
+                    default: true,
+                },
+                databaseAttrUseTabs: {
+                    // 是否使用页签展示数据库属性
+                    type: 'boolean',
+                    description: 'Whether to show database attributes in tabs',
+                    default: true,
+                },
+                databaseAttrViewMode: {
+                    // 数据库属性的默认状态
+                    type: 'integer',
+                    description: 'Default state of database attributes\n- `0`: Expanded\n- `1`: Collapsed',
+                    enum: [
+                        0, // 展开
+                        1, // 折叠
+                    ],
+                },
                 displayBookmarkIcon: {
                     // 是否显示书签图标
                     type: 'boolean',
@@ -732,6 +1893,11 @@
                     // 是否显示网络图片标记
                     type: 'boolean',
                     description: 'Whether to display the network image mark',
+                },
+                dragHTMLFileToIframe: {
+                    // 是否将拖入的 HTML 文件插入为 IFrame 块
+                    type: 'boolean',
+                    description: 'Whether to insert dragged HTML files as IFrame blocks',
                 },
                 dynamicLoadBlocks: {
                     // 每次动态加载时加载的块数量
@@ -758,6 +1924,14 @@
                         ],
                     },
                 },
+                floatWindowDelay: {
+                    // 悬停触发浮窗的延迟时间（单位: ms），仅在 floatWindowMode 为 0 时生效
+                    type: 'integer',
+                    description: 'Hover delay before the float window opens (unit: ms), only used when `floatWindowMode` is `0`',
+                    default: 620,
+                    minimum: 0,
+                    maximum: 2000,
+                },
                 floatWindowMode: {
                     // 预览浮窗的触发模式
                     type: 'integer',
@@ -768,10 +1942,23 @@
                         2, // 不触发浮窗
                     ],
                 },
+                fontFamilies: {
+                    // 编辑器字体，按优先级从高到低排列
+                    type: 'array',
+                    description: 'Editor fonts in descending order of priority',
+                    items: {
+                        $ref: '#/$defs/font',
+                    },
+                },
                 fontFamily: {
                     // 编辑器中所使用的字体
                     type: 'string',
                     description: 'The font used in the editor',
+                },
+                fontFamilyDisplay: {
+                    // 首选编辑器字体的显示名称（与 fontFamilies[0].displayName 一致）
+                    type: 'string',
+                    description: 'Display name of the preferred editor font (same as `fontFamilies[0].displayName`)',
                 },
                 fontSize: {
                     // 编辑器中所使用的字号
@@ -783,6 +1970,12 @@
                     type: 'boolean',
                     description: 'Whether to enable the use of the mouse wheel to adjust the font size of the editor',
                 },
+                fontWeight: {
+                    // 首选编辑器字体的字重（与 fontFamilies[0].weight 一致，没有字体时为 400）
+                    type: 'integer',
+                    description: 'Weight of the preferred editor font (same as `fontFamilies[0].weight`, `400` when no font is set)',
+                    default: 400,
+                },
                 fullWidth: {
                     // 编辑器是否使用最大宽度
                     type: 'boolean',
@@ -793,6 +1986,44 @@
                     type: 'integer',
                     description: 'The time interval for generating document history, set to 0 to disable document history (unit: minutes)',
                     minimum: 0,
+                },
+                hashTagSearch: {
+                    // 输入 # 时是否搜索标签
+                    type: 'boolean',
+                    description: 'Whether to search tags when typing `#`',
+                    default: true,
+                },
+                headingEmbedMode: {
+                    // 标题嵌入块的显示方式
+                    type: 'integer',
+                    description: 'Display mode of heading embed blocks\n- `0`: The heading and the blocks below it\n- `1`: Only the heading\n- `2`: Only the blocks below the heading',
+                    enum: [
+                        0, // 标题与其下方的块
+                        1, // 仅标题
+                        2, // 仅标题下方的块
+                    ],
+                },
+                headingNumber: {
+                    // 是否显示自动标题编号
+                    type: 'boolean',
+                    description: 'Whether to show automatic heading numbers',
+                },
+                headingNumberFormat: {
+                    // 标题编号格式
+                    type: 'string',
+                    description: 'Heading number format, unknown values are treated as `decimal-hierarchical`',
+                    default: 'decimal-hierarchical',
+                    examples: [
+                        'decimal-hierarchical',
+                        'upper-alpha-hierarchical',
+                        'lower-alpha-hierarchical',
+                        'upper-roman-hierarchical',
+                        'lower-roman-hierarchical',
+                        'upper-greek-hierarchical',
+                        'lower-greek-hierarchical',
+                        'decimal-parenthesized',
+                        'chinese-document',
+                    ],
                 },
                 historyRetentionDays: {
                     // 历史保留天数
@@ -808,6 +2039,11 @@
                     // KeTex 宏定义 (JSON 字符串)
                     type: 'string',
                     description: 'KeTex macro definition (JSON string)',
+                },
+                keepLoadedContent: {
+                    // 是否保留已动态加载的内容块
+                    type: 'boolean',
+                    description: 'Whether to keep dynamically loaded content blocks',
                 },
                 listItemDotNumberClickFocus: {
                     // 是否启用单击列表项标记聚焦
@@ -828,6 +2064,11 @@
                     type: 'boolean',
                     description: 'Whether to enable the `[[` symbol to search only for document blocks',
                 },
+                pasteURLAutoConvert: {
+                    // 粘贴网址时是否自动转换为链接
+                    type: 'boolean',
+                    description: 'Whether to convert pasted URLs to links automatically',
+                },
                 plantUMLServePath: {
                     // PlantUML 渲染服务地址
                     type: 'string',
@@ -847,6 +2088,17 @@
                     // 是否启用拼写检查
                     type: 'boolean',
                     description: 'Whether to enable spell checking',
+                },
+                spellcheckLanguages: {
+                    // 拼写检查使用的语言
+                    type: 'array',
+                    description: 'Languages used for spell checking',
+                    items: {
+                        type: 'string',
+                        examples: [
+                            'en-US',
+                        ],
+                    },
                 },
                 virtualBlockRef: {
                     // 是否启用虚拟引用
@@ -872,7 +2124,11 @@
             description: 'Markdown syntax configuration',
             additionalProperties: false,
             required: [
+                'blockFullWidthTaskList',
+                'codeBlockMiddleDot',
                 'inlineAsterisk',
+                'inlineFullWidthStrikethrough',
+                'inlineMark',
                 'inlineMath',
                 'inlineStrikethrough',
                 'inlineSub',
@@ -881,10 +2137,34 @@
                 'inlineUnderscore',
             ],
             properties: {
+                blockFullWidthTaskList: {
+                    // 是否启用全角任务列表语法
+                    type: 'boolean',
+                    description: 'Whether to enable the full-width task list syntax',
+                    default: true,
+                },
+                codeBlockMiddleDot: {
+                    // 是否启用使用中点（·）输入代码块的语法
+                    type: 'boolean',
+                    description: 'Whether to enable the code block syntax using middle dots (`·`)',
+                    default: true,
+                },
                 inlineAsterisk: {
                     // 是否启用星号语法 *foo* **bar**
                     type: 'boolean',
                     description: 'Whether to enable asterisk syntax `*foo*` `**bar**`',
+                },
+                inlineFullWidthStrikethrough: {
+                    // 是否启用全角行级删除线语法
+                    type: 'boolean',
+                    description: 'Whether to enable the full-width inline strikethrough syntax',
+                    default: false,
+                },
+                inlineMark: {
+                    // 是否启用行级标记（高亮）语法
+                    type: 'boolean',
+                    description: 'Whether to enable the inline mark (highlight) syntax',
+                    default: true,
                 },
                 inlineMath: {
                     // 是否启用行内公式语法 $foo$
@@ -918,6 +2198,85 @@
                 },
             },
         },
+        editor_assetOpen: {
+            title: 'IEditorAssetOpen',
+            type: 'object',
+
+            description: 'How assets are opened when clicked',
+            additionalProperties: false,
+            required: [
+                'altClick',
+                'click',
+                'ctrlClick',
+                'shiftClick',
+            ],
+            properties: {
+                altClick: {
+                    // Alt + 单击时的打开方式
+                    $ref: '#/$defs/editor_assetOpen_mode',
+                },
+                click: {
+                    // 单击时的打开方式
+                    $ref: '#/$defs/editor_assetOpen_mode',
+                },
+                ctrlClick: {
+                    // Ctrl/⌘ + 单击时的打开方式
+                    $ref: '#/$defs/editor_assetOpen_mode',
+                },
+                shiftClick: {
+                    // Shift + 单击时的打开方式
+                    $ref: '#/$defs/editor_assetOpen_mode',
+                },
+            },
+        },
+        editor_assetOpen_mode: {
+            title: 'TEditorAssetOpenMode',
+            type: 'string',
+
+            description: 'How an asset is opened\n- `follow-tab`: Follow the setting of opening tabs without splitting the screen\n- `current`: Current tab area\n- `right`: Right of the tab\n- `bottom`: Below the tab\n- `background`: Background tab\n- `new-window`: New window\n- `app`: Default application\n- `folder`: Show in folder',
+            enum: [
+                'app', // 使用默认程序打开
+                'background', // 在后台页签中打开
+                'bottom', // 在页签下方打开
+                'current', // 在当前页签区打开
+                'folder', // 打开文件所在位置
+                'follow-tab', // 跟随打开页签时不分屏的设置
+                'new-window', // 在新窗口中打开
+                'right', // 在页签右侧打开
+            ],
+        },
+        font: {
+            title: 'IFont',
+            type: 'object',
+
+            description: 'Font',
+            additionalProperties: false,
+            required: [
+                'displayName',
+                'family',
+                'weight',
+            ],
+            properties: {
+                displayName: {
+                    // 显示名称
+                    type: 'string',
+                    description: 'Display name',
+                },
+                family: {
+                    // 字体族名称
+                    type: 'string',
+                    description: 'Font family',
+                },
+                weight: {
+                    // 字重
+                    type: 'integer',
+                    description: 'Font weight',
+                    default: 400,
+                    minimum: 1,
+                    maximum: 1000,
+                },
+            },
+        },
         export: {
             title: 'IExport',
             type: 'object',
@@ -925,12 +2284,17 @@
             description: 'SiYuan export related configuration',
             additionalProperties: false,
             required: [
+                'includeRelatedDocs',
+                'includeSubDocs',
+                'inlineMemo',
+                'pandocParams',
                 'paragraphBeginningSpace',
                 'addTitle',
                 'blockRefMode',
                 'blockEmbedMode',
                 'blockRefTextLeft',
                 'blockRefTextRight',
+                'removeAssetsID',
                 'tagOpenMarker',
                 'tagCloseMarker',
                 'fileAnnotationRefMode',
@@ -944,6 +2308,29 @@
                 'imageWatermarkDesc',
             ],
             properties: {
+                includeRelatedDocs: {
+                    // 导出时是否同时导出关联文档（块引用、块链接与数据库绑定块所在的文档）
+                    type: 'boolean',
+                    description: 'Whether to also export related documents (documents of referenced blocks, linked blocks and blocks bound to databases)',
+                    default: false,
+                },
+                includeSubDocs: {
+                    // 导出时是否包含子文档
+                    type: 'boolean',
+                    description: 'Whether to include sub-documents when exporting',
+                    default: true,
+                },
+                inlineMemo: {
+                    // 是否导出行级备注
+                    type: 'boolean',
+                    description: 'Whether to export inline memos',
+                    default: false,
+                },
+                pandocParams: {
+                    // Pandoc 的额外命令行参数，换行按空格处理
+                    type: 'string',
+                    description: 'Extra command line arguments of Pandoc, line breaks are treated as spaces',
+                },
                 paragraphBeginningSpace: {
                     // 段落开头是否空两格 (段首插入两个全宽空格 `U+3000`)
                     type: 'boolean',
@@ -985,6 +2372,12 @@
                     // 导出时块引用锚文本右侧符号
                     type: 'string',
                     description: 'The symbol on the right side of the block reference anchor text during export',
+                },
+                removeAssetsID: {
+                    // 导出 Markdown 时是否移除资源文件名中的 ID
+                    type: 'boolean',
+                    description: 'Whether to remove the IDs in asset file names when exporting Markdown',
+                    default: false,
                 },
                 tagOpenMarker: {
                     // 标签开始标记符号
@@ -1056,17 +2449,30 @@
             required: [
                 'allowCreateDeeper',
                 'alwaysSelectOpenedFile',
+                'boxDocEnabled',
+                'closeTabOnDoubleClick',
                 'closeTabsOnStart',
+                'createDocAtTop',
                 'docCreateSaveBox',
                 'docCreateSavePath',
+                'docCreateTemplatePath',
+                'docIconClickExpand',
+                'largeFileWarningSize',
                 'maxListCount',
                 'maxOpenTabCount',
+                'noSplitScreenWhenOpenTab',
                 'openFilesUseCurrentTab',
+                'parentDocClickExpand',
+                'recentDocsMaxListCount',
                 'refCreateSaveBox',
                 'refCreateSavePath',
                 'removeDocWithoutConfirm',
+                'shorthandSaveBox',
+                'shorthandSavePath',
                 'sort',
+                'tabStartupMode',
                 'useSingleLineSave',
+                'useSVGDefaultIcon',
             ],
             properties: {
                 allowCreateDeeper: {
@@ -1079,10 +2485,26 @@
                     type: 'boolean',
                     description: 'Whether to automatically locate the currently open document in the document tree',
                 },
+                boxDocEnabled: {
+                    // 是否启用笔记本文档（笔记本本身也可以记录内容）
+                    type: 'boolean',
+                    description: 'Whether to enable notebook documents (a notebook itself can hold content)',
+                    default: false,
+                },
+                closeTabOnDoubleClick: {
+                    // 是否双击页签关闭页签
+                    type: 'boolean',
+                    description: 'Whether to close a tab by double-clicking it',
+                },
                 closeTabsOnStart: {
                     // 是否在启动时关闭所有页签
                     type: 'boolean',
                     description: 'Whether to close all tabs when starting',
+                },
+                createDocAtTop: {
+                    // 是否在文档树顶部创建新文档
+                    type: 'boolean',
+                    description: 'Whether to create new documents at the top of the document tree',
                 },
                 docCreateSaveBox: {
                     // 新建文档的存储笔记本
@@ -1094,6 +2516,23 @@
                     type: 'string',
                     description: 'The storage path of the new document',
                 },
+                docCreateTemplatePath: {
+                    // 新建文档使用的模板路径（相对于 data/templates/），为空时不使用模板，笔记本的设置优先
+                    type: 'string',
+                    description: 'Template path for new documents (relative to `data/templates/`), no template when empty, the notebook setting takes precedence',
+                },
+                docIconClickExpand: {
+                    // 单击文档或笔记本图标时是否展开或折叠下级文档
+                    type: 'boolean',
+                    description: 'Whether clicking a document or notebook icon expands or collapses its child documents',
+                },
+                largeFileWarningSize: {
+                    // 文档或数据库文件的大小超过该值时提醒（单位: MB）
+                    type: 'integer',
+                    description: 'Warn when a document or database file is larger than this size (unit: MB)',
+                    default: 8,
+                    minimum: 2,
+                },
                 maxListCount: {
                     // 文档的最大列出数量
                     type: 'integer',
@@ -1104,10 +2543,27 @@
                     type: 'integer',
                     description: 'The maximum number of open tabs',
                 },
+                noSplitScreenWhenOpenTab: {
+                    // 打开搜索、PDF 等页签时是否不自动分屏
+                    type: 'boolean',
+                    description: 'Whether to avoid splitting the screen automatically when opening search, PDF and similar tabs',
+                },
                 openFilesUseCurrentTab: {
                     // 是否在当前页签打开文件
                     type: 'boolean',
                     description: 'Whether to open the file in the current tab',
+                },
+                parentDocClickExpand: {
+                    // 单击父文档标题时是否展开或折叠下级文档
+                    type: 'boolean',
+                    description: 'Whether clicking the title of a parent document expands or collapses its child documents',
+                },
+                recentDocsMaxListCount: {
+                    // 最近文档的最大列出数量
+                    type: 'integer',
+                    description: 'Maximum number of recent documents listed',
+                    minimum: 32,
+                    maximum: 256,
                 },
                 refCreateSaveBox: {
                     // 使用块引用新建文档的存储笔记本
@@ -1123,6 +2579,16 @@
                     // 关闭删除文档时的二次确认
                     type: 'boolean',
                     description: 'Close the secondary confirmation when deleting a document',
+                },
+                shorthandSaveBox: {
+                    // 闪念速记保存到的笔记本 ID
+                    type: 'string',
+                    description: 'ID of the notebook where shorthands are saved',
+                },
+                shorthandSavePath: {
+                    // 闪念速记的保存路径（可读路径，支持模板语法）
+                    type: 'string',
+                    description: 'Save path of shorthands (human-readable path, supporting template syntax)',
                 },
                 sort: {
                     // 文档排序方式
@@ -1148,10 +2614,25 @@
                         256, // 未指定排序规则，按照笔记本优先于文档树获取排序规则
                     ],
                 },
+                tabStartupMode: {
+                    // 启动时如何处理页签
+                    type: 'integer',
+                    description: 'How tabs are handled on startup\n- `0`: Restore all tabs\n- `1`: Restore all tabs and show the start page\n- `2`: Close all tabs',
+                    enum: [
+                        0, // 恢复所有页签
+                        1, // 恢复所有页签并显示起始页
+                        2, // 关闭所有页签
+                    ],
+                },
                 useSingleLineSave: {
                     // 是否将 .sy 文件的内容保存为单行的 JSON 对象
                     type: 'boolean',
                     description: 'Whether to save the content of the .sy file as a single-line JSON object',
+                },
+                useSVGDefaultIcon: {
+                    // 未设置图标的笔记本与文档是否使用 SVG 默认图标
+                    type: 'boolean',
+                    description: 'Whether notebooks and documents without an icon use the default SVG icons',
                 },
             },
         },
@@ -1162,6 +2643,8 @@
             description: 'Flashcard related configuration',
             additionalProperties: false,
             required: [
+                'blockquote',
+                'callout',
                 'deck',
                 'heading',
                 'list',
@@ -1175,6 +2658,18 @@
                 'weights',
             ],
             properties: {
+                blockquote: {
+                    // 是否启用引述块制卡
+                    type: 'boolean',
+                    description: 'Whether to make flashcards from blockquotes',
+                    default: true,
+                },
+                callout: {
+                    // 是否启用提示块制卡
+                    type: 'boolean',
+                    description: 'Whether to make flashcards from callouts',
+                    default: true,
+                },
                 deck: {
                     // 是否启用卡包制卡
                     type: 'boolean',
@@ -1391,6 +2886,7 @@
             additionalProperties: false,
             required: [
                 'blockquote',
+                'callout',
                 'code',
                 'heading',
                 'list',
@@ -1406,6 +2902,12 @@
                     // 显示引述块
                     type: 'boolean',
                     description: 'Display quote block',
+                },
+                callout: {
+                    // 是否显示提示块节点
+                    type: 'boolean',
+                    description: 'Whether to show callout nodes',
+                    default: false,
                 },
                 code: {
                     // 显示代码块
@@ -1524,6 +3026,7 @@
             additionalProperties: false,
             required: [
                 'ai',
+                'aiWriting',
                 'alignCenter',
                 'alignLeft',
                 'alignRight',
@@ -1537,13 +3040,19 @@
                 'copyPlainText',
                 'copyProtocol',
                 'copyProtocolInMd',
+                'copyRichText',
                 'copyText',
                 'duplicate',
                 'duplicateCompletely',
+                'editMode',
                 'exitFocus',
                 'expand',
                 'expandDown',
                 'expandUp',
+                'focusBreadcrumb',
+                'foldChildHeadings',
+                'foldRecursive',
+                'foldSiblingHeadings',
                 'fullscreen',
                 'graphView',
                 'hLayout',
@@ -1551,9 +3060,12 @@
                 'insertBefore',
                 'insertBottom',
                 'insertRight',
+                'insertSuperBlockLeft',
+                'insertSuperBlockRight',
                 'jumpToParent',
                 'jumpToParentNext',
                 'jumpToParentPrev',
+                'ltr',
                 'moveToDown',
                 'moveToUp',
                 'netAssets2LocalAssets',
@@ -1562,24 +3074,32 @@
                 'newNameFile',
                 'newNameSettingFile',
                 'openBy',
+                'openInNewTab',
                 'optimizeTypography',
                 'outline',
-                'preview',
                 'quickMakeCard',
                 'redo',
                 'refPopover',
                 'refTab',
                 'refresh',
                 'rename',
+                'rtl',
+                'scrollPageDownWithoutMovingCaret',
+                'scrollPageUpWithoutMovingCaret',
+                'selectToPageEnd',
+                'selectToPageStart',
                 'showInFolder',
                 'spaceRepetition',
+                'switchAdjust',
                 'switchReadonly',
                 'undo',
                 'vLayout',
-                'wysiwyg',
             ],
             properties: {
                 ai: {
+                    $ref: '#/$defs/key',
+                },
+                aiWriting: {
                     $ref: '#/$defs/key',
                 },
                 alignCenter: {
@@ -1621,6 +3141,9 @@
                 copyProtocolInMd: {
                     $ref: '#/$defs/key',
                 },
+                copyRichText: {
+                    $ref: '#/$defs/key',
+                },
                 copyText: {
                     $ref: '#/$defs/key',
                 },
@@ -1628,6 +3151,9 @@
                     $ref: '#/$defs/key',
                 },
                 duplicateCompletely: {
+                    $ref: '#/$defs/key',
+                },
+                editMode: {
                     $ref: '#/$defs/key',
                 },
                 exitFocus: {
@@ -1640,6 +3166,18 @@
                     $ref: '#/$defs/key',
                 },
                 expandUp: {
+                    $ref: '#/$defs/key',
+                },
+                focusBreadcrumb: {
+                    $ref: '#/$defs/key',
+                },
+                foldChildHeadings: {
+                    $ref: '#/$defs/key',
+                },
+                foldRecursive: {
+                    $ref: '#/$defs/key',
+                },
+                foldSiblingHeadings: {
                     $ref: '#/$defs/key',
                 },
                 fullscreen: {
@@ -1663,6 +3201,12 @@
                 insertRight: {
                     $ref: '#/$defs/key',
                 },
+                insertSuperBlockLeft: {
+                    $ref: '#/$defs/key',
+                },
+                insertSuperBlockRight: {
+                    $ref: '#/$defs/key',
+                },
                 jumpToParent: {
                     $ref: '#/$defs/key',
                 },
@@ -1670,6 +3214,9 @@
                     $ref: '#/$defs/key',
                 },
                 jumpToParentPrev: {
+                    $ref: '#/$defs/key',
+                },
+                ltr: {
                     $ref: '#/$defs/key',
                 },
                 moveToDown: {
@@ -1696,13 +3243,13 @@
                 openBy: {
                     $ref: '#/$defs/key',
                 },
+                openInNewTab: {
+                    $ref: '#/$defs/key',
+                },
                 optimizeTypography: {
                     $ref: '#/$defs/key',
                 },
                 outline: {
-                    $ref: '#/$defs/key',
-                },
-                preview: {
                     $ref: '#/$defs/key',
                 },
                 quickMakeCard: {
@@ -1723,10 +3270,28 @@
                 rename: {
                     $ref: '#/$defs/key',
                 },
+                rtl: {
+                    $ref: '#/$defs/key',
+                },
+                scrollPageDownWithoutMovingCaret: {
+                    $ref: '#/$defs/key',
+                },
+                scrollPageUpWithoutMovingCaret: {
+                    $ref: '#/$defs/key',
+                },
+                selectToPageEnd: {
+                    $ref: '#/$defs/key',
+                },
+                selectToPageStart: {
+                    $ref: '#/$defs/key',
+                },
                 showInFolder: {
                     $ref: '#/$defs/key',
                 },
                 spaceRepetition: {
+                    $ref: '#/$defs/key',
+                },
+                switchAdjust: {
                     $ref: '#/$defs/key',
                 },
                 switchReadonly: {
@@ -1736,9 +3301,6 @@
                     $ref: '#/$defs/key',
                 },
                 vLayout: {
-                    $ref: '#/$defs/key',
-                },
-                wysiwyg: {
                     $ref: '#/$defs/key',
                 },
             },
@@ -1853,13 +3415,13 @@
                 mark: {
                     $ref: '#/$defs/key',
                 },
+                memo: {
+                    $ref: '#/$defs/key',
+                },
                 'ordered-list': {
                     $ref: '#/$defs/key',
                 },
                 quote: {
-                    $ref: '#/$defs/key',
-                },
-                memo: {
                     $ref: '#/$defs/key',
                 },
                 ref: {
@@ -1892,18 +3454,38 @@
             description: 'SiYuan editor list shortcut keys',
             additionalProperties: false,
             required: [
+                'appendListItem',
                 'checkToggle',
                 'indent',
+                'mindmapAddChild',
+                'mindmapAddSibling',
                 'outdent',
+                'prependListItem',
+                'taskCompletionToggle',
             ],
             properties: {
+                appendListItem: {
+                    $ref: '#/$defs/key',
+                },
                 checkToggle: {
                     $ref: '#/$defs/key',
                 },
                 indent: {
                     $ref: '#/$defs/key',
                 },
+                mindmapAddChild: {
+                    $ref: '#/$defs/key',
+                },
+                mindmapAddSibling: {
+                    $ref: '#/$defs/key',
+                },
                 outdent: {
+                    $ref: '#/$defs/key',
+                },
+                prependListItem: {
+                    $ref: '#/$defs/key',
+                },
+                taskCompletionToggle: {
                     $ref: '#/$defs/key',
                 },
             },
@@ -1967,6 +3549,8 @@
             additionalProperties: false,
             required: [
                 'addToDatabase',
+                'agentChat',
+                'agentSend',
                 'backlinks',
                 'bookmark',
                 'closeAll',
@@ -1979,6 +3563,7 @@
                 'config',
                 'dailyNote',
                 'dataHistory',
+                'decreaseEditorFontSize',
                 'editReadonly',
                 'enter',
                 'enterBack',
@@ -2002,13 +3587,17 @@
                 'goToTabPrev',
                 'graphView',
                 'inbox',
+                'increaseEditorFontSize',
                 'lockScreen',
                 'mainMenu',
                 'move',
                 'newFile',
+                'openContextMenu',
                 'outline',
+                'recentClosed',
                 'recentDocs',
                 'replace',
+                'resetEditorFontSize',
                 'riffCard',
                 'search',
                 'selectOpen1',
@@ -2017,16 +3606,29 @@
                 'splitMoveR',
                 'splitTB',
                 'stickSearch',
+                'switchBottomDock',
+                'switchLeftDock',
+                'switchRightDock',
+                'switchTab',
                 'syncNow',
                 'tabToWindow',
                 'tag',
+                'toggleBottomDockPanel',
                 'toggleDock',
+                'toggleLeftDockPanel',
+                'toggleRightDockPanel',
                 'toggleWin',
                 'unsplit',
                 'unsplitAll',
             ],
             properties: {
                 addToDatabase: {
+                    $ref: '#/$defs/key',
+                },
+                agentChat: {
+                    $ref: '#/$defs/key',
+                },
+                agentSend: {
                     $ref: '#/$defs/key',
                 },
                 backlinks: {
@@ -2063,6 +3665,9 @@
                     $ref: '#/$defs/key',
                 },
                 dataHistory: {
+                    $ref: '#/$defs/key',
+                },
+                decreaseEditorFontSize: {
                     $ref: '#/$defs/key',
                 },
                 editReadonly: {
@@ -2134,6 +3739,9 @@
                 inbox: {
                     $ref: '#/$defs/key',
                 },
+                increaseEditorFontSize: {
+                    $ref: '#/$defs/key',
+                },
                 lockScreen: {
                     $ref: '#/$defs/key',
                 },
@@ -2146,13 +3754,22 @@
                 newFile: {
                     $ref: '#/$defs/key',
                 },
+                openContextMenu: {
+                    $ref: '#/$defs/key',
+                },
                 outline: {
+                    $ref: '#/$defs/key',
+                },
+                recentClosed: {
                     $ref: '#/$defs/key',
                 },
                 recentDocs: {
                     $ref: '#/$defs/key',
                 },
                 replace: {
+                    $ref: '#/$defs/key',
+                },
+                resetEditorFontSize: {
                     $ref: '#/$defs/key',
                 },
                 riffCard: {
@@ -2179,6 +3796,18 @@
                 stickSearch: {
                     $ref: '#/$defs/key',
                 },
+                switchBottomDock: {
+                    $ref: '#/$defs/key',
+                },
+                switchLeftDock: {
+                    $ref: '#/$defs/key',
+                },
+                switchRightDock: {
+                    $ref: '#/$defs/key',
+                },
+                switchTab: {
+                    $ref: '#/$defs/key',
+                },
                 syncNow: {
                     $ref: '#/$defs/key',
                 },
@@ -2188,7 +3817,16 @@
                 tag: {
                     $ref: '#/$defs/key',
                 },
+                toggleBottomDockPanel: {
+                    $ref: '#/$defs/key',
+                },
                 toggleDock: {
+                    $ref: '#/$defs/key',
+                },
+                toggleLeftDockPanel: {
+                    $ref: '#/$defs/key',
+                },
+                toggleRightDockPanel: {
                     $ref: '#/$defs/key',
                 },
                 toggleWin: {
@@ -2279,11 +3917,307 @@
                     // 语言标识
                     type: 'string',
                     description: 'Language identifier',
-                    pattern: '^[a-z]{2}_[A-Z]{2,}$',
                     examples: [
-                        'zh_CN',
-                        'zh_CHT',
-                        'en_US',
+                        'zh-CN',
+                        'zh-TW',
+                        'en',
+                    ],
+                },
+            },
+        },
+        notebookCrypto: {
+            title: 'INotebookCrypto',
+            type: 'object',
+
+            description: 'Global key settings of encrypted notebooks',
+            additionalProperties: false,
+            required: [
+                'autoLockMinutes',
+                'enabled',
+                'kdfParams',
+                'kekVerifier',
+                'masterSalt',
+                'spec',
+                'verifierNonce',
+            ],
+            properties: {
+                autoLockMinutes: {
+                    // 闲置多久后自动锁定（单位: min），0 表示不自动锁定
+                    type: 'integer',
+                    description: 'Idle time before encrypted notebooks are locked automatically (unit: min), `0` disables auto-lock',
+                    default: 5,
+                },
+                backupID: {
+                    // 密钥备份标识
+                    type: 'string',
+                    description: 'Key backup ID',
+                },
+                checksum: {
+                    // 密钥身份字段的 SHA-256 校验和（十六进制），用于检测损坏
+                    type: 'string',
+                    description: 'SHA-256 checksum (hex) of the key identity fields, used to detect corruption',
+                },
+                createdAt: {
+                    // 密钥备份的创建或更新时间（Unix 时间戳，单位: s）
+                    type: 'integer',
+                    description: 'Creation or update time of the key backup (Unix timestamp, unit: s)',
+                },
+                enabled: {
+                    // 是否已启用加密笔记本
+                    type: 'boolean',
+                    description: 'Whether encrypted notebooks are enabled',
+                },
+                historyKEKs: {
+                    // 使用当前 KEK 加密的历史 KEK（base64），用于恢复尚未重新封装密钥的笔记本
+                    type: 'array',
+                    description: 'Previous KEKs encrypted with the current KEK (base64), used to recover notebooks whose keys have not been re-wrapped',
+                    items: {
+                        type: 'string',
+                    },
+                },
+                kdfParams: {
+                    // 由主密码派生 KEK 的 Argon2id 参数
+                    $ref: '#/$defs/notebookCrypto_kdfParams',
+                },
+                kekMAC: {
+                    // 以 KEK 为密钥的密钥备份 HMAC-SHA256（base64）
+                    type: 'string',
+                    description: 'HMAC-SHA256 of the key backup keyed with the KEK (base64)',
+                },
+                kekVerifier: {
+                    // 使用 KEK 加密的校验值（base64），用于校验主密码，未启用时为 null
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'Verifier encrypted with the KEK (base64) used to check the master password, `null` when not enabled',
+                },
+                masterSalt: {
+                    // 主密码派生使用的全局盐值（base64），未启用时为 null
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'Global salt for deriving keys from the master password (base64), `null` when not enabled',
+                },
+                spec: {
+                    // 密钥备份规范版本
+                    type: 'integer',
+                    description: 'Version of the key backup specification',
+                },
+                verifierNonce: {
+                    // kekVerifier 的 AES-GCM nonce（base64），未启用时为 null
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'AES-GCM nonce of `kekVerifier` (base64), `null` when not enabled',
+                },
+            },
+        },
+        notebookCrypto_kdfParams: {
+            title: 'INotebookCryptoKdfParams',
+            type: 'object',
+
+            description: 'Argon2id parameters',
+            additionalProperties: false,
+            required: [
+                'iterations',
+                'keyLength',
+                'memory',
+                'parallelism',
+            ],
+            properties: {
+                iterations: {
+                    // 迭代次数（时间成本）
+                    type: 'integer',
+                    description: 'Number of iterations (time cost)',
+                },
+                keyLength: {
+                    // 派生密钥的长度（单位: byte）
+                    type: 'integer',
+                    description: 'Length of the derived key (unit: byte)',
+                },
+                memory: {
+                    // 使用的内存大小（单位: KiB）
+                    type: 'integer',
+                    description: 'Memory size (unit: KiB)',
+                },
+                parallelism: {
+                    // 并行线程数
+                    type: 'integer',
+                    description: 'Degree of parallelism (threads)',
+                },
+            },
+        },
+        oidc: {
+            title: 'IOidc',
+            type: 'object',
+
+            description: 'OpenID Connect sign-in configuration',
+            additionalProperties: false,
+            required: [
+                'allowAll',
+                'claimRules',
+                'clientID',
+                'clientSecret',
+                'enabled',
+                'issuerURL',
+                'provider',
+                'redirectURL',
+                'scopes',
+            ],
+            properties: {
+                allowAll: {
+                    // 是否允许所有已认证的用户登录，为 false 时至少需要一条准入规则
+                    type: 'boolean',
+                    description: 'Whether to admit all authenticated users, at least one claim rule is required when `false`',
+                },
+                claimRules: {
+                    // 基于身份声明的准入规则，规则之间为“与”的关系
+                    type: 'array',
+                    description: 'Claim-based admission rules, all of which must be satisfied',
+                    items: {
+                        $ref: '#/$defs/oidc_claimRule',
+                    },
+                },
+                clientID: {
+                    // OAuth 客户端 ID
+                    type: 'string',
+                    description: 'OAuth client ID',
+                },
+                clientSecret: {
+                    // OAuth 客户端密钥
+                    type: 'string',
+                    description: 'OAuth client secret',
+                },
+                enabled: {
+                    // 是否启用 OIDC 登录
+                    type: 'boolean',
+                    description: 'Whether to enable OIDC sign-in',
+                },
+                issuerURL: {
+                    // OIDC 签发者地址
+                    type: 'string',
+                    description: 'OIDC issuer URL',
+                },
+                provider: {
+                    // 身份提供方
+                    type: 'string',
+                    title: 'TOidcProvider',
+                    description: 'Identity provider',
+                    default: 'custom',
+                    enum: [
+                        'custom', // 自定义
+                        'github', // GitHub
+                        'google', // Google
+                        'microsoft', // Microsoft
+                    ],
+                },
+                redirectURL: {
+                    // 远程 Web 登录使用的回调地址
+                    type: 'string',
+                    description: 'Callback URL used for remote web sign-in',
+                },
+                scopes: {
+                    // 请求的 OAuth scope
+                    type: 'array',
+                    description: 'Requested OAuth scopes',
+                    items: {
+                        type: 'string',
+                        examples: [
+                            'openid',
+                            'profile',
+                            'email',
+                        ],
+                    },
+                },
+            },
+        },
+        oidc_claimRule: {
+            title: 'IOidcClaimRule',
+            type: 'object',
+
+            description: 'Claim-based admission rule',
+            additionalProperties: false,
+            required: [
+                'claim',
+                'operator',
+                'values',
+            ],
+            properties: {
+                claim: {
+                    // 声明名称
+                    type: 'string',
+                    description: 'Claim name',
+                    examples: [
+                        'email',
+                        'groups',
+                    ],
+                },
+                operator: {
+                    // 匹配方式
+                    type: 'string',
+                    title: 'TOidcClaimRuleOperator',
+                    description: 'Match operator',
+                    enum: [
+                        'contains', // 包含
+                        'equals', // 等于
+                    ],
+                },
+                values: {
+                    // 允许的值，满足其一即可
+                    type: 'array',
+                    description: 'Accepted values, any of which matches',
+                    items: {
+                        type: 'string',
+                    },
+                },
+            },
+        },
+        onboarding: {
+            title: 'IOnboarding',
+            type: 'object',
+
+            description: 'Onboarding state',
+            additionalProperties: false,
+            required: [
+                'dismissed',
+                'documentID',
+                'newUser',
+                'notebookID',
+                'state',
+            ],
+            properties: {
+                dismissed: {
+                    // 用户是否已关闭引导
+                    type: 'boolean',
+                    description: 'Whether the user has dismissed the onboarding',
+                },
+                documentID: {
+                    // 引导创建的文档 ID
+                    type: 'string',
+                    description: 'ID of the document created for the onboarding',
+                },
+                newUser: {
+                    // 是否按新用户引导
+                    type: 'boolean',
+                    description: 'Whether the onboarding is for a new user',
+                },
+                notebookID: {
+                    // 引导使用或创建的笔记本 ID
+                    type: 'string',
+                    description: 'ID of the notebook used or created for the onboarding',
+                },
+                state: {
+                    // 引导进度
+                    type: 'string',
+                    title: 'TOnboardingState',
+                    description: 'Onboarding progress',
+                    enum: [
+                        'completed', // 已完成
+                        'notebook-created', // 已创建笔记本
+                        'pending', // 未开始
                     ],
                 },
             },
@@ -2391,9 +4325,12 @@
                     description: 'Snapshot index retention days',
                 },
                 key: {
-                    // 快照加密密钥 (base64 编码的 256 位密钥)
-                    type: 'string',
-                    description: 'Snapshot encryption key (base64 encoded 256-bit key)',
+                    // 快照加密密钥 (base64 编码的 256 位密钥)，未设置时为 null
+                    type: [
+                        'string',
+                        'null',
+                    ],
+                    description: 'Snapshot encryption key (base64 encoded 256-bit key), `null` when not set',
                     pattern: '^[A-Za-z0-9+/]{43}=$',
                 },
                 retentionIndexesDaily: {
@@ -2423,11 +4360,14 @@
                 'backlinkMentionKeywordsLimit',
                 'backlinkMentionName',
                 'blockquote',
+                'callout',
                 'caseSensitive',
                 'codeBlock',
+                'customBlock',
                 'databaseBlock',
                 'document',
                 'embedBlock',
+                'hanSensitive',
                 'heading',
                 'htmlBlock',
                 'ial',
@@ -2438,10 +4378,14 @@
                 'listItem',
                 'mathBlock',
                 'memo',
+                'mindmap',
+                'mindmapItem',
                 'name',
                 'paragraph',
                 'superBlock',
+                'tabItem',
                 'table',
+                'tabs',
                 'videoBlock',
                 'virtualRefAlias',
                 'virtualRefAnchor',
@@ -2490,6 +4434,12 @@
                     type: 'boolean',
                     description: 'Whether to search quote blocks',
                 },
+                callout: {
+                    // 是否搜索提示块
+                    type: 'boolean',
+                    description: 'Whether to search callouts',
+                    default: false,
+                },
                 caseSensitive: {
                     // 搜索时是否区分大小写字母
                     type: 'boolean',
@@ -2499,6 +4449,12 @@
                     // 是否搜索代码块
                     type: 'boolean',
                     description: 'Whether to search code blocks',
+                },
+                customBlock: {
+                    // 是否搜索自定义块
+                    type: 'boolean',
+                    description: 'Whether to search custom blocks',
+                    default: true,
                 },
                 databaseBlock: {
                     // 是否搜索数据库块
@@ -2514,6 +4470,12 @@
                     // 是否搜索嵌入块
                     type: 'boolean',
                     description: 'Whether to search embedded blocks',
+                },
+                hanSensitive: {
+                    // 全文搜索时是否区分简体与繁体中文
+                    type: 'boolean',
+                    description: 'Whether full-text search distinguishes Simplified and Traditional Chinese',
+                    default: true,
                 },
                 heading: {
                     // 是否搜索标题块
@@ -2565,6 +4527,18 @@
                     type: 'boolean',
                     description: 'Whether to search block notes',
                 },
+                mindmap: {
+                    // 是否搜索思维导图块
+                    type: 'boolean',
+                    description: 'Whether to search mind map blocks',
+                    default: true,
+                },
+                mindmapItem: {
+                    // 是否搜索思维导图项块
+                    type: 'boolean',
+                    description: 'Whether to search mind map item blocks',
+                    default: false,
+                },
                 name: {
                     // 是否搜索块命名
                     type: 'boolean',
@@ -2580,10 +4554,22 @@
                     type: 'boolean',
                     description: 'Whether to search super blocks',
                 },
+                tabItem: {
+                    // 是否搜索页签项块
+                    type: 'boolean',
+                    description: 'Whether to search tab item blocks',
+                    default: false,
+                },
                 table: {
                     // 是否搜索表格块
                     type: 'boolean',
                     description: 'Whether to search table blocks',
+                },
+                tabs: {
+                    // 是否搜索页签块
+                    type: 'boolean',
+                    description: 'Whether to search tabbed blocks',
+                    default: false,
                 },
                 videoBlock: {
                     // 是否在视频块中搜索
@@ -2614,6 +4600,58 @@
                     // 是否在挂件块中搜索
                     type: 'boolean',
                     description: 'Whether to search in widget blocks',
+                },
+            },
+        },
+        secrets: {
+            title: 'ISecrets',
+            type: 'object',
+
+            description: 'Global secrets',
+            additionalProperties: false,
+            required: [
+                'items',
+            ],
+            properties: {
+                items: {
+                    // 密钥列表，可以通过 {{secrets.NAME}} 或 $NAME 引用
+                    type: 'array',
+                    description: 'Secrets, referenced as `{{secrets.NAME}}` or `$NAME`',
+                    items: {
+                        $ref: '#/$defs/secrets_item',
+                    },
+                },
+            },
+        },
+        secrets_item: {
+            title: 'ISecretsItem',
+            type: 'object',
+
+            description: 'Secret',
+            additionalProperties: false,
+            required: [
+                'allowedHosts',
+                'name',
+                'value',
+            ],
+            properties: {
+                allowedHosts: {
+                    // 允许使用该密钥的 HTTP 请求目标主机（不区分大小写的精确匹配），为空时不会用于任何 HTTP 请求
+                    type: 'array',
+                    description: 'Target hosts of HTTP requests allowed to use the secret (exact, case-insensitive match), never used in HTTP requests when empty',
+                    items: {
+                        type: 'string',
+                    },
+                },
+                name: {
+                    // 密钥名称
+                    type: 'string',
+                    description: 'Secret name',
+                },
+                value: {
+                    // 密钥值
+                    type: 'string',
+                    description: 'Secret value',
                 },
             },
         },
@@ -2706,10 +4744,13 @@
             description: 'SiYuan synchronization related configuration',
             additionalProperties: false,
             required: [
+                'assetDownloadMode',
                 'cloudName',
                 'enabled',
                 'generateConflictDoc',
                 'interval',
+                'lan',
+                'local',
                 'mode',
                 'perception',
                 'provider',
@@ -2719,6 +4760,15 @@
                 'webdav',
             ],
             properties: {
+                assetDownloadMode: {
+                    // 本设备的资源文件下载方式
+                    type: 'integer',
+                    description: 'How assets are downloaded on this device\n- `0`: Download all assets\n- `1`: Download on demand',
+                    enum: [
+                        0, // 全部下载
+                        1, // 按需下载
+                    ],
+                },
                 cloudName: {
                     // 云工作空间名称
                     type: 'string',
@@ -2733,6 +4783,14 @@
                     // 同步出现冲突时是否创建冲突文档
                     type: 'boolean',
                     description: 'Whether to create a conflict document when a conflict occurs during synchronization',
+                },
+                lan: {
+                    // 局域网同步加速设置项
+                    $ref: '#/$defs/sync_lan',
+                },
+                local: {
+                    // 本地文件夹同步设置项
+                    $ref: '#/$defs/sync_local',
                 },
                 mode: {
                     // 同步模式
@@ -2875,10 +4933,17 @@
                     minimum: 1,
                 },
                 endpoint: {
-                    // 服务端点
+                    // 服务端点，未配置时为空字符串
                     type: 'string',
-                    description: 'Service endpoint',
-                    format: 'uri',
+                    description: 'Service endpoint, an empty string when not configured',
+                    oneOf: [
+                        {
+                            const: '',
+                        },
+                        {
+                            format: 'uri',
+                        },
+                    ],
                     examples: [
                         'https://webdav.example.com/siyuan/',
                     ],
@@ -2905,6 +4970,67 @@
                 },
             },
         },
+        sync_lan: {
+            title: 'ISyncLAN',
+            type: 'object',
+
+            description: 'LAN sync acceleration configuration',
+            additionalProperties: false,
+            required: [
+                'enabled',
+                'maxConcurrentReqs',
+            ],
+            properties: {
+                enabled: {
+                    // 是否启用局域网同步加速
+                    type: 'boolean',
+                    description: 'Whether to enable LAN sync acceleration',
+                },
+                maxConcurrentReqs: {
+                    // 最大并发请求数
+                    type: 'integer',
+                    description: 'Maximum number of concurrent requests',
+                    default: 16,
+                    minimum: 1,
+                    maximum: 128,
+                },
+            },
+        },
+        sync_local: {
+            title: 'ISyncLocal',
+            type: 'object',
+
+            description: 'Local folder sync configuration',
+            additionalProperties: false,
+            required: [
+                'concurrentReqs',
+                'endpoint',
+                'timeout',
+            ],
+            properties: {
+                concurrentReqs: {
+                    // 并发请求数
+                    type: 'integer',
+                    description: 'Number of concurrent requests',
+                    default: 16,
+                    minimum: 1,
+                    maximum: 1024,
+                },
+                endpoint: {
+                    // 本地同步目录（使用 / 分隔并以 / 结尾），未配置时为空字符串
+                    type: 'string',
+                    description: 'Local sync directory (separated by `/` and ending with `/`), an empty string when not configured',
+                },
+                timeout: {
+                    // 超时时间（单位: s）
+                    type: 'integer',
+                    description: 'Timeout (unit: s)',
+                    default: 60,
+                    minimum: 7,
+                    maximum: 300,
+                },
+            },
+        },
         system: {
             title: 'ISystem',
             type: 'object',
@@ -2917,20 +5043,22 @@
                 'confDir',
                 'container',
                 'dataDir',
-                'disableGoogleAnalytics',
                 'disabledFeatures',
                 'downloadInstallPkg',
+                'encryptedNotebookFollowSystemLock',
                 'homeDir',
                 'id',
-                'isInsider',
                 'isMicrosoftStore',
                 'kernelVersion',
                 'lockScreenMode',
+                'microsoftDefenderExcluded',
                 'name',
                 'networkProxy',
                 'networkServe',
+                'networkServeTLS',
                 'os',
                 'osPlatform',
+                'safeMode',
                 'workspaceDir',
             ],
             properties: {
@@ -2971,11 +5099,6 @@
                     type: 'string',
                     description: 'The absolute path of the `data` directory of the current workspace',
                 },
-                disableGoogleAnalytics: {
-                    // 是否禁用 Google Analytics
-                    type: 'boolean',
-                    description: 'Whether to disable Google Analytics',
-                },
                 disabledFeatures: {
                     // 禁用的功能名称列表
                     type: 'array',
@@ -2989,21 +5112,24 @@
                     type: 'boolean',
                     description: 'Whether to automatically download the installation package for the new version',
                 },
+                encryptedNotebookFollowSystemLock: {
+                    // 系统锁屏时是否同时锁定加密笔记本
+                    type: 'boolean',
+                    description: 'Whether to lock encrypted notebooks when the operating system locks the screen',
+                    default: false,
+                },
                 homeDir: {
                     // 当前操作系统用户的用户主目录的绝对路径
                     type: 'string',
                     description: "The absolute path of the user's home directory for the current operating system user",
                 },
                 id: {
-                    // 当前会话的 UUID
+                    // 设备 ID（桌面端为机器 ID，其他环境为随机字符串）
                     type: 'string',
-                    description: 'The UUID of the current session',
-                    pattern: '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$',
-                },
-                isInsider: {
-                    // 当前版本是否是内部测试版
-                    type: 'boolean',
-                    description: 'Whether the current version is an internal test version',
+                    description: 'Device ID (the machine ID on desktop, a random string in other environments)',
+                    examples: [
+                        '0A1B2C3D-4E5F-6A7B-8C9D-0E1F2A3B4C5D',
+                    ],
                 },
                 isMicrosoftStore: {
                     // 当前版本是否为微软商店版
@@ -3025,6 +5151,11 @@
                         1, // 手动 + 跟随操作系统
                     ],
                 },
+                microsoftDefenderExcluded: {
+                    // 是否已将工作空间加入 Microsoft Defender 排除项（用户选择忽略时也为 true），仅 Windows 使用
+                    type: 'boolean',
+                    description: 'Whether the workspace has been added to the Microsoft Defender exclusions (also `true` when the user ignored the prompt), Windows only',
+                },
                 name: {
                     // 当前设备名称
                     type: 'string',
@@ -3038,6 +5169,11 @@
                     // 是否开启网络伺服 (是否允许来自其他设备的连接)
                     type: 'boolean',
                     description: 'Whether to enable network serve (whether to allow connections from other devices)',
+                },
+                networkServeTLS: {
+                    // 网络伺服是否使用 HTTPS（需要同时启用 networkServe）
+                    type: 'boolean',
+                    description: 'Whether the network serve uses HTTPS (requires `networkServe`)',
                 },
                 os: {
                     // 编译时确定的操作系统名称 (使用命令 `go tool dist list` 获取)
@@ -3064,6 +5200,23 @@ The operating system name determined at compile time\
                     // 操作系统平台名称
                     type: 'string',
                     description: 'Operating system platform name',
+                },
+                safeMode: {
+                    // 内核是否以安全模式运行
+                    type: 'boolean',
+                    description: 'Whether the kernel runs in safe mode',
+                },
+                updateChannel: {
+                    // 更新通道
+                    type: 'string',
+                    title: 'TSystemUpdateChannel',
+                    description: 'Update channel',
+                    default: 'stable',
+                    enum: [
+                        'alpha', // 测试版
+                        'beta', // 预览版
+                        'stable', // 稳定版
+                    ],
                 },
                 workspaceDir: {
                     // 工作空间目录的绝对路径
@@ -3092,8 +5245,8 @@ The operating system name determined at compile time\
                 port: {
                     // 代理服务端口号
                     type: 'string',
-                    description: 'Proxy server port number',
-                    pattern: '^\\d+$',
+                    description: 'Proxy server port number, an empty string when not set',
+                    pattern: '^\\d*$',
                 },
                 scheme: {
                     // 代理服务所使用的协议
@@ -4178,7 +6331,6 @@ The operating system name determined at compile time\
             description: 'SiYuan dock tab data',
             additionalProperties: false,
             required: [
-                'hotkey',
                 'icon',
                 'show',
                 'size',
@@ -4252,6 +6404,49 @@ The operating system name determined at compile time\
                         'null',
                     ],
                     description: 'Tab width (unit: px)',
+                },
+            },
+        },
+        variables: {
+            title: 'IVariables',
+            type: 'object',
+
+            description: 'Global variables',
+            additionalProperties: false,
+            required: [
+                'items',
+            ],
+            properties: {
+                items: {
+                    // 变量列表，可以通过 {{vars.NAME}} 或 $NAME 引用
+                    type: 'array',
+                    description: 'Variables, referenced as `{{vars.NAME}}` or `$NAME`',
+                    items: {
+                        $ref: '#/$defs/variables_item',
+                    },
+                },
+            },
+        },
+        variables_item: {
+            title: 'IVariablesItem',
+            type: 'object',
+
+            description: 'Variable',
+            additionalProperties: false,
+            required: [
+                'name',
+                'value',
+            ],
+            properties: {
+                name: {
+                    // 变量名称
+                    type: 'string',
+                    description: 'Variable name',
+                },
+                value: {
+                    // 变量值（明文存储）
+                    type: 'string',
+                    description: 'Variable value (stored in plain text)',
                 },
             },
         },

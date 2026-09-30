@@ -2,14 +2,14 @@
  * schemas/kernel/api/file/removeFile/payload.schema.json5
  * 移除工作区目录下指定的文件/目录
  * REF: https://github.com/siyuan-note/siyuan/blob/master/API.md#remove-file
- * REF: https://github.com/siyuan-note/siyuan/blob/v2.9.3/kernel/api/file.go#L219-L249
+ * REF: https://github.com/siyuan-note/siyuan/blob/v3.8.6/kernel/api/file.go#L703-L751
  * @pathname: /api/file/removeFile
- * @version: 2.9.3
+ * @version: 3.8.6
  */
 {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/siyuan-community/siyuan-sdk/raw/main/schemas/kernel/api/file/removeFile/payload.schema.json5',
-    $comment: 'v2.9.3',
+    $comment: 'v3.8.6',
     $ref: '#/$defs/root',
     $defs: {
         root: {
@@ -21,6 +21,11 @@
                 'path',
             ],
             properties: {
+                app: {
+                    // 发起请求的前端应用 ID，删除插件数据时不向该应用推送重新加载插件的消息
+                    type: 'string',
+                    description: 'ID of the frontend app sending the request, the message to reload plugins is not pushed to this app when plugin data is removed',
+                },
                 path: {
                     // 相对于思源工作空间目录的文件/目录路径
                     type: 'string',

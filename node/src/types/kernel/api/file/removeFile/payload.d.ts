@@ -20,6 +20,11 @@
  */
 export interface IPayload {
     /**
+     * ID of the frontend app sending the request, the message to reload plugins is not pushed
+     * to this app when plugin data is removed
+     */
+    readonly app?: string;
+    /**
      * the file/dir path under the workspace path
      */
     readonly path: string;

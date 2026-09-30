@@ -31,6 +31,7 @@
 - 按内核 `v3.8.6` 调整 API `/api/export/*`：`exportHTML` 的 `savePath` 改为可选，`exportHTML` 与 `exportMdContent` 新增标题、块引用与嵌入块等导出选项 | Adjust API `/api/export/*` to kernel `v3.8.6`: `savePath` of `exportHTML` is optional, and `exportHTML` and `exportMdContent` gain export options for titles, block references, embed blocks and more
 - 按内核 `v3.8.6` 调整 API `/api/template/render`：支持 `mode`、`preview` 与 `content` 参数，响应新增 `docTreePlan` | Adjust API `/api/template/render` to kernel `v3.8.6`: support the `mode`, `preview` and `content` parameters, and the response gains `docTreePlan`
 - 按内核 `v3.8.6` 调整 API `/api/asset/upload`：响应新增按文件列出结果的 `succFiles` 与 `failedFiles` | Adjust API `/api/asset/upload` to kernel `v3.8.6`: the response gains the per-file results `succFiles` and `failedFiles`
+- 按内核 `v3.8.6` 调整 API `/api/file/removeFile`：支持 `app` 参数 | Adjust API `/api/file/removeFile` to kernel `v3.8.6`: support the `app` parameter
 
 ## v0.3.14 / 2024-11-20
 

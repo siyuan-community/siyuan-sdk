@@ -1,10 +1,8 @@
 # 更改日志 | Change Log
 
-- 更新 ESLint 配置 | Update ESLint configuration
-- 更新捐助信息 | Update donation information
-- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
-- 调整 API `/api/filetree/getDoc` | Adjust API `/api/filetree/getDoc`
-- 将 `ts-node` 切换为 `tsx` | Switch `ts-node` to `tsx`
+## v0.4.0 / 2026-10-01
+
+- [v0.3.15 ... v0.4.0](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.15...v0.4.0)
 - 升级 Node.js 至 `v26.10.0`，升级 pnpm 至 `v12.8.1` | Upgrade Node.js to `v26.10.0` and pnpm to `v12.8.1`
 - 更新依赖版本 | Update dependency versions
 - 使用 quicktype `v26` 重新生成类型定义：声明了 `minItems` 的数组改为非空元组类型，`/api/system/getConf` 中自动生成的布局类型名称变更 | Regenerate type definitions using quicktype `v26`: arrays with `minItems` become non-empty tuple types, and the generated layout type names in `/api/system/getConf` changed
@@ -34,6 +32,15 @@
 - 按内核 `v3.8.6` 调整 API `/api/file/removeFile`：支持 `app` 参数 | Adjust API `/api/file/removeFile` to kernel `v3.8.6`: support the `app` parameter
 - 按内核 `v3.8.6` 调整 API `/api/system/exit`：支持 `setCurrentWorkspace` 参数 | Adjust API `/api/system/exit` to kernel `v3.8.6`: support the `setCurrentWorkspace` parameter
 - 添加正向代理 API `/api/network/proxy`、`/ws/network/proxy` 与 `/es/network/proxy`，对应方法 `httpProxy`、`wsProxy` 与 `esProxy` | Add forward proxy APIs `/api/network/proxy`, `/ws/network/proxy` and `/es/network/proxy` as the methods `httpProxy`, `wsProxy` and `esProxy`
+
+## v0.3.15 / 2026-07-03
+
+- [v0.3.14 ... v0.3.15](https://github.com/siyuan-community/siyuan-sdk/compare/v0.3.14...v0.3.15)
+- 更新 ESLint 配置 | Update ESLint configuration
+- 更新捐助信息 | Update donation information
+- 调整 API `/api/system/getConf` | Adjust API `/api/system/getConf`
+- 调整 API `/api/filetree/getDoc` | Adjust API `/api/filetree/getDoc`
+- 将 `ts-node` 切换为 `tsx` | Switch `ts-node` to `tsx`
 
 ## v0.3.14 / 2024-11-20
 
